@@ -1,12 +1,17 @@
 /**
  * The external imports
  */
-import { Box, Heading } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
+
+/**
+ * The internal imports
+ */
+import { Page } from '/components'
 
 export default function Home() {
   return (
-    <Box h='100vh' w='100vw' bg='primary'>
+    <Page title='Bootis'>
       <Heading as='h1'>Bootis</Heading>
-    </Box>
+    </Page>
   )
 }
