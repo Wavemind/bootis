@@ -30,7 +30,7 @@ export default function Home() {
       <Grid
         templateAreas={`"about search search explanation"
                         "about profile questionnaire explanation"`}
-        gridTemplateRows={'33% auto'}
+        gridTemplateRows={'auto'}
         gridTemplateColumns={'35% 17% auto 12%'}
         gap={2}
         color='white'
@@ -56,8 +56,23 @@ export default function Home() {
             Image
           </Center>
         </GridItem>
-        <GridItem pl='2' bg='primary' area='search' borderRadius='xl'>
-          Search
+        <GridItem bg='primary' area='search' borderRadius='xl'>
+          <VStack pt={6} px={4} spacing={10} alignItems='flex-start'>
+            <Heading variant='h2'>Planifiez votre voyage en Suisse</Heading>
+            <Text fontSize='md'>
+              Après avoir rempli ces informations, il vous faudra répondre à une
+              série de questions vous concernant.
+            </Text>
+            <Center
+              w='full'
+              h={16}
+              bg='white'
+              borderRadius='full'
+              color='black'
+            >
+              Search
+            </Center>
+          </VStack>
         </GridItem>
         <GridItem bg='fourth' area='profile' borderRadius='xl'>
           <VStack pt={6} px={4} spacing={6} alignItems='flex-start'>
