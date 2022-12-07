@@ -43,7 +43,12 @@ const Home = () => {
         <GridItem bg='secondary' area='about' borderRadius='xl'>
           <VStack pt={6} px={4} spacing={6} alignItems='flex-start'>
             <HStack justifyContent='space-between' w='full'>
-              <Image src={LogoFullWhite} alt='logo' height={30} width={200} />
+              <Image
+                src={LogoFullWhite}
+                alt={t('logoAlt')}
+                height={30}
+                width={200}
+              />
               <Text>{t('about')}</Text>
             </HStack>
             <Text fontSize='md'>
