@@ -7,7 +7,7 @@ import Image from 'next/image'
 /**
  * The internal imports
  */
-import { Link } from '/components'
+import { Link } from '../../components'
 
 const DefaultLayout = ({ children }) => {
   return (

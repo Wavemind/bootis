@@ -20,7 +20,7 @@ import { loremIpsum } from 'react-lorem-ipsum'
 /**
  * The internal imports
  */
-import { Page, Link } from '/components'
+import { Page, Link } from '../components'
 
 export default function Home() {
   const { t } = useTranslation('common')
