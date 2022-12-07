@@ -8,8 +8,8 @@ import {
   Text,
   Box,
   VStack,
-  Center,
   Heading,
+  Button,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -18,7 +18,7 @@ import Image from 'next/image'
 /**
  * The internal imports
  */
-import { Page, Link } from '../components'
+import { Page, Link, Search } from '../components'
 import LogoFullWhite from '../public/logo-full-white.svg'
 import Wheelchair from '../public/wheelchair.svg'
 
@@ -35,7 +35,7 @@ const Home = () => {
       <Grid
         templateAreas={`"about search search explanation"
                         "about profile questionnaire explanation"`}
-        gridTemplateRows={'33%'}
+        gridTemplateRows={'auto'}
         gridTemplateColumns={'28% 18% auto 13%'}
         gap={2}
         color='white'
@@ -83,15 +83,7 @@ const Home = () => {
           <VStack py={6} px={4} spacing={10} alignItems='flex-start'>
             <Heading variant='h2'>{t('searchHeader')}</Heading>
             <Text fontSize='md'>{t('searchText')}</Text>
-            <Center
-              w='full'
-              h={16}
-              bg='white'
-              borderRadius='full'
-              color='black'
-            >
-              Search placeholder
-            </Center>
+            <Search />
           </VStack>
         </GridItem>
         <GridItem
