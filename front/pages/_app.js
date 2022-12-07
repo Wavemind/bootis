@@ -2,6 +2,7 @@
  * The external imports
  */
 import { ChakraProvider } from '@chakra-ui/react'
+import { appWithTranslation } from 'next-i18next'
 
 /**
  * The internal imports
@@ -19,4 +20,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)
