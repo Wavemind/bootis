@@ -26,7 +26,7 @@ export default function Home() {
   const { t } = useTranslation('common')
 
   return (
-    <Page title={t('title')}>
+    <Page title={t('title')} description={t('description')}>
       <Grid
         templateAreas={`"about search search explanation"
                         "about profile questionnaire explanation"`}
