@@ -8,6 +8,7 @@ import Image from 'next/image'
  * The internal imports
  */
 import { Link } from '/components'
+import Logo from '/public/logo.svg'
 
 const DefaultLayout = ({ children }) => {
   return (
@@ -15,7 +16,7 @@ const DefaultLayout = ({ children }) => {
       <Flex direction='column' maxW='1600px' margin='auto'>
         <Flex py={4}>
           <Link href='/'>
-            <Image src='/logo.svg' alt='logo' height={42} width={42} />
+            <Image src={Logo} alt='logo' height={42} width={42} />
           </Link>
         </Flex>
         <Box>{children}</Box>

@@ -14,7 +14,7 @@ export default function Home() {
   const { t } = useTranslation('common')
 
   return (
-    <Page title={t('title')}>
+    <Page title={t('title')} description={t('description')}>
       <Heading as='h1'>{t('title')}</Heading>
     </Page>
   )

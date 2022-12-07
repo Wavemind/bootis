@@ -1,17 +1,27 @@
 /**
  * The external imports
  */
-import { Box } from '@chakra-ui/react'
-import Head from 'next/head'
+import React from 'react'
+import { NextSeo } from 'next-seo'
 
-const Page = ({ children, title }) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-    </Head>
-    <Box>{children}</Box>
-  </div>
+const Page = ({ children, title, description }) => (
+  <React.Fragment>
+    <NextSeo
+      title={title}
+      description={description}
+      openGraph={{
+        title: title,
+        description: description,
+        images: [
+          {
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.svg`,
+            alt: 'Bootis',
+          },
+        ],
+      }}
+    />
+    {children}
+  </React.Fragment>
 )
 
 export default Page
