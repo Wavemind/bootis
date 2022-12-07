@@ -1,4 +1,5 @@
 {
+  "logoAlt": "Logo",
   "about": "A propos",
   "learnMore": "En savoir plus >",
   "searchHeader": "Planifiez votre voyage en Suisse",
@@ -8,5 +9,6 @@
   "questionnaireHeader": "Création de votre profil",
   "questionnaire": "Questionnaire",
   "startQuestionnaire": "Commencer la création du profil >",
+  "wheelchairAlt": "Chaise roulante",
   "explanationHeader": "Bootis comment ça marche ?"
 }

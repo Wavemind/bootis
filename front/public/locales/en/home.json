@@ -1,4 +1,5 @@
 {
+  "logoAlt": "Logo",
   "about": "About",
   "learnMore": "Learn more >",
   "searchHeader": "Plan your trip in Switzerland",
@@ -8,5 +9,6 @@
   "questionnaireHeader": "Create your profile",
   "questionnaire": "Questionnaire",
   "startQuestionnaire": "Begin creating your profile >",
+  "wheelchairAlt": "Wheelchair",
   "explanationHeader": "How does Bootis work ?"
 }

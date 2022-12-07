@@ -129,7 +129,7 @@ const Home = () => {
               <Text fontSize='xs'>{t('questionnaire')}</Text>
             </HStack>
             <HStack spacing={10} alignItems='flex-end' h='full'>
-              <Image src={Wheelchair} width={240} alt='wheelchair' />
+              <Image src={Wheelchair} width={240} alt={t('wheelchairAlt')} />
               <VStack spacing={8} w='60%' alignItems='flex-start' h='full'>
                 <Text fontSize='xs'>
                   Ut ullamcorper amet vitae augue magna facilisis consectetur
