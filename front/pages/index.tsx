@@ -9,7 +9,6 @@ import {
   Box,
   VStack,
   Heading,
-  Button,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -22,7 +21,6 @@ import { Page, Link, Search } from '../components'
 import LogoFullWhite from '../public/logo-full-white.svg'
 import Wheelchair from '../public/wheelchair.svg'
 
-// TODO : Try this for the search select https://github.com/csandman/chakra-react-select
 // TODO : Remplacer les textes par les trads une fois que le contenu est finalisé
 const Home = () => {
   const { t } = useTranslation('home')
