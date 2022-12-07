@@ -7,12 +7,14 @@ import { ChakraProvider } from '@chakra-ui/react'
  * The internal imports
  */
 import theme from '/lib/theme'
-import '../styles/globals.css'
+import Layout from '/lib/layouts/default'
 
 function MyApp({ Component, pageProps }) {
+  const getLayout = Component.getLayout || (page => <Layout>{page}</Layout>)
+
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </ChakraProvider>
   )
 }
