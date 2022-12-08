@@ -8,7 +8,6 @@ import {
   Text,
   Box,
   VStack,
-  Center,
   Heading,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
@@ -18,11 +17,10 @@ import Image from 'next/image'
 /**
  * The internal imports
  */
-import { Page, Link } from '../components'
+import { Page, Link, Search } from '../components'
 import LogoFullWhite from '../public/logo-full-white.svg'
 import Wheelchair from '../public/wheelchair.svg'
 
-// TODO : Try this for the search select https://github.com/csandman/chakra-react-select
 // TODO : Remplacer les textes par les trads une fois que le contenu est finalisé
 const Home = () => {
   const { t } = useTranslation('home')
@@ -35,7 +33,7 @@ const Home = () => {
       <Grid
         templateAreas={`"about search search explanation"
                         "about profile questionnaire explanation"`}
-        gridTemplateRows={'33%'}
+        gridTemplateRows={'auto'}
         gridTemplateColumns={'28% 18% auto 13%'}
         gap={2}
         color='white'
@@ -83,15 +81,7 @@ const Home = () => {
           <VStack py={6} px={4} spacing={10} alignItems='flex-start'>
             <Heading variant='h2'>{t('searchHeader')}</Heading>
             <Text fontSize='md'>{t('searchText')}</Text>
-            <Center
-              w='full'
-              h={16}
-              bg='white'
-              borderRadius='full'
-              color='black'
-            >
-              Search placeholder
-            </Center>
+            <Search />
           </VStack>
         </GridItem>
         <GridItem
@@ -188,7 +178,7 @@ const Home = () => {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'home'])),
+      ...(await serverSideTranslations(locale, ['common', 'home', 'search'])),
       // Will be passed to the page component as props
     },
   }
