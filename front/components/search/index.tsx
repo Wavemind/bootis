@@ -2,7 +2,7 @@
  * The external imports
  */
 import React, { useState } from 'react'
-import { HStack, Text, Box, Button } from '@chakra-ui/react'
+import { HStack, Text, Box, Button, useConst } from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -14,12 +14,43 @@ const Search = () => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [destination, setDestination] = useState('')
+  const [activity, setActivity] = useState('')
+
+  // TODO : Get this from backend I'm guessing ?
+  const regions = useConst(() => [
+    'Grisons',
+    'Suisse orientiale',
+    'Région zurichoise',
+    'Lucerne / Lac des Quarte-Cantons',
+    'Région bâloise',
+    'Région Berne',
+    'Jura & Trois-Lacs',
+    'Vaud',
+    'Genève',
+    'Valaise',
+    'Tessin',
+    'Région Fribourg',
+    'Région Argovie et Soleure',
+  ])
+
+  // TODO : Get this from backend I'm guessing ?
+  const activities = useConst(() => [
+    'Shopping',
+    'Cinéma, théâtre, concert, opéra',
+    'Musées et galeries',
+    'Jardins botaniques et parcs',
+    'Zoo',
+    'Sport',
+    'Oenotourisme',
+    'Spa et centre thermal',
+  ])
 
   return (
     <HStack w='full' bg='white' borderRadius='full' color='black' p={1}>
       <HStack flex={1} justifyContent='space-between'>
         <Box flex={2} px={4}>
           <Select
+            options={regions}
             placeholder={
               <React.Fragment>
                 <Text>Destination</Text>
@@ -45,10 +76,15 @@ const Search = () => {
           />
         </Box>
         <Box py={2} px={6} borderLeft='1px solid black'>
-          Activités
+          <Select
+            options={activities}
+            placeholder={<Text>Activités</Text>}
+            selected={activity}
+            setSelected={setActivity}
+          />
         </Box>
       </HStack>
-      <Button variant='secondary'>Planifier</Button>
+      <Button variant='salmon'>Planifier</Button>
     </HStack>
   )
 }

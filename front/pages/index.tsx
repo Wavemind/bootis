@@ -38,7 +38,7 @@ const Home = () => {
         gap={2}
         color='white'
       >
-        <GridItem bg='secondary' area='about' borderRadius='xl'>
+        <GridItem bg='salmon' area='about' borderRadius='xl'>
           <VStack pt={6} px={4} spacing={6} alignItems='flex-start'>
             <HStack justifyContent='space-between' w='full'>
               <Image
@@ -77,7 +77,7 @@ const Home = () => {
             backgroundSize='cover'
           />
         </GridItem>
-        <GridItem bg='primary' area='search' borderRadius='xl'>
+        <GridItem bg='blue' area='search' borderRadius='xl'>
           <VStack py={6} px={4} spacing={10} alignItems='flex-start'>
             <Heading variant='h2'>{t('searchHeader')}</Heading>
             <Text fontSize='md'>{t('searchText')}</Text>
@@ -96,7 +96,7 @@ const Home = () => {
             py={6}
             px={4}
             spacing={6}
-            bg='fourthOverlay'
+            bg='beigeOverlay'
             borderRadius='xl'
             h='full'
           >
@@ -117,7 +117,7 @@ const Home = () => {
             </Text>
           </VStack>
         </GridItem>
-        <GridItem bg='third' area='questionnaire' borderRadius='xl'>
+        <GridItem bg='teal' area='questionnaire' borderRadius='xl'>
           <VStack py={6} px={4} spacing={6} alignItems='flex-start' h='full'>
             <HStack justifyContent='space-between' w='full'>
               <Heading variant='h1'>{t('questionnaireHeader')}</Heading>

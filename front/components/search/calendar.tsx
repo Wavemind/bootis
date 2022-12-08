@@ -27,7 +27,7 @@ import {
 const Calendar = ({ placeholder, date, setDate }) => {
   const [value, setValue] = useState('')
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { onClose, isOpen, onToggle } = useDisclosure()
 
   /**
    * Handles the date selection event
@@ -42,7 +42,7 @@ const Calendar = ({ placeholder, date, setDate }) => {
   return (
     <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
-        <Box onClick={onOpen} cursor='pointer'>
+        <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
           {value.length > 0 ? value : placeholder}
         </Box>
       </PopoverTrigger>

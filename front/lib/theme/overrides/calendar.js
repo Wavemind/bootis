@@ -7,15 +7,15 @@ export default {
         p: 5,
         _hover: {
           rounded: 'full',
-          bgColor: 'primaryLight',
+          bgColor: 'blueLight',
         },
       },
       variants: {
         selected: {
-          bgColor: 'primaryLight',
+          bgColor: 'blueLight',
           color: 'black',
           _hover: {
-            bgColor: 'primary',
+            bgColor: 'blue',
             color: 'white',
           },
         },
@@ -31,7 +31,7 @@ export default {
           py: 0,
 
           _hover: {
-            bgColor: 'primaryHover',
+            bgColor: 'blueHover',
             color: 'white',
           },
         },

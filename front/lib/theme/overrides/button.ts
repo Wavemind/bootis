@@ -18,15 +18,15 @@ export default {
       // styles for different visual variants ("outline", "solid")
       variants: {
         primary: {
-          bg: 'primary',
+          bg: 'blue',
           _hover: {
-            bg: 'primaryHover',
+            bg: 'blueHover',
           },
         },
-        secondary: {
-          bg: 'secondary',
+        salmon: {
+          bg: 'salmon',
           _hover: {
-            bg: 'secondaryHover',
+            bg: 'salmonHover',
           },
         },
         black: {
