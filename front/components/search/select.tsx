@@ -11,6 +11,7 @@ import {
   useDisclosure,
   HStack,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const Select = ({
   options,
@@ -19,6 +20,7 @@ const Select = ({
   setSelected,
   labelKey = 'label',
 }) => {
+  const { t } = useTranslation('search')
   const { onClose, isOpen, onToggle } = useDisclosure()
 
   /**
@@ -78,7 +80,7 @@ const Select = ({
                 </Text>
                 {option.unavailable && (
                   <Text fontSize='xs' color='red' fontStyle='italic'>
-                    Non disponible
+                    {t('unavailable')}
                   </Text>
                 )}
               </HStack>

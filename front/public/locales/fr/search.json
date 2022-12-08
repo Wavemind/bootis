@@ -4,5 +4,6 @@
   "departureDate": "Date de départ",
   "returnDate": "Date de retour",
   "activities": "Activités",
-  "plan": "Planifier"
+  "plan": "Planifier",
+  "unavailable": "Non disponible"
 }
