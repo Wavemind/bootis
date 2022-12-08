@@ -7,8 +7,8 @@ import Image from 'next/image'
 /**
  * The internal imports
  */
-import { Link } from '/components'
-import Logo from '/public/logo.svg'
+import { Link } from '../../components'
+import Logo from '../../public/logo.svg'
 
 const DefaultLayout = ({ children }) => {
   return (
