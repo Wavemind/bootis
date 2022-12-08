@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverBody,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 
@@ -26,7 +27,17 @@ const Select = ({ options, placeholder, selected, setSelected }) => {
     <Popover placement='bottom-start' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {selected.length > 0 ? selected : placeholder}
+          {selected.length > 0 ? (
+            <Text
+              textOverflow='ellipsis'
+              overflowX='hidden'
+              whiteSpace='nowrap'
+            >
+              {selected}
+            </Text>
+          ) : (
+            placeholder
+          )}
         </Box>
       </PopoverTrigger>
 

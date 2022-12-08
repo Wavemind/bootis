@@ -3,6 +3,7 @@
  */
 import React, { useState } from 'react'
 import { HStack, Text, Box, Button, useConst } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 /**
  * The internal imports
@@ -11,6 +12,8 @@ import Calendar from './calendar'
 import Select from './select'
 
 const Search = () => {
+  const { t } = useTranslation('search')
+
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [destination, setDestination] = useState('')
@@ -47,44 +50,49 @@ const Search = () => {
 
   return (
     <HStack w='full' bg='white' borderRadius='full' color='black' p={1}>
-      <HStack flex={1} justifyContent='space-between'>
-        <Box flex={2} px={4}>
+      <HStack
+        display='flex'
+        flex={1}
+        justifyContent='space-between'
+        spacing={0}
+      >
+        <Box w='40%' px={4}>
           <Select
             options={regions}
             placeholder={
               <React.Fragment>
-                <Text>Destination</Text>
-                <Text fontSize='xs'>Ou souhaitez-vous aller ?</Text>
+                <Text>{t('destinationTitle')}</Text>
+                <Text fontSize='xs'>{t('destinationSubtitle')}</Text>
               </React.Fragment>
             }
             selected={destination}
             setSelected={setDestination}
           />
         </Box>
-        <Box flex={1} py={2} px={4} borderLeft='1px solid black'>
+        <Box w='20%' py={2} px={4} borderLeft='1px solid black'>
           <Calendar
-            placeholder='Date de départ'
+            placeholder={t('departureDate')}
             date={startDate}
             setDate={setStartDate}
           />
         </Box>
-        <Box flex={1} py={2} px={4} borderLeft='1px solid black'>
+        <Box w='20%' py={2} px={4} borderLeft='1px solid black'>
           <Calendar
-            placeholder="Date d'arrivée"
+            placeholder={t('returnDate')}
             date={endDate}
             setDate={setEndDate}
           />
         </Box>
-        <Box py={2} px={6} borderLeft='1px solid black'>
+        <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
             options={activities}
-            placeholder={<Text>Activités</Text>}
+            placeholder={<Text>{t('activities')}</Text>}
             selected={activity}
             setSelected={setActivity}
           />
         </Box>
       </HStack>
-      <Button variant='salmon'>Planifier</Button>
+      <Button variant='salmon'>{t('plan')}</Button>
     </HStack>
   )
 }
