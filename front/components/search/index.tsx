@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { HStack, Text, Box, Button, useConst } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
@@ -16,37 +16,55 @@ const Search = () => {
 
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
-  const [destination, setDestination] = useState('')
-  const [activity, setActivity] = useState('')
+  const [destination, setDestination] = useState()
+  const [activity, setActivity] = useState()
 
   // TODO : Get this from backend I'm guessing ?
   const regions = useConst(() => [
-    'Grisons',
-    'Suisse orientiale',
-    'Région zurichoise',
-    'Lucerne / Lac des Quarte-Cantons',
-    'Région bâloise',
-    'Région Berne',
-    'Jura & Trois-Lacs',
-    'Vaud',
-    'Genève',
-    'Valaise',
-    'Tessin',
-    'Région Fribourg',
-    'Région Argovie et Soleure',
+    { id: 1, label: 'Grisons', activities: [1, 3, 5] },
+    { id: 2, label: 'Suisse orientiale', activities: [2, 4, 5] },
+    { id: 3, label: 'Région zurichoise', activities: [1, 2, 3] },
+    { id: 4, label: 'Lucerne / Lac des Quarte-Cantons', activities: [4, 6, 8] },
+    { id: 5, label: 'Région bâloise', activities: [6, 7, 8] },
+    { id: 6, label: 'Région Berne', activities: [1, 2, 3, 4, 5] },
+    { id: 7, label: 'Jura & Trois-Lacs', activities: [] },
+    { id: 8, label: 'Vaud', activities: [2, 3, 4, 5, 6] },
+    { id: 9, label: 'Genève', activities: [1, 8] },
+    { id: 10, label: 'Valaise', activities: [2, 7] },
+    { id: 11, label: 'Tessin', activities: [3, 4] },
+    { id: 12, label: 'Région Fribourg', activities: [6, 7] },
+    {
+      id: 13,
+      label: 'Région Argovie et Soleure',
+      activities: [1, 2, 3, 4, 5, 6, 7, 8],
+    },
   ])
 
   // TODO : Get this from backend I'm guessing ?
   const activities = useConst(() => [
-    'Shopping',
-    'Cinéma, théâtre, concert, opéra',
-    'Musées et galeries',
-    'Jardins botaniques et parcs',
-    'Zoo',
-    'Sport',
-    'Oenotourisme',
-    'Spa et centre thermal',
+    { id: 1, label: 'Shopping' },
+    { id: 2, label: 'Cinéma, théâtre, concert, opéra' },
+    { id: 3, label: 'Musées et galeries' },
+    { id: 4, label: 'Jardins botaniques et parcs' },
+    { id: 5, label: 'Zoo' },
+    { id: 6, label: 'Sport' },
+    { id: 7, label: 'Oenotourisme' },
+    { id: 8, label: 'Spa et centre thermal' },
   ])
+
+  const availableActivities = useMemo(() => {
+    if (destination) {
+      const destinationObject = regions.find(
+        region => region.id === destination
+      )
+      setActivity(null)
+      return activities.map(activity => ({
+        ...activity,
+        unavailable: !destinationObject.activities.includes(activity.id),
+      }))
+    }
+    return activities
+  }, [destination])
 
   return (
     <HStack w='full' bg='white' borderRadius='full' color='black' p={1}>
@@ -85,7 +103,7 @@ const Search = () => {
         </Box>
         <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
-            options={activities}
+            options={availableActivities}
             placeholder={<Text>{t('activities')}</Text>}
             selected={activity}
             setSelected={setActivity}

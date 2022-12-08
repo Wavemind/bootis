@@ -9,9 +9,16 @@ import {
   PopoverBody,
   Text,
   useDisclosure,
+  HStack,
 } from '@chakra-ui/react'
 
-const Select = ({ options, placeholder, selected, setSelected }) => {
+const Select = ({
+  options,
+  placeholder,
+  selected,
+  setSelected,
+  labelKey = 'label',
+}) => {
   const { onClose, isOpen, onToggle } = useDisclosure()
 
   /**
@@ -19,7 +26,7 @@ const Select = ({ options, placeholder, selected, setSelected }) => {
    * @param element string
    */
   const handleSelect = selectedElement => {
-    setSelected(selectedElement)
+    setSelected(selectedElement.id)
     onClose()
   }
 
@@ -27,13 +34,13 @@ const Select = ({ options, placeholder, selected, setSelected }) => {
     <Popover placement='bottom-start' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {selected.length > 0 ? (
+          {selected ? (
             <Text
               textOverflow='ellipsis'
               overflowX='hidden'
               whiteSpace='nowrap'
             >
-              {selected}
+              {options.find(option => option.id === selected)[labelKey]}
             </Text>
           ) : (
             placeholder
@@ -41,7 +48,7 @@ const Select = ({ options, placeholder, selected, setSelected }) => {
         </Box>
       </PopoverTrigger>
 
-      <PopoverContent borderBottomRadius='md' borderTopRadius='md' mt={-1}>
+      <PopoverContent borderRadius='md' mt={-1} w='full'>
         <PopoverBody p={0}>
           {options.map((option, index) => (
             <Box
@@ -50,19 +57,31 @@ const Select = ({ options, placeholder, selected, setSelected }) => {
               _first={{ borderTopRadius: 'md' }}
               _last={{ borderBottomRadius: 'md' }}
               _hover={{
-                bg: 'blueLight',
+                bg: option.unavailable ? '' : 'blueLight',
               }}
-              cursor='pointer'
-              onClick={() => handleSelect(option)}
+              cursor={option.unavailable ? 'not-allowed' : 'pointer'}
+              onClick={() => !option.unavailable && handleSelect(option)}
             >
-              <Box
+              <HStack
                 py={2}
                 mx={4}
+                spacing={8}
                 borderBottom={index < options.length - 1 ? '1px solid' : 'none'}
                 borderBottomColor='lightGrey'
+                justifyContent='space-between'
               >
-                {option}
-              </Box>
+                <Text
+                  color={option.unavailable && 'grey'}
+                  fontStyle={option.unavailable && 'italic'}
+                >
+                  {option[labelKey]}
+                </Text>
+                {option.unavailable && (
+                  <Text fontSize='xs' color='red' fontStyle='italic'>
+                    Non disponible
+                  </Text>
+                )}
+              </HStack>
             </Box>
           ))}
         </PopoverBody>
