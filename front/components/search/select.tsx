@@ -13,13 +13,33 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-const Select = ({
-  options,
-  placeholder,
-  selected,
-  setSelected,
-  labelKey = 'label',
-}) => {
+/**
+ * Type definitions
+ */
+interface Option {
+  id: number
+  label: string
+  activities?: number[]
+  unavailable?: boolean
+}
+
+interface SelectProps {
+  options: Option[]
+  placeholder: string | React.ReactNode
+  selected: number
+  setSelected: React.Dispatch<React.SetStateAction<string>>
+  labelKey?: string
+}
+
+const Select = (props: SelectProps) => {
+  const {
+    options,
+    placeholder,
+    selected,
+    setSelected,
+    labelKey = 'label',
+  } = props
+
   const { t } = useTranslation('search')
   const { onClose, isOpen, onToggle } = useDisclosure()
 
@@ -54,8 +74,8 @@ const Select = ({
         <PopoverBody p={0}>
           {options.map((option, index) => (
             <Box
-              key={option}
-              bgColor={selected === option && 'blueLight'}
+              key={`option_${option.id}`}
+              bgColor={selected === option.id && 'blueLight'}
               _first={{ borderTopRadius: 'md' }}
               _last={{ borderBottomRadius: 'md' }}
               _hover={{

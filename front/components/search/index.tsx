@@ -52,6 +52,9 @@ const Search = () => {
     { id: 8, label: 'Spa et centre thermal' },
   ])
 
+  /**
+   * Flags the unavailable activities for the selected destination
+   */
   const availableActivities = useMemo(() => {
     if (destination) {
       const destinationObject = regions.find(

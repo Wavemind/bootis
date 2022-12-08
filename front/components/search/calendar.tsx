@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useState } from 'react'
+import React, { useState } from 'react'
 import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import {
@@ -24,7 +24,18 @@ import {
   CalendarDays,
 } from '@uselessdev/datepicker'
 
-const Calendar = ({ placeholder, date, setDate }) => {
+/**
+ * Type definitions
+ */
+interface CalendarProps {
+  placeholder: string
+  date: Date
+  setDate: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Calendar = (props: CalendarProps) => {
+  const { placeholder, date, setDate } = props
+
   const [value, setValue] = useState('')
 
   const { onClose, isOpen, onToggle } = useDisclosure()
