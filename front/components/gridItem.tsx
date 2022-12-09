@@ -14,29 +14,34 @@ interface GridItemProps {
 
 const GridItem = (props: GridItemProps) => {
   const { bg, handleClick, children } = props
+
   return (
-    <Box
-      borderRadius='xl'
-      _hover={{
-        border: '3px solid',
-        borderColor: bg,
-      }}
-    >
+    <Box borderRadius='xl' position='relative'>
       <ChakraGridItem
         bg={bg}
         borderRadius='xl'
         p={4}
-        h='full'
         color='white'
         cursor='pointer'
+        h='full'
         onClick={handleClick}
+        transition='0.5s ease-in-out'
         _hover={{
           transform: 'translate(-10px, -10px)',
-          transition: 'all 0.5s ease-in-out',
         }}
       >
         {children}
       </ChakraGridItem>
+      <Box
+        zIndex={-1}
+        w='full'
+        border='3px solid'
+        borderRadius='xl'
+        borderColor={bg}
+        position='absolute'
+        top={0}
+        bottom={0}
+      />
     </Box>
   )
 }

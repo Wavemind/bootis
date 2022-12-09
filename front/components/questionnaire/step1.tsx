@@ -22,10 +22,14 @@ const Step1 = () => {
 
   const { setStep } = useContext(QuestionnaireContext)
 
+  /**
+   * Handle click/selection of element in questionnaire
+   */
   const handleClick = () => {
     setStep(2)
   }
 
+  // TODO : Replace by proper content and trads once we have it
   return (
     <Grid templateColumns='repeat(4, 1fr)' gap={10} mt={10}>
       <GridItem bg='blue' handleClick={handleClick}>
