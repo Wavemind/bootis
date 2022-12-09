@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { GridItem as ChakraGridItem } from '@chakra-ui/react'
+import { GridItem as ChakraGridItem, Box } from '@chakra-ui/react'
 
 /**
  * Type definitions
@@ -15,19 +15,29 @@ interface GridItemProps {
 const GridItem = (props: GridItemProps) => {
   const { bg, handleClick, children } = props
   return (
-    <ChakraGridItem
-      bg={bg}
+    <Box
       borderRadius='xl'
-      p={4}
-      color='white'
-      cursor='pointer'
-      onClick={handleClick}
       _hover={{
-        transform: 'translate(-10px, -10px)',
+        border: '3px solid',
+        borderColor: bg,
       }}
     >
-      {children}
-    </ChakraGridItem>
+      <ChakraGridItem
+        bg={bg}
+        borderRadius='xl'
+        p={4}
+        h='full'
+        color='white'
+        cursor='pointer'
+        onClick={handleClick}
+        _hover={{
+          transform: 'translate(-10px, -10px)',
+          transition: 'all 0.5s ease-in-out',
+        }}
+      >
+        {children}
+      </ChakraGridItem>
+    </Box>
   )
 }
 
