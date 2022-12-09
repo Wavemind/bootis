@@ -9,30 +9,47 @@ import { useTranslation } from 'next-i18next'
 /**
  * The internal imports
  */
-import { GridItem } from '../'
+import { GridItem } from '..'
 import { QuestionnaireContext } from '../../lib/contexts'
+import characteristicMap from '../../lib/config/characteristicMap'
+import characteristics from '../../lib/config/characteristics'
 import WheelchairFemale from '../../public/wheelchair_female.svg'
 import WheelchairCompanion from '../../public/wheelchair_companion.svg'
 import ElectricScooter from '../../public/electric_scooter.svg'
 import Cane from '../../public/cane.svg'
 import Rollator from '../../public/rollator.svg'
 
-const Step1 = () => {
+const SituationSelection = () => {
   const { t } = useTranslation('questionnaire')
 
-  const { setStep } = useContext(QuestionnaireContext)
+  const { updateCurrentStep, setSteps } = useContext(QuestionnaireContext)
 
   /**
    * Handle click/selection of element in questionnaire
    */
-  const handleClick = () => {
-    setStep(2)
+  const handleClick = situation => {
+    const newSteps = characteristicMap[situation].characteristicIds.map(
+      characteristicId => ({
+        ...characteristics[characteristicId],
+        title: t(`${characteristics[characteristicId].key}.title`),
+        type: 'characteristic',
+      })
+    )
+    setSteps([
+      {
+        key: 'situationSelection',
+        title: t('situationSelection.title'),
+        type: 'situation',
+      },
+      ...newSteps,
+    ])
+    updateCurrentStep(1)
   }
 
   // TODO : Replace by proper content and trads once we have it
   return (
     <Grid templateColumns='repeat(4, 1fr)' gap={10} mt={10}>
-      <GridItem bg='blue' handleClick={handleClick}>
+      <GridItem bg='blue' handleClick={() => handleClick('wheelchair')}>
         <Heading variant='h2' mb={10}>
           Chaise roulante manuelle seul
         </Heading>
@@ -52,7 +69,10 @@ const Step1 = () => {
           <Image src={WheelchairFemale} height={350} alt={t('wheelchairAlt')} />
         </Box>
       </GridItem>
-      <GridItem bg='salmon' handleClick={handleClick}>
+      <GridItem
+        bg='salmon'
+        handleClick={() => handleClick('electricWheelchair')}
+      >
         <Heading variant='h2' mb={10}>
           Chaise roulante électrique ou chaise roulante manuelle accompagné-e.
         </Heading>
@@ -76,7 +96,7 @@ const Step1 = () => {
           />
         </Box>
       </GridItem>
-      <GridItem bg='teal' handleClick={handleClick}>
+      <GridItem bg='teal' handleClick={() => handleClick('scooter')}>
         <Heading variant='h2' mb={10}>
           Scooter électrique
         </Heading>
@@ -96,7 +116,7 @@ const Step1 = () => {
           <Image src={ElectricScooter} height={300} alt={t('wheelchairAlt')} />
         </VStack>
       </GridItem>
-      <GridItem bg='beige' handleClick={handleClick}>
+      <GridItem bg='beige' handleClick={() => handleClick('cane')}>
         <Heading variant='h2' mb={10}>
           Béquilles ou Rollator ou Cannes
         </Heading>
@@ -125,4 +145,4 @@ const Step1 = () => {
   )
 }
 
-export default Step1
+export default SituationSelection

@@ -3,6 +3,10 @@
  */
 import { useContext, useMemo } from 'react'
 import { HStack, Box, Heading, CircularProgress } from '@chakra-ui/react'
+
+/**
+ * The internal imports
+ */
 import { QuestionnaireContext } from '../../lib/contexts'
 
 /**
@@ -11,15 +15,18 @@ import { QuestionnaireContext } from '../../lib/contexts'
 interface TitleBlockProps {
   title: string
   subtitle: string
+  totalSteps: number
 }
 
 const TitleBlock = (props: TitleBlockProps) => {
-  const { title, subtitle } = props
+  const { title, subtitle, totalSteps } = props
 
-  const { step } = useContext(QuestionnaireContext)
+  const { currentStep } = useContext(QuestionnaireContext)
 
-  // TODO : Correct total number of steps when known
-  const progress = useMemo(() => (step * 100) / 21, [step])
+  const progress = useMemo(
+    () => (currentStep * 100) / totalSteps,
+    [currentStep]
+  )
 
   return (
     <HStack justifyContent='space-between'>

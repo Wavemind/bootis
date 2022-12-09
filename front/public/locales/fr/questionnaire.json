@@ -1,0 +1,66 @@
+{
+  "subtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
+  "situationSelection": {
+    "title": "Dans un premier temps pouvez-vous nous dire quel est votre type de mobilité ?"
+  },
+  "maxSlope": {
+    "title": "Quel est le degré de pente maximum que vous pouvez franchir ?"
+  },
+  "passageLength": {
+    "title": "Quelle est la longueur nécéssaire pour votre passage ?"
+  },
+  "passageWidth": {
+    "title": "Quelle est la largeur nécéssaire pour votre passage ?"
+  },
+  "stepHeight": {
+    "title": "Quelle est la hauteur du seuil acceptable pour votre passage ?"
+  },
+  "tableHeight": {
+    "title": "Quelle est la hauteur de la table nécéssaire pour votre accès ?"
+  },
+  "reachHeight": {
+    "title": "Quelle est la hauteur maximum atteignable avec votre main ?"
+  },
+  "handrail": {
+    "title": "Avez-vous besoin d'une main courante ?"
+  },
+  "bedHeight": {
+    "title": "Quelle est la hauteur du lit nécéssaire pour votre accès ?"
+  },
+  "bedAdjacentSpace": {
+    "title": "Quelle est la surface libre à côté du lit nécéssaire pour votre accès ?"
+  },
+  "wcAdjacentDistance": {
+    "title": "Quelle est la distance libre à côté des WC nécéssaire pour votre accès ?"
+  },
+  "wcFrontDistance": {
+    "title": "Quelle est la distance minimum libre devant les WC nécéssaire pour votre accès ?"
+  },
+  "wcSeatHeight": {
+    "title": "Quelle est la hauteur maximum de la lunette des WC nécéssaire pour votre accès ?"
+  },
+  "wcFixedHandrail": {
+    "title": "Avez-vous besoin d'une barre d'appui en L à côté de la cuvette des WC ?"
+  },
+  "wcFoldableHandrail": {
+    "title": "Avez-vous besoin d'une barre d'appui rabattable à côté de la cuvette des WC ?"
+  },
+  "eurokey": {
+    "title": "Avez-vous besoin d'un accès à la clé Eurokey ?"
+  },
+  "wcSinkDistance": {
+    "title": "Quelle est la distance maximum entre le lavabo et les WC ?"
+  },
+  "hygieneNeeds": {
+    "title": "Quelle est votre besoin pour le nettoyage du corps ?"
+  },
+  "showerFixedHandrail": {
+    "title": "Avez-vous besoin d'une barre d'appui L de douche ?"
+  },
+  "showerFoldableHandrail": {
+    "title": "Avez-vous besoin d'une barre d'appui rabattable de douche ?"
+  },
+  "bathSeat": {
+    "title": "Avez-vous besoin d'un siège élévateur de bain ?"
+  }
+}

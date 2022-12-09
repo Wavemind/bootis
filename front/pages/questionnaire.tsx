@@ -1,9 +1,9 @@
 /**
  * The external imports
  */
+import { useState, useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useState } from 'react'
 
 /**
  * The internal imports
@@ -11,22 +11,45 @@ import { useState } from 'react'
 import { QuestionnaireContext } from '../lib/contexts'
 import { Page } from '../components'
 import TitleBlock from '../components/questionnaire/titleBlock'
-import Step1 from '../components/questionnaire/step1'
+import SituationSelection from '../components/questionnaire/situationSelection'
+import Characteristic from '../components/questionnaire/characteristic'
+import characteristicMap from '../lib/config/characteristicMap'
+import characteristics from '../lib/config/characteristics'
+import questionnaireStepper from '../lib/config/questionnaireStepper'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
 
-  const [step, setStep] = useState(1)
+  // TODO : useEffect to check local storage
+  // If local storage => re apply state from local storage
+  // Else do nothing
+
+  const [steps, setSteps] = useState([
+    {
+      key: 'situationSelection',
+      title: t('situationSelection.title'),
+      type: 'situation',
+    },
+  ])
+  const [currentStep, setCurrentStep] = useState(0)
+
+  const updateCurrentStep = direction => {
+    // TODO : Save in local storage: step, steps
+    setCurrentStep(prev => prev + direction)
+  }
 
   /**
    * Returns the correct component depending on state
    * @returns TSX component
    */
-  // TODO : Find a better way to do this
-  const renderStep = () => {
-    switch (step) {
-      case 1:
-        return <Step1 />
+  const renderStage = () => {
+    switch (steps[currentStep].type) {
+      case 'situation':
+        return <SituationSelection />
+      case 'characteristic':
+        return <Characteristic />
+      default:
+        return null
     }
   }
 
@@ -35,14 +58,20 @@ const Questionnaire = () => {
       title={t('title', { ns: 'common' })}
       description={t('description', { ns: 'common' })}
     >
-      <QuestionnaireContext.Provider value={{ step, setStep }}>
+      <QuestionnaireContext.Provider
+        value={{
+          currentStep,
+          updateCurrentStep,
+          steps,
+          setSteps,
+        }}
+      >
         <TitleBlock
-          title='Dans un premier temps pouvez-vous nous dire quel est votre type de
-            mobilité ?'
-          subtitle='Sélectionnez votre choix en cliquant sur la card qui correspond le
-            mieux à votre votre situation'
+          title={steps[currentStep].title}
+          subtitle={t('subtitle')}
+          totalSteps={steps.length}
         />
-        {renderStep()}
+        {renderStage()}
       </QuestionnaireContext.Provider>
     </Page>
   )

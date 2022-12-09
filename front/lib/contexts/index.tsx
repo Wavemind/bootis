@@ -4,8 +4,12 @@
 import { createContext } from 'react'
 
 interface QuestionnaireContextInterface {
-  step?: number
-  setStep?: React.Dispatch<React.SetStateAction<number>>
+  currentStep?: number
+  updateCurrentStep?: (number) => void
+  answers?: object
+  setAnswers?: React.Dispatch<React.SetStateAction<object>>
+  steps?: object[]
+  setSteps?: React.Dispatch<React.SetStateAction<object[]>>
 }
 
 export const QuestionnaireContext =
