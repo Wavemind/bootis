@@ -50,7 +50,7 @@ const SituationSelection = () => {
 
   // TODO : Replace by proper content and trads once we have it
   return (
-    <Grid templateColumns='repeat(4, 1fr)' gap={10} mt={10}>
+    <Grid templateColumns='repeat(4, 1fr)' gap={10} mt={10} px={9}>
       <GridItem bg='blue' handleClick={() => handleClick('wheelchair')}>
         <Heading variant='h2' mb={10}>
           Chaise roulante manuelle seul

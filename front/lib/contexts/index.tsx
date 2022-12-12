@@ -25,7 +25,7 @@ interface QuestionnaireContextInterface {
   updateCurrentStep?: (number) => void
   steps?: stepInterface[]
   setSteps?: React.Dispatch<React.SetStateAction<object[]>>
-  resetQuestionnaire: () => void
+  resetQuestionnaire?: () => void
 }
 
 export const QuestionnaireContext =
