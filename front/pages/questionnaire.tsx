@@ -4,8 +4,8 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box, Center, Spinner, useConst } from '@chakra-ui/react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { Box, Center, Spinner } from '@chakra-ui/react'
+import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
 
 /**
  * The internal imports
@@ -18,6 +18,7 @@ import Characteristic from '../components/questionnaire/characteristic'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
+  const controls = useAnimationControls()
 
   const [steps, setSteps] = useState([
     {
@@ -28,35 +29,6 @@ const Questionnaire = () => {
   ])
   const [currentStep, setCurrentStep] = useState(0)
   const [loading, setLoading] = useState(true)
-
-  const variants = useConst({
-    initial: {
-      x: '100%',
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        damping: 20,
-        stiffness: 100,
-      },
-    },
-    animate: {
-      opacity: 1,
-      x: '0%',
-      transition: {
-        type: 'spring',
-        damping: 20,
-        stiffness: 100,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        damping: 20,
-        stiffness: 100,
-      },
-    },
-  })
 
   /**
    * If data exists in localStorage, use it to continue where the user left off
@@ -76,9 +48,32 @@ const Questionnaire = () => {
    * Updates the current step in local state and localStorage
    * @param direction integer
    */
-  const updateCurrentStep = direction => {
+  const updateCurrentStep = async direction => {
+    await controls.start({
+      x: direction > 0 ? '-100%' : '100%',
+      opacity: 0,
+      transition: {
+        type: 'spring',
+        damping: 20,
+        stiffness: 100,
+      },
+    })
     setCurrentStep(prev => prev + direction)
-    localStorage.setItem('step', JSON.stringify(currentStep + direction))
+    await localStorage.setItem('step', JSON.stringify(currentStep + direction))
+    await controls.start({
+      opacity: 0,
+      x: direction > 0 ? '100%' : '-100%',
+      transition: { duration: 0.1 },
+    })
+    await controls.start({
+      opacity: 1,
+      x: '0%',
+      transition: {
+        type: 'spring',
+        damping: 20,
+        stiffness: 100,
+      },
+    })
   }
 
   /**
@@ -94,6 +89,21 @@ const Questionnaire = () => {
       default:
         return null
     }
+  }
+  /**
+   * Resets the questionnaire and clears the localStorage elements
+   */
+  const resetQuestionnaire = () => {
+    localStorage.removeItem('steps')
+    localStorage.removeItem('step')
+    setCurrentStep(0)
+    setSteps([
+      {
+        key: 'situationSelection',
+        title: t('situationSelection.title'),
+        type: 'situation',
+      },
+    ])
   }
 
   if (loading) {
@@ -112,6 +122,7 @@ const Questionnaire = () => {
           updateCurrentStep,
           steps,
           setSteps,
+          resetQuestionnaire,
         }}
       >
         <Box overflow='hidden'>
@@ -120,15 +131,9 @@ const Questionnaire = () => {
             initial={false}
             onExitComplete={() => window.scrollTo(0, 0)}
           >
-            <motion.div
-              key={currentStep}
-              variants={variants}
-              initial='initial'
-              animate='animate'
-              exit='exit'
-            >
+            <motion.div animate={controls}>
               <TitleBlock
-                title={steps[currentStep].title}
+                title={`${steps[currentStep].title} - ${currentStep}`}
                 subtitle={t('subtitle')}
                 totalSteps={steps.length}
               />

@@ -14,8 +14,13 @@ import { QuestionnaireContext } from '../../lib/contexts'
 const Characteristic = () => {
   const { t } = useTranslation('questionnaire')
 
-  const { steps, setSteps, currentStep, updateCurrentStep } =
-    useContext(QuestionnaireContext)
+  const {
+    steps,
+    setSteps,
+    currentStep,
+    updateCurrentStep,
+    resetQuestionnaire,
+  } = useContext(QuestionnaireContext)
 
   const activeStep = useMemo(() => steps[currentStep], [currentStep])
 
@@ -64,6 +69,9 @@ const Characteristic = () => {
       </Grid>
       <Button variant='black' onClick={() => updateCurrentStep(-1)}>
         Retour
+      </Button>
+      <Button variant='link' onClick={resetQuestionnaire}>
+        Recommencer
       </Button>
     </VStack>
   )
