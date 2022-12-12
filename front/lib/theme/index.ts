@@ -10,6 +10,7 @@ import { CalendarDefaultTheme } from '@uselessdev/datepicker'
 import colors from './foundations/colors'
 import fontSizes from './foundations/fontSizes'
 import config from './foundations/config'
+import fonts from './foundations/fonts'
 import heading from './overrides/heading'
 import button from './overrides/button'
 import calendar from './overrides/calendar'
@@ -21,5 +22,6 @@ export default extendTheme(
   config,
   heading,
   button,
-  calendar
+  calendar,
+  fonts
 )
