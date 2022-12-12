@@ -1,5 +1,7 @@
 {
   "title": "Questionnaire",
+  "back": "Retour",
+  "reset": "Recommencer",
   "subtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
   "situationSelection": {
     "title": "Dans un premier temps pouvez-vous nous dire quel est votre type de mobilité ?"

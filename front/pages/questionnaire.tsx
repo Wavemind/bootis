@@ -11,10 +11,12 @@ import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
  * The internal imports
  */
 import { QuestionnaireContext } from '../lib/contexts'
-import { Page } from '../components'
-import TitleBlock from '../components/questionnaire/titleBlock'
-import SituationSelection from '../components/questionnaire/situationSelection'
-import Characteristic from '../components/questionnaire/characteristic'
+import {
+  Page,
+  Characteristic,
+  SituationSelection,
+  TitleBlock,
+} from '../components'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')

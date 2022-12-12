@@ -68,10 +68,10 @@ const Characteristic = () => {
         </GridItem>
       </Grid>
       <Button variant='black' onClick={() => updateCurrentStep(-1)}>
-        Retour
+        {t('back')}
       </Button>
       <Button variant='link' onClick={resetQuestionnaire}>
-        Recommencer
+        {t('reset')}
       </Button>
     </VStack>
   )
