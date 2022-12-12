@@ -4,7 +4,8 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box } from '@chakra-ui/react'
+import { Box, useConst } from '@chakra-ui/react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 /**
  * The internal imports
@@ -30,6 +31,35 @@ const Questionnaire = () => {
     },
   ])
   const [currentStep, setCurrentStep] = useState(0)
+
+  const variants = useConst({
+    initial: {
+      x: '100%',
+      opacity: 0,
+      transition: {
+        type: 'spring',
+        damping: 20,
+        stiffness: 100,
+      },
+    },
+    animate: {
+      opacity: 1,
+      x: '0%',
+      transition: {
+        type: 'spring',
+        damping: 20,
+        stiffness: 100,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        type: 'spring',
+        damping: 20,
+        stiffness: 100,
+      },
+    },
+  })
 
   useEffect(() => {
     if (localStorage.getItem('steps') !== null) {
@@ -72,13 +102,29 @@ const Questionnaire = () => {
           setSteps,
         }}
       >
-        <TitleBlock
-          title={steps[currentStep].title}
-          subtitle={t('subtitle')}
-          totalSteps={steps.length}
-        />
-        <Box h='full' flex={1}>
-          {renderStage()}
+        <Box overflow='hidden'>
+          <AnimatePresence
+            mode='wait'
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            <motion.div
+              key={currentStep}
+              variants={variants}
+              initial='initial'
+              animate='animate'
+              exit='exit'
+            >
+              <TitleBlock
+                title={steps[currentStep].title}
+                subtitle={t('subtitle')}
+                totalSteps={steps.length}
+              />
+              <Box h='full' flex={1}>
+                {renderStage()}
+              </Box>
+            </motion.div>
+          </AnimatePresence>
         </Box>
       </QuestionnaireContext.Provider>
     </Page>
