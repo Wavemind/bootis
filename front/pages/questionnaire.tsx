@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box, useConst } from '@chakra-ui/react'
+import { Box, Center, Spinner, useConst } from '@chakra-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 /**
@@ -19,10 +19,6 @@ import Characteristic from '../components/questionnaire/characteristic'
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
 
-  // TODO : useEffect to check local storage
-  // If local storage => re apply state from local storage
-  // Else do nothing
-
   const [steps, setSteps] = useState([
     {
       key: 'situationSelection',
@@ -31,6 +27,7 @@ const Questionnaire = () => {
     },
   ])
   const [currentStep, setCurrentStep] = useState(0)
+  const [loading, setLoading] = useState(true)
 
   const variants = useConst({
     initial: {
@@ -61,17 +58,27 @@ const Questionnaire = () => {
     },
   })
 
+  /**
+   * If data exists in localStorage, use it to continue where the user left off
+   */
   useEffect(() => {
-    if (localStorage.getItem('steps') !== null) {
+    if (
+      localStorage.getItem('steps') !== null &&
+      localStorage.getItem('step') !== null
+    ) {
       setSteps(JSON.parse(localStorage.getItem('steps')))
       setCurrentStep(JSON.parse(localStorage.getItem('step')))
     }
+    setLoading(false)
   }, [])
 
+  /**
+   * Updates the current step in local state and localStorage
+   * @param direction integer
+   */
   const updateCurrentStep = direction => {
-    localStorage.setItem('steps', JSON.stringify(steps))
-    localStorage.setItem('step', JSON.stringify(currentStep + direction))
     setCurrentStep(prev => prev + direction)
+    localStorage.setItem('step', JSON.stringify(currentStep + direction))
   }
 
   /**
@@ -89,11 +96,16 @@ const Questionnaire = () => {
     }
   }
 
+  if (loading) {
+    return (
+      <Center h='full'>
+        <Spinner size='xl' color='salmon' thickness='4px' />
+      </Center>
+    )
+  }
+
   return (
-    <Page
-      title={t('title', { ns: 'common' })}
-      description={t('description', { ns: 'common' })}
-    >
+    <Page title={t('title')} description={t('description')}>
       <QuestionnaireContext.Provider
         value={{
           currentStep,
@@ -120,7 +132,7 @@ const Questionnaire = () => {
                 subtitle={t('subtitle')}
                 totalSteps={steps.length}
               />
-              <Box h='full' flex={1}>
+              <Box h='full' flex={1} pb={12}>
                 {renderStage()}
               </Box>
             </motion.div>

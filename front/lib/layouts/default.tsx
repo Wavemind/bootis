@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import Image from 'next/image'
 
 /**

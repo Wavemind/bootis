@@ -25,24 +25,26 @@ const SituationSelection = () => {
   const { updateCurrentStep, setSteps } = useContext(QuestionnaireContext)
 
   /**
-   * Handle click/selection of element in questionnaire
+   * Filters the characteristics based on situation, updates local state and local storage
    */
   const handleClick = async situation => {
-    const newSteps = characteristicMap[situation].characteristicIds.map(
-      characteristicId => ({
-        ...characteristics[characteristicId],
-        title: t(`${characteristics[characteristicId].key}.title`),
-        type: 'characteristic',
-      })
-    )
-    await setSteps([
+    const filteredCharacteristics = characteristicMap[
+      situation
+    ].characteristicIds.map(characteristicId => ({
+      ...characteristics[characteristicId],
+      title: t(`${characteristics[characteristicId].key}.title`),
+      type: 'characteristic',
+    }))
+    const newSteps = [
       {
         key: 'situationSelection',
         title: t('situationSelection.title'),
         type: 'situation',
       },
-      ...newSteps,
-    ])
+      ...filteredCharacteristics,
+    ]
+    await setSteps(newSteps)
+    localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)
   }
 
