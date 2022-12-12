@@ -15,6 +15,7 @@ interface stepInterface {
   key: string
   title: string
   type: string
+  imageSrc?: string
   answers?: AnswerInterface[]
   answer?: AnswerInterface
 }
