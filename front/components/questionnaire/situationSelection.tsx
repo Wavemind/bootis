@@ -27,7 +27,7 @@ const SituationSelection = () => {
   /**
    * Handle click/selection of element in questionnaire
    */
-  const handleClick = situation => {
+  const handleClick = async situation => {
     const newSteps = characteristicMap[situation].characteristicIds.map(
       characteristicId => ({
         ...characteristics[characteristicId],
@@ -35,7 +35,7 @@ const SituationSelection = () => {
         type: 'characteristic',
       })
     )
-    setSteps([
+    await setSteps([
       {
         key: 'situationSelection',
         title: t('situationSelection.title'),

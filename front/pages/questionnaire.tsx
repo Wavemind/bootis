@@ -1,9 +1,10 @@
 /**
  * The external imports
  */
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { Box } from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -13,9 +14,6 @@ import { Page } from '../components'
 import TitleBlock from '../components/questionnaire/titleBlock'
 import SituationSelection from '../components/questionnaire/situationSelection'
 import Characteristic from '../components/questionnaire/characteristic'
-import characteristicMap from '../lib/config/characteristicMap'
-import characteristics from '../lib/config/characteristics'
-import questionnaireStepper from '../lib/config/questionnaireStepper'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
@@ -33,8 +31,16 @@ const Questionnaire = () => {
   ])
   const [currentStep, setCurrentStep] = useState(0)
 
+  useEffect(() => {
+    if (localStorage.getItem('steps') !== null) {
+      setSteps(JSON.parse(localStorage.getItem('steps')))
+      setCurrentStep(JSON.parse(localStorage.getItem('step')))
+    }
+  }, [])
+
   const updateCurrentStep = direction => {
-    // TODO : Save in local storage: step, steps
+    localStorage.setItem('steps', JSON.stringify(steps))
+    localStorage.setItem('step', JSON.stringify(currentStep + direction))
     setCurrentStep(prev => prev + direction)
   }
 
@@ -71,7 +77,9 @@ const Questionnaire = () => {
           subtitle={t('subtitle')}
           totalSteps={steps.length}
         />
-        {renderStage()}
+        <Box h='full' flex={1}>
+          {renderStage()}
+        </Box>
       </QuestionnaireContext.Provider>
     </Page>
   )

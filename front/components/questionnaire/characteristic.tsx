@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Grid, GridItem, Text, Center, VStack, Button } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
@@ -15,13 +15,16 @@ import maxSlopeImage from '../../public/maxSlopeImage.svg'
 const Characteristic = () => {
   const { t } = useTranslation('questionnaire')
 
-  const { steps, currentStep, updateCurrentStep } =
+  const { steps, setSteps, currentStep, updateCurrentStep } =
     useContext(QuestionnaireContext)
 
   /**
-   * Handle click/selection of element in questionnaire
+   * Update steps with answer and update the currentStep
    */
-  const handleClick = () => {
+  const handleClick = answer => {
+    const newSteps = [...steps]
+    newSteps[currentStep].answer = answer
+    setSteps(newSteps)
     updateCurrentStep(1)
   }
 
@@ -33,10 +36,14 @@ const Characteristic = () => {
           <VStack alignItems='flex-start'>
             {steps[currentStep].answers.map(answer => (
               <Button
-                key={`answer_ ${answer.id}`}
-                variant='primary'
+                key={`answer_${answer.id}`}
+                variant={
+                  steps[currentStep].answer?.id === answer.id
+                    ? 'salmon'
+                    : 'primary'
+                }
                 w='full'
-                onClick={handleClick}
+                onClick={() => handleClick(answer)}
               >
                 <Text w='full' textAlign='left'>
                   {answer.label}
