@@ -16,7 +16,9 @@ import {
   HStack,
   Center,
   Spinner,
+  Text,
 } from '@chakra-ui/react'
+import { InfoOutlineIcon } from '@chakra-ui/icons'
 
 /**
  * The internal imports
@@ -153,6 +155,24 @@ const Voyage = () => {
                       subLabel={t('destination.subLabel')}
                       options={regions}
                       hasInfo
+                      infoContent={
+                        <VStack spacing={4}>
+                          <InfoOutlineIcon
+                            cursor='pointer'
+                            w={30}
+                            h={30}
+                            color='salmon'
+                          />
+                          <Text
+                            color='white'
+                            px={4}
+                            textAlign='center'
+                            fontFamily='Noir Pro Medium, sans-serif'
+                          >
+                            {t('destination.infoText')}
+                          </Text>
+                        </VStack>
+                      }
                     />
                     <Select
                       name='accommodation'

@@ -10,9 +10,14 @@ import {
   FormLabel,
   FormErrorMessage,
   HStack,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
 } from '@chakra-ui/react'
+import { InfoOutlineIcon } from '@chakra-ui/icons'
 import { Select as ChakraSelect } from 'chakra-react-select'
-import { GrCircleInformation } from 'react-icons/gr'
 
 /**
  * Type definitions
@@ -40,11 +45,6 @@ const Select = (props: SelectPropTypes) => {
 
   const { control } = useFormContext()
 
-  // TODO : Do this once we implement modals
-  const openInfoModal = () => {
-    console.log(infoContent)
-  }
-
   return (
     <Controller
       control={control}
@@ -59,11 +59,17 @@ const Select = (props: SelectPropTypes) => {
               <HStack justifyContent='space-between'>
                 <Heading variant='h2'>{label}</Heading>
                 {hasInfo && (
-                  <GrCircleInformation
-                    onClick={openInfoModal}
-                    cursor='pointer'
-                    size={22}
-                  />
+                  <Popover isLazy placement='top' size='sm'>
+                    <PopoverTrigger>
+                      <InfoOutlineIcon cursor='pointer' w={22} h={22} />
+                    </PopoverTrigger>
+                    <PopoverContent border='none' minW='30em'>
+                      <PopoverArrow bg='blue' />
+                      <PopoverBody bg='blue' borderRadius='lg' py={8}>
+                        {infoContent}
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 )}
               </HStack>
               <Text fontSize='sm' w='35em'>
