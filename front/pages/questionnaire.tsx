@@ -135,7 +135,7 @@ const Questionnaire = () => {
           >
             <motion.div animate={controls}>
               <TitleBlock
-                title={`${steps[currentStep].title} - ${currentStep}`}
+                title={steps[currentStep].title}
                 subtitle={t('subtitle')}
                 totalSteps={steps.length}
               />

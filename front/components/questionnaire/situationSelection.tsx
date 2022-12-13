@@ -22,12 +22,13 @@ import Rollator from '../../public/rollator.svg'
 const SituationSelection = () => {
   const { t } = useTranslation('questionnaire')
 
-  const { updateCurrentStep, setSteps } = useContext(QuestionnaireContext)
+  const { updateCurrentStep, setSteps, currentStep } =
+    useContext(QuestionnaireContext)
 
   /**
    * Filters the characteristics based on situation, updates local state and local storage
    */
-  const handleClick = async situation => {
+  const handleClick = situation => {
     const filteredCharacteristics = characteristicMap[
       situation
     ].characteristicIds.map(characteristicId => ({
@@ -43,7 +44,8 @@ const SituationSelection = () => {
       },
       ...filteredCharacteristics,
     ]
-    await setSteps(newSteps)
+    newSteps[currentStep].answer = situation
+    setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)
   }
