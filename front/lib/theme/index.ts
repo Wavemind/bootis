@@ -14,14 +14,16 @@ import fonts from './foundations/fonts'
 import heading from './overrides/heading'
 import button from './overrides/button'
 import calendar from './overrides/calendar'
+import input from './overrides/input'
 
 export default extendTheme(
   CalendarDefaultTheme,
   colors,
   fontSizes,
   config,
+  fonts,
   heading,
   button,
   calendar,
-  fonts
+  input
 )
