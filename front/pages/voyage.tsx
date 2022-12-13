@@ -157,15 +157,9 @@ const Voyage = () => {
                       hasInfo
                       infoContent={
                         <VStack spacing={4}>
-                          <InfoOutlineIcon
-                            cursor='pointer'
-                            w={30}
-                            h={30}
-                            color='salmon'
-                          />
+                          <InfoOutlineIcon w={30} h={30} color='salmon' />
                           <Text
                             color='white'
-                            px={4}
                             textAlign='center'
                             fontFamily='Noir Pro Medium, sans-serif'
                           >

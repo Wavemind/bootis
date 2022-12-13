@@ -65,7 +65,7 @@ const Select = (props: SelectPropTypes) => {
                     </PopoverTrigger>
                     <PopoverContent border='none' minW='30em'>
                       <PopoverArrow bg='blue' />
-                      <PopoverBody bg='blue' borderRadius='lg' py={8}>
+                      <PopoverBody bg='blue' borderRadius='lg' p={8}>
                         {infoContent}
                       </PopoverBody>
                     </PopoverContent>
