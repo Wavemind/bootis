@@ -19,6 +19,7 @@
     "date-fns": "^2.29.3",
     "framer-motion": "^7.6.19",
     "i18next": "^22.0.8",
+    "lodash": "^4.17.21",
     "next": "13.0.6",
     "next-i18next": "^13.0.0",
     "next-seo": "^5.15.0",

@@ -5,11 +5,13 @@ import { useContext, useMemo } from 'react'
 import { Grid, GridItem, Text, Center, VStack, Button } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
+import findIndex from 'lodash/findIndex'
 
 /**
  * The internal imports
  */
 import { QuestionnaireContext } from '../../lib/contexts'
+import characteristics from '../../lib/config/characteristics'
 
 const Characteristic = () => {
   const { t } = useTranslation('questionnaire')
@@ -30,6 +32,26 @@ const Characteristic = () => {
   const handleClick = answer => {
     const newSteps = [...steps]
     newSteps[currentStep].answer = answer
+
+    // Remove characteristics
+    answer.excludes.forEach(keyStep => {
+      const indexToRemove = findIndex(newSteps, ['key', keyStep])
+      if (indexToRemove > -1) {
+        newSteps.splice(indexToRemove, 1)
+      }
+    })
+
+    // Remove existing values for needed characteristics
+    answer.children.forEach(keyStep => {
+      const indexToRemove = findIndex(newSteps, ['key', keyStep])
+      if (indexToRemove > -1) {
+        newSteps.splice(indexToRemove, 1)
+      }
+    })
+
+    // Add characteristics
+    answer.children.forEach(keyStep => newSteps.push(characteristics[keyStep]))
+
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)
