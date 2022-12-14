@@ -5,13 +5,23 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box, HStack, SimpleGrid, Flex } from '@chakra-ui/react'
-import { CalendarIcon } from '@chakra-ui/icons'
+import {
+  Box,
+  HStack,
+  SimpleGrid,
+  Flex,
+  InputGroup,
+  InputLeftElement,
+  Input,
+} from '@chakra-ui/react'
+import { CalendarIcon, PhoneIcon } from '@chakra-ui/icons'
+import { Select, chakraComponents } from 'chakra-react-select'
 
 /**
  * The internal imports
  */
 import { Page, CategorySelection } from '../components'
+import regions from '../lib/config/regions'
 
 /**
  * Type definitions
@@ -43,6 +53,17 @@ const Planning = () => {
     setIsPlanningOpen(!isPlanningOpen)
   }
 
+  const customComponents = {
+    Input: ({ ...props }) => (
+      <InputGroup>
+        <InputLeftElement pointerEvents='none'>
+          <PhoneIcon color='gray.300' />
+        </InputLeftElement>
+        <chakraComponents.Input {...props} />
+      </InputGroup>
+    ),
+  }
+
   // TODO : Search functionality => https://react-select.com/components
   // TODO : Content for cards ?
   // TODO : Content for planning ?
@@ -50,7 +71,16 @@ const Planning = () => {
   return (
     <Page title={t('title')} description={t('description')}>
       <HStack bg='blue' py={2} px={4} borderRadius='xl' spacing={6}>
-        <Box bg='white' borderRadius='full' flex={1} h='full' />
+        <Box w='full'>
+          <Select
+            closeMenuOnSelect={false}
+            components={customComponents}
+            isMulti
+            useBasicStyles
+            options={regions}
+            getOptionValue={option => String(option.id)}
+          />
+        </Box>
         <CategorySelection
           categories={categories}
           category={category}
