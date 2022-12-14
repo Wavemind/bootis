@@ -11,5 +11,7 @@ export default {
     black: '#2B2B2B',
     blackHover: '#797979',
     yellow: '#FFE66D',
+    grey: '#B0B0B0',
+    turquoise: '#00ACA2',
   },
 }

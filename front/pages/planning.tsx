@@ -1,88 +1,94 @@
 /**
  * The external imports
  */
+import { useMemo, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import {
-  Box,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  HStack,
-  Button,
-} from '@chakra-ui/react'
+import { Box, HStack, SimpleGrid, Flex } from '@chakra-ui/react'
 import { CalendarIcon } from '@chakra-ui/icons'
 
 /**
  * The internal imports
  */
-import { Page } from '../components'
+import { Page, CategorySelection } from '../components'
+
+/**
+ * Type definitions
+ */
+interface CategoryType {
+  label?: string
+  variant?: string
+}
 
 const Planning = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('planning')
 
+  const [isPlanningOpen, setIsPlanningOpen] = useState(false)
+  const [category, setCategory] = useState<CategoryType>({})
+
+  const categories = useMemo(
+    () => [
+      { label: t('categories.hotels'), variant: 'teal' },
+      { label: t('categories.restaurants'), variant: 'salmon' },
+      { label: t('categories.activities'), variant: 'turquoise' },
+    ],
+    []
+  )
+
+  /**
+   * Toggle the planning drawer
+   */
+  const togglePlanning = () => {
+    setIsPlanningOpen(!isPlanningOpen)
+  }
+
+  // TODO : Search functionality => https://react-select.com/components
+  // TODO : Content for cards ?
+  // TODO : Content for planning ?
+  // TODO : Regroup all propTypes somewhere in lib ?
   return (
-    <Page title='Planning' description='Planning'>
+    <Page title={t('title')} description={t('description')}>
       <HStack bg='blue' py={2} px={4} borderRadius='xl' spacing={6}>
         <Box bg='white' borderRadius='full' flex={1} h='full' />
-        <Button>Categories</Button>
+        <CategorySelection
+          categories={categories}
+          category={category}
+          setCategory={setCategory}
+        />
       </HStack>
-      <Box w='full' h='full' my={2}>
-        <Accordion allowToggle w='full' color='white' borderRadius='xl'>
-          <AccordionItem borderRadius='xl' bg='salmon'>
-            <AccordionButton>
-              <HStack>
-                <CalendarIcon h={6} w={6} />
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  27.03.2023
-                </Box>
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  28.03.2023
-                </Box>
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  29.03.2023
-                </Box>
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  30.03.2023
-                </Box>
-              </HStack>
-            </AccordionButton>
-            <AccordionPanel pb={4} h={625}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem borderRadius='xl' bg='black'>
-            <AccordionButton>
-              <HStack>
-                <CalendarIcon h={6} w={6} />
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  27.03.2023
-                </Box>
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  28.03.2023
-                </Box>
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  29.03.2023
-                </Box>
-                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
-                  30.03.2023
-                </Box>
-              </HStack>
-            </AccordionButton>
-            <AccordionPanel pb={4} h={625}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-      </Box>
+      <Flex flexDir='column' my={2} gap={4} h='full' position='relative'>
+        <Box position='absolute' top={0} bottom={0} w='full' overflowY='scroll'>
+          <SimpleGrid columns={2} spacing={10}>
+            <Box bg='tomato' height='200px'></Box>
+            <Box bg='tomato' height='200px'></Box>
+            <Box bg='tomato' height='200px'></Box>
+            <Box bg='tomato' height='200px'></Box>
+            <Box bg='tomato' height='200px'></Box>
+            <Box bg='tomato' height='200px'></Box>
+            <Box bg='tomato' height='200px'></Box>
+          </SimpleGrid>
+        </Box>
+        <AnimatePresence>
+          <Box
+            as={motion.div}
+            position='absolute'
+            bottom={0}
+            bg='black'
+            borderRadius='xl'
+            color='white'
+            w='full'
+            animate={{
+              top: isPlanningOpen ? 0 : null,
+              transition: { duration: 1.5, type: 'spring' },
+            }}
+          >
+            <Box role='button' onClick={togglePlanning} p={4}>
+              <CalendarIcon h={8} w={8} />
+            </Box>
+          </Box>
+        </AnimatePresence>
+      </Flex>
     </Page>
   )
 }
@@ -90,7 +96,7 @@ const Planning = () => {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common', 'planning'])),
       // Will be passed to the page component as props
     },
   }

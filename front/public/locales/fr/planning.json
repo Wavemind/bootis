@@ -1,0 +1,10 @@
+{
+  "title": "Planning",
+  "description": "Votre planning",
+  "categories": {
+    "title": "Catégories",
+    "hotels": "Hébergements",
+    "restaurants": "Restaurants",
+    "activities": "Activités"
+  }
+}

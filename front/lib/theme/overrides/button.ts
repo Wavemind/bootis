@@ -17,16 +17,31 @@ export default {
       },
       // styles for different visual variants ("outline", "solid")
       variants: {
+        default: {
+          bg: 'grey',
+        },
         primary: {
           bg: 'blue',
           _hover: {
             bg: 'blueHover',
           },
         },
+        teal: {
+          bg: 'teal',
+          _hover: {
+            bg: 'grey',
+          },
+        },
         salmon: {
           bg: 'salmon',
           _hover: {
-            bg: 'salmonHover',
+            bg: 'grey',
+          },
+        },
+        turquoise: {
+          bg: 'turquoise',
+          _hover: {
+            bg: 'grey',
           },
         },
         black: {

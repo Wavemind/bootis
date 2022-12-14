@@ -2,6 +2,7 @@
  * The external imports
  */
 import { GridItem as ChakraGridItem, Box } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
 
 /**
  * Type definitions
@@ -18,6 +19,7 @@ const GridItem = (props: GridItemProps) => {
   return (
     <Box borderRadius='xl' position='relative'>
       <ChakraGridItem
+        as={motion.div}
         bg={bg}
         borderRadius='xl'
         p={4}
@@ -25,9 +27,9 @@ const GridItem = (props: GridItemProps) => {
         cursor='pointer'
         h='full'
         onClick={handleClick}
-        transition='0.5s ease-in-out'
-        _hover={{
+        whileHover={{
           transform: 'translate(-10px, -10px)',
+          transition: { duration: 0.5, type: 'spring', damping: 7 },
         }}
       >
         {children}
