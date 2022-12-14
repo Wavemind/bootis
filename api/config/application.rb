@@ -10,6 +10,8 @@ module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.time_zone = 'Bern'
+    config.i18n.default_locale = :en
 
     # Configuration for the application, engines, and railties goes here.
     #
