@@ -103,8 +103,12 @@ const Voyage = () => {
     if (localStorage.getItem('search') !== null) {
       const infoFromSearch = JSON.parse(localStorage.getItem('search'))
       const defaultValues = {
-        startDate: new Date(infoFromSearch.startDate),
-        endDate: new Date(infoFromSearch.endDate),
+        startDate: infoFromSearch.startDate
+          ? new Date(infoFromSearch.startDate)
+          : new Date(),
+        endDate: infoFromSearch.endDate
+          ? new Date(infoFromSearch.endDate)
+          : new Date(),
         destination: regions.find(
           region => region.id === infoFromSearch.destination
         ),
