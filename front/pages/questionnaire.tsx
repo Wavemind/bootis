@@ -102,7 +102,6 @@ const Questionnaire = () => {
     setSteps([
       {
         key: 'situationSelection',
-        title: t('situationSelection.title'),
         type: 'situation',
       },
     ])
@@ -135,7 +134,7 @@ const Questionnaire = () => {
           >
             <motion.div animate={controls}>
               <TitleBlock
-                title={steps[currentStep].title}
+                title={t(`${steps[currentStep].key}.title`)}
                 subtitle={t('subtitle')}
                 totalSteps={steps.length}
               />

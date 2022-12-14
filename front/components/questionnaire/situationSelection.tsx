@@ -29,17 +29,15 @@ const SituationSelection = () => {
    * Filters the characteristics based on situation, updates local state and local storage
    */
   const handleClick = situation => {
-    const filteredCharacteristics = characteristicMap[
-      situation
-    ].characteristicIds.map(characteristicId => ({
-      ...characteristics[characteristicId],
-      title: t(`${characteristics[characteristicId].key}.title`),
-      type: 'characteristic',
-    }))
+    const filteredCharacteristics = characteristicMap[situation].map(
+      characteristicId => ({
+        ...characteristics[characteristicId],
+        type: 'characteristic',
+      })
+    )
     const newSteps = [
       {
         key: 'situationSelection',
-        title: t('situationSelection.title'),
         type: 'situation',
       },
       ...filteredCharacteristics,
