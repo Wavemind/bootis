@@ -29,15 +29,9 @@ const Planning = () => {
         <Box bg='white' borderRadius='full' flex={1} h='full' />
         <Button>Categories</Button>
       </HStack>
-      <Box position='relative' w='full' h='full' my={2}>
-        <Accordion
-          allowToggle
-          w='full'
-          bg='black'
-          color='white'
-          borderRadius='xl'
-        >
-          <AccordionItem borderRadius='xl'>
+      <Box w='full' h='full' my={2}>
+        <Accordion allowToggle w='full' color='white' borderRadius='xl'>
+          <AccordionItem borderRadius='xl' bg='salmon'>
             <AccordionButton>
               <HStack>
                 <CalendarIcon h={6} w={6} />
@@ -55,7 +49,32 @@ const Planning = () => {
                 </Box>
               </HStack>
             </AccordionButton>
-            <AccordionPanel pb={4}>
+            <AccordionPanel pb={4} h={625}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem borderRadius='xl' bg='black'>
+            <AccordionButton>
+              <HStack>
+                <CalendarIcon h={6} w={6} />
+                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
+                  27.03.2023
+                </Box>
+                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
+                  28.03.2023
+                </Box>
+                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
+                  29.03.2023
+                </Box>
+                <Box border='1px solid white' px={10} py={1} borderRadius='lg'>
+                  30.03.2023
+                </Box>
+              </HStack>
+            </AccordionButton>
+            <AccordionPanel pb={4} h={625}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
