@@ -25,7 +25,6 @@ const Questionnaire = () => {
   const [steps, setSteps] = useState([
     {
       key: 'situationSelection',
-      title: t('situationSelection.title'),
       type: 'situation',
     },
   ])
