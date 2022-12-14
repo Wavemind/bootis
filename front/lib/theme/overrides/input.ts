@@ -1,23 +1,26 @@
 export default {
   components: {
-    Heading: {
+    Input: {
       // style object for base or default style
       baseStyle: {},
       // styles for different sizes ("sm", "md", "lg")
-      sizes: {},
+      sizes: {
+        md: {
+          field: {
+            borderRadius: '2xl',
+          },
+        },
+      },
       // styles for different visual variants ("outline", "solid")
       variants: {
-        h1: {
-          fontWeight: 'semibold',
-          fontSize: '2xl',
-        },
-        h2: {
-          fontSize: 'xl',
-          fontWeight: 'medium',
-        },
-        h3: {
-          fontWeight: 'medium',
-          fontSize: 'lg',
+        outline: {
+          field: {
+            borderColor: 'blue',
+            borderWidth: 2,
+            _hover: {
+              borderColor: 'salmon',
+            },
+          },
         },
       },
       // default values for 'size', 'variant' and 'colorScheme'
