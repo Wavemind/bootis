@@ -22,6 +22,8 @@ import {
   CalendarMonthName,
   CalendarWeek,
   CalendarDays,
+  CalendarDate,
+  CalendarValues,
 } from '@uselessdev/datepicker'
 
 /**
@@ -29,8 +31,8 @@ import {
  */
 interface CalendarProps {
   placeholder: string
-  date: Date
-  setDate: React.Dispatch<React.SetStateAction<string>>
+  date: CalendarDate | CalendarValues
+  setDate: React.Dispatch<React.SetStateAction<CalendarDate | CalendarValues>>
 }
 
 const Calendar = (props: CalendarProps) => {
@@ -44,9 +46,9 @@ const Calendar = (props: CalendarProps) => {
    * Handles the date selection event
    * @param date Date object
    */
-  const handleSelectDate = selectedDate => {
-    setDate(selectedDate)
-    setValue(format(selectedDate, 'dd/MM/yyyy', { locale: fr }))
+  const handleSelectDate = (date: CalendarDate | CalendarValues) => {
+    setDate(date)
+    setValue(format(date as CalendarDate, 'dd/MM/yyyy', { locale: fr }))
     onClose()
   }
 
@@ -61,7 +63,7 @@ const Calendar = (props: CalendarProps) => {
       <PopoverContent w='full' border='none'>
         <ChakraCalendar
           locale={fr}
-          value={{ start: date }}
+          value={{ start: date as CalendarDate }}
           onSelectDate={handleSelectDate}
           singleDateSelection
           allowOutsideDays

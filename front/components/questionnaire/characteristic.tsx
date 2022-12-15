@@ -13,6 +13,8 @@ import findIndex from 'lodash/findIndex'
 import { QuestionnaireContext } from '../../lib/contexts'
 import characteristics from '../../lib/config/characteristics'
 
+import { AnswerType, Toto } from '../../lib/types'
+
 const Characteristic = () => {
   const { t } = useTranslation('questionnaire')
 
@@ -29,7 +31,7 @@ const Characteristic = () => {
   /**
    * Update steps with answer and update the currentStep
    */
-  const handleClick = answer => {
+  const handleClick = (answer: AnswerType) => {
     const newSteps = [...steps]
     newSteps[currentStep].answer = answer
 
@@ -50,7 +52,9 @@ const Characteristic = () => {
     })
 
     // Add characteristics
-    answer.children.forEach(keyStep => newSteps.push(characteristics[keyStep]))
+    answer.children.forEach((keyStep: string) =>
+      newSteps.push(characteristics[keyStep as Toto])
+    )
 
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
@@ -62,7 +66,7 @@ const Characteristic = () => {
       <Grid templateColumns='repeat(3, 1fr)' gap={10} mt={10} w='full'>
         <GridItem colSpan={2} pr={10}>
           <VStack alignItems='flex-start'>
-            {activeStep.answers.map(answer => (
+            {activeStep.answers?.map(answer => (
               <Button
                 key={`answer_${answer.id}`}
                 variant={
@@ -81,7 +85,7 @@ const Characteristic = () => {
         <GridItem>
           <Center>
             <Image
-              src={activeStep.imageSrc}
+              src={activeStep.imageSrc as string}
               alt={t('logoAlt')}
               height={30}
               width={250}

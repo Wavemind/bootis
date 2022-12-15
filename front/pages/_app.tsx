@@ -13,7 +13,12 @@ import Fonts from '../lib/utils/fonts'
 import Layout from '../lib/layouts/default'
 import SEO from '../next-seo.config'
 
-function MyApp({ Component, pageProps }) {
+/**
+ * Type imports
+ */
+import { AppPropsWithLayout } from '../lib/types'
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || (page => <Layout>{page}</Layout>)
 
   return (

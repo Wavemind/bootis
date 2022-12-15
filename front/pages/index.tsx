@@ -10,6 +10,7 @@ import {
   VStack,
   Heading,
 } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Image from 'next/image'
@@ -179,10 +180,14 @@ const Home = () => {
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'home', 'search'])),
+      ...(await serverSideTranslations(locale as string, [
+        'common',
+        'home',
+        'search',
+      ])),
       // Will be passed to the page component as props
     },
   }

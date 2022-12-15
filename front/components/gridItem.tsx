@@ -8,7 +8,7 @@ import { GridItem as ChakraGridItem, Box } from '@chakra-ui/react'
  */
 interface GridItemProps {
   bg: string
-  handleClick: (props) => void
+  handleClick: () => void
   children: React.ReactNode
 }
 

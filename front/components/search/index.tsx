@@ -4,18 +4,20 @@
 import React, { useMemo, useState } from 'react'
 import { HStack, Text, Box, Button, useConst } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
+import addDays from 'date-fns/addDays'
 
 /**
  * The internal imports
  */
 import Calendar from './calendar'
 import Select from './select'
+import { CalendarDate } from '@uselessdev/datepicker'
 
 const Search = () => {
   const { t } = useTranslation('search')
 
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
+  const [startDate, setStartDate] = useState<CalendarDate>(new Date())
+  const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 1))
   const [destination, setDestination] = useState()
   const [activity, setActivity] = useState()
 
