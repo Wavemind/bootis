@@ -1,50 +1,83 @@
 /**
  * The external imports
  */
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
+import { GetStaticProps } from 'next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import {
-  Box,
-  HStack,
-  SimpleGrid,
-  Flex,
-  InputGroup,
-  InputLeftElement,
-  Input,
-} from '@chakra-ui/react'
-import { CalendarIcon, PhoneIcon } from '@chakra-ui/icons'
-import { Select, chakraComponents } from 'chakra-react-select'
+import { Box, HStack, SimpleGrid, Flex, Icon } from '@chakra-ui/react'
+import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
+import { BsCalendar3, BsSearch } from 'react-icons/bs'
 
 /**
  * The internal imports
  */
 import { Page, CategorySelection } from '../components'
-import regions from '../lib/config/regions'
+import accommodationTypes from '../lib/config/accommodationTypes'
+import restaurantTypes from '../lib/config/restaurantTypes'
+import activities from '../lib/config/activities'
 
 /**
  * Type definitions
  */
 interface CategoryType {
-  label?: string
-  variant?: string
+  key: string
+  label: string
+  variant: string
+  isMulti: boolean
+}
+interface ElementType {
+  id: number
+  label: string
 }
 
 const Planning = () => {
   const { t } = useTranslation('planning')
 
-  const [isPlanningOpen, setIsPlanningOpen] = useState(false)
-  const [category, setCategory] = useState<CategoryType>({})
+  const [isPlanningOpen, setIsPlanningOpen] = useState(true)
+  const [category, setCategory] = useState<CategoryType>({} as CategoryType)
 
   const categories = useMemo(
     () => [
-      { label: t('categories.hotels'), variant: 'teal' },
-      { label: t('categories.restaurants'), variant: 'salmon' },
-      { label: t('categories.activities'), variant: 'turquoise' },
+      {
+        key: 'accommodationTypes',
+        label: t('categories.accommodations'),
+        variant: 'teal',
+        isMulti: false,
+      },
+      {
+        key: 'restaurantTypes',
+        label: t('categories.restaurants'),
+        variant: 'salmon',
+        isMulti: true,
+      },
+      {
+        key: 'activities',
+        label: t('categories.activities'),
+        variant: 'turquoise',
+        isMulti: true,
+      },
     ],
     []
   )
+
+  /**
+   * Provide the correct elements to the select based on user category selection
+   */
+  const selectElements = useMemo(() => {
+    if (!category.key) {
+      return []
+    }
+
+    if (category.key === 'accommodationTypes') {
+      return accommodationTypes
+    } else if (category.key === 'restaurantTypes') {
+      return restaurantTypes
+    } else {
+      return activities
+    }
+  }, [category])
 
   /**
    * Toggle the planning drawer
@@ -53,18 +86,30 @@ const Planning = () => {
     setIsPlanningOpen(!isPlanningOpen)
   }
 
-  const customComponents = {
-    Input: ({ ...props }) => (
-      <InputGroup>
-        <InputLeftElement pointerEvents='none'>
-          <PhoneIcon color='gray.300' />
-        </InputLeftElement>
-        <chakraComponents.Input {...props} />
-      </InputGroup>
-    ),
-  }
+  /**
+   * If data exists in localStorage, use it to prefill form values
+   */
+  useEffect(() => {
+    if (localStorage.getItem('voyage') !== null) {
+      const infoFromVoyage = JSON.parse(
+        localStorage.getItem('voyage') as string
+      )
+      console.log(infoFromVoyage)
+      // const defaultValues = {
+      //   startDate: new Date(infoFromSearch.startDate),
+      //   endDate: new Date(infoFromSearch.endDate),
+      //   destination: regions.find(
+      //     region => region.id === infoFromSearch.destination
+      //   ),
+      //   activities: [
+      //     activities.find(activity => activity.id === infoFromSearch.activity),
+      //   ],
+      //   accommodation: '',
+      //   restaurants: [],
+      // }
+    }
+  }, [])
 
-  // TODO : Search functionality => https://react-select.com/components
   // TODO : Content for cards ?
   // TODO : Content for planning ?
   // TODO : Regroup all propTypes somewhere in lib ?
@@ -73,12 +118,33 @@ const Planning = () => {
       <HStack bg='blue' py={2} px={4} borderRadius='xl' spacing={6}>
         <Box w='full'>
           <Select
-            closeMenuOnSelect={false}
-            components={customComponents}
-            isMulti
+            closeMenuOnSelect={!category.isMulti}
+            components={{
+              Control: (props: ControlProps<ElementType>) => (
+                <chakraComponents.Control {...props}>
+                  <HStack w='full' ml={3}>
+                    <Icon as={BsSearch} h={5} w={5} />
+                    {props.children}
+                  </HStack>
+                </chakraComponents.Control>
+              ),
+            }}
+            isMulti={category.isMulti}
             useBasicStyles
-            options={regions}
-            getOptionValue={option => String(option.id)}
+            options={selectElements}
+            getOptionValue={(option: ElementType) => String(option.id)}
+            chakraStyles={{
+              option: (provided, { isSelected }) => ({
+                ...provided,
+                ...(isSelected && {
+                  backgroundColor: 'blueLight',
+                }),
+              }),
+              control: provided => ({
+                ...provided,
+                bg: 'white',
+              }),
+            }}
           />
         </Box>
         <CategorySelection
@@ -108,13 +174,20 @@ const Planning = () => {
             borderRadius='xl'
             color='white'
             w='full'
-            animate={{
-              top: isPlanningOpen ? 0 : null,
-              transition: { duration: 1.5, type: 'spring' },
+            variants={{
+              show: {
+                top: 0,
+                transition: { duration: 1.5, type: 'spring' },
+              },
+              hide: {
+                top: 'auto',
+                transition: { duration: 1.5, type: 'spring' },
+              },
             }}
+            animate={isPlanningOpen ? 'show' : 'hide'}
           >
             <Box role='button' onClick={togglePlanning} p={4}>
-              <CalendarIcon h={8} w={8} />
+              <Icon as={BsCalendar3} h={8} w={8} />
             </Box>
           </Box>
         </AnimatePresence>
@@ -123,10 +196,13 @@ const Planning = () => {
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'planning'])),
+      ...(await serverSideTranslations(locale as string, [
+        'common',
+        'planning',
+      ])),
       // Will be passed to the page component as props
     },
   }

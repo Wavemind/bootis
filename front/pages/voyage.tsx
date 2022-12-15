@@ -3,6 +3,8 @@
  */
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
+import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FormProvider, useForm } from 'react-hook-form'
 import addDays from 'date-fns/addDays'
@@ -17,8 +19,9 @@ import {
   Center,
   Spinner,
   Text,
+  Icon,
 } from '@chakra-ui/react'
-import { InfoOutlineIcon } from '@chakra-ui/icons'
+import { BsInfoCircle } from 'react-icons/bs'
 
 /**
  * The internal imports
@@ -26,7 +29,7 @@ import { InfoOutlineIcon } from '@chakra-ui/icons'
 import { Page, Select, DatePicker } from '../components'
 import regions from '../lib/config/regions'
 import activities from '../lib/config/activities'
-import accommodations from '../lib/config/accommodations'
+import accommodations from '../lib/config/accommodationTypes'
 import restaurants from '../lib/config/restaurants'
 
 /**
@@ -43,6 +46,7 @@ type FormValues = {
 
 const Voyage = () => {
   const { t } = useTranslation('voyage')
+  const router = useRouter()
 
   const [loading, setLoading] = useState(true)
 
@@ -92,8 +96,10 @@ const Voyage = () => {
    * @param data form data object
    */
   // TODO : Connect to the backend I'm guessing ?
-  const onSubmit = data => {
+  const onSubmit = (data: FormValues) => {
     console.log(data)
+    localStorage.setItem('voyage', JSON.stringify(data))
+    router.push('/planning')
   }
 
   /**
@@ -101,7 +107,9 @@ const Voyage = () => {
    */
   useEffect(() => {
     if (localStorage.getItem('search') !== null) {
-      const infoFromSearch = JSON.parse(localStorage.getItem('search'))
+      const infoFromSearch = JSON.parse(
+        localStorage.getItem('search') as string
+      )
       const defaultValues = {
         startDate: new Date(infoFromSearch.startDate),
         endDate: new Date(infoFromSearch.endDate),
@@ -157,7 +165,12 @@ const Voyage = () => {
                       hasInfo
                       infoContent={
                         <VStack spacing={4}>
-                          <InfoOutlineIcon w={30} h={30} color='salmon' />
+                          <Icon
+                            as={BsInfoCircle}
+                            w={30}
+                            h={30}
+                            color='salmon'
+                          />
                           <Text
                             color='white'
                             textAlign='center'
@@ -211,10 +224,10 @@ const Voyage = () => {
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'voyage'])),
+      ...(await serverSideTranslations(locale as string, ['common', 'voyage'])),
       // Will be passed to the page component as props
     },
   }

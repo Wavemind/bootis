@@ -9,7 +9,7 @@ import { motion } from 'framer-motion'
  */
 interface GridItemProps {
   bg: string
-  handleClick: (props) => void
+  handleClick: () => void
   children: React.ReactNode
 }
 

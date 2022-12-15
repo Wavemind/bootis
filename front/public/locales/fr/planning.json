@@ -3,7 +3,7 @@
   "description": "Votre planning",
   "categories": {
     "title": "Catégories",
-    "hotels": "Hébergements",
+    "accommodations": "Hébergements",
     "restaurants": "Restaurants",
     "activities": "Activités"
   }

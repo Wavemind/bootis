@@ -1,16 +1,25 @@
 /**
  * The external imports
  */
-import { Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Icon,
+} from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
+import { RiArrowDownSFill } from 'react-icons/ri'
 
 /**
  * Type definitions
  */
 interface CategoryType {
-  label?: string
-  variant?: string
+  key: string
+  label: string
+  variant: string
+  isMulti: boolean
 }
 interface CategorySelectionPropTypes {
   categories: CategoryType[]
@@ -27,7 +36,7 @@ const CategorySelection = (props: CategorySelectionPropTypes) => {
     <Menu>
       <MenuButton
         as={Button}
-        rightIcon={<ChevronDownIcon />}
+        rightIcon={<Icon as={RiArrowDownSFill} h={7} w={7} />}
         variant={category.variant || 'default'}
         w='15%'
       >
@@ -42,6 +51,9 @@ const CategorySelection = (props: CategorySelectionPropTypes) => {
             _first={{ borderTopRadius: 'lg' }}
             _last={{ borderBottomRadius: 'lg' }}
             p={4}
+            color='white'
+            fontWeight='bold'
+            justifyContent='center'
           >
             {category.label}
           </MenuItem>
