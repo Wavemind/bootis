@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { useMemo, useState } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { HStack, Text, Box, Button, useConst } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import addDays from 'date-fns/addDays'
@@ -13,13 +13,13 @@ import Calendar from './calendar'
 import Select from './select'
 import { CalendarDate } from '@uselessdev/datepicker'
 
-const Search = () => {
+const Search: FC = () => {
   const { t } = useTranslation('search')
 
   const [startDate, setStartDate] = useState<CalendarDate>(new Date())
   const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 1))
-  const [destination, setDestination] = useState()
-  const [activity, setActivity] = useState()
+  const [destination, setDestination] = useState<number | undefined | null>()
+  const [activity, setActivity] = useState<number | undefined | null>()
 
   // TODO : Get this from backend I'm guessing ?
   const regions = useConst(() => [
@@ -61,7 +61,7 @@ const Search = () => {
       setActivity(null)
       return activities.map(activity => ({
         ...activity,
-        unavailable: !destinationObject.activities.includes(activity.id),
+        unavailable: !destinationObject?.activities.includes(activity.id),
       }))
     }
     return activities
@@ -84,7 +84,7 @@ const Search = () => {
                 <Text fontSize='xs'>{t('destinationSubtitle')}</Text>
               </React.Fragment>
             }
-            selected={destination}
+            selected={destination as number}
             setSelected={setDestination}
           />
         </Box>
@@ -106,7 +106,7 @@ const Search = () => {
           <Select
             options={availableActivities}
             placeholder={<Text>{t('activities')}</Text>}
-            selected={activity}
+            selected={activity as number}
             setSelected={setActivity}
           />
         </Box>

@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 import { Grid, Text, Box, VStack, Heading, Flex } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
@@ -19,7 +19,12 @@ import ElectricScooter from '../../public/electric_scooter.svg'
 import Cane from '../../public/cane.svg'
 import Rollator from '../../public/rollator.svg'
 
-const SituationSelection = () => {
+/**
+ * Type definitions
+ */
+import { CharacteristicMapType } from '../../lib/types'
+
+const SituationSelection: FC = () => {
   const { t } = useTranslation('questionnaire')
 
   const { updateCurrentStep, setSteps, currentStep } =
@@ -28,13 +33,13 @@ const SituationSelection = () => {
   /**
    * Filters the characteristics based on situation, updates local state and local storage
    */
-  const handleClick = situation => {
-    const filteredCharacteristics = characteristicMap[situation].map(
-      characteristicId => ({
-        ...characteristics[characteristicId],
-        type: 'characteristic',
-      })
-    )
+  const handleClick = (situation: string) => {
+    const filteredCharacteristics = characteristicMap[
+      situation as keyof CharacteristicMapType
+    ].map(characteristicKey => ({
+      ...characteristics[characteristicKey],
+      type: 'characteristic',
+    }))
     const newSteps = [
       {
         key: 'situationSelection',

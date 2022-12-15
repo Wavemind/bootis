@@ -17,19 +17,7 @@ import { useTranslation } from 'next-i18next'
 /**
  * Type definitions
  */
-interface Option {
-  id: number
-  label: string
-  activities?: number[]
-  unavailable?: boolean
-}
-
-interface SelectProps {
-  options: Option[]
-  placeholder: string | React.ReactNode
-  selected: number
-  setSelected: React.Dispatch<React.SetStateAction<number>>
-}
+import { Option, SelectProps } from '../../lib/types'
 
 const Select: FC<SelectProps> = ({
   options,

@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useContext, useMemo } from 'react'
+import { FC, useContext, useMemo } from 'react'
 import { Grid, GridItem, Text, Center, VStack, Button } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
@@ -13,9 +13,12 @@ import findIndex from 'lodash/findIndex'
 import { QuestionnaireContext } from '../../lib/contexts'
 import characteristics from '../../lib/config/characteristics'
 
-import { AnswerType, Toto } from '../../lib/types'
+/**
+ * Type definitions
+ */
+import { AnswerType, CharacteristicsType } from '../../lib/types'
 
-const Characteristic = () => {
+const Characteristic: FC = () => {
   const { t } = useTranslation('questionnaire')
 
   const {
@@ -53,7 +56,7 @@ const Characteristic = () => {
 
     // Add characteristics
     answer.children.forEach((keyStep: string) =>
-      newSteps.push(characteristics[keyStep as Toto])
+      newSteps.push(characteristics[keyStep as keyof CharacteristicsType])
     )
 
     setSteps(newSteps)

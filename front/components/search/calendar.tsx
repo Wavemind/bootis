@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import {
@@ -29,11 +29,7 @@ import {
 /**
  * Type definitions
  */
-interface CalendarProps {
-  placeholder: string
-  date: CalendarDate | CalendarValues
-  setDate: React.Dispatch<React.SetStateAction<CalendarDate | CalendarValues>>
-}
+import { CalendarProps } from '../../lib/types'
 
 const Calendar = (props: CalendarProps) => {
   const { placeholder, date, setDate } = props
@@ -47,7 +43,7 @@ const Calendar = (props: CalendarProps) => {
    * @param date Date object
    */
   const handleSelectDate = (date: CalendarDate | CalendarValues) => {
-    setDate(date)
+    setDate(date as CalendarDate)
     setValue(format(date as CalendarDate, 'dd/MM/yyyy', { locale: fr }))
     onClose()
   }
