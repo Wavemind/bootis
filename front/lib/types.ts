@@ -30,8 +30,10 @@ export type StepType = {
 }
 
 export type CharacteristicType = {
-  [characteristicKey: string]: StepType
+  [key: string]: StepType
 }
+
+export type Toto = keyof CharacteristicType
 
 export type AnswerType = {
   id: number
