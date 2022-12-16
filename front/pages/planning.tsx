@@ -6,7 +6,15 @@ import { GetStaticProps } from 'next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box, HStack, SimpleGrid, Flex, Icon } from '@chakra-ui/react'
+import {
+  Box,
+  HStack,
+  VStack,
+  SimpleGrid,
+  Flex,
+  Icon,
+  Text,
+} from '@chakra-ui/react'
 import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
 import { BsCalendar3, BsSearch } from 'react-icons/bs'
 
@@ -157,30 +165,89 @@ const Planning = () => {
           </SimpleGrid>
         </Box>
         <AnimatePresence>
-          <Box
+          <Flex
             as={motion.div}
+            direction='column'
             position='absolute'
             bottom={0}
             bg='black'
             borderRadius='xl'
             color='white'
             w='full'
+            flex={1}
             variants={{
               show: {
                 top: 0,
                 transition: { duration: 1.5, type: 'spring' },
               },
               hide: {
-                top: 'auto',
+                top: '90%',
                 transition: { duration: 1.5, type: 'spring' },
               },
             }}
             animate={isPlanningOpen ? 'show' : 'hide'}
           >
-            <Box role='button' onClick={togglePlanning} p={4}>
-              <Icon as={BsCalendar3} h={8} w={8} />
-            </Box>
-          </Box>
+            <Flex h='full'>
+              <Box role='button' onClick={togglePlanning} p={4}>
+                <Icon as={BsCalendar3} h={8} w={8} />
+              </Box>
+              <Box w='full' flex={1} p={4} pb={4}>
+                <HStack h='full'>
+                  <Box
+                    border='1px solid white'
+                    h='full'
+                    w={400}
+                    // flex={1}
+                    borderRadius='lg'
+                    p={2}
+                    overflow='hidden'
+                  >
+                    <VStack spacing={2} overflow='hidden'>
+                      <Text w='full' textAlign='center'>
+                        27.10.1986
+                      </Text>
+                      <Box
+                        as={motion.div}
+                        w='full'
+                        h={100}
+                        borderRadius='lg'
+                        variants={{
+                          show: {
+                            height: 100,
+                            transition: { duration: 1 },
+                          },
+                          hide: {
+                            height: 0,
+                            transition: { duration: 0.5 },
+                          },
+                        }}
+                        animate={isPlanningOpen ? 'show' : 'hide'}
+                        bg='blue'
+                      />
+                      <Box
+                        as={motion.div}
+                        w='full'
+                        h={100}
+                        borderRadius='lg'
+                        variants={{
+                          show: {
+                            height: 100,
+                            transition: { duration: 1 },
+                          },
+                          hide: {
+                            height: 0,
+                            transition: { duration: 0.5 },
+                          },
+                        }}
+                        animate={isPlanningOpen ? 'show' : 'hide'}
+                        bg='blue'
+                      />
+                    </VStack>
+                  </Box>
+                </HStack>
+              </Box>
+            </Flex>
+          </Flex>
         </AnimatePresence>
       </Flex>
     </Page>
