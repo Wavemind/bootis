@@ -1,6 +1,7 @@
 /**
  * The external imports
  */
+import { FC } from 'react'
 import {
   Box,
   Popover,
@@ -16,30 +17,14 @@ import { useTranslation } from 'next-i18next'
 /**
  * Type definitions
  */
-interface Option {
-  id: number
-  label: string
-  activities?: number[]
-  unavailable?: boolean
-}
+import { Option, SelectProps } from '../../lib/types'
 
-interface SelectProps {
-  options: Option[]
-  placeholder: string | React.ReactNode
-  selected: number
-  setSelected: React.Dispatch<React.SetStateAction<string>>
-  labelKey?: string
-}
-
-const Select = (props: SelectProps) => {
-  const {
-    options,
-    placeholder,
-    selected,
-    setSelected,
-    labelKey = 'label',
-  } = props
-
+const Select: FC<SelectProps> = ({
+  options,
+  placeholder,
+  selected,
+  setSelected,
+}) => {
   const { t } = useTranslation('search')
   const { onClose, isOpen, onToggle } = useDisclosure()
 
@@ -47,7 +32,7 @@ const Select = (props: SelectProps) => {
    * Handles the element selection event
    * @param element string
    */
-  const handleSelect = selectedElement => {
+  const handleSelect = (selectedElement: Option) => {
     setSelected(selectedElement.id)
     onClose()
   }
@@ -62,7 +47,7 @@ const Select = (props: SelectProps) => {
               overflowX='hidden'
               whiteSpace='nowrap'
             >
-              {options.find(option => option.id === selected)[labelKey]}
+              {options?.find(option => option.id === selected)?.label}
             </Text>
           ) : (
             placeholder
@@ -75,7 +60,7 @@ const Select = (props: SelectProps) => {
           {options.map((option, index) => (
             <Box
               key={`option_${option.id}`}
-              bgColor={selected === option.id && 'blueLight'}
+              bgColor={selected === option.id ? 'blueLight' : 'transparent'}
               _first={{ borderTopRadius: 'md' }}
               _last={{ borderBottomRadius: 'md' }}
               _hover={{
@@ -93,10 +78,10 @@ const Select = (props: SelectProps) => {
                 justifyContent='space-between'
               >
                 <Text
-                  color={option.unavailable && 'grey'}
-                  fontStyle={option.unavailable && 'italic'}
+                  color={option.unavailable ? 'grey' : 'black'}
+                  fontStyle={option.unavailable ? 'italic' : 'normal'}
                 >
-                  {option[labelKey]}
+                  {option.label}
                 </Text>
                 {option.unavailable && (
                   <Text fontSize='xs' color='red' fontStyle='italic'>

@@ -10,6 +10,7 @@ import {
   VStack,
   Heading,
 } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Image from 'next/image'
@@ -19,7 +20,7 @@ import Image from 'next/image'
  */
 import { Page, Link, Search } from '../components'
 import LogoFullWhite from '../public/logo-full-white.svg'
-import Wheelchair from '../public/wheelchair.svg'
+import WheelchairMale from '../public/wheelchair_male.svg'
 
 // TODO : Remplacer les textes par les trads une fois que le contenu est finalisé
 const Home = () => {
@@ -124,7 +125,11 @@ const Home = () => {
               <Text fontSize='xs'>{t('questionnaire')}</Text>
             </HStack>
             <HStack spacing={10} alignItems='flex-end' h='full'>
-              <Image src={Wheelchair} width={240} alt={t('wheelchairAlt')} />
+              <Image
+                src={WheelchairMale}
+                width={240}
+                alt={t('wheelchairAlt')}
+              />
               <VStack spacing={8} w='60%' alignItems='flex-start' h='full'>
                 <Text fontSize='xs'>
                   Ut ullamcorper amet vitae augue magna facilisis consectetur
@@ -143,7 +148,7 @@ const Home = () => {
                   ultrices a leo.
                 </Text>
                 <Box fontSize='xs'>
-                  <Link href='#'>{t('startQuestionnaire')}</Link>
+                  <Link href='/questionnaire'>{t('startQuestionnaire')}</Link>
                 </Box>
               </VStack>
             </HStack>
@@ -175,10 +180,14 @@ const Home = () => {
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'home', 'search'])),
+      ...(await serverSideTranslations(locale as string, [
+        'common',
+        'home',
+        'search',
+      ])),
       // Will be passed to the page component as props
     },
   }
