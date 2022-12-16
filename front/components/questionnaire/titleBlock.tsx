@@ -14,12 +14,12 @@ import { QuestionnaireContext } from '../../lib/contexts'
  */
 import { TitleBlockProps } from '../../lib/types'
 
-const TitleBlock: FC<TitleBlockProps> = ({ title, subtitle, totalSteps }) => {
-  const { currentStep } = useContext(QuestionnaireContext)
+const TitleBlock: FC<TitleBlockProps> = ({ title, subtitle }) => {
+  const { currentStep, steps } = useContext(QuestionnaireContext)
 
   const progress = useMemo(
-    () => (currentStep * 100) / totalSteps,
-    [currentStep]
+    () => (currentStep * 100) / steps.length,
+    [currentStep, steps]
   )
 
   return (

@@ -13,6 +13,7 @@ export default <CharacteristicsType>{
   maxSlope: {
     key: 'maxSlope',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: "Jusqu'a 6%", children: [], excludes: [] },
       { id: 2, label: "Jusqu'a 12%", children: [], excludes: [] },
@@ -23,6 +24,7 @@ export default <CharacteristicsType>{
   passageLength: {
     key: 'passageLength',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 137 cm', children: [], excludes: [] },
       { id: 2, label: 'Plus de 137 cm', children: [], excludes: [] },
@@ -32,6 +34,7 @@ export default <CharacteristicsType>{
   passageWidth: {
     key: 'passageWidth',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Plus de 110 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 80 cm et 110 cm', children: [], excludes: [] },
@@ -42,6 +45,7 @@ export default <CharacteristicsType>{
   stepHeight: {
     key: 'stepHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 3.5 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 3.5 cm et 6 cm', children: [], excludes: [] },
@@ -52,6 +56,7 @@ export default <CharacteristicsType>{
   tableHeight: {
     key: 'tableHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 70 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 70 cm et 85 cm', children: [], excludes: [] },
@@ -62,6 +67,7 @@ export default <CharacteristicsType>{
   reachHeight: {
     key: 'reachHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 123 cm', children: [], excludes: [] },
       { id: 2, label: 'Plus de 123 cm', children: [], excludes: [] },
@@ -71,6 +77,7 @@ export default <CharacteristicsType>{
   handrail: {
     key: 'handrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },
@@ -80,6 +87,7 @@ export default <CharacteristicsType>{
   bedHeight: {
     key: 'bedHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 43 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 43 cm et 52 cm', children: [], excludes: [] },
@@ -90,6 +98,7 @@ export default <CharacteristicsType>{
   bedAdjacentSpace: {
     key: 'bedAdjacentSpace',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 90 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 90 cm et 130 cm', children: [], excludes: [] },
@@ -100,6 +109,7 @@ export default <CharacteristicsType>{
   wcAdjacentDistance: {
     key: 'wcAdjacentDistance',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 75 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 75 cm et 83 cm', children: [], excludes: [] },
@@ -110,6 +120,7 @@ export default <CharacteristicsType>{
   wcFrontDistance: {
     key: 'wcFrontDistance',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 80 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 80 cm et 110 cm', children: [], excludes: [] },
@@ -120,6 +131,7 @@ export default <CharacteristicsType>{
   wcSeatHeight: {
     key: 'wcSeatHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 44 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 44 cm et 48 cm', children: [], excludes: [] },
@@ -130,6 +142,7 @@ export default <CharacteristicsType>{
   wcFixedHandrail: {
     key: 'wcFixedHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },
@@ -139,6 +152,7 @@ export default <CharacteristicsType>{
   wcFoldableHandrail: {
     key: 'wcFoldableHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },
@@ -148,6 +162,7 @@ export default <CharacteristicsType>{
   eurokey: {
     key: 'eurokey',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },
@@ -157,6 +172,7 @@ export default <CharacteristicsType>{
   wcSinkDistance: {
     key: 'wcSinkDistance',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Moins de 44 cm', children: [], excludes: [] },
       { id: 2, label: 'Entre 44 cm et 48 cm', children: [], excludes: [] },
@@ -167,6 +183,7 @@ export default <CharacteristicsType>{
   hygieneNeeds: {
     key: 'hygieneNeeds',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       {
         id: 1,
@@ -191,6 +208,7 @@ export default <CharacteristicsType>{
   showerFixedHandrail: {
     key: 'showerFixedHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },
@@ -200,6 +218,7 @@ export default <CharacteristicsType>{
   showerFoldableHandrail: {
     key: 'showerFoldableHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },
@@ -209,6 +228,7 @@ export default <CharacteristicsType>{
   bathSeat: {
     key: 'bathSeat',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
       { id: 1, label: 'Oui', children: [], excludes: [] },
       { id: 2, label: 'Non', children: [], excludes: [] },

@@ -95,7 +95,7 @@ const Search: FC = () => {
           />
         </Box>
       </HStack>
-      <Link href='/voyage'>
+      <Link href='/questionnaire'>
         <Button variant='salmon' onClick={saveSearch}>
           {t('plan')}
         </Button>

@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 /**
  * The internal imports
  */
-import { GridItem } from '..'
+import GridItem from './gridItem'
 import { QuestionnaireContext } from '../../lib/contexts'
 import characteristicMap from '../../lib/config/characteristicMap'
 import characteristics from '../../lib/config/characteristics'
@@ -38,14 +38,11 @@ const SituationSelection: FC = () => {
       situation as keyof CharacteristicMapType
     ].map(characteristicKey => ({
       ...characteristics[characteristicKey],
-      type: 'characteristic',
     }))
     const newSteps = [
-      {
-        key: 'situationSelection',
-        type: 'situation',
-      },
+      { key: 'situationSelection', type: 'situation' },
       ...filteredCharacteristics,
+      { key: 'voyageForm', type: 'voyage' },
     ]
     newSteps[currentStep].answer = {
       id: 0,

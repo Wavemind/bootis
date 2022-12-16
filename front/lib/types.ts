@@ -35,6 +35,7 @@ export type StepType = {
   imageSrc?: string
   answers?: AnswerType[]
   answer?: AnswerType
+  formValues?: VoyageFormValues
 }
 
 export type CharacteristicsType = {
@@ -63,7 +64,6 @@ export type QuestionnaireContextType = {
 export type TitleBlockProps = {
   title: string
   subtitle: string
-  totalSteps: number
 }
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -117,8 +117,8 @@ export type DatePickerProps = {
 export type VoyageFormValues = {
   startDate: Date
   endDate: Date
-  destination: string | { id: number; label: string; activities: number[] }
-  activities: { id: number; label: string }[]
+  destination?: string | { id: number; label: string; activities: number[] }
+  activities?: { id: number; label: string }[]
   accommodation: string | { id: number; label: string }
   restaurants: { id: number; label: string; activities: number[] }[]
 }
