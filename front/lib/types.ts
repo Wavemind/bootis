@@ -10,6 +10,11 @@ import { CalendarDate, CalendarValues } from '@uselessdev/datepicker'
 export type ChildrenType = {
   children: React.ReactNode
 }
+
+export type ElementType = {
+  id: number
+  label: string
+}
 /////////////////////////////////////////////////////////////////////////////////
 
 // _App types
@@ -46,9 +51,7 @@ export type CharacteristicMapType = {
   [key: string]: string[]
 }
 
-export type AnswerType = {
-  id: number
-  label: string
+export type AnswerType = ElementType & {
   children: string[]
   excludes: string[]
 }
@@ -83,9 +86,7 @@ export type CalendarProps = {
   setDate: React.Dispatch<React.SetStateAction<CalendarDate>>
 }
 
-export type Option = {
-  id: number
-  label: string
+export type Option = ElementType & {
   activities?: number[]
   unavailable?: boolean
 }
@@ -117,8 +118,22 @@ export type DatePickerProps = {
 export type VoyageFormValues = {
   startDate: Date
   endDate: Date
-  destination?: string | { id: number; label: string; activities: number[] }
-  activities?: { id: number; label: string }[]
+  destination?: string | (ElementType & { activities: number[] })
+  activities?: ElementType[]
   accommodation: string | { id: number; label: string }
-  restaurants: { id: number; label: string; activities: number[] }[]
+  restaurants: ElementType & { activities: number[] }[]
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+// Planning types
+export type CategoryType = {
+  key: string
+  label: string
+  variant: string
+  isMulti: boolean
+}
+export type CategorySelectionProps = {
+  categories: CategoryType[]
+  category: CategoryType
+  setCategory: React.Dispatch<React.SetStateAction<CategoryType>>
 }

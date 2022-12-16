@@ -1,6 +1,7 @@
 /**
  * The external imports
  */
+import { FC } from 'react'
 import {
   Button,
   Menu,
@@ -15,21 +16,13 @@ import { RiArrowDownSFill } from 'react-icons/ri'
 /**
  * Type definitions
  */
-interface CategoryType {
-  key: string
-  label: string
-  variant: string
-  isMulti: boolean
-}
-interface CategorySelectionPropTypes {
-  categories: CategoryType[]
-  category: CategoryType
-  setCategory: React.Dispatch<React.SetStateAction<CategoryType>>
-}
+import { CategorySelectionProps } from '../../lib/types'
 
-const CategorySelection = (props: CategorySelectionPropTypes) => {
-  const { categories, category, setCategory } = props
-
+const CategorySelection: FC<CategorySelectionProps> = ({
+  categories,
+  category,
+  setCategory,
+}) => {
   const { t } = useTranslation('planning')
 
   return (

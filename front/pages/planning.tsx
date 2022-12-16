@@ -21,16 +21,7 @@ import activities from '../lib/config/activities'
 /**
  * Type definitions
  */
-interface CategoryType {
-  key: string
-  label: string
-  variant: string
-  isMulti: boolean
-}
-interface ElementType {
-  id: number
-  label: string
-}
+import { CategoryType, ElementType } from '../lib/types'
 
 const Planning = () => {
   const { t } = useTranslation('planning')
