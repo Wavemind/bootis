@@ -29,7 +29,7 @@ export type StepType = {
   type?: string
   imageSrc?: string
   answers?: AnswerType[]
-  answer?: AnswerType | string
+  answer?: AnswerType
 }
 
 export type CharacteristicsType = {
@@ -69,10 +69,8 @@ export type GridItemProps = {
   children: React.ReactNode
 }
 
-export type LinkProps = {
-  children: React.ReactNode
+export type LinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
   href: string
-  [x: string]: any
 }
 
 export type CalendarProps = {

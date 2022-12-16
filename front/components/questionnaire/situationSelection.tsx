@@ -47,7 +47,12 @@ const SituationSelection: FC = () => {
       },
       ...filteredCharacteristics,
     ]
-    newSteps[currentStep].answer = situation
+    newSteps[currentStep].answer = {
+      id: 0,
+      label: situation,
+      children: [],
+      excludes: [],
+    }
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)
