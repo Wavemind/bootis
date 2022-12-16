@@ -3,8 +3,9 @@
  */
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
+import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box, Center, Spinner } from '@chakra-ui/react'
+import { Box, Center, Button, Spinner, VStack, HStack } from '@chakra-ui/react'
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
 
 /**
@@ -15,22 +16,24 @@ import {
   Page,
   Characteristic,
   SituationSelection,
+  Voyage,
   TitleBlock,
 } from '../components'
+
+/**
+ * Type definitions
+ */
+import { StepType } from '../lib/types'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
   const controls = useAnimationControls()
 
-  const [steps, setSteps] = useState([
-    {
-      key: 'situationSelection',
-      title: t('situationSelection.title'),
-      type: 'situation',
-    },
+  const [steps, setSteps] = useState<StepType[]>([
+    { key: 'situationSelection', type: 'situation' },
   ])
-  const [currentStep, setCurrentStep] = useState(0)
-  const [loading, setLoading] = useState(true)
+  const [currentStep, setCurrentStep] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(true)
 
   /**
    * If data exists in localStorage, use it to continue where the user left off
@@ -40,8 +43,8 @@ const Questionnaire = () => {
       localStorage.getItem('steps') !== null &&
       localStorage.getItem('step') !== null
     ) {
-      setSteps(JSON.parse(localStorage.getItem('steps')))
-      setCurrentStep(JSON.parse(localStorage.getItem('step')))
+      setSteps(JSON.parse(localStorage.getItem('steps') as string))
+      setCurrentStep(JSON.parse(localStorage.getItem('step') as string))
     }
     setLoading(false)
   }, [])
@@ -50,7 +53,7 @@ const Questionnaire = () => {
    * Updates the current step in local state and localStorage
    * @param direction integer
    */
-  const updateCurrentStep = async direction => {
+  const updateCurrentStep = async (direction: number) => {
     await controls.start({
       x: direction > 0 ? '-100%' : '100%',
       opacity: 0,
@@ -88,6 +91,8 @@ const Questionnaire = () => {
         return <SituationSelection />
       case 'characteristic':
         return <Characteristic />
+      case 'voyage':
+        return <Voyage />
       default:
         return null
     }
@@ -102,7 +107,6 @@ const Questionnaire = () => {
     setSteps([
       {
         key: 'situationSelection',
-        title: t('situationSelection.title'),
         type: 'situation',
       },
     ])
@@ -127,33 +131,58 @@ const Questionnaire = () => {
           resetQuestionnaire,
         }}
       >
-        <Box overflow='hidden'>
+        <VStack
+          overflow='hidden'
+          flex={1}
+          alignItems='flex-start'
+          justifyContent='space-between'
+        >
           <AnimatePresence
             mode='wait'
             initial={false}
             onExitComplete={() => window.scrollTo(0, 0)}
           >
-            <motion.div animate={controls}>
+            <Box as={motion.div} animate={controls} w='full'>
               <TitleBlock
-                title={`${steps[currentStep].title} - ${currentStep}`}
-                subtitle={t('subtitle')}
-                totalSteps={steps.length}
+                title={t(`${steps[currentStep].key}.title`)}
+                subtitle={t(`${steps[currentStep].type}Subtitle`)}
               />
-              <Box h='full' flex={1} pb={12}>
+              <Box h='full' w='full' flex={1} pb={12}>
                 {renderStage()}
               </Box>
-            </motion.div>
+            </Box>
           </AnimatePresence>
-        </Box>
+          {currentStep > 0 && (
+            <HStack justifyContent='space-between' w='full'>
+              <VStack>
+                <Button variant='black' onClick={() => updateCurrentStep(-1)}>
+                  {t('back', { ns: 'questionnaire' })}
+                </Button>
+                <Button variant='link' onClick={resetQuestionnaire}>
+                  {t('reset', { ns: 'questionnaire' })}
+                </Button>
+              </VStack>
+              {steps[currentStep].type === 'voyage' && (
+                <Button variant='primary' type='submit' form='voyage-form'>
+                  {t('continue', { ns: 'voyage' })}
+                </Button>
+              )}
+            </HStack>
+          )}
+        </VStack>
       </QuestionnaireContext.Provider>
     </Page>
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'questionnaire'])),
+      ...(await serverSideTranslations(locale as string, [
+        'common',
+        'questionnaire',
+        'voyage',
+      ])),
       // Will be passed to the page component as props
     },
   }

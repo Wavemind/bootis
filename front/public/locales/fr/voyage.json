@@ -1,8 +1,4 @@
 {
-  "title": "Voyage",
-  "description": "Defini tes paramètres de voyage",
-  "header": "Encore quelques questions pour que nous puissions planifier votre voyage",
-  "subheader": "Tous les choix que vous faites ici peuvent être modifiés sur la page suivante après établissement de votre planning",
   "departure": "Date de départ ?",
   "destination": {
     "label": "Dans quelle région souhaitez-vous voyager ?",

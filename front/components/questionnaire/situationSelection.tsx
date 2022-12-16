@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 import { Grid, Text, Box, VStack, Heading, Flex } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 /**
  * The internal imports
  */
-import { GridItem } from '..'
+import GridItem from './gridItem'
 import { QuestionnaireContext } from '../../lib/contexts'
 import characteristicMap from '../../lib/config/characteristicMap'
 import characteristics from '../../lib/config/characteristics'
@@ -19,31 +19,38 @@ import ElectricScooter from '../../public/electric_scooter.svg'
 import Cane from '../../public/cane.svg'
 import Rollator from '../../public/rollator.svg'
 
-const SituationSelection = () => {
+/**
+ * Type definitions
+ */
+import { CharacteristicMapType } from '../../lib/types'
+
+const SituationSelection: FC = () => {
   const { t } = useTranslation('questionnaire')
 
-  const { updateCurrentStep, setSteps } = useContext(QuestionnaireContext)
+  const { updateCurrentStep, setSteps, currentStep } =
+    useContext(QuestionnaireContext)
 
   /**
    * Filters the characteristics based on situation, updates local state and local storage
    */
-  const handleClick = async situation => {
+  const handleClick = (situation: string) => {
     const filteredCharacteristics = characteristicMap[
-      situation
-    ].characteristicIds.map(characteristicId => ({
-      ...characteristics[characteristicId],
-      title: t(`${characteristics[characteristicId].key}.title`),
-      type: 'characteristic',
+      situation as keyof CharacteristicMapType
+    ].map(characteristicKey => ({
+      ...characteristics[characteristicKey],
     }))
     const newSteps = [
-      {
-        key: 'situationSelection',
-        title: t('situationSelection.title'),
-        type: 'situation',
-      },
+      { key: 'situationSelection', type: 'situation' },
       ...filteredCharacteristics,
+      { key: 'voyageForm', type: 'voyage' },
     ]
-    await setSteps(newSteps)
+    newSteps[currentStep].answer = {
+      id: 0,
+      label: situation,
+      children: [],
+      excludes: [],
+    }
+    setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)
   }
@@ -68,7 +75,11 @@ const SituationSelection = () => {
           </Text>
         </VStack>
         <Box ml={-10} mb={-6} mt={-12}>
-          <Image src={WheelchairFemale} height={350} alt={t('wheelchairAlt')} />
+          <Image
+            src={WheelchairFemale}
+            height={350}
+            alt={t('alt.wheelchair')}
+          />
         </Box>
       </GridItem>
       <GridItem
@@ -94,7 +105,7 @@ const SituationSelection = () => {
           <Image
             src={WheelchairCompanion}
             height={240}
-            alt={t('wheelchairAlt')}
+            alt={t('alt.wheelchairCompanion')}
           />
         </Box>
       </GridItem>
@@ -115,7 +126,11 @@ const SituationSelection = () => {
           </Text>
         </VStack>
         <VStack mb={-6}>
-          <Image src={ElectricScooter} height={300} alt={t('wheelchairAlt')} />
+          <Image
+            src={ElectricScooter}
+            height={300}
+            alt={t('alt.electricScooter')}
+          />
         </VStack>
       </GridItem>
       <GridItem bg='beige' handleClick={() => handleClick('cane')}>
@@ -136,10 +151,10 @@ const SituationSelection = () => {
         </VStack>
         <Flex mb={-6} justifyContent='space-between'>
           <Box ml={-5} mb={-6}>
-            <Image src={Cane} height={280} alt={t('wheelchairAlt')} />
+            <Image src={Cane} height={280} alt={t('alt.cane')} />
           </Box>
           <Box mr={-5} mb={-6}>
-            <Image src={Rollator} height={290} alt={t('wheelchairAlt')} />
+            <Image src={Rollator} height={290} alt={t('alt.rollator')} />
           </Box>
         </Flex>
       </GridItem>

@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useContext, useMemo } from 'react'
+import { FC, useContext, useMemo } from 'react'
 import { HStack, Box, Heading, CircularProgress } from '@chakra-ui/react'
 
 /**
@@ -12,20 +12,14 @@ import { QuestionnaireContext } from '../../lib/contexts'
 /**
  * Type definitions
  */
-interface TitleBlockProps {
-  title: string
-  subtitle: string
-  totalSteps: number
-}
+import { TitleBlockProps } from '../../lib/types'
 
-const TitleBlock = (props: TitleBlockProps) => {
-  const { title, subtitle, totalSteps } = props
-
-  const { currentStep } = useContext(QuestionnaireContext)
+const TitleBlock: FC<TitleBlockProps> = ({ title, subtitle }) => {
+  const { currentStep, steps } = useContext(QuestionnaireContext)
 
   const progress = useMemo(
-    () => (currentStep * 100) / totalSteps,
-    [currentStep]
+    () => (currentStep * 100) / steps.length,
+    [currentStep, steps]
   )
 
   return (

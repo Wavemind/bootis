@@ -1,35 +1,62 @@
 /**
  * The external imports
  */
-import { useContext, useMemo } from 'react'
+import { FC, useContext, useMemo } from 'react'
 import { Grid, GridItem, Text, Center, VStack, Button } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
+import findIndex from 'lodash/findIndex'
 
 /**
  * The internal imports
  */
 import { QuestionnaireContext } from '../../lib/contexts'
+import characteristics from '../../lib/config/characteristics'
 
-const Characteristic = () => {
+/**
+ * Type definitions
+ */
+import { AnswerType, CharacteristicsType, StepType } from '../../lib/types'
+
+const Characteristic: FC = () => {
   const { t } = useTranslation('questionnaire')
 
-  const {
-    steps,
-    setSteps,
-    currentStep,
-    updateCurrentStep,
-    resetQuestionnaire,
-  } = useContext(QuestionnaireContext)
+  const { steps, setSteps, currentStep, updateCurrentStep } =
+    useContext(QuestionnaireContext)
 
   const activeStep = useMemo(() => steps[currentStep], [currentStep])
 
   /**
    * Update steps with answer and update the currentStep
    */
-  const handleClick = answer => {
+  const handleClick = (answer: AnswerType) => {
     const newSteps = [...steps]
+    const voyageStep = newSteps.pop()
     newSteps[currentStep].answer = answer
+
+    // Remove characteristics
+    answer.excludes.forEach(keyStep => {
+      const indexToRemove = findIndex(newSteps, ['key', keyStep])
+      if (indexToRemove > -1) {
+        newSteps.splice(indexToRemove, 1)
+      }
+    })
+
+    // Remove existing values for needed characteristics
+    answer.children.forEach(keyStep => {
+      const indexToRemove = findIndex(newSteps, ['key', keyStep])
+      if (indexToRemove > -1) {
+        newSteps.splice(indexToRemove, 1)
+      }
+    })
+
+    // Add characteristics
+    answer.children.forEach((keyStep: string) =>
+      newSteps.push(characteristics[keyStep as keyof CharacteristicsType])
+    )
+
+    newSteps.push(voyageStep as StepType)
+
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)
@@ -40,7 +67,7 @@ const Characteristic = () => {
       <Grid templateColumns='repeat(3, 1fr)' gap={10} mt={10} w='full'>
         <GridItem colSpan={2} pr={10}>
           <VStack alignItems='flex-start'>
-            {activeStep.answers.map(answer => (
+            {activeStep.answers?.map(answer => (
               <Button
                 key={`answer_${answer.id}`}
                 variant={
@@ -59,7 +86,7 @@ const Characteristic = () => {
         <GridItem>
           <Center>
             <Image
-              src={activeStep.imageSrc}
+              src={activeStep.imageSrc as string}
               alt={t('logoAlt')}
               height={30}
               width={250}
@@ -67,12 +94,6 @@ const Characteristic = () => {
           </Center>
         </GridItem>
       </Grid>
-      <Button variant='black' onClick={() => updateCurrentStep(-1)}>
-        {t('back')}
-      </Button>
-      <Button variant='link' onClick={resetQuestionnaire}>
-        {t('reset')}
-      </Button>
     </VStack>
   )
 }

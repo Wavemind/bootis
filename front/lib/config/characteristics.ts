@@ -1,196 +1,238 @@
+/**
+ * The internal imports
+ */
 import maxSlopeImage from '../../public/maxSlopeImage.svg'
 
+/**
+ * Type definitions
+ */
+import { CharacteristicsType } from '../types'
+
 // TODO : Update all of the images onces we have them
-export default {
-  1: {
+export default <CharacteristicsType>{
+  maxSlope: {
     key: 'maxSlope',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: "Jusqu'a 6%" },
-      { id: 2, label: "Jusqu'a 12%" },
-      { id: 3, label: 'Plus de 12%' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: "Jusqu'a 6%", children: [], excludes: [] },
+      { id: 2, label: "Jusqu'a 12%", children: [], excludes: [] },
+      { id: 3, label: 'Plus de 12%', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  2: {
+  passageLength: {
     key: 'passageLength',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 137 cm' },
-      { id: 2, label: 'Plus de 137 cm' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 137 cm', children: [], excludes: [] },
+      { id: 2, label: 'Plus de 137 cm', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  3: {
+  passageWidth: {
     key: 'passageWidth',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Plus de 110 cm' },
-      { id: 2, label: 'Entre 80 cm et 110 cm' },
-      { id: 3, label: 'Moins de 80 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Plus de 110 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 80 cm et 110 cm', children: [], excludes: [] },
+      { id: 3, label: 'Moins de 80 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  4: {
+  stepHeight: {
     key: 'stepHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 3.5 cm' },
-      { id: 2, label: 'Entre 3.5 cm et 6 cm' },
-      { id: 3, label: 'Plus de 6 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 3.5 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 3.5 cm et 6 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 6 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  5: {
+  tableHeight: {
     key: 'tableHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 70 cm' },
-      { id: 2, label: 'Entre 70 cm et 85 cm' },
-      { id: 3, label: 'Plus de 85 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 70 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 70 cm et 85 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 85 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  6: {
+  reachHeight: {
     key: 'reachHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 123 cm' },
-      { id: 2, label: 'Plus de 123 cm' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 123 cm', children: [], excludes: [] },
+      { id: 2, label: 'Plus de 123 cm', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  7: {
+  handrail: {
     key: 'handrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  8: {
+  bedHeight: {
     key: 'bedHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 43 cm' },
-      { id: 2, label: 'Entre 43 cm et 52 cm' },
-      { id: 3, label: 'Plus de 52 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 43 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 43 cm et 52 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 52 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  9: {
+  bedAdjacentSpace: {
     key: 'bedAdjacentSpace',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 90 cm' },
-      { id: 2, label: 'Entre 90 cm et 130 cm' },
-      { id: 3, label: 'Plus de 130 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 90 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 90 cm et 130 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 130 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  10: {
+  wcAdjacentDistance: {
     key: 'wcAdjacentDistance',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 75 cm' },
-      { id: 2, label: 'Entre 75 cm et 83 cm' },
-      { id: 3, label: 'Plus de 83 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 75 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 75 cm et 83 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 83 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  11: {
+  wcFrontDistance: {
     key: 'wcFrontDistance',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 80 cm' },
-      { id: 2, label: 'Entre 80 cm et 110 cm' },
-      { id: 3, label: 'Plus de 110 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 80 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 80 cm et 110 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 110 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  12: {
+  wcSeatHeight: {
     key: 'wcSeatHeight',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 44 cm' },
-      { id: 2, label: 'Entre 44 cm et 48 cm' },
-      { id: 3, label: 'Plus de 48 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 44 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 44 cm et 48 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 48 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  13: {
+  wcFixedHandrail: {
     key: 'wcFixedHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  14: {
+  wcFoldableHandrail: {
     key: 'wcFoldableHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  15: {
+  eurokey: {
     key: 'eurokey',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  16: {
+  wcSinkDistance: {
     key: 'wcSinkDistance',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Moins de 44 cm' },
-      { id: 2, label: 'Entre 44 cm et 48 cm' },
-      { id: 3, label: 'Plus de 48 cm' },
-      { id: 4, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Moins de 44 cm', children: [], excludes: [] },
+      { id: 2, label: 'Entre 44 cm et 48 cm', children: [], excludes: [] },
+      { id: 3, label: 'Plus de 48 cm', children: [], excludes: [] },
+      { id: 4, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  17: {
+  hygieneNeeds: {
     key: 'hygieneNeeds',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: "J'ai besoin d'une douche" },
-      { id: 2, label: "J'ai besoin d'une baignoire" },
-      { id: 3, label: 'Les deux sont possibles' },
-      { id: 4, label: 'Je ne sais pas !' },
+      {
+        id: 1,
+        label: "J'ai besoin d'une douche",
+        children: ['showerFixedHandrail', 'showerFoldableHandrail'],
+        excludes: ['bathSeat'],
+      },
+      {
+        id: 2,
+        label: "J'ai besoin d'une baignoire",
+        children: ['bathSeat'],
+        excludes: ['showerFixedHandrail', 'showerFoldableHandrail'],
+      },
+      {
+        id: 3,
+        label: 'Les deux sont possibles',
+        children: ['showerFixedHandrail', 'showerFoldableHandrail', 'bathSeat'],
+        excludes: [],
+      },
     ],
   },
-  18: {
+  showerFixedHandrail: {
     key: 'showerFixedHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  19: {
+  showerFoldableHandrail: {
     key: 'showerFoldableHandrail',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
-  20: {
+  bathSeat: {
     key: 'bathSeat',
     imageSrc: maxSlopeImage,
+    type: 'characteristic',
     answers: [
-      { id: 1, label: 'Oui' },
-      { id: 2, label: 'Non' },
-      { id: 3, label: 'Je ne sais pas !' },
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
     ],
   },
 }

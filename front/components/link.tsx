@@ -1,26 +1,19 @@
 /**
  * The external imports
  */
+import { FC } from 'react'
 import { Link as ChakraLink } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
 /**
  * Type definitions
  */
-interface LinkPropTypes {
-  children: React.ReactNode
-  href: string
-  [x: string]: any
-}
+import { LinkProps } from '../lib/types'
 
-const Link = (props: LinkPropTypes) => {
-  const { children, href, ...rest } = props
-
-  return (
-    <ChakraLink as={NextLink} href={href} {...rest}>
-      {children}
-    </ChakraLink>
-  )
-}
+const Link: FC<LinkProps> = ({ children, href, ...rest }) => (
+  <ChakraLink as={NextLink} href={href} {...rest}>
+    {children}
+  </ChakraLink>
+)
 
 export default Link

@@ -1,6 +1,7 @@
 /**
  * The external imports
  */
+import { FC } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import {
   Box,
@@ -19,37 +20,32 @@ import {
 } from '@chakra-ui/react'
 import { Select as ChakraSelect } from 'chakra-react-select'
 import { BsInfoCircle } from 'react-icons/bs'
+import { useTranslation } from 'next-i18next'
 
 /**
  * Type definitions
  */
-interface SelectPropTypes {
-  name: string
-  label: string
-  subLabel: string
-  options: { id: number; label: string; activities?: number[] }[]
-  isMulti?: boolean
-  hasInfo?: boolean
-  infoContent?: React.ReactNode
-}
+import { VoyageSelectProps } from '../../lib/types'
 
-const Select = (props: SelectPropTypes) => {
-  const {
-    name,
-    label,
-    subLabel,
-    options,
-    isMulti = false,
-    hasInfo = false,
-    infoContent = null,
-  } = props
-
+const Select: FC<VoyageSelectProps> = ({
+  name,
+  label,
+  subLabel,
+  options,
+  isMulti = false,
+  hasInfo = false,
+  infoContent = null,
+}) => {
+  const { t } = useTranslation('common')
   const { control } = useFormContext()
 
   return (
     <Controller
       control={control}
       name={name}
+      rules={{
+        required: t('validations.required') as string,
+      }}
       render={({
         field: { onChange, onBlur, value, name, ref },
         fieldState: { error },

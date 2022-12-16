@@ -5,7 +5,7 @@ Place.destroy_all
 Characteristic.destroy_all
 Category.destroy_all
 
-wavemind_user = User.create(email: 'dev@wavemind.ch ', password: 'Galilee15', password_confirmation: 'Galilee15', name: 'Admin')
+wavemind_user = User.create(email: 'dev@wavemind.ch ', password: 'Galilee15', password_confirmation: 'Galilee15')
 
 data = JSON.parse(File.read(Rails.root.join('db/zuerst.json')))
 

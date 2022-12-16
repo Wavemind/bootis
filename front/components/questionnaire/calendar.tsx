@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import format from 'date-fns/format'
 import isValid from 'date-fns/isValid'
 import addDays from 'date-fns/addDays'
@@ -32,14 +32,9 @@ import { Controller, useFormContext } from 'react-hook-form'
 /**
  * Type definitions
  */
-interface DatePickerPropTypes {
-  name: string
-  label: string
-}
+import { DatePickerProps } from '../../lib/types'
 
-const DatePicker = (props: DatePickerPropTypes) => {
-  const { name, label } = props
-
+const DatePicker: FC<DatePickerProps> = ({ name, label }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { control, watch, getValues, setValue } = useFormContext()
