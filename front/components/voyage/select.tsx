@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { InfoOutlineIcon } from '@chakra-ui/icons'
 import { Select as ChakraSelect } from 'chakra-react-select'
+import { useTranslation } from 'next-i18next'
 
 /**
  * Type definitions
@@ -34,12 +35,16 @@ const Select: FC<VoyageSelectProps> = ({
   hasInfo = false,
   infoContent = null,
 }) => {
+  const { t } = useTranslation('common')
   const { control } = useFormContext()
 
   return (
     <Controller
       control={control}
       name={name}
+      rules={{
+        required: t('validations.required') as string,
+      }}
       render={({
         field: { onChange, onBlur, value, name, ref },
         fieldState: { error },

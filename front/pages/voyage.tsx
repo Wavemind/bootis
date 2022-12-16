@@ -36,6 +36,7 @@ import restaurants from '../lib/config/restaurants'
  */
 import { VoyageFormValues } from '../lib/types'
 
+// TODO : Check with Colin to see if this is in the stepper or a different page
 const Voyage = () => {
   const { t } = useTranslation('voyage')
   const router = useRouter()
@@ -132,6 +133,7 @@ const Voyage = () => {
     )
   }
 
+  // TODO : Check how to manage fonts => variants, defaults, etc.
   return (
     <Page title={t('title')} description={t('description')}>
       <Box>
