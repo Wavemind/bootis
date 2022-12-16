@@ -35,6 +35,7 @@ export type StepType = {
   imageSrc?: string
   answers?: AnswerType[]
   answer?: AnswerType
+  formValues?: VoyageFormValues
 }
 
 export type CharacteristicsType = {
@@ -63,7 +64,6 @@ export type QuestionnaireContextType = {
 export type TitleBlockProps = {
   title: string
   subtitle: string
-  totalSteps: number
 }
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -95,4 +95,30 @@ export type SelectProps = {
   placeholder: string | React.ReactNode
   selected: number
   setSelected: React.Dispatch<React.SetStateAction<number | undefined | null>>
+}
+
+export type VoyageSelectProps = {
+  name: string
+  label: string
+  subLabel: string
+  options: { id: number; label: string; activities?: number[] }[]
+  isMulti?: boolean
+  hasInfo?: boolean
+  infoContent?: React.ReactNode
+}
+
+export type DatePickerProps = {
+  name: string
+  label: string
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+// Voyage types
+export type VoyageFormValues = {
+  startDate: Date
+  endDate: Date
+  destination?: string | { id: number; label: string; activities: number[] }
+  activities?: { id: number; label: string }[]
+  accommodation: string | { id: number; label: string }
+  restaurants: { id: number; label: string; activities: number[] }[]
 }

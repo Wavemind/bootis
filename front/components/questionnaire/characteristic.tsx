@@ -16,18 +16,13 @@ import characteristics from '../../lib/config/characteristics'
 /**
  * Type definitions
  */
-import { AnswerType, CharacteristicsType } from '../../lib/types'
+import { AnswerType, CharacteristicsType, StepType } from '../../lib/types'
 
 const Characteristic: FC = () => {
   const { t } = useTranslation('questionnaire')
 
-  const {
-    steps,
-    setSteps,
-    currentStep,
-    updateCurrentStep,
-    resetQuestionnaire,
-  } = useContext(QuestionnaireContext)
+  const { steps, setSteps, currentStep, updateCurrentStep } =
+    useContext(QuestionnaireContext)
 
   const activeStep = useMemo(() => steps[currentStep], [currentStep])
 
@@ -36,6 +31,7 @@ const Characteristic: FC = () => {
    */
   const handleClick = (answer: AnswerType) => {
     const newSteps = [...steps]
+    const voyageStep = newSteps.pop()
     newSteps[currentStep].answer = answer
 
     // Remove characteristics
@@ -58,6 +54,8 @@ const Characteristic: FC = () => {
     answer.children.forEach((keyStep: string) =>
       newSteps.push(characteristics[keyStep as keyof CharacteristicsType])
     )
+
+    newSteps.push(voyageStep as StepType)
 
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
@@ -96,12 +94,6 @@ const Characteristic: FC = () => {
           </Center>
         </GridItem>
       </Grid>
-      <Button variant='black' onClick={() => updateCurrentStep(-1)}>
-        {t('back')}
-      </Button>
-      <Button variant='link' onClick={resetQuestionnaire}>
-        {t('reset')}
-      </Button>
     </VStack>
   )
 }

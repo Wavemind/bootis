@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 /**
  * Type definitions
  */
-import { GridItemProps } from '../lib/types'
+import { GridItemProps } from '../../lib/types'
 
 const GridItem: FC<GridItemProps> = ({ bg, handleClick, children }) => (
   <Box borderRadius='xl' position='relative'>

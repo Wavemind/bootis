@@ -10,6 +10,9 @@
     "cane": "Marche avec une cane",
     "rollator": "Marche avec un rollator"
   },
+  "situationSubtitle": "Selectionnez votre choix en cliquant sur la card qui correspond le mieux à votre situation.",
+  "characteristicSubtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
+  "voyageSubtitle": "Tous les choix que vous faites ici peuvent être modifiés sur la page suivante après établissement de votre planning",
   "situationSelection": {
     "title": "Dans un premier temps pouvez-vous nous dire quel est votre type de mobilité ?"
   },
@@ -72,5 +75,8 @@
   },
   "bathSeat": {
     "title": "Avez-vous besoin d'un siège élévateur de bain ?"
+  },
+  "voyageForm": {
+    "title": "Encore quelques questions pour que nous puissions planifier votre voyage"
   }
 }

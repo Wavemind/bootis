@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Box, Center, Spinner } from '@chakra-ui/react'
+import { Box, Center, Button, Spinner, VStack, HStack } from '@chakra-ui/react'
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
 
 /**
@@ -16,6 +16,7 @@ import {
   Page,
   Characteristic,
   SituationSelection,
+  Voyage,
   TitleBlock,
 } from '../components'
 
@@ -90,6 +91,8 @@ const Questionnaire = () => {
         return <SituationSelection />
       case 'characteristic':
         return <Characteristic />
+      case 'voyage':
+        return <Voyage />
       default:
         return null
     }
@@ -128,24 +131,45 @@ const Questionnaire = () => {
           resetQuestionnaire,
         }}
       >
-        <Box overflow='hidden'>
+        <VStack
+          overflow='hidden'
+          flex={1}
+          alignItems='flex-start'
+          justifyContent='space-between'
+        >
           <AnimatePresence
             mode='wait'
             initial={false}
             onExitComplete={() => window.scrollTo(0, 0)}
           >
-            <motion.div animate={controls}>
+            <Box as={motion.div} animate={controls} w='full'>
               <TitleBlock
                 title={t(`${steps[currentStep].key}.title`)}
-                subtitle={t('subtitle')}
-                totalSteps={steps.length}
+                subtitle={t(`${steps[currentStep].type}Subtitle`)}
               />
-              <Box h='full' flex={1} pb={12}>
+              <Box h='full' w='full' flex={1} pb={12}>
                 {renderStage()}
               </Box>
-            </motion.div>
+            </Box>
           </AnimatePresence>
-        </Box>
+          {currentStep > 0 && (
+            <HStack justifyContent='space-between' w='full'>
+              <VStack>
+                <Button variant='black' onClick={() => updateCurrentStep(-1)}>
+                  {t('back', { ns: 'questionnaire' })}
+                </Button>
+                <Button variant='link' onClick={resetQuestionnaire}>
+                  {t('reset', { ns: 'questionnaire' })}
+                </Button>
+              </VStack>
+              {steps[currentStep].type === 'voyage' && (
+                <Button variant='primary' type='submit' form='voyage-form'>
+                  {t('continue', { ns: 'voyage' })}
+                </Button>
+              )}
+            </HStack>
+          )}
+        </VStack>
       </QuestionnaireContext.Provider>
     </Page>
   )
@@ -157,6 +181,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale as string, [
         'common',
         'questionnaire',
+        'voyage',
       ])),
       // Will be passed to the page component as props
     },
