@@ -1,4 +1,9 @@
-export default {
+/**
+ * Type definitions
+ */
+import { CharacteristicMapType } from '../types'
+
+export default <CharacteristicMapType>{
   wheelchair: [
     'maxSlope',
     'passageLength',

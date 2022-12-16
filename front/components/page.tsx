@@ -1,10 +1,15 @@
 /**
  * The external imports
  */
-import React from 'react'
+import React, { FC } from 'react'
 import { NextSeo } from 'next-seo'
 
-const Page = ({ children, title, description }) => (
+/**
+ * Type imports
+ */
+import { PageType } from '../lib/types'
+
+const Page: FC<PageType> = ({ children, title, description }) => (
   <React.Fragment>
     <NextSeo
       title={title}

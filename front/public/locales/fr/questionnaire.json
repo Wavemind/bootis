@@ -3,6 +3,13 @@
   "back": "Retour",
   "reset": "Recommencer",
   "subtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
+  "alt": {
+    "wheelchair": "Chaise roulante",
+    "wheelchairCompanion": "Chaise roulante accompagné-e",
+    "electricScooter": "Scooter électrique",
+    "cane": "Marche avec une cane",
+    "rollator": "Marche avec un rollator"
+  },
   "situationSelection": {
     "title": "Dans un premier temps pouvez-vous nous dire quel est votre type de mobilité ?"
   },
