@@ -5,13 +5,13 @@ import React, { FC, useMemo, useState } from 'react'
 import { HStack, Text, Box, Button, useConst } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import addDays from 'date-fns/addDays'
+import { CalendarDate } from '@uselessdev/datepicker'
 
 /**
  * The internal imports
  */
 import Calendar from './calendar'
 import Select from './select'
-import { CalendarDate } from '@uselessdev/datepicker'
 
 const Search: FC = () => {
   const { t } = useTranslation('search')

@@ -14,11 +14,9 @@ import Logo from '../../public/logo.svg'
 /**
  * Type definitions
  */
-type ChildrenProps = {
-  children: React.ReactNode
-}
+import { ChildrenType } from '../types'
 
-const DefaultLayout: FC<ChildrenProps> = ({ children }) => (
+const DefaultLayout: FC<ChildrenType> = ({ children }) => (
   <Flex direction='column' maxW='1600px' h='100vh' margin='auto' px={4}>
     <Flex py={4}>
       <Link href='/'>

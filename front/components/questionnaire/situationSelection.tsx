@@ -78,7 +78,11 @@ const SituationSelection: FC = () => {
           </Text>
         </VStack>
         <Box ml={-10} mb={-6} mt={-12}>
-          <Image src={WheelchairFemale} height={350} alt={t('wheelchairAlt')} />
+          <Image
+            src={WheelchairFemale}
+            height={350}
+            alt={t('alt.wheelchair')}
+          />
         </Box>
       </GridItem>
       <GridItem
@@ -104,7 +108,7 @@ const SituationSelection: FC = () => {
           <Image
             src={WheelchairCompanion}
             height={240}
-            alt={t('wheelchairAlt')}
+            alt={t('alt.wheelchairCompanion')}
           />
         </Box>
       </GridItem>
@@ -125,7 +129,11 @@ const SituationSelection: FC = () => {
           </Text>
         </VStack>
         <VStack mb={-6}>
-          <Image src={ElectricScooter} height={300} alt={t('wheelchairAlt')} />
+          <Image
+            src={ElectricScooter}
+            height={300}
+            alt={t('alt.electricScooter')}
+          />
         </VStack>
       </GridItem>
       <GridItem bg='beige' handleClick={() => handleClick('cane')}>
@@ -146,10 +154,10 @@ const SituationSelection: FC = () => {
         </VStack>
         <Flex mb={-6} justifyContent='space-between'>
           <Box ml={-5} mb={-6}>
-            <Image src={Cane} height={280} alt={t('wheelchairAlt')} />
+            <Image src={Cane} height={280} alt={t('alt.cane')} />
           </Box>
           <Box mr={-5} mb={-6}>
-            <Image src={Rollator} height={290} alt={t('wheelchairAlt')} />
+            <Image src={Rollator} height={290} alt={t('alt.rollator')} />
           </Box>
         </Flex>
       </GridItem>

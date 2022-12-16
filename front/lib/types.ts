@@ -6,6 +6,12 @@ import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
 import { CalendarDate, CalendarValues } from '@uselessdev/datepicker'
 
+// Global types
+export type ChildrenType = {
+  children: React.ReactNode
+}
+/////////////////////////////////////////////////////////////////////////////////
+
 // _App types
 type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -16,8 +22,7 @@ export type AppPropsWithLayout = AppProps & {
 /////////////////////////////////////////////////////////////////////////////////
 
 // Page wrapper component types
-export type PageType = {
-  children: React.ReactNode
+export type PageType = ChildrenType & {
   title: string
   description: string
 }
@@ -63,10 +68,9 @@ export type TitleBlockProps = {
 /////////////////////////////////////////////////////////////////////////////////
 
 // Component types
-export type GridItemProps = {
+export type GridItemProps = ChildrenType & {
   bg: string
   handleClick: () => void
-  children: React.ReactNode
 }
 
 export type LinkProps = React.HTMLAttributes<HTMLAnchorElement> & {

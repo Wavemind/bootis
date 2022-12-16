@@ -14,7 +14,7 @@ import Layout from '../lib/layouts/default'
 import SEO from '../next-seo.config'
 
 /**
- * Type imports
+ * Type definitions
  */
 import { AppPropsWithLayout } from '../lib/types'
 
