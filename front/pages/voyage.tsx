@@ -3,6 +3,8 @@
  */
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
+import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FormProvider, useForm } from 'react-hook-form'
 import addDays from 'date-fns/addDays'
@@ -32,21 +34,15 @@ import restaurants from '../lib/config/restaurants'
 /**
  * Type definitions
  */
-type FormValues = {
-  startDate: Date
-  endDate: Date
-  destination: string | { id: number; label: string; activities: number[] }
-  activities: { id: number; label: string }[]
-  accommodation: string | { id: number; label: string }
-  restaurants: { id: number; label: string; activities: number[] }[]
-}
+import { VoyageFormValues } from '../lib/types'
 
 const Voyage = () => {
   const { t } = useTranslation('voyage')
+  const router = useRouter()
 
   const [loading, setLoading] = useState(true)
 
-  const methods = useForm<FormValues>({
+  const methods = useForm<VoyageFormValues>({
     defaultValues: {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
@@ -92,8 +88,10 @@ const Voyage = () => {
    * @param data form data object
    */
   // TODO : Connect to the backend I'm guessing ?
-  const onSubmit = data => {
+  const onSubmit = (data: VoyageFormValues) => {
     console.log(data)
+    localStorage.setItem('voyage', JSON.stringify(data))
+    router.push('/planning')
   }
 
   /**
@@ -101,7 +99,9 @@ const Voyage = () => {
    */
   useEffect(() => {
     if (localStorage.getItem('search') !== null) {
-      const infoFromSearch = JSON.parse(localStorage.getItem('search'))
+      const infoFromSearch = JSON.parse(
+        localStorage.getItem('search') as string
+      )
       const defaultValues = {
         startDate: infoFromSearch.startDate
           ? new Date(infoFromSearch.startDate)
@@ -215,10 +215,10 @@ const Voyage = () => {
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'voyage'])),
+      ...(await serverSideTranslations(locale as string, ['common', 'voyage'])),
       // Will be passed to the page component as props
     },
   }

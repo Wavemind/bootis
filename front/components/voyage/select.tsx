@@ -1,6 +1,7 @@
 /**
  * The external imports
  */
+import { FC } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import {
   Box,
@@ -22,27 +23,17 @@ import { Select as ChakraSelect } from 'chakra-react-select'
 /**
  * Type definitions
  */
-interface SelectPropTypes {
-  name: string
-  label: string
-  subLabel: string
-  options: { id: number; label: string; activities?: number[] }[]
-  isMulti?: boolean
-  hasInfo?: boolean
-  infoContent?: React.ReactNode
-}
+import { VoyageSelectProps } from '../../lib/types'
 
-const Select = (props: SelectPropTypes) => {
-  const {
-    name,
-    label,
-    subLabel,
-    options,
-    isMulti = false,
-    hasInfo = false,
-    infoContent = null,
-  } = props
-
+const Select: FC<VoyageSelectProps> = ({
+  name,
+  label,
+  subLabel,
+  options,
+  isMulti = false,
+  hasInfo = false,
+  infoContent = null,
+}) => {
   const { control } = useFormContext()
 
   return (
