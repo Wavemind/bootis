@@ -194,26 +194,38 @@ const Planning = () => {
               <Box w='full' flex={1} p={4} pb={4}>
                 <HStack h='full'>
                   <Box
+                    as={motion.div}
                     border='1px solid white'
                     h='full'
                     w={400}
                     // flex={1}
                     borderRadius='lg'
                     p={2}
-                    overflow='hidden'
+                    overflowY='scroll'
+                    variants={{
+                      show: {
+                        overflowY: 'scroll',
+                        transition: { duration: 1 },
+                      },
+                      hide: {
+                        overflowY: 'hidden',
+                        transition: { duration: 0.5 },
+                      },
+                    }}
+                    animate={isPlanningOpen ? 'show' : 'hide'}
                   >
-                    <VStack spacing={2} overflow='hidden'>
+                    <VStack spacing={2}>
                       <Text w='full' textAlign='center'>
                         27.10.1986
                       </Text>
                       <Box
                         as={motion.div}
                         w='full'
-                        h={100}
+                        h={400}
                         borderRadius='lg'
                         variants={{
                           show: {
-                            height: 100,
+                            height: 400,
                             transition: { duration: 1 },
                           },
                           hide: {
@@ -227,11 +239,11 @@ const Planning = () => {
                       <Box
                         as={motion.div}
                         w='full'
-                        h={100}
+                        h={400}
                         borderRadius='lg'
                         variants={{
                           show: {
-                            height: 100,
+                            height: 400,
                             transition: { duration: 1 },
                           },
                           hide: {
