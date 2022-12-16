@@ -102,7 +102,7 @@ export type VoyageSelectProps = {
   name: string
   label: string
   subLabel: string
-  options: { id: number; label: string; activities?: number[] }[]
+  options: (ElementType & { activities?: number[] })[]
   isMulti?: boolean
   hasInfo?: boolean
   infoContent?: React.ReactNode
@@ -121,7 +121,7 @@ export type VoyageFormValues = {
   destination?: string | (ElementType & { activities: number[] })
   activities?: ElementType[]
   accommodation: string | { id: number; label: string }
-  restaurants: ElementType & { activities: number[] }[]
+  restaurants: (ElementType & { activities: number[] })[]
 }
 /////////////////////////////////////////////////////////////////////////////////
 
