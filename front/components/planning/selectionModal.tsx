@@ -16,7 +16,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
 import { BsSearch } from 'react-icons/bs'

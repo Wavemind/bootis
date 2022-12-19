@@ -17,7 +17,7 @@ const PlanningCard: FC = () => {
    * Opens the modal to select replacement activity
    */
   const handleReplace = () => {
-    openModal()
+    openModal({})
     console.log('open the modal and choose replacement')
   }
 

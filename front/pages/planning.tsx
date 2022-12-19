@@ -1,29 +1,11 @@
 /**
  * The external imports
  */
-import { useMemo, useState, useEffect, FC } from 'react'
+import { useEffect, FC } from 'react'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import {
-  Box,
-  HStack,
-  SimpleGrid,
-  Flex,
-  Icon,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  StackDivider,
-} from '@chakra-ui/react'
-import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
-import { BsSearch } from 'react-icons/bs'
+import { HStack, Flex, StackDivider } from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -34,9 +16,6 @@ import {
   AccommodationBar,
   PlanningDay,
 } from '../components'
-import accommodationTypes from '../lib/config/accommodationTypes'
-import restaurantTypes from '../lib/config/restaurantTypes'
-import activities from '../lib/config/activities'
 import { useModal } from '../lib/hooks'
 import { ModalContext } from '../lib/contexts'
 
@@ -47,7 +26,7 @@ import { ModalContext } from '../lib/contexts'
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
 
-  const { isModalOpen, openModal, closeModal, category } = useModal()
+  const { isModalOpen, openModal, closeModal, selectedCategory } = useModal()
 
   /**
    * If data exists in localStorage, use it to prefill form values
@@ -78,7 +57,7 @@ const Planning: FC = () => {
   return (
     <Page title={t('title')} description={t('description')}>
       <ModalContext.Provider
-        value={{ isModalOpen, openModal, closeModal, category }}
+        value={{ isModalOpen, openModal, closeModal, selectedCategory }}
       >
         <Flex direction='column' color='black' h='full' w='full' gap={4}>
           <HStack

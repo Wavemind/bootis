@@ -137,3 +137,14 @@ export type CategorySelectionProps = {
   category: CategoryType
   setCategory: React.Dispatch<React.SetStateAction<CategoryType>>
 }
+
+export type ModalType = {
+  category?: string
+}
+
+export type ModalContextType = {
+  isModalOpen: boolean
+  openModal: ({ category }: ModalType) => void
+  closeModal: () => void
+  selectedCategory: string
+}
