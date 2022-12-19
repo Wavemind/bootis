@@ -7,12 +7,20 @@ export default {
       baseStyle: {
         borderRadius: 'full',
         color: 'white',
+        fontFamily: 'Noir Pro Medium, sans-serif',
       },
       // styles for different sizes ("sm", "md", "lg")
       sizes: {
+        sm: {
+          py: 0,
+          px: 4,
+          fontSize: 'sm',
+          fontWeight: 'light',
+        },
         md: {
           py: 6,
           px: 8,
+          fontSize: 'md',
         },
       },
       // styles for different visual variants ("outline", "solid")

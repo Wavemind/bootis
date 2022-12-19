@@ -30,7 +30,7 @@ const DefaultLayout: FC<ChildrenType> = ({ children }) => (
         <Image src={Logo} alt='logo' height={42} width={42} />
       </Link>
     </Flex>
-    <Flex flexDir='column' flex={1}>
+    <Flex flexDir='column' flex={1} overflow='hidden'>
       {children}
     </Flex>
   </Flex>

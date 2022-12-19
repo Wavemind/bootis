@@ -11,3 +11,5 @@ import { QuestionnaireContextType } from '../types'
 export const QuestionnaireContext = createContext<QuestionnaireContextType>(
   {} as QuestionnaireContextType
 )
+
+export const ModalContext = createContext({})

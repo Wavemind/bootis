@@ -6,5 +6,7 @@
     "accommodations": "Hébergements",
     "restaurants": "Restaurants",
     "activities": "Activités"
-  }
+  },
+  "replace": "Remplacer",
+  "remove": "Supprimer"
 }

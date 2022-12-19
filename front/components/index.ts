@@ -11,3 +11,7 @@ export { default as Voyage } from './questionnaire/voyage'
 
 // Planning
 export { default as CategorySelection } from './planning/categorySelection'
+export { default as PlanningCard } from './planning/card'
+export { default as PlanningDay } from './planning/day'
+export { default as AccommodationBar } from './planning/accommodationBar'
+export { default as SelectionModal } from './planning/selectionModal'
