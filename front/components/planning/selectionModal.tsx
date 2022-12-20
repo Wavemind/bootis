@@ -93,9 +93,9 @@ const SelectionModal: FC = () => {
       return []
     }
 
-    if (category.key === 'accommodationTypes') {
+    if (category.key === 'accommodation') {
       return accommodationTypes
-    } else if (category.key === 'restaurantTypes') {
+    } else if (category.key === 'restaurant') {
       return restaurantTypes
     } else {
       return activities
