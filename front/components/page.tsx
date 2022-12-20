@@ -19,7 +19,7 @@ const Page: FC<PageType> = ({ children, title, description }) => (
         description: description,
         images: [
           {
-            url: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.svg`,
+            url: `${process.env.NEXT_PUBLIC_FRONT_URL}/logo.svg`,
             alt: 'Bootis',
           },
         ],

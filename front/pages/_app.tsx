@@ -12,6 +12,7 @@ import theme from '../lib/theme'
 import Fonts from '../lib/utils/fonts'
 import Layout from '../lib/layouts/default'
 import SEO from '../next-seo.config'
+import { wrapper } from '../lib/store'
 
 /**
  * Type definitions
@@ -30,4 +31,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   )
 }
 
-export default appWithTranslation(MyApp)
+export default wrapper.withRedux(appWithTranslation(MyApp))
