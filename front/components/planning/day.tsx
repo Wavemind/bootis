@@ -10,17 +10,20 @@ import { GrAddCircle } from 'react-icons/gr'
  */
 import { PlanningCard } from '../'
 
-const PlanningDay: FC = () => {
+/**
+ * Type definitions
+ */
+import { DayProps } from '../../lib/types'
+
+const PlanningDay: FC<DayProps> = ({ day }) => {
   return (
     <VStack spacing={3}>
       <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-        29.03.2023
+        {day.date}
       </Text>
-      <PlanningCard />
-      <PlanningCard />
-      <PlanningCard />
-      <PlanningCard />
-      <PlanningCard />
+      {day.schedule.map(slot => (
+        <PlanningCard key={slot.label} slot={slot} />
+      ))}
       <Box
         as={Button}
         w='full'

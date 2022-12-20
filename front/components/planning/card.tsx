@@ -6,9 +6,17 @@ import { Box, Center, HStack, Text, Icon, Button } from '@chakra-ui/react'
 import { BsPinMap } from 'react-icons/bs'
 import { useTranslation } from 'next-i18next'
 
+/**
+ * The internal imports
+ */
 import { ModalContext } from '../../lib/contexts'
 
-const PlanningCard: FC = () => {
+/**
+ * Type definitions
+ */
+import { CardProps } from '../../lib/types'
+
+const PlanningCard: FC<CardProps> = ({ slot }) => {
   const { t } = useTranslation('planning')
 
   const { openModal } = useContext(ModalContext)
@@ -41,7 +49,7 @@ const PlanningCard: FC = () => {
           position='absolute'
           top={0}
           left={0}
-          bg='teal'
+          bg={slot.type === 'activity' ? 'teal' : 'salmon'}
           py={1}
           px={2}
           color='white'
@@ -49,18 +57,18 @@ const PlanningCard: FC = () => {
           borderBottomRightRadius='lg'
           fontSize='xs'
         >
-          Activité
+          {t(slot.type)}
         </Box>
         Image
       </Center>
       <Box p={2}>
         <Text color='black' fontWeight='bold' my={2}>
-          {"Bibliothèque d'art et d'archéologie"}
+          {slot.label}
         </Text>
         <HStack>
           <Icon as={BsPinMap} color='black' h={4} w={4} />
-          <Text color='black' fontSize='xs'>
-            Promenade du Pin 5, 1204 Genève
+          <Text color='black' fontSize='xs' noOfLines={1}>
+            {slot.address}
           </Text>
         </HStack>
         <HStack my={2} spacing={2}>
@@ -72,9 +80,9 @@ const PlanningCard: FC = () => {
         <HStack justifyContent='space-between' spacing={6} mt={3}>
           <Button
             size='sm'
-            color='teal'
+            color={slot.type === 'activity' ? 'teal' : 'salmon'}
             variant='outline'
-            borderColor='teal'
+            borderColor={slot.type === 'activity' ? 'teal' : 'salmon'}
             onClick={handleReplace}
           >
             {t('replace')}

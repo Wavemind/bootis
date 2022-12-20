@@ -14,6 +14,7 @@ const AccommodationBar: FC = () => {
     console.log('edit the hotel')
   }
 
+  // TODO : Get data from backend
   return (
     <HStack w='full' bg='teal' borderRadius='lg' p={3} spacing={8}>
       <Icon as={FaBed} color='white' h={6} w={6} />

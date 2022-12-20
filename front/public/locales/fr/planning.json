@@ -1,6 +1,8 @@
 {
   "title": "Planning",
   "description": "Votre planning",
+  "restaurant": "Restaurant",
+  "activity": "Activity",
   "categories": {
     "title": "Catégories",
     "accommodations": "Hébergements",

@@ -148,3 +148,20 @@ export type ModalContextType = {
   closeModal: () => void
   selectedCategory: string
 }
+
+export type DayProps = {
+  day: {
+    date: string
+    schedule: SlotType[]
+  }
+}
+
+export type CardProps = {
+  slot: SlotType
+}
+
+export type SlotType = {
+  type: string
+  label: string
+  address: string
+}
