@@ -4,10 +4,25 @@
 import { FC } from 'react'
 import { Box, Center, HStack, Text, Icon } from '@chakra-ui/react'
 import { BsPinMap } from 'react-icons/bs'
+import { useTranslation } from 'next-i18next'
 
-const PlanningCard: FC = () => {
+/**
+ * Type definitions
+ */
+import { SlotType } from '../../lib/types'
+
+const PlanningCard: FC<{ slot?: SlotType }> = ({ slot }) => {
+  const { t } = useTranslation('planning')
+
   return (
-    <Box w={316} borderRadius='lg' bg='white' boxShadow='lg'>
+    <Box
+      w={316}
+      borderRadius='xl'
+      bg='white'
+      boxShadow='lg'
+      border={slot?.selected ? '4px solid' : 'none'}
+      borderColor={slot?.type === 'activity' ? 'teal' : 'salmon'}
+    >
       <Center
         h={75}
         bg='grey'
@@ -19,7 +34,7 @@ const PlanningCard: FC = () => {
           position='absolute'
           top={0}
           left={0}
-          bg='teal'
+          bg={slot?.type === 'activity' ? 'teal' : 'salmon'}
           py={1}
           px={2}
           color='white'
@@ -27,18 +42,18 @@ const PlanningCard: FC = () => {
           borderBottomRightRadius='lg'
           fontSize='xs'
         >
-          Activité
+          {t(slot?.type)}
         </Box>
         Image
       </Center>
       <Box p={2}>
         <Text color='black' fontWeight='bold' my={2}>
-          {"Bibliothèque d'art et d'archéologie"}
+          {slot?.label}
         </Text>
         <HStack>
           <Icon as={BsPinMap} color='black' h={4} w={4} />
           <Text color='black' fontSize='xs'>
-            Promenade du Pin 5, 1204 Genève
+            {slot?.address}
           </Text>
         </HStack>
       </Box>

@@ -31,7 +31,7 @@ const CategorySelection: FC<CategorySelectionProps> = ({
         as={Button}
         rightIcon={<Icon as={RiArrowDownSFill} h={7} w={7} />}
         variant={category.variant || 'default'}
-        w='15%'
+        w='22%'
       >
         {category.label || t('categories.title')}
       </MenuButton>

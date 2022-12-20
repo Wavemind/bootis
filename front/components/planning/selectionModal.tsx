@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useMemo, useState, useContext, FC } from 'react'
+import { useMemo, useState, useContext, FC, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import {
   Box,
@@ -31,6 +31,7 @@ import ReducedPlanningCard from './reducedCard'
 import accommodationTypes from '../../lib/config/accommodationTypes'
 import restaurantTypes from '../../lib/config/restaurantTypes'
 import activities from '../../lib/config/activities'
+import SelectionElement from './selectionElement'
 
 /**
  * Type definitions
@@ -40,26 +41,42 @@ import { CategoryType, ElementType } from '../../lib/types'
 const SelectionModal: FC = () => {
   const { t } = useTranslation('planning')
 
-  const { isModalOpen, closeModal } = useContext(ModalContext)
+  const { isModalOpen, closeModal, selectedDay } = useContext(ModalContext)
 
   const [category, setCategory] = useState<CategoryType>({} as CategoryType)
+
+  useEffect(() => {
+    if (Object.keys(selectedDay).length > 0) {
+      const newSlot = selectedDay.schedule.find(slot => slot.selected)
+      if (newSlot) {
+        const newCategory = categories.find(
+          category => category.key === newSlot.type
+        )
+        if (newCategory) {
+          setCategory(newCategory)
+        }
+      }
+    } else {
+      setCategory({} as CategoryType)
+    }
+  }, [selectedDay])
 
   const categories = useMemo(
     () => [
       {
-        key: 'accommodationTypes',
+        key: 'accommodation',
         label: t('categories.accommodations'),
         variant: 'teal',
         isMulti: false,
       },
       {
-        key: 'restaurantTypes',
+        key: 'restaurant',
         label: t('categories.restaurants'),
         variant: 'salmon',
         isMulti: true,
       },
       {
-        key: 'activities',
+        key: 'activity',
         label: t('categories.activities'),
         variant: 'turquoise',
         isMulti: true,
@@ -96,12 +113,14 @@ const SelectionModal: FC = () => {
       <ModalOverlay />
       <ModalContent maxH='calc(100vh)' h='calc(100vh)'>
         <ModalBody w='1600px' maxW='1600px' mx='auto' my={10} overflow='hidden'>
-          <Flex h='full' overflow='hidden' gap={8} w='full'>
+          <HStack h='full' overflow='hidden'>
             <VStack
-              spacing={3}
+              px={4}
+              direction='column'
+              gap={3}
+              h='full'
               overflowY='scroll'
               overflowX='hidden'
-              px={12}
               css={{
                 '&::-webkit-scrollbar': {
                   display: 'none',
@@ -109,13 +128,11 @@ const SelectionModal: FC = () => {
               }}
             >
               <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-                29.03.2023
+                {selectedDay.date}
               </Text>
-              <ReducedPlanningCard />
-              <ReducedPlanningCard />
-              <ReducedPlanningCard />
-              <ReducedPlanningCard />
-              <ReducedPlanningCard />
+              {selectedDay?.schedule?.map(slot => (
+                <ReducedPlanningCard key={slot.label} slot={slot} />
+              ))}
               <Box
                 as={Button}
                 w='full'
@@ -127,8 +144,15 @@ const SelectionModal: FC = () => {
                 <Icon as={GrAddCircle} w={10} h={10} />
               </Box>
             </VStack>
-            <Flex direction='column' w='full' h='full' gap={4}>
-              <HStack bg='blue' py={2} px={4} borderRadius='xl' spacing={6}>
+            <Flex direction='column' w='full' h='full' gap={2} flex={3}>
+              <HStack
+                bg='blue'
+                py={2}
+                px={4}
+                borderRadius='xl'
+                spacing={6}
+                mx={2}
+              >
                 <Box w='full'>
                   <Select
                     closeMenuOnSelect={!category.isMulti}
@@ -185,28 +209,34 @@ const SelectionModal: FC = () => {
                 />
               </HStack>
               <SimpleGrid
-                columns={2}
-                spacing={8}
+                columns={4}
+                spacing={2}
+                px={2}
                 overflowY='scroll'
+                h='full'
                 css={{
                   '&::-webkit-scrollbar': {
                     display: 'none',
                   },
                 }}
               >
-                <Box bg='tomato' height='200px'></Box>
-                <Box bg='tomato' height='200px'></Box>
-                <Box bg='tomato' height='200px'></Box>
-                <Box bg='tomato' height='200px'></Box>
-                <Box bg='tomato' height='200px'></Box>
-                <Box bg='tomato' height='200px'></Box>
-                <Box bg='tomato' height='200px'></Box>
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
               </SimpleGrid>
             </Flex>
-          </Flex>
+          </HStack>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={closeModal}>Close</Button>
+          <Button onClick={closeModal} variant='primary'>
+            Cancel
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

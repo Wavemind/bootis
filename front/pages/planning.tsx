@@ -26,7 +26,7 @@ import { ModalContext } from '../lib/contexts'
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
 
-  const { isModalOpen, openModal, closeModal, selectedCategory } = useModal()
+  const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
 
   // TODO : Get this from the backend and then adapt to data structure
   const planningData = useMemo(() => {
@@ -100,17 +100,16 @@ const Planning: FC = () => {
   return (
     <Page title={t('title')} description={t('description')}>
       <ModalContext.Provider
-        value={{ isModalOpen, openModal, closeModal, selectedCategory }}
+        value={{ isModalOpen, openModal, closeModal, selectedDay }}
       >
-        <Flex direction='column' color='black' h='full' w='full' gap={4}>
+        <Flex direction='column' color='black' h='full' w='full'>
           <HStack
             alignItems='flex-start'
             border='1px solid white'
             h='full'
             borderRadius='lg'
-            p={4}
             overflowY='scroll'
-            divider={<StackDivider bg='blue' w={1} height='100%' />}
+            divider={<StackDivider bg='blue' w={1} />}
           >
             {planningData.map(day => (
               <PlanningDay key={day.date} day={day} />

@@ -139,24 +139,27 @@ export type CategorySelectionProps = {
 }
 
 export type ModalType = {
-  category?: string
+  day?: DayType
+}
+
+export type DayType = {
+  date: string
+  schedule: SlotType[]
 }
 
 export type ModalContextType = {
   isModalOpen: boolean
-  openModal: ({ category }: ModalType) => void
+  openModal: ({ day }: ModalType) => void
   closeModal: () => void
-  selectedCategory: string
+  selectedDay: DayType
 }
 
 export type DayProps = {
-  day: {
-    date: string
-    schedule: SlotType[]
-  }
+  day: DayType
 }
 
 export type CardProps = {
+  day: DayType
   slot: SlotType
 }
 
@@ -164,4 +167,6 @@ export type SlotType = {
   type: string
   label: string
   address: string
+  signs: string[]
+  selected?: boolean
 }
