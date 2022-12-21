@@ -33,12 +33,14 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem 'httparty'
 gem 'devise' # Needed due to rails 7
 gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth', branch: 'master'
+gem "graphql", "~> 2.0"
+gem "graphiql-rails", "~> 1.8"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem "rack-cors"
+gem "rack-cors"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -51,3 +53,7 @@ group :development do
   # gem "spring"
 end
 
+
+
+
+gem "byebug", "~> 11.1", :groups => [:development, :test]
