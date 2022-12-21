@@ -1,3 +1,4 @@
+puts "-- Deleting existing data ..."
 UserCharacteristic.destroy_all
 User.destroy_all
 PlaceCharacteristic.destroy_all
@@ -5,10 +6,12 @@ Place.destroy_all
 Characteristic.destroy_all
 Category.destroy_all
 
+puts "-- Create users ..."
 wavemind_user = User.create(email: 'dev@wavemind.ch ', password: 'Galilee15', password_confirmation: 'Galilee15')
 
 data = JSON.parse(File.read(Rails.root.join('db/zuerst.json')))
 
+puts "-- Create categories ..."
 camping = Category.create!({ name: 'Camping', section: 'lodging' })
 hostel = Category.create!({ name: 'Hôtel, pension, Bed and Breakfast', section: 'lodging' })
 house = Category.create!({ name: 'Maison ou appartement de vacances', section: 'lodging' })
@@ -29,6 +32,7 @@ pool = Category.create!({ name: 'Piscine', section: 'sport' })
 lifts = Category.create!({ name: 'Remontées mécaniques', section: 'sport' })
 stadium = Category.create!({ name: 'Stade', section: 'sport' })
 
+puts "-- Create characteristics ..."
 slope = Characteristic.create!(value_type: 'more', label: 'Pente Max')
 width = Characteristic.create!(value_type: 'less', label: 'Largeurs des passages')
 door_step_height = Characteristic.create!(value_type: 'more', label: 'Hauteur Seuil')
@@ -102,8 +106,12 @@ place_characteristics = {
   7511 => shower_folding_grab_bar,
   7594 => shower_folding_grab_bar,
 }
+puts "-- Create places ..."
+$stdout.sync = true
 
-data['Pois'].each do |poi|
+data['Pois'].each_with_index do |poi, index|
+  puts "-- Place #{index}/#{data['Pois'].count}"
+
   case poi['Category']
   when 'Campingplatz'
     category = camping
@@ -153,7 +161,6 @@ data['Pois'].each do |poi|
   response['features'][0]['context'].each do |context|
     region = context['text'] if context['id'].include?('region.')
   end
-
   case region.strip
   when 'Aargau', 'Baden-Württemberg', 'Solothurn'
     final_region = 'argovie'
@@ -187,6 +194,7 @@ data['Pois'].each do |poi|
 
   Place.create!(category: category, name: poi['Name'], zuerst_id: poi['IdZuerst'], region: final_region, latitude: poi['Coordinates']['Lat'], longitude: poi['Coordinates']['Lng'])  if category.present?
 end
+puts "-- Created all places !"
 
 response = HTTParty.get("https://zuerst.proinfirmis.ch/api/v1/export/GetChecklistsAndAnswers?dateFrom=1.01.17&dateTo=31.12.17", headers: {"authorization": "Bearer tzfe9Y8yqOYf2yJ9_6y-SrzOo2Xf9mwZ67KIjgIUkjn_MBJq1Eb--gmPsgqwJTsFJqiTWYOw70K9yKiXsrk28LPyalTNY-9d1-wqIlaHUC9v-nkBHntzHIeo_jhmklCNznyRG9BxmlHpSPrc9PseEGe8HTxNBVuQg0O8yrdmAQm_H9Qd-I1Q8cDp1BlxBMco_rL4nxZeeJ-WMD0Rxs7ZqErH_Tqk2-uBg_nd3hml7u4"})
 response['Pois'].each do |poi|
