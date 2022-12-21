@@ -60,11 +60,6 @@ export type QuestionnaireContextType = {
   updateCurrentStep: (direction: number) => void
   resetQuestionnaire: () => void
 }
-
-export type TitleBlockProps = {
-  title: string
-  subtitle: string
-}
 /////////////////////////////////////////////////////////////////////////////////
 
 // Component types

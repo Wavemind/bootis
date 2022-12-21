@@ -12,7 +12,10 @@ import { QuestionnaireContext } from '../../lib/contexts'
 /**
  * Type definitions
  */
-import { TitleBlockProps } from '../../lib/types'
+type TitleBlockProps = {
+  title: string
+  subtitle: string
+}
 
 const TitleBlock: FC<TitleBlockProps> = ({ title, subtitle }) => {
   const { currentStep, steps } = useContext(QuestionnaireContext)
