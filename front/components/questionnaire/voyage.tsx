@@ -21,11 +21,11 @@ import { InfoOutlineIcon } from '@chakra-ui/icons'
  */
 import Select from './select'
 import DatePicker from './calendar'
-import regions from '../../lib/config/regions'
-import activities from '../../lib/config/activities'
 import accommodations from '../../lib/config/accommodations'
 import restaurants from '../../lib/config/restaurants'
 import { QuestionnaireContext } from '../../lib/contexts'
+import { useGetRegionsQuery } from '../../lib/services/modules/region'
+import { useGetSectionsQuery } from '../../lib/services/modules/section'
 
 /**
  * Type definitions
@@ -38,6 +38,9 @@ const Voyage: FC = () => {
   const [loading, setLoading] = useState(true)
 
   const { steps, setSteps, currentStep } = useContext(QuestionnaireContext)
+
+  const { data: regions = [] } = useGetRegionsQuery()
+  const { data: sections = [] } = useGetSectionsQuery()
 
   const methods = useForm<VoyageFormValues>({
     defaultValues: {
@@ -54,35 +57,36 @@ const Voyage: FC = () => {
    * Filters the available activities depending on the selected region
    */
   const filteredActivities = useMemo(() => {
-    const destinationValue = methods.getValues('destination')
-    if (typeof destinationValue === 'object') {
-      return activities.map(activity => ({
-        ...activity,
-        isDisabled: !destinationValue.activities.includes(activity.id),
-      }))
-    }
-    return activities
+    // const destinationValue = methods.getValues('destination')
+    // if (typeof destinationValue === 'object') {
+    //   return activities.map(activity => ({
+    //     ...activity,
+    //     isDisabled: !destinationValue.activities.includes(activity.id),
+    //   }))
+    // }
+    return sections
   }, [methods.watch('destination')])
 
   /**
    * Updates the selected activities based on the availability in the selected region
    */
-  useEffect(() => {
-    const destinationValue = methods.getValues('destination')
+  // TODO : Uncomment this when we have activities per region
+  // useEffect(() => {
+  //   const destinationValue = methods.getValues('destination')
 
-    if (typeof destinationValue === 'object') {
-      const selectedActivities = methods.getValues('activities')
+  //   if (typeof destinationValue === 'object') {
+  //     const selectedActivities = methods.getValues('activities')
 
-      if (selectedActivities && selectedActivities.length > 0) {
-        methods.setValue(
-          'activities',
-          selectedActivities?.filter(activity =>
-            destinationValue.activities.includes(activity.id)
-          )
-        )
-      }
-    }
-  }, [methods.watch('destination')])
+  //     if (selectedActivities && selectedActivities.length > 0) {
+  //       methods.setValue(
+  //         'activities',
+  //         selectedActivities?.filter(activity =>
+  //           destinationValue.activities.includes(activity.id)
+  //         )
+  //       )
+  //     }
+  //   }
+  // }, [methods.watch('destination')])
 
   /**
    * Handles the data submission to the backend
@@ -123,11 +127,7 @@ const Voyage: FC = () => {
       }
 
       if (infoFromSearch.activity) {
-        defaultValues.activities = [
-          activities.find(
-            activity => activity.id === infoFromSearch.activity
-          ) as { id: number; label: string },
-        ]
+        defaultValues.activities = [infoFromSearch.activity]
       }
       methods.reset(defaultValues)
     }

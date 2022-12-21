@@ -9,21 +9,21 @@ import { gql } from 'graphql-request'
  */
 import { IEnumOption } from '../../../types'
 
-export const regionsApi = api.injectEndpoints({
+export const sectionsApi = api.injectEndpoints({
   endpoints: build => ({
-    getRegions: build.query<IEnumOption[], void>({
+    getSections: build.query<IEnumOption[], void>({
       query: () => ({
         document: gql`
           query {
-            getRegions {
+            getSections {
               id
               name
             }
           }
         `,
       }),
-      transformResponse: (response: { getRegions: IEnumOption[] }) =>
-        response.getRegions,
+      transformResponse: (response: { getSections: IEnumOption[] }) =>
+        response.getSections,
       providesTags: [],
     }),
   }),
@@ -31,7 +31,7 @@ export const regionsApi = api.injectEndpoints({
 })
 
 // Export hooks for usage in functional components
-export const { useGetRegionsQuery } = regionsApi
+export const { useGetSectionsQuery } = sectionsApi
 
 // Export endpoints for use in SSR
-export const { getRegions } = regionsApi.endpoints
+export const { getSections } = sectionsApi.endpoints

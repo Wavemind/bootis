@@ -1,5 +1,5 @@
 export default [
-  { id: 1, label: 'Camping' },
-  { id: 2, label: 'Hôtel, pension, Bed and Breakfast' },
-  { id: 3, label: 'Maison ou appartement de vacances' },
+  { id: 1, name: 'Camping' },
+  { id: 2, name: 'Hôtel, pension, Bed and Breakfast' },
+  { id: 3, name: 'Maison ou appartement de vacances' },
 ]

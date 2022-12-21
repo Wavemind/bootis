@@ -19,4 +19,5 @@ export const store = configureStore({
 
 setupListeners(store.dispatch)
 
+export type AppDispatch = typeof store.dispatch
 export const wrapper = createWrapper(() => store)

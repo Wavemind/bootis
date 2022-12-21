@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { FC, useMemo, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { HStack, Text, Box, Button } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -13,33 +13,26 @@ import { CalendarDate } from '@uselessdev/datepicker'
  */
 import Calendar from './calendar'
 import Select from './select'
-import regions from '../../lib/config/regions'
-import activities from '../../lib/config/activities'
+import { useGetRegionsQuery } from '../../lib/services/modules/region'
+import { useGetSectionsQuery } from '../../lib/services/modules/section'
+
+/**
+ * Type definitions
+ */
+import { IEnumOption } from '../../lib/types'
 
 const Search: FC = () => {
   const { t } = useTranslation('search')
 
   const [startDate, setStartDate] = useState<CalendarDate>(new Date())
   const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 1))
-  const [destination, setDestination] = useState<number | undefined | null>()
-  const [activity, setActivity] = useState<number | undefined | null>()
+  const [destination, setDestination] = useState<
+    IEnumOption | undefined | null
+  >()
+  const [activity, setActivity] = useState<IEnumOption | undefined | null>()
 
-  /**
-   * Flags the unavailable activities for the selected destination
-   */
-  const availableActivities = useMemo(() => {
-    if (destination) {
-      const destinationObject = regions.find(
-        region => region.id === destination
-      )
-      setActivity(null)
-      return activities.map(activity => ({
-        ...activity,
-        unavailable: !destinationObject?.activities.includes(activity.id),
-      }))
-    }
-    return activities
-  }, [destination])
+  const { data: regions = [] } = useGetRegionsQuery()
+  const { data: sections = [] } = useGetSectionsQuery()
 
   /**
    * Saves the search values to localStorage and routes to the questionnaire
@@ -61,6 +54,7 @@ const Search: FC = () => {
       >
         <Box w='40%' px={4}>
           <Select
+            type='regions'
             options={regions}
             placeholder={
               <React.Fragment>
@@ -68,7 +62,7 @@ const Search: FC = () => {
                 <Text fontSize='xs'>{t('destinationSubtitle')}</Text>
               </React.Fragment>
             }
-            selected={destination as number}
+            selected={destination as IEnumOption}
             setSelected={setDestination}
           />
         </Box>
@@ -88,9 +82,10 @@ const Search: FC = () => {
         </Box>
         <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
-            options={availableActivities}
+            type='activities'
+            options={sections}
             placeholder={<Text>{t('activities')}</Text>}
-            selected={activity as number}
+            selected={activity as IEnumOption}
             setSelected={setActivity}
           />
         </Box>

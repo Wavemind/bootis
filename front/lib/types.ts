@@ -83,25 +83,11 @@ export type CalendarProps = {
   setDate: React.Dispatch<React.SetStateAction<CalendarDate>>
 }
 
-export type Option = {
-  id: number
-  label: string
-  activities?: number[]
-  unavailable?: boolean
-}
-
-export type SelectProps = {
-  options: Option[]
-  placeholder: string | React.ReactNode
-  selected: number
-  setSelected: React.Dispatch<React.SetStateAction<number | undefined | null>>
-}
-
 export type VoyageSelectProps = {
   name: string
   label: string
   subLabel: string
-  options: { id: number; label: string; activities?: number[] }[]
+  options: IEnumOption[]
   isMulti?: boolean
   hasInfo?: boolean
   infoContent?: React.ReactNode
@@ -117,8 +103,14 @@ export type DatePickerProps = {
 export type VoyageFormValues = {
   startDate: Date
   endDate: Date
-  destination?: string | { id: number; label: string; activities: number[] }
-  activities?: { id: number; label: string }[]
+  destination?: string | IEnumOption
+  activities?: IEnumOption[]
   accommodation: string | { id: number; label: string }
   restaurants: { id: number; label: string; activities: number[] }[]
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+export interface IEnumOption {
+  id: number
+  name: string
 }

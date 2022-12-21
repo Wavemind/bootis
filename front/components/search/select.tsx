@@ -17,9 +17,20 @@ import { useTranslation } from 'next-i18next'
 /**
  * Type definitions
  */
-import { Option, SelectProps } from '../../lib/types'
+import { IEnumOption } from '../../lib/types'
+
+type SelectProps = {
+  type: string
+  options: IEnumOption[] | never[]
+  placeholder: string | React.ReactNode
+  selected: IEnumOption
+  setSelected: React.Dispatch<
+    React.SetStateAction<IEnumOption | undefined | null>
+  >
+}
 
 const Select: FC<SelectProps> = ({
+  type,
   options,
   placeholder,
   selected,
@@ -32,8 +43,8 @@ const Select: FC<SelectProps> = ({
    * Handles the element selection event
    * @param element string
    */
-  const handleSelect = (selectedElement: Option) => {
-    setSelected(selectedElement.id)
+  const handleSelect = (selectedElement: IEnumOption) => {
+    setSelected(selectedElement)
     onClose()
   }
 
@@ -47,7 +58,7 @@ const Select: FC<SelectProps> = ({
               overflowX='hidden'
               whiteSpace='nowrap'
             >
-              {options?.find(option => option.id === selected)?.label}
+              {t(`${type}.${selected.name}`, { ns: 'common' })}
             </Text>
           ) : (
             placeholder
@@ -60,14 +71,12 @@ const Select: FC<SelectProps> = ({
           {options.map((option, index) => (
             <Box
               key={`option_${option.id}`}
-              bgColor={selected === option.id ? 'blueLight' : 'transparent'}
+              bgColor={selected?.id === option.id ? 'blueLight' : 'transparent'}
               _first={{ borderTopRadius: 'md' }}
               _last={{ borderBottomRadius: 'md' }}
-              _hover={{
-                bg: option.unavailable ? '' : 'blueLight',
-              }}
-              cursor={option.unavailable ? 'not-allowed' : 'pointer'}
-              onClick={() => !option.unavailable && handleSelect(option)}
+              _hover={{ bg: 'blueLight' }}
+              cursor='pointer'
+              onClick={() => handleSelect(option)}
             >
               <HStack
                 py={2}
@@ -77,17 +86,9 @@ const Select: FC<SelectProps> = ({
                 borderBottomColor='lightGrey'
                 justifyContent='space-between'
               >
-                <Text
-                  color={option.unavailable ? 'grey' : 'black'}
-                  fontStyle={option.unavailable ? 'italic' : 'normal'}
-                >
-                  {option.label}
+                <Text color='black' fontStyle='normal'>
+                  {t(`${type}.${option.name}`, { ns: 'common' })}
                 </Text>
-                {option.unavailable && (
-                  <Text fontSize='xs' color='red' fontStyle='italic'>
-                    {t('unavailable')}
-                  </Text>
-                )}
               </HStack>
             </Box>
           ))}
