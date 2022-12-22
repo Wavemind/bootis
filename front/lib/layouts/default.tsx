@@ -14,9 +14,9 @@ import Logo from '../../public/logo.svg'
 /**
  * Type definitions
  */
-import { ChildrenType } from '../types'
+import { IChildren } from '../types'
 
-const DefaultLayout: FC<ChildrenType> = ({ children }) => (
+const DefaultLayout: FC<IChildren> = ({ children }) => (
   <Flex
     direction='column'
     maxW='1600px'

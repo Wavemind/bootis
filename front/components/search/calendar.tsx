@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import {
@@ -29,11 +29,13 @@ import {
 /**
  * Type definitions
  */
-import { CalendarProps } from '../../lib/types'
+interface ICalendarProps {
+  placeholder: string
+  date: CalendarDate | CalendarValues
+  setDate: React.Dispatch<React.SetStateAction<CalendarDate>>
+}
 
-const Calendar = (props: CalendarProps) => {
-  const { placeholder, date, setDate } = props
-
+const Calendar: FC<ICalendarProps> = ({ placeholder, date, setDate }) => {
   const [value, setValue] = useState('')
 
   const { onClose, isOpen, onToggle } = useDisclosure()

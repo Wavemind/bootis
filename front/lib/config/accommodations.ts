@@ -1,10 +1,6 @@
-// TODO : Get this from somewhere !!
+// TODO : Get rid of this when we have restaurant types and accommodation types
 export default [
-  { id: 1, label: 'Madhouse' },
-  { id: 2, label: 'Moxy' },
-  { id: 3, label: 'Beau-Rivage Palace' },
-  { id: 4, label: "L'hotel de la Paix" },
-  { id: 5, label: 'Ibis' },
-  { id: 6, label: 'Novotel' },
-  { id: 7, label: 'Jumeirah' },
+  { id: 1, name: 'Camping' },
+  { id: 2, name: 'Hôtel, pension, Bed and Breakfast' },
+  { id: 3, name: 'Maison ou appartement de vacances' },
 ]

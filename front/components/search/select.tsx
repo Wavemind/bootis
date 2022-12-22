@@ -15,15 +15,35 @@ import {
 import { useTranslation } from 'next-i18next'
 
 /**
+ * Type imports
+ */
+import { IEnumOption } from '../../lib/types'
+
+/**
  * Type definitions
  */
-import { Option, SelectProps } from '../../lib/types'
 
-const Select: FC<SelectProps> = ({
+interface IOption extends IEnumOption {
+  label?: string
+  unavailable?: boolean
+}
+
+interface ISelectProps {
+  options: IOption[] | never[]
+  placeholder: string | React.ReactNode
+  selected: IOption
+  setSelected: React.Dispatch<React.SetStateAction<IOption | undefined | null>>
+  labelKey?: string
+  emptyMessage: string
+}
+
+const Select: FC<ISelectProps> = ({
   options,
   placeholder,
   selected,
   setSelected,
+  labelKey = 'label',
+  emptyMessage,
 }) => {
   const { t } = useTranslation('search')
   const { onClose, isOpen, onToggle } = useDisclosure()
@@ -32,13 +52,13 @@ const Select: FC<SelectProps> = ({
    * Handles the element selection event
    * @param element string
    */
-  const handleSelect = (selectedElement: Option) => {
-    setSelected(selectedElement.id)
+  const handleSelect = (selectedElement: IEnumOption) => {
+    setSelected(selectedElement)
     onClose()
   }
 
   return (
-    <Popover placement='bottom-start' isOpen={isOpen} onClose={onClose}>
+    <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
           {selected ? (
@@ -47,7 +67,7 @@ const Select: FC<SelectProps> = ({
               overflowX='hidden'
               whiteSpace='nowrap'
             >
-              {options?.find(option => option.id === selected)?.label}
+              {selected[labelKey as keyof typeof selected]}
             </Text>
           ) : (
             placeholder
@@ -57,40 +77,50 @@ const Select: FC<SelectProps> = ({
 
       <PopoverContent borderRadius='md' mt={-1} w='full'>
         <PopoverBody p={0}>
-          {options.map((option, index) => (
-            <Box
-              key={`option_${option.id}`}
-              bgColor={selected === option.id ? 'blueLight' : 'transparent'}
-              _first={{ borderTopRadius: 'md' }}
-              _last={{ borderBottomRadius: 'md' }}
-              _hover={{
-                bg: option.unavailable ? '' : 'blueLight',
-              }}
-              cursor={option.unavailable ? 'not-allowed' : 'pointer'}
-              onClick={() => !option.unavailable && handleSelect(option)}
-            >
-              <HStack
-                py={2}
-                mx={4}
-                spacing={8}
-                borderBottom={index < options.length - 1 ? '1px solid' : 'none'}
-                borderBottomColor='lightGrey'
-                justifyContent='space-between'
+          {options.length > 0 ? (
+            options.map((option, index) => (
+              <Box
+                key={`option_${option.id}`}
+                bgColor={
+                  selected?.id === option.id ? 'blueLight' : 'transparent'
+                }
+                _first={{ borderTopRadius: 'md' }}
+                _last={{ borderBottomRadius: 'md' }}
+                _hover={{ bg: option.unavailable ? '' : 'blueLight' }}
+                cursor={option.unavailable ? 'not-allowed' : 'pointer'}
+                onClick={() => !option.unavailable && handleSelect(option)}
               >
-                <Text
-                  color={option.unavailable ? 'grey' : 'black'}
-                  fontStyle={option.unavailable ? 'italic' : 'normal'}
+                <HStack
+                  py={2}
+                  mx={4}
+                  spacing={8}
+                  borderBottom={
+                    index < options.length - 1 ? '1px solid' : 'none'
+                  }
+                  borderBottomColor='lightGrey'
+                  justifyContent='space-between'
                 >
-                  {option.label}
-                </Text>
-                {option.unavailable && (
-                  <Text fontSize='xs' color='red' fontStyle='italic'>
-                    {t('unavailable')}
+                  <Text
+                    fontStyle={option.unavailable ? 'italic' : 'normal'}
+                    color={option.unavailable ? 'lightgrey' : 'black'}
+                  >
+                    {option[labelKey as keyof typeof option]}
                   </Text>
-                )}
-              </HStack>
+                  {option.unavailable && (
+                    <Text color='red' fontStyle='italic' fontSize='sm'>
+                      {t('unavailable')}
+                    </Text>
+                  )}
+                </HStack>
+              </Box>
+            ))
+          ) : (
+            <Box borderRadius='md' cursor='default' py={2} mx={6}>
+              <Text color='grey' fontStyle='italic'>
+                {emptyMessage}
+              </Text>
             </Box>
-          ))}
+          )}
         </PopoverBody>
       </PopoverContent>
     </Popover>

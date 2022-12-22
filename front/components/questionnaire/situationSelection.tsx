@@ -20,9 +20,9 @@ import Cane from '../../public/cane.svg'
 import Rollator from '../../public/rollator.svg'
 
 /**
- * Type definitions
+ * Type imports
  */
-import { CharacteristicMapType } from '../../lib/types'
+import { ICharacteristicMap } from '../../lib/types'
 
 const SituationSelection: FC = () => {
   const { t } = useTranslation('questionnaire')
@@ -35,8 +35,8 @@ const SituationSelection: FC = () => {
    */
   const handleClick = (situation: string) => {
     const filteredCharacteristics = characteristicMap[
-      situation as keyof CharacteristicMapType
-    ].map(characteristicKey => ({
+      situation as keyof ICharacteristicMap
+    ].map((characteristicKey: string) => ({
       ...characteristics[characteristicKey],
     }))
     const newSteps = [

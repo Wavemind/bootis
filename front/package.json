@@ -7,27 +7,33 @@
     "build": "next build",
     "start": "next start",
     "postbuild": "next-sitemap",
-    "lint": "next lint"
+    "lint": "tsc && next lint"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@rtk-query/graphql-request-base-query": "^2.2.0",
     "@uselessdev/datepicker": "^2.6.0",
     "chakra-react-select": "^4.4.3",
     "date-fns": "^2.29.3",
     "framer-motion": "^7.6.19",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.1.0",
     "i18next": "^22.0.8",
     "lodash": "^4.17.21",
     "next": "13.0.6",
     "next-i18next": "^13.0.0",
+    "next-redux-wrapper": "^8.0.0",
     "next-seo": "^5.15.0",
     "next-sitemap": "^3.1.32",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.40.0",
     "react-i18next": "^12.0.0",
-    "react-icons": "^4.7.1"
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
     "@types/node": "18.11.11",

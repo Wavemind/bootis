@@ -22,16 +22,19 @@ import { BsInfoCircle } from 'react-icons/bs'
  */
 import Select from './select'
 import DatePicker from './calendar'
-import regions from '../../lib/config/regions'
-import activities from '../../lib/config/activities'
 import accommodations from '../../lib/config/accommodations'
 import restaurants from '../../lib/config/restaurants'
 import { QuestionnaireContext } from '../../lib/contexts'
+import { useGetRegionsQuery } from '../../lib/services/modules/region'
+import {
+  useGetActivityCategoriesQuery,
+  useLazyGetCategoriesByRegionQuery,
+} from '../../lib/services/modules/category'
 
 /**
- * Type definitions
+ * Type imports
  */
-import { VoyageFormValues } from '../../lib/types'
+import { IFormValues } from '../../lib/types'
 
 const Voyage: FC = () => {
   const { t } = useTranslation('voyage')
@@ -40,7 +43,15 @@ const Voyage: FC = () => {
 
   const { steps, setSteps, currentStep } = useContext(QuestionnaireContext)
 
-  const methods = useForm<VoyageFormValues>({
+  const { data: regions = [] } = useGetRegionsQuery()
+  const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
+
+  const [
+    getCategoriesByRegion,
+    { data: categoriesByRegion = [], isFetching, isSuccess },
+  ] = useLazyGetCategoriesByRegionQuery()
+
+  const methods = useForm<IFormValues>({
     defaultValues: {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
@@ -52,45 +63,50 @@ const Voyage: FC = () => {
   })
 
   /**
-   * Filters the available activities depending on the selected region
+   * Fetches the available categories for the selected region
    */
-  const filteredActivities = useMemo(() => {
+  useEffect(() => {
     const destinationValue = methods.getValues('destination')
     if (typeof destinationValue === 'object') {
-      return activities.map(activity => ({
+      getCategoriesByRegion(destinationValue.name)
+    }
+  }, [methods.watch('destination')])
+
+  /**
+   * Filters the available categories for the selected region
+   */
+  const filteredActivities = useMemo(() => {
+    if (!isFetching && isSuccess) {
+      return activityCategories.map(activity => ({
         ...activity,
-        isDisabled: !destinationValue.activities.includes(activity.id),
+        isDisabled: !categoriesByRegion.includes(activity.id),
       }))
     }
-    return activities
-  }, [methods.watch('destination')])
+    return []
+  }, [isSuccess, isFetching])
 
   /**
    * Updates the selected activities based on the availability in the selected region
    */
   useEffect(() => {
-    const destinationValue = methods.getValues('destination')
-
-    if (typeof destinationValue === 'object') {
+    if (!isFetching && isSuccess) {
       const selectedActivities = methods.getValues('activities')
 
-      if (selectedActivities && selectedActivities.length > 0) {
-        methods.setValue(
-          'activities',
-          selectedActivities?.filter(activity =>
-            destinationValue.activities.includes(activity.id)
-          )
+      methods.setValue(
+        'activities',
+        selectedActivities?.filter(activity =>
+          categoriesByRegion.includes(activity.id)
         )
-      }
+      )
     }
-  }, [methods.watch('destination')])
+  }, [isSuccess, isFetching])
 
   /**
    * Handles the data submission to the backend
    * @param data form data object
    */
   // TODO : Connect to the backend I'm guessing ?
-  const onSubmit = (data: VoyageFormValues) => {
+  const onSubmit = (data: IFormValues) => {
     const newSteps = [...steps]
     newSteps[currentStep].formValues = data
     setSteps(newSteps)
@@ -105,7 +121,7 @@ const Voyage: FC = () => {
       const infoFromSearch = JSON.parse(
         localStorage.getItem('search') as string
       )
-      const defaultValues: VoyageFormValues = {
+      const defaultValues: IFormValues = {
         startDate: infoFromSearch.startDate
           ? new Date(infoFromSearch.startDate)
           : new Date(),
@@ -119,16 +135,12 @@ const Voyage: FC = () => {
       }
       if (infoFromSearch.destination) {
         defaultValues.destination = regions.find(
-          region => region.id === infoFromSearch.destination
+          region => region.id === infoFromSearch.destination.id
         )
       }
 
       if (infoFromSearch.activity) {
-        defaultValues.activities = [
-          activities.find(
-            activity => activity.id === infoFromSearch.activity
-          ) as { id: number; label: string },
-        ]
+        defaultValues.activities = [infoFromSearch.activity]
       }
       methods.reset(defaultValues)
     }

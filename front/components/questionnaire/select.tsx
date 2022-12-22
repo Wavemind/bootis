@@ -23,9 +23,22 @@ import { BsInfoCircle } from 'react-icons/bs'
 import { useTranslation } from 'next-i18next'
 
 /**
+ * Type imports
+ */
+import { IEnumOption } from '../../lib/types'
+
+/**
  * Type definitions
  */
-import { VoyageSelectProps } from '../../lib/types'
+interface VoyageSelectProps {
+  name: string
+  label: string
+  subLabel: string
+  options: IEnumOption[]
+  isMulti?: boolean
+  hasInfo?: boolean
+  infoContent?: React.ReactNode
+}
 
 const Select: FC<VoyageSelectProps> = ({
   name,
