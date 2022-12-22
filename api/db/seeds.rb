@@ -107,7 +107,6 @@ place_characteristics = {
   7594 => shower_folding_grab_bar,
 }
 puts "-- Create places ..."
-$stdout.sync = true
 
 data['Pois'].each_with_index do |poi, index|
   puts "-- Place #{index}/#{data['Pois'].count}"

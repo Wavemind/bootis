@@ -4,7 +4,7 @@ module Queries
     argument :region, String
 
     def resolve(region:)
-      Category.includes(:places).where(places: {region: region}).reject{ |category| ['lodging', 'restaurant'].include?(category.section) }
+      Category.includes(:places).where(places: {region: region}).where.not(section: ['lodging', 'restaurant'])
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
     end

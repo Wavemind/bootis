@@ -1,3 +1,4 @@
+// TODO : Get rid of this when we have restaurant types and accommodation types
 export default [
   { id: 1, key: 'grisons', activities: [1, 2, 3, 4, 5, 6, 7, 8] },
   { id: 2, key: 'orientiale', activities: [2, 4, 5] },

@@ -1,4 +1,4 @@
-// TODO : Get this from somewhere !!
+// TODO : Get rid of this when we have restaurant types and accommodation types
 export default [
   { id: 1, name: 'Grisons' },
   { id: 2, name: 'Suisse orientiale' },
