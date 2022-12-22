@@ -11,6 +11,7 @@ module Types
     field :get_regions, [Types::RegionType], null: false, description: "Return the list of regions"
     field :get_sections, [Types::SectionType], null: false, description: "Return the list of sections"
     field :get_categories, resolver: Queries::GetCategories, description: "Return the list of categories"
+    field :get_activities, resolver: Queries::GetActivities, description: "Return the list of activities"
 
     def places
       Place.all
