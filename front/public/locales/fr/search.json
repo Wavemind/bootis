@@ -5,5 +5,7 @@
   "returnDate": "Date de retour",
   "activities": "Activités",
   "plan": "Planifier",
-  "unavailable": "Non disponible *"
+  "unavailable": "Non disponible *",
+  "emptyDestination": "Aucune région disponible",
+  "selectDestination": "Sélectionnez une région pour voir les activités disponibles"
 }

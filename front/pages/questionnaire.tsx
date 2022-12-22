@@ -3,7 +3,7 @@
  */
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Box, Center, Button, Spinner, VStack, HStack } from '@chakra-ui/react'
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
@@ -19,17 +19,21 @@ import {
   Voyage,
   TitleBlock,
 } from '../components'
+import { AppDispatch, wrapper } from '../lib/store'
+import { api } from '../lib/services/api'
+import { getRegions } from '../lib/services/modules/region'
+import { getActivityCategories } from '../lib/services/modules/category'
 
 /**
- * Type definitions
+ * Type imports
  */
-import { StepType } from '../lib/types'
+import { IStep } from '../lib/types'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
   const controls = useAnimationControls()
 
-  const [steps, setSteps] = useState<StepType[]>([
+  const [steps, setSteps] = useState<IStep[]>([
     { key: 'situationSelection', type: 'situation' },
   ])
   const [currentStep, setCurrentStep] = useState<number>(0)
@@ -175,17 +179,22 @@ const Questionnaire = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string, [
-        'common',
-        'questionnaire',
-        'voyage',
-      ])),
-      // Will be passed to the page component as props
-    },
-  }
-}
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps(store => async ({ locale }) => {
+    store.dispatch(getRegions.initiate() as AppDispatch)
+    store.dispatch(getActivityCategories.initiate() as AppDispatch)
+    await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()))
+
+    return {
+      props: {
+        ...(await serverSideTranslations(locale as string, [
+          'common',
+          'questionnaire',
+          'voyage',
+        ])),
+        // Will be passed to the page component as props
+      },
+    }
+  })
 
 export default Questionnaire

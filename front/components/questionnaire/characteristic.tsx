@@ -14,9 +14,9 @@ import { QuestionnaireContext } from '../../lib/contexts'
 import characteristics from '../../lib/config/characteristics'
 
 /**
- * Type definitions
+ * Type imports
  */
-import { AnswerType, CharacteristicsType, StepType } from '../../lib/types'
+import { IAnswer, ICharacteristics, IStep } from '../../lib/types'
 
 const Characteristic: FC = () => {
   const { t } = useTranslation('questionnaire')
@@ -29,7 +29,7 @@ const Characteristic: FC = () => {
   /**
    * Update steps with answer and update the currentStep
    */
-  const handleClick = (answer: AnswerType) => {
+  const handleClick = (answer: IAnswer) => {
     const newSteps = [...steps]
     const voyageStep = newSteps.pop()
     newSteps[currentStep].answer = answer
@@ -52,10 +52,10 @@ const Characteristic: FC = () => {
 
     // Add characteristics
     answer.children.forEach((keyStep: string) =>
-      newSteps.push(characteristics[keyStep as keyof CharacteristicsType])
+      newSteps.push(characteristics[keyStep as keyof ICharacteristics])
     )
 
-    newSteps.push(voyageStep as StepType)
+    newSteps.push(voyageStep as IStep)
 
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))

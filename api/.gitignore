@@ -30,5 +30,6 @@
 
 .env
 .idea
+.byebug_history
 
 /db/zuerst.json

@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { FC, useMemo, useState } from 'react'
+import React, { FC, useEffect, useState, useMemo } from 'react'
 import { HStack, Text, Box, Button } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -13,33 +13,59 @@ import { CalendarDate } from '@uselessdev/datepicker'
  */
 import Calendar from './calendar'
 import Select from './select'
-import regions from '../../lib/config/regions'
-import activities from '../../lib/config/activities'
+import { useGetRegionsQuery } from '../../lib/services/modules/region'
+import {
+  useGetActivityCategoriesQuery,
+  useLazyGetCategoriesByRegionQuery,
+} from '../../lib/services/modules/category'
+
+/**
+ * Type imports
+ */
+import { IEnumOption } from '../../lib/types'
 
 const Search: FC = () => {
   const { t } = useTranslation('search')
 
   const [startDate, setStartDate] = useState<CalendarDate>(new Date())
   const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 1))
-  const [destination, setDestination] = useState<number | undefined | null>()
-  const [activity, setActivity] = useState<number | undefined | null>()
+  const [destination, setDestination] = useState<
+    IEnumOption | undefined | null
+  >()
+  const [activity, setActivity] = useState<IEnumOption | undefined | null>()
+
+  const { data: regions = [] } = useGetRegionsQuery()
+  const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
+
+  const [getCategoriesByRegion, { data: categoriesByRegion = [], isSuccess }] =
+    useLazyGetCategoriesByRegionQuery()
 
   /**
-   * Flags the unavailable activities for the selected destination
+   * Fetches the available categories for the selected region
    */
-  const availableActivities = useMemo(() => {
+  useEffect(() => {
     if (destination) {
-      const destinationObject = regions.find(
-        region => region.id === destination
-      )
-      setActivity(null)
-      return activities.map(activity => ({
-        ...activity,
-        unavailable: !destinationObject?.activities.includes(activity.id),
-      }))
+      getCategoriesByRegion(destination.name)
     }
-    return activities
   }, [destination])
+
+  /**
+   * Marks activities as unavailable if unavailable in the selected region
+   */
+  const filteredActivities = useMemo(() => {
+    if (isSuccess) {
+      return activityCategories.map(category => {
+        if (!categoriesByRegion.includes(category.id)) {
+          return {
+            ...category,
+            unavailable: true,
+          }
+        }
+        return category
+      })
+    }
+    return []
+  }, [categoriesByRegion, isSuccess])
 
   /**
    * Saves the search values to localStorage and routes to the questionnaire
@@ -68,8 +94,9 @@ const Search: FC = () => {
                 <Text fontSize='xs'>{t('destinationSubtitle')}</Text>
               </React.Fragment>
             }
-            selected={destination as number}
+            selected={destination as IEnumOption}
             setSelected={setDestination}
+            emptyMessage={t('emptyDestination')}
           />
         </Box>
         <Box w='20%' py={2} px={4} borderLeft='1px solid black'>
@@ -88,10 +115,12 @@ const Search: FC = () => {
         </Box>
         <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
-            options={availableActivities}
+            options={filteredActivities as IEnumOption[]}
             placeholder={<Text>{t('activities')}</Text>}
-            selected={activity as number}
+            selected={activity as IEnumOption}
             setSelected={setActivity}
+            labelKey='name'
+            emptyMessage={t('selectDestination')}
           />
         </Box>
       </HStack>

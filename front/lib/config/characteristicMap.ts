@@ -1,9 +1,9 @@
 /**
  * Type definitions
  */
-import { CharacteristicMapType } from '../types'
+import { ICharacteristicMap } from '../types'
 
-export default <CharacteristicMapType>{
+export default <ICharacteristicMap>{
   wheelchair: [
     'maxSlope',
     'passageLength',
