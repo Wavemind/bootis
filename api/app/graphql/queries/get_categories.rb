@@ -4,7 +4,7 @@ module Queries
     argument :region, String
 
     def resolve(region:)
-      Place.where(region: region).map(&:category).uniq
+      Category.includes(:places).where(places: {region: region})
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
     end
