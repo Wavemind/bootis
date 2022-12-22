@@ -24,7 +24,6 @@ import WheelchairMale from '../public/wheelchair_male.svg'
 import { AppDispatch, wrapper } from '../lib/store'
 import { api } from '../lib/services/api'
 import { getRegions } from '../lib/services/modules/region'
-import { getSections } from '../lib/services/modules/section'
 
 // TODO : Remplacer les textes par les trads une fois que le contenu est finalisé
 const Home = () => {
@@ -187,7 +186,6 @@ const Home = () => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(store => async ({ locale }) => {
     store.dispatch(getRegions.initiate() as AppDispatch)
-    store.dispatch(getSections.initiate() as AppDispatch)
     await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()))
 
     return {

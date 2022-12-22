@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { HStack, Text, Box, Button } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ import { CalendarDate } from '@uselessdev/datepicker'
 import Calendar from './calendar'
 import Select from './select'
 import { useGetRegionsQuery } from '../../lib/services/modules/region'
-import { useGetSectionsQuery } from '../../lib/services/modules/section'
+import { useLazyGetCategoriesQuery } from '../../lib/services/modules/category'
 
 /**
  * Type imports
@@ -32,7 +32,21 @@ const Search: FC = () => {
   const [activity, setActivity] = useState<IEnumOption | undefined | null>()
 
   const { data: regions = [] } = useGetRegionsQuery()
-  const { data: sections = [] } = useGetSectionsQuery()
+
+  const [getCategories, { data: categories, isSuccess }] =
+    useLazyGetCategoriesQuery()
+
+  useEffect(() => {
+    if (destination) {
+      getCategories(destination.name)
+    }
+  }, [destination])
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(categories)
+    }
+  }, [isSuccess])
 
   /**
    * Saves the search values to localStorage and routes to the questionnaire
@@ -83,7 +97,7 @@ const Search: FC = () => {
         <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
             type='activities'
-            options={sections}
+            options={categories as IEnumOption[]}
             placeholder={<Text>{t('activities')}</Text>}
             selected={activity as IEnumOption}
             setSelected={setActivity}
