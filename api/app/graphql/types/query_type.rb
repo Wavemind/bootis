@@ -10,6 +10,7 @@ module Types
     field :places, [Types::PlaceType], null: false, description: "Return a list of places"
     field :get_regions, [Types::RegionType], null: false, description: "Return the list of regions"
     field :get_sections, [Types::SectionType], null: false, description: "Return the list of sections"
+    field :get_categories, [Types::Category], null: false, description: "Return the list of categories"
 
     def places
       Place.all
