@@ -33,7 +33,7 @@ const Search: FC = () => {
 
   const { data: regions = [] } = useGetRegionsQuery()
 
-  const [getCategories, { data: categories, isSuccess }] =
+  const [getCategories, { data: categories = [], isSuccess }] =
     useLazyGetCategoriesQuery()
 
   useEffect(() => {

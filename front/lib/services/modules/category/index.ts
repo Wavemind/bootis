@@ -14,9 +14,10 @@ export const categoriesApi = api.injectEndpoints({
     getCategories: build.query<IEnumOption[], string>({
       query: region => ({
         document: gql`
-          query ($region: string!) {
+          query ($region: String!) {
             getCategories(region: $region) {
               id
+              name
             }
           }
         `,
