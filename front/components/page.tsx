@@ -7,9 +7,17 @@ import { NextSeo } from 'next-seo'
 /**
  * Type imports
  */
-import { PageType } from '../lib/types'
+import { IChildren } from '../lib/types'
 
-const Page: FC<PageType> = ({ children, title, description }) => (
+/**
+ * Type definitions
+ */
+interface IPage extends IChildren {
+  title: string
+  description: string
+}
+
+const Page: FC<IPage> = ({ children, title, description }) => (
   <React.Fragment>
     <NextSeo
       title={title}

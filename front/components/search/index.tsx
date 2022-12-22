@@ -17,7 +17,7 @@ import { useGetRegionsQuery } from '../../lib/services/modules/region'
 import { useGetSectionsQuery } from '../../lib/services/modules/section'
 
 /**
- * Type definitions
+ * Type imports
  */
 import { IEnumOption } from '../../lib/types'
 

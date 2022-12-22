@@ -6,10 +6,10 @@ import maxSlopeImage from '../../public/maxSlopeImage.svg'
 /**
  * Type definitions
  */
-import { CharacteristicsType } from '../types'
+import { ICharacteristics } from '../types'
 
 // TODO : Update all of the images onces we have them
-export default <CharacteristicsType>{
+export default <ICharacteristics>{
   maxSlope: {
     key: 'maxSlope',
     imageSrc: maxSlopeImage,

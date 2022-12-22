@@ -1,101 +1,14 @@
-/**
- * The external imports
- */
-import type { ReactElement, ReactNode } from 'react'
-import type { AppProps } from 'next/app'
-import type { NextPage } from 'next'
-import { CalendarDate, CalendarValues } from '@uselessdev/datepicker'
-
-// Global types
-export type ChildrenType = {
+// Common interfaces
+export interface IChildren {
   children: React.ReactNode
 }
-/////////////////////////////////////////////////////////////////////////////////
 
-// _App types
-type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
-export type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
-/////////////////////////////////////////////////////////////////////////////////
-
-// Page wrapper component types
-export type PageType = ChildrenType & {
-  title: string
-  description: string
-}
-/////////////////////////////////////////////////////////////////////////////////
-
-// Questionnaire types
-export type StepType = {
-  key: string
-  type?: string
-  imageSrc?: string
-  answers?: AnswerType[]
-  answer?: AnswerType
-  formValues?: VoyageFormValues
-}
-
-export type CharacteristicsType = {
-  [key: string]: StepType
-}
-
-export type CharacteristicMapType = {
-  [key: string]: string[]
-}
-
-export type AnswerType = {
+export interface IEnumOption {
   id: number
-  label: string
-  children: string[]
-  excludes: string[]
-}
-
-export type QuestionnaireContextType = {
-  steps: StepType[]
-  setSteps: React.Dispatch<React.SetStateAction<StepType[]>>
-  currentStep: number
-  updateCurrentStep: (direction: number) => void
-  resetQuestionnaire: () => void
-}
-/////////////////////////////////////////////////////////////////////////////////
-
-// Component types
-export type GridItemProps = ChildrenType & {
-  bg: string
-  handleClick: () => void
-}
-
-export type LinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
-  href: string
-}
-
-export type CalendarProps = {
-  placeholder: string
-  date: CalendarDate | CalendarValues
-  setDate: React.Dispatch<React.SetStateAction<CalendarDate>>
-}
-
-export type VoyageSelectProps = {
   name: string
-  label: string
-  subLabel: string
-  options: IEnumOption[]
-  isMulti?: boolean
-  hasInfo?: boolean
-  infoContent?: React.ReactNode
 }
 
-export type DatePickerProps = {
-  name: string
-  label: string
-}
-/////////////////////////////////////////////////////////////////////////////////
-
-// Voyage types
-export type VoyageFormValues = {
+export interface IFormValues {
   startDate: Date
   endDate: Date
   destination?: string | IEnumOption
@@ -103,9 +16,28 @@ export type VoyageFormValues = {
   accommodation: string | { id: number; label: string }
   restaurants: { id: number; label: string; activities: number[] }[]
 }
-/////////////////////////////////////////////////////////////////////////////////
 
-export interface IEnumOption {
+export interface IAnswer {
   id: number
-  name: string
+  label: string
+  children: string[]
+  excludes: string[]
+}
+
+export interface IStep {
+  id?: number
+  key: string
+  type?: string
+  imageSrc?: string
+  answers?: IAnswer[]
+  answer?: IAnswer
+  formValues?: IFormValues
+}
+
+export interface ICharacteristics {
+  [key: string]: IStep
+}
+
+export interface ICharacteristicMap {
+  [key: string]: string[]
 }

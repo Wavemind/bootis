@@ -25,15 +25,15 @@ import { getRegions } from '../lib/services/modules/region'
 import { getSections } from '../lib/services/modules/section'
 
 /**
- * Type definitions
+ * Type imports
  */
-import { StepType } from '../lib/types'
+import { IStep } from '../lib/types'
 
 const Questionnaire = () => {
   const { t } = useTranslation('questionnaire')
   const controls = useAnimationControls()
 
-  const [steps, setSteps] = useState<StepType[]>([
+  const [steps, setSteps] = useState<IStep[]>([
     { key: 'situationSelection', type: 'situation' },
   ])
   const [currentStep, setCurrentStep] = useState<number>(0)

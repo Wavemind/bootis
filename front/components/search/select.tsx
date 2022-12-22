@@ -15,10 +15,13 @@ import {
 import { useTranslation } from 'next-i18next'
 
 /**
- * Type definitions
+ * Type imports
  */
 import { IEnumOption } from '../../lib/types'
 
+/**
+ * Type definitions
+ */
 type SelectProps = {
   type: string
   options: IEnumOption[] | never[]

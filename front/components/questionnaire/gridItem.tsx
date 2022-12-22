@@ -6,11 +6,19 @@ import { GridItem as ChakraGridItem, Box } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 
 /**
+ * Type imports
+ */
+import { IChildren } from '../../lib/types'
+
+/**
  * Type definitions
  */
-import { GridItemProps } from '../../lib/types'
+interface IGridItemProps extends IChildren {
+  bg: string
+  handleClick: () => void
+}
 
-const GridItem: FC<GridItemProps> = ({ bg, handleClick, children }) => (
+const GridItem: FC<IGridItemProps> = ({ bg, handleClick, children }) => (
   <Box borderRadius='xl' position='relative'>
     <ChakraGridItem
       as={motion.div}

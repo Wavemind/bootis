@@ -8,7 +8,9 @@ import NextLink from 'next/link'
 /**
  * Type definitions
  */
-import { LinkProps } from '../lib/types'
+interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  href: string
+}
 
 const Link: FC<LinkProps> = ({ children, href, ...rest }) => (
   <ChakraLink as={NextLink} href={href} {...rest}>

@@ -28,9 +28,9 @@ import { useGetRegionsQuery } from '../../lib/services/modules/region'
 import { useGetSectionsQuery } from '../../lib/services/modules/section'
 
 /**
- * Type definitions
+ * Type imports
  */
-import { VoyageFormValues } from '../../lib/types'
+import { IFormValues } from '../../lib/types'
 
 const Voyage: FC = () => {
   const { t } = useTranslation('voyage')
@@ -42,7 +42,7 @@ const Voyage: FC = () => {
   const { data: regions = [] } = useGetRegionsQuery()
   const { data: sections = [] } = useGetSectionsQuery()
 
-  const methods = useForm<VoyageFormValues>({
+  const methods = useForm<IFormValues>({
     defaultValues: {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
@@ -93,7 +93,7 @@ const Voyage: FC = () => {
    * @param data form data object
    */
   // TODO : Connect to the backend I'm guessing ?
-  const onSubmit = (data: VoyageFormValues) => {
+  const onSubmit = (data: IFormValues) => {
     const newSteps = [...steps]
     newSteps[currentStep].formValues = data
     setSteps(newSteps)
@@ -108,7 +108,7 @@ const Voyage: FC = () => {
       const infoFromSearch = JSON.parse(
         localStorage.getItem('search') as string
       )
-      const defaultValues: VoyageFormValues = {
+      const defaultValues: IFormValues = {
         startDate: infoFromSearch.startDate
           ? new Date(infoFromSearch.startDate)
           : new Date(),

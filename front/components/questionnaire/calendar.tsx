@@ -32,9 +32,12 @@ import { Controller, useFormContext } from 'react-hook-form'
 /**
  * Type definitions
  */
-import { DatePickerProps } from '../../lib/types'
+interface IDatePickerProps {
+  name: string
+  label: string
+}
 
-const DatePicker: FC<DatePickerProps> = ({ name, label }) => {
+const DatePicker: FC<IDatePickerProps> = ({ name, label }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { control, watch, getValues, setValue } = useFormContext()

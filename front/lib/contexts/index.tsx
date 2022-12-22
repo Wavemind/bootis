@@ -4,10 +4,22 @@
 import { createContext } from 'react'
 
 /**
+ * Type imports
+ */
+import { IStep } from '../types'
+
+/**
  * Type definitions
  */
-import { QuestionnaireContextType } from '../types'
 
-export const QuestionnaireContext = createContext<QuestionnaireContextType>(
-  {} as QuestionnaireContextType
+interface IQuestionnaireContext {
+  steps: IStep[]
+  setSteps: React.Dispatch<React.SetStateAction<IStep[]>>
+  currentStep: number
+  updateCurrentStep: (direction: number) => void
+  resetQuestionnaire: () => void
+}
+
+export const QuestionnaireContext = createContext<IQuestionnaireContext>(
+  {} as IQuestionnaireContext
 )

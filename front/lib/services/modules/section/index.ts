@@ -5,7 +5,7 @@ import { api } from '../../api'
 import { gql } from 'graphql-request'
 
 /**
- * Type definitions
+ * Type imports
  */
 import { IEnumOption } from '../../../types'
 
