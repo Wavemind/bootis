@@ -17,7 +17,6 @@ export const categoriesApi = api.injectEndpoints({
           query ($region: string!) {
             getCategories(region: $region) {
               id
-              name
             }
           }
         `,

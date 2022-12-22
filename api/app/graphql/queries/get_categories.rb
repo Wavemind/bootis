@@ -1,10 +1,10 @@
 module Queries
   class GetCategories < Queries::BaseQuery
-    type [Types::Category]
+    type [Types::CategoryType], null: true
     argument :region, String
 
-    def resolve
-      Category.all
+    def resolve(region:)
+      Place.where(region: region).map(&:category).uniq
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
     end
