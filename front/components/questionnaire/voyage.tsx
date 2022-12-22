@@ -25,7 +25,10 @@ import accommodations from '../../lib/config/accommodations'
 import restaurants from '../../lib/config/restaurants'
 import { QuestionnaireContext } from '../../lib/contexts'
 import { useGetRegionsQuery } from '../../lib/services/modules/region'
-import { useGetSectionsQuery } from '../../lib/services/modules/section'
+import {
+  useGetActivityCategoriesQuery,
+  useLazyGetCategoriesByRegionQuery,
+} from '../../lib/services/modules/category'
 
 /**
  * Type imports
@@ -40,7 +43,12 @@ const Voyage: FC = () => {
   const { steps, setSteps, currentStep } = useContext(QuestionnaireContext)
 
   const { data: regions = [] } = useGetRegionsQuery()
-  const { data: sections = [] } = useGetSectionsQuery()
+  const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
+
+  const [
+    getCategoriesByRegion,
+    { data: categoriesByRegion = [], isFetching, isSuccess },
+  ] = useLazyGetCategoriesByRegionQuery()
 
   const methods = useForm<IFormValues>({
     defaultValues: {
@@ -54,39 +62,43 @@ const Voyage: FC = () => {
   })
 
   /**
-   * Filters the available activities depending on the selected region
+   * Fetches the available categories for the selected region
+   */
+  useEffect(() => {
+    const destinationValue = methods.getValues('destination')
+    if (typeof destinationValue === 'object') {
+      getCategoriesByRegion(destinationValue.name)
+    }
+  }, [methods.watch('destination')])
+
+  /**
+   * Filters the available categories for the selected region
    */
   const filteredActivities = useMemo(() => {
-    // const destinationValue = methods.getValues('destination')
-    // if (typeof destinationValue === 'object') {
-    //   return activities.map(activity => ({
-    //     ...activity,
-    //     isDisabled: !destinationValue.activities.includes(activity.id),
-    //   }))
-    // }
-    return sections
-  }, [methods.watch('destination')])
+    if (!isFetching && isSuccess) {
+      return activityCategories.map(activity => ({
+        ...activity,
+        isDisabled: !categoriesByRegion.includes(activity.id),
+      }))
+    }
+    return []
+  }, [isSuccess, isFetching])
 
   /**
    * Updates the selected activities based on the availability in the selected region
    */
-  // TODO : Uncomment this when we have activities per region
-  // useEffect(() => {
-  //   const destinationValue = methods.getValues('destination')
+  useEffect(() => {
+    if (!isFetching && isSuccess) {
+      const selectedActivities = methods.getValues('activities')
 
-  //   if (typeof destinationValue === 'object') {
-  //     const selectedActivities = methods.getValues('activities')
-
-  //     if (selectedActivities && selectedActivities.length > 0) {
-  //       methods.setValue(
-  //         'activities',
-  //         selectedActivities?.filter(activity =>
-  //           destinationValue.activities.includes(activity.id)
-  //         )
-  //       )
-  //     }
-  //   }
-  // }, [methods.watch('destination')])
+      methods.setValue(
+        'activities',
+        selectedActivities?.filter(activity =>
+          categoriesByRegion.includes(activity.id)
+        )
+      )
+    }
+  }, [isSuccess, isFetching])
 
   /**
    * Handles the data submission to the backend
@@ -122,7 +134,7 @@ const Voyage: FC = () => {
       }
       if (infoFromSearch.destination) {
         defaultValues.destination = regions.find(
-          region => region.id === infoFromSearch.destination
+          region => region.id === infoFromSearch.destination.id
         )
       }
 

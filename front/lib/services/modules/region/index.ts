@@ -3,11 +3,13 @@
  */
 import { api } from '../../api'
 import { gql } from 'graphql-request'
+import { i18n } from 'next-i18next'
 
 /**
  * Type imports
  */
 import { IEnumOption } from '../../../types'
+// import { i18n } from '../../../../next-i18next.config'
 
 export const regionsApi = api.injectEndpoints({
   endpoints: build => ({
@@ -23,7 +25,10 @@ export const regionsApi = api.injectEndpoints({
         `,
       }),
       transformResponse: (response: { getRegions: IEnumOption[] }) =>
-        response.getRegions,
+        response.getRegions.map(region => ({
+          ...region,
+          label: i18n?.t(`regions.${region.name}`, { ns: 'common' }) || null,
+        })),
       providesTags: [],
     }),
   }),

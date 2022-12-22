@@ -1,4 +1,4 @@
-// Common interfaces
+// Common interfaces used in multiple components/pages
 export interface IChildren {
   children: React.ReactNode
 }

@@ -23,6 +23,7 @@ import { AppDispatch, wrapper } from '../lib/store'
 import { api } from '../lib/services/api'
 import { getRegions } from '../lib/services/modules/region'
 import { getSections } from '../lib/services/modules/section'
+import { getActivityCategories } from '../lib/services/modules/category'
 
 /**
  * Type imports
@@ -183,6 +184,7 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(store => async ({ locale }) => {
     store.dispatch(getRegions.initiate() as AppDispatch)
     store.dispatch(getSections.initiate() as AppDispatch)
+    store.dispatch(getActivityCategories.initiate() as AppDispatch)
     await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()))
 
     return {

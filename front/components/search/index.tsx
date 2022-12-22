@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, useMemo } from 'react'
 import { HStack, Text, Box, Button } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -14,7 +14,10 @@ import { CalendarDate } from '@uselessdev/datepicker'
 import Calendar from './calendar'
 import Select from './select'
 import { useGetRegionsQuery } from '../../lib/services/modules/region'
-import { useLazyGetCategoriesQuery } from '../../lib/services/modules/category'
+import {
+  useGetActivityCategoriesQuery,
+  useLazyGetCategoriesByRegionQuery,
+} from '../../lib/services/modules/category'
 
 /**
  * Type imports
@@ -32,21 +35,37 @@ const Search: FC = () => {
   const [activity, setActivity] = useState<IEnumOption | undefined | null>()
 
   const { data: regions = [] } = useGetRegionsQuery()
+  const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
 
-  const [getCategories, { data: categories = [], isSuccess }] =
-    useLazyGetCategoriesQuery()
+  const [getCategoriesByRegion, { data: categoriesByRegion = [], isSuccess }] =
+    useLazyGetCategoriesByRegionQuery()
 
+  /**
+   * Fetches the available categories for the selected region
+   */
   useEffect(() => {
     if (destination) {
-      getCategories(destination.name)
+      getCategoriesByRegion(destination.name)
     }
   }, [destination])
 
-  useEffect(() => {
+  /**
+   * Marks activities as unavailable if unavailable in the selected region
+   */
+  const filteredActivities = useMemo(() => {
     if (isSuccess) {
-      console.log(categories)
+      return activityCategories.map(category => {
+        if (!categoriesByRegion.includes(category.id)) {
+          return {
+            ...category,
+            unavailable: true,
+          }
+        }
+        return category
+      })
     }
-  }, [isSuccess])
+    return []
+  }, [categoriesByRegion, isSuccess])
 
   /**
    * Saves the search values to localStorage and routes to the questionnaire
@@ -68,7 +87,6 @@ const Search: FC = () => {
       >
         <Box w='40%' px={4}>
           <Select
-            type='regions'
             options={regions}
             placeholder={
               <React.Fragment>
@@ -78,6 +96,7 @@ const Search: FC = () => {
             }
             selected={destination as IEnumOption}
             setSelected={setDestination}
+            emptyMessage={t('emptyDestination')}
           />
         </Box>
         <Box w='20%' py={2} px={4} borderLeft='1px solid black'>
@@ -96,11 +115,12 @@ const Search: FC = () => {
         </Box>
         <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
-            type='activities'
-            options={categories as IEnumOption[]}
+            options={filteredActivities as IEnumOption[]}
             placeholder={<Text>{t('activities')}</Text>}
             selected={activity as IEnumOption}
             setSelected={setActivity}
+            labelKey='name'
+            emptyMessage={t('selectDestination')}
           />
         </Box>
       </HStack>

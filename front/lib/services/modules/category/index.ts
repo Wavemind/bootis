@@ -11,20 +11,37 @@ import { IEnumOption } from '../../../types'
 
 export const categoriesApi = api.injectEndpoints({
   endpoints: build => ({
-    getCategories: build.query<IEnumOption[], string>({
+    getCategoriesByRegion: build.query<number[], string>({
       query: region => ({
         document: gql`
           query ($region: String!) {
-            getCategories(region: $region) {
+            getCategoriesByRegion(region: $region) {
               id
-              name
             }
           }
         `,
         variables: { region },
       }),
-      transformResponse: (response: { getCategories: IEnumOption[] }) =>
-        response.getCategories,
+      transformResponse: (response: { getCategoriesByRegion: IEnumOption[] }) =>
+        response.getCategoriesByRegion.map(category => category.id),
+      providesTags: [],
+    }),
+    getActivityCategories: build.query<IEnumOption[], void>({
+      query: () => ({
+        document: gql`
+          query {
+            getActivityCategories {
+              id
+              name
+            }
+          }
+        `,
+      }),
+      transformResponse: (response: { getActivityCategories: IEnumOption[] }) =>
+        response.getActivityCategories.map(category => ({
+          ...category,
+          label: category.name,
+        })),
       providesTags: [],
     }),
   }),
@@ -32,4 +49,9 @@ export const categoriesApi = api.injectEndpoints({
 })
 
 // Export hooks for usage in functional components
-export const { useLazyGetCategoriesQuery } = categoriesApi
+export const {
+  useLazyGetCategoriesByRegionQuery,
+  useGetActivityCategoriesQuery,
+} = categoriesApi
+
+export const { getActivityCategories } = categoriesApi.endpoints
