@@ -25,6 +25,9 @@ const AlertDialog: FC = () => {
   const { isAlertDialogOpen, closeAlertDialog, alertDialogContent } =
     useContext(AlertDialogContext)
 
+  /**
+   * Handles the "confirmation" action and closes the dialog
+   */
   const handleAction = () => {
     alertDialogContent.action()
     closeAlertDialog()
