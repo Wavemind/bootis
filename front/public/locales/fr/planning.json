@@ -9,6 +9,8 @@
     "restaurants": "Restaurants",
     "activities": "Activités"
   },
+  "selectCategory": "Veuillez sélectionner une catégorie",
   "replace": "Remplacer",
-  "remove": "Supprimer"
+  "remove": "Supprimer",
+  "back": "Retour au calendrier"
 }

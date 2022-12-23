@@ -8,11 +8,6 @@ export interface IEnumOption {
   name: string
 }
 
-export interface IElement {
-  id: number
-  label: string
-}
-
 export interface IFormValues {
   startDate: Date
   endDate: Date
@@ -22,7 +17,9 @@ export interface IFormValues {
   restaurants: { id: number; label: string; activities: number[] }[]
 }
 
-export interface IAnswer extends IElement {
+export interface IAnswer {
+  id: number
+  label: string
   children: string[]
   excludes: string[]
 }

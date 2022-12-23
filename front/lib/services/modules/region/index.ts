@@ -1,15 +1,18 @@
 /**
+ * The external imports
+ */
+import { gql } from 'graphql-request'
+import { i18n } from 'next-i18next'
+
+/**
  * The internal imports
  */
 import { api } from '../../api'
-import { gql } from 'graphql-request'
-import { i18n } from 'next-i18next'
 
 /**
  * Type imports
  */
 import { IEnumOption } from '../../../types'
-// import { i18n } from '../../../../next-i18next.config'
 
 export const regionsApi = api.injectEndpoints({
   endpoints: build => ({

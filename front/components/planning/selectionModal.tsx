@@ -11,7 +11,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalFooter,
   ModalBody,
   Button,
   Flex,
@@ -20,6 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
 import { BsSearch } from 'react-icons/bs'
+import { BsCaretLeftFill } from 'react-icons/bs'
 import { GrAddCircle } from 'react-icons/gr'
 
 /**
@@ -28,15 +28,24 @@ import { GrAddCircle } from 'react-icons/gr'
 import { ModalContext } from '../../lib/contexts'
 import CategorySelection from './categorySelection'
 import ReducedPlanningCard from './reducedCard'
-import accommodationTypes from '../../lib/config/accommodationTypes'
 import restaurantTypes from '../../lib/config/restaurantTypes'
-import activities from '../../lib/config/activities'
 import SelectionElement from './selectionElement'
+import {
+  useGetActivityCategoriesQuery,
+  useGetAccommodationCategoriesQuery,
+} from '../../lib/services/modules/category'
+
+/**
+ * Type imports
+ */
+import { ICategory, IEnumOption } from '../../lib/types'
 
 /**
  * Type definitions
  */
-import { ICategory, IElement } from '../../lib/types'
+interface IElement extends IEnumOption {
+  label: string
+}
 
 const SelectionModal: FC = () => {
   const { t } = useTranslation('planning')
@@ -44,6 +53,10 @@ const SelectionModal: FC = () => {
   const { isModalOpen, closeModal, selectedDay } = useContext(ModalContext)
 
   const [category, setCategory] = useState<ICategory>({} as ICategory)
+
+  const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
+  const { data: accommodationCategories = [] } =
+    useGetAccommodationCategoriesQuery()
 
   useEffect(() => {
     if (Object.keys(selectedDay).length > 0) {
@@ -94,11 +107,11 @@ const SelectionModal: FC = () => {
     }
 
     if (category.key === 'accommodation') {
-      return accommodationTypes
+      return accommodationCategories
     } else if (category.key === 'restaurant') {
       return restaurantTypes
     } else {
-      return activities
+      return activityCategories
     }
   }, [category])
 
@@ -114,35 +127,44 @@ const SelectionModal: FC = () => {
       <ModalContent maxH='calc(100vh)' h='calc(100vh)'>
         <ModalBody w='1600px' maxW='1600px' mx='auto' my={10} overflow='hidden'>
           <HStack h='full' overflow='hidden'>
-            <VStack
-              px={4}
-              direction='column'
-              gap={3}
-              h='full'
-              overflowY='scroll'
-              overflowX='hidden'
-              css={{
-                '&::-webkit-scrollbar': {
-                  display: 'none',
-                },
-              }}
-            >
-              <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-                {selectedDay.date}
-              </Text>
-              {selectedDay?.schedule?.map(slot => (
-                <ReducedPlanningCard key={slot.label} slot={slot} />
-              ))}
-              <Box
-                as={Button}
-                w='full'
-                border='1px solid black'
-                borderRadius='lg'
-                bg='white'
-                py={7}
+            <VStack justifyContent='space-between' h='full'>
+              <VStack
+                px={4}
+                direction='column'
+                gap={3}
+                h='full'
+                overflowY='scroll'
+                overflowX='hidden'
+                css={{
+                  '&::-webkit-scrollbar': {
+                    display: 'none',
+                  },
+                }}
               >
-                <Icon as={GrAddCircle} w={10} h={10} />
-              </Box>
+                <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
+                  {selectedDay.date}
+                </Text>
+                {selectedDay?.schedule?.map(slot => (
+                  <ReducedPlanningCard key={slot.label} slot={slot} />
+                ))}
+                <Box
+                  as={Button}
+                  w='full'
+                  border='1px solid black'
+                  borderRadius='lg'
+                  bg='white'
+                  py={7}
+                >
+                  <Icon as={GrAddCircle} w={10} h={10} />
+                </Box>
+              </VStack>
+              <Button
+                onClick={closeModal}
+                variant='primary'
+                leftIcon={<BsCaretLeftFill />}
+              >
+                {t('back')}
+              </Button>
             </VStack>
             <Flex direction='column' w='full' h='full' gap={2} flex={3}>
               <HStack
@@ -168,8 +190,9 @@ const SelectionModal: FC = () => {
                     }}
                     isMulti={category.isMulti}
                     useBasicStyles
-                    options={selectElements}
+                    options={selectElements as IElement[]}
                     getOptionValue={(option: IElement) => String(option.id)}
+                    noOptionsMessage={() => t('selectCategory')}
                     chakraStyles={{
                       option: (provided, { isSelected }) => ({
                         ...provided,
@@ -229,15 +252,14 @@ const SelectionModal: FC = () => {
                 <SelectionElement />
                 <SelectionElement />
                 <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
+                <SelectionElement />
               </SimpleGrid>
             </Flex>
           </HStack>
         </ModalBody>
-        <ModalFooter>
-          <Button onClick={closeModal} variant='primary'>
-            Cancel
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   )
