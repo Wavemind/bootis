@@ -21,11 +21,18 @@ import { useTranslation } from 'next-i18next'
 import { ModalContext } from '../../lib/contexts'
 
 /**
+ * Type imports
+ */
+import { IDay } from '../../lib/types'
+
+/**
  * Type definitions
  */
-import { DayProps } from '../../lib/types'
+interface IDayProps {
+  day: IDay
+}
 
-const PlanningDay: FC<DayProps> = ({ day }) => {
+const PlanningDay: FC<IDayProps> = ({ day }) => {
   const { t } = useTranslation('planning')
 
   const { openModal } = useContext(ModalContext)

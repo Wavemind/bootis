@@ -36,14 +36,14 @@ import SelectionElement from './selectionElement'
 /**
  * Type definitions
  */
-import { CategoryType, ElementType } from '../../lib/types'
+import { ICategory, IElement } from '../../lib/types'
 
 const SelectionModal: FC = () => {
   const { t } = useTranslation('planning')
 
   const { isModalOpen, closeModal, selectedDay } = useContext(ModalContext)
 
-  const [category, setCategory] = useState<CategoryType>({} as CategoryType)
+  const [category, setCategory] = useState<ICategory>({} as ICategory)
 
   useEffect(() => {
     if (Object.keys(selectedDay).length > 0) {
@@ -57,7 +57,7 @@ const SelectionModal: FC = () => {
         }
       }
     } else {
-      setCategory({} as CategoryType)
+      setCategory({} as ICategory)
     }
   }, [selectedDay])
 
@@ -157,7 +157,7 @@ const SelectionModal: FC = () => {
                   <Select
                     closeMenuOnSelect={!category.isMulti}
                     components={{
-                      Control: (props: ControlProps<ElementType>) => (
+                      Control: (props: ControlProps<IElement>) => (
                         <chakraComponents.Control {...props}>
                           <HStack w='full' ml={3}>
                             <Icon as={BsSearch} h={5} w={5} />
@@ -169,7 +169,7 @@ const SelectionModal: FC = () => {
                     isMulti={category.isMulti}
                     useBasicStyles
                     options={selectElements}
-                    getOptionValue={(option: ElementType) => String(option.id)}
+                    getOptionValue={(option: IElement) => String(option.id)}
                     chakraStyles={{
                       option: (provided, { isSelected }) => ({
                         ...provided,

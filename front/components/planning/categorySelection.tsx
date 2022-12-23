@@ -14,9 +14,18 @@ import { useTranslation } from 'next-i18next'
 import { RiArrowDownSFill } from 'react-icons/ri'
 
 /**
+ * Type imports
+ */
+import { ICategory } from '../../lib/types'
+
+/**
  * Type definitions
  */
-import { CategorySelectionProps } from '../../lib/types'
+export type CategorySelectionProps = {
+  categories: ICategory[]
+  category: ICategory
+  setCategory: React.Dispatch<React.SetStateAction<ICategory>>
+}
 
 const CategorySelection: FC<CategorySelectionProps> = ({
   categories,

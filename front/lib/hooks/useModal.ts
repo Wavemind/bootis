@@ -3,18 +3,18 @@
  */
 import { useState } from 'react'
 
-import { ModalType, DayType } from '../types'
+import { IModal, IDay } from '../types'
 
 // Custom hook that manages the modal state and content
 export default () => {
   const [isModalOpen, setIsOpen] = useState(false)
-  const [selectedDay, setSelectedDay] = useState({} as DayType)
+  const [selectedDay, setSelectedDay] = useState({} as IDay)
 
   /**
    * Sets the modal content to the incoming JSX component and opens the modal
    * @param {*} content JSX component
    */
-  const openModal = ({ day = {} as DayType }: ModalType) => {
+  const openModal = ({ day = {} as IDay }: IModal) => {
     setIsOpen(true)
     setSelectedDay(day)
   }
@@ -24,7 +24,7 @@ export default () => {
    */
   const closeModal = () => {
     setIsOpen(false)
-    setSelectedDay({} as DayType)
+    setSelectedDay({} as IDay)
   }
 
   return {

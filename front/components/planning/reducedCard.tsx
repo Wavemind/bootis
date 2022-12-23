@@ -9,9 +9,9 @@ import { useTranslation } from 'next-i18next'
 /**
  * Type definitions
  */
-import { SlotType } from '../../lib/types'
+import { ISlot } from '../../lib/types'
 
-const PlanningCard: FC<{ slot: SlotType }> = ({ slot }) => {
+const PlanningCard: FC<{ slot: ISlot }> = ({ slot }) => {
   const { t } = useTranslation('planning')
 
   return (

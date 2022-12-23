@@ -11,7 +11,7 @@ import { IStep } from '../types'
 /**
  * Type definitions
  */
-import { DayType, ModalType } from '../types'
+import { IDay, IModal } from '../types'
 
 interface IQuestionnaireContext {
   steps: IStep[]
@@ -23,9 +23,9 @@ interface IQuestionnaireContext {
 
 interface IModalContext {
   isModalOpen: boolean
-  openModal: ({ day }: ModalType) => void
+  openModal: ({ day }: IModal) => void
   closeModal: () => void
-  selectedDay: DayType
+  selectedDay: IDay
 }
 
 export const QuestionnaireContext = createContext<IQuestionnaireContext>(

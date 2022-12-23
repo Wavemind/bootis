@@ -3,15 +3,14 @@ export interface IChildren {
   children: React.ReactNode
 }
 
-export type ElementType = {
-  id: number
-  label: string
-}
-/////////////////////////////////////////////////////////////////////////////////
-
 export interface IEnumOption {
   id: number
   name: string
+}
+
+export interface IElement {
+  id: number
+  label: string
 }
 
 export interface IFormValues {
@@ -23,9 +22,7 @@ export interface IFormValues {
   restaurants: { id: number; label: string; activities: number[] }[]
 }
 
-export interface IAnswer {
-  id: number
-  label: string
+export interface IAnswer extends IElement {
   children: string[]
   excludes: string[]
 }
@@ -44,51 +41,30 @@ export interface ICharacteristics {
   [key: string]: IStep
 }
 
-export type Option = ElementType & {
-  activities?: number[]
-  unavailable?: boolean
+export interface ICharacteristicMap {
+  [key: string]: string[]
 }
-/////////////////////////////////////////////////////////////////////////////////
 
-// Planning types
-export type CategoryType = {
+export interface IDay {
+  date: string
+  schedule: ISlot[]
+}
+
+export interface ICategory {
   key: string
   label: string
   variant: string
   isMulti: boolean
 }
-export type CategorySelectionProps = {
-  categories: CategoryType[]
-  category: CategoryType
-  setCategory: React.Dispatch<React.SetStateAction<CategoryType>>
+
+export interface IModal {
+  day?: IDay
 }
 
-export type ModalType = {
-  day?: DayType
-}
-
-export type DayType = {
-  date: string
-  schedule: SlotType[]
-}
-
-export type DayProps = {
-  day: DayType
-}
-
-export type CardProps = {
-  day: DayType
-  slot: SlotType
-}
-
-export type SlotType = {
+export interface ISlot {
   type: string
   label: string
   address: string
   signs: string[]
   selected?: boolean
-}
-
-export interface ICharacteristicMap {
-  [key: string]: string[]
 }
