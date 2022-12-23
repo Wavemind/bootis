@@ -12,5 +12,8 @@
   "selectCategory": "Veuillez sélectionner une catégorie",
   "replace": "Remplacer",
   "remove": "Supprimer",
-  "back": "Retour au calendrier"
+  "back": "Retour au calendrier",
+  "cancel": "Annuler",
+  "removeDialogTitle": "Attention",
+  "removeDialogContent": "Etes-vous sur de vouloir supprimer cette activité ?"
 }

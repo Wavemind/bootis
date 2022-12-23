@@ -11,7 +11,7 @@ import { IStep } from '../types'
 /**
  * Type definitions
  */
-import { IDay, IModal } from '../types'
+import { IDay, IModal, IAlertDialog } from '../types'
 
 interface IQuestionnaireContext {
   steps: IStep[]
@@ -28,8 +28,19 @@ interface IModalContext {
   selectedDay: IDay
 }
 
+interface IAlertDialogContext {
+  isAlertDialogOpen: boolean
+  openAlertDialog: ({ title, content, action }: IAlertDialog) => void
+  closeAlertDialog: () => void
+  alertDialogContent: IAlertDialog
+}
+
 export const QuestionnaireContext = createContext<IQuestionnaireContext>(
   {} as IQuestionnaireContext
 )
 
 export const ModalContext = createContext<IModalContext>({} as IModalContext)
+
+export const AlertDialogContext = createContext<IAlertDialogContext>(
+  {} as IAlertDialogContext
+)

@@ -18,7 +18,7 @@ import { useTranslation } from 'next-i18next'
 /**
  * The internal imports
  */
-import { ModalContext } from '../../lib/contexts'
+import { AlertDialogContext, ModalContext } from '../../lib/contexts'
 
 /**
  * Type imports
@@ -30,12 +30,16 @@ import { IDay } from '../../lib/types'
  */
 interface IDayProps {
   day: IDay
+  dayIndex: number
+  setPlanningData: React.Dispatch<React.SetStateAction<IDay[]>>
 }
 
-const PlanningDay: FC<IDayProps> = ({ day }) => {
+const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
   const { t } = useTranslation('planning')
 
   const { openModal } = useContext(ModalContext)
+
+  const { openAlertDialog } = useContext(AlertDialogContext)
 
   /**
    * Opens the modal to select replacement activity
@@ -60,8 +64,20 @@ const PlanningDay: FC<IDayProps> = ({ day }) => {
   /**
    * Removes the selected activity
    */
-  const handleRemove = () => {
-    console.log('probably open a dialog to ask if user is sure')
+  const handleRemoveSlot = (slotIndex: number) => {
+    openAlertDialog({
+      title: t('removeDialogTitle'),
+      content: t('removeDialogContent'),
+      action: () => {
+        const newDay = JSON.parse(JSON.stringify(day))
+        newDay.schedule.splice(slotIndex, 1)
+        setPlanningData(prev => {
+          const newPlanningData = prev
+          newPlanningData[dayIndex] = newDay
+          return newPlanningData
+        })
+      },
+    })
   }
 
   return (
@@ -70,13 +86,7 @@ const PlanningDay: FC<IDayProps> = ({ day }) => {
         {day.date}
       </Text>
       {day.schedule.map((slot, index) => (
-        <Box
-          key={slot.label}
-          w={316}
-          borderRadius='lg'
-          bg='white'
-          boxShadow='lg'
-        >
+        <Box key={slot.id} w={316} borderRadius='lg' bg='white' boxShadow='lg'>
           <Center
             h={75}
             bg='grey'
@@ -125,7 +135,11 @@ const PlanningDay: FC<IDayProps> = ({ day }) => {
               >
                 {t('replace')}
               </Button>
-              <Button size='sm' variant='ghost' onClick={handleRemove}>
+              <Button
+                size='sm'
+                variant='ghost'
+                onClick={() => handleRemoveSlot(index)}
+              >
                 {t('remove')}
               </Button>
             </HStack>

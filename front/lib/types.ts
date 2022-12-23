@@ -59,9 +59,16 @@ export interface IModal {
 }
 
 export interface ISlot {
+  id: number
   type: string
   label: string
   address: string
   signs: string[]
   selected?: boolean
+}
+
+export interface IAlertDialog {
+  title: string
+  content: string
+  action: () => void
 }
