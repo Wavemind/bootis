@@ -9,18 +9,18 @@ import { ISlot } from '../../lib/types'
 
 interface ISlotCard {
   slot: ISlot
-  index?: number | null
+  index?: number
   isReduced?: boolean
-  handleRemove?: (index: number | null) => void
-  handleReplace?: (index: number | null) => void
+  handleRemove?: (index: number) => void
+  handleReplace?: (index: number) => void
 }
 
 const SlotCard: FC<ISlotCard> = ({
   slot,
-  index = null,
+  index = -1,
   isReduced = false,
-  handleRemove = () => null,
-  handleReplace = () => null,
+  handleRemove = index => index,
+  handleReplace = index => index,
 }) => {
   const { t } = useTranslation('planning')
 
