@@ -31,12 +31,13 @@ import SelectionElement from './selectionElement'
 import {
   useGetActivityCategoriesQuery,
   useGetAccommodationCategoriesQuery,
+  useLazyGetCategoriesByRegionQuery,
 } from '../../lib/services/modules/category'
 
 /**
  * Type imports
  */
-import { ICategory, IEnumOption } from '../../lib/types'
+import { ICategory, IEnumOption, IStep } from '../../lib/types'
 import SlotCard from './slot'
 
 /**
@@ -57,45 +58,36 @@ const SelectionModal: FC = () => {
   const { data: accommodationCategories = [] } =
     useGetAccommodationCategoriesQuery()
 
-  useEffect(() => {
-    if (Object.keys(selectedDay).length > 0) {
-      const newSlot = selectedDay.schedule.find(slot => slot.selected)
-      if (newSlot) {
-        const newCategory = categories.find(
-          category => category.key === newSlot.type
-        )
-        if (newCategory) {
-          setCategory(newCategory)
-        }
-      }
-    } else {
-      setCategory({} as ICategory)
-    }
-  }, [selectedDay])
+  const [getCategoriesByRegion, { data: categoriesByRegion = [] }] =
+    useLazyGetCategoriesByRegionQuery()
 
-  const categories = useMemo(
-    () => [
-      {
-        key: 'accommodation',
-        label: t('categories.accommodations'),
-        variant: 'teal',
-        isMulti: false,
-      },
-      {
-        key: 'restaurant',
-        label: t('categories.restaurants'),
-        variant: 'salmon',
-        isMulti: true,
-      },
-      {
-        key: 'activity',
-        label: t('categories.activities'),
-        variant: 'turquoise',
-        isMulti: true,
-      },
-    ],
-    []
-  )
+  useEffect(() => {
+    const voyageFormData = JSON.parse(
+      localStorage.getItem('steps') as string
+    ).find((step: IStep) => step.key === 'voyageForm')
+    getCategoriesByRegion(voyageFormData.formValues.destination.name)
+  }, [])
+
+  /**
+   * Fill the select with preselected values from the voyage step
+   */
+  const preselectedValues = useMemo(() => {
+    if (!category.key) {
+      return []
+    }
+
+    const voyageStep = JSON.parse(localStorage.getItem('steps') as string).find(
+      (step: IStep) => step.key === 'voyageForm'
+    )
+
+    if (category.key === 'accommodation') {
+      return voyageStep.formValues.accommodation
+    } else if (category.key === 'restaurant') {
+      return restaurantTypes
+    } else {
+      return voyageStep.formValues.activities
+    }
+  }, [category])
 
   /**
    * Provide the correct elements to the select based on user category selection
@@ -110,7 +102,10 @@ const SelectionModal: FC = () => {
     } else if (category.key === 'restaurant') {
       return restaurantTypes
     } else {
-      return activityCategories
+      return activityCategories.map(activity => ({
+        ...activity,
+        isDisabled: !categoriesByRegion.includes(activity.id),
+      }))
     }
   }, [category])
 
@@ -187,6 +182,7 @@ const SelectionModal: FC = () => {
                         </chakraComponents.Control>
                       ),
                     }}
+                    value={preselectedValues}
                     isMulti={category.isMulti}
                     useBasicStyles
                     options={selectElements as IElement[]}
@@ -225,7 +221,6 @@ const SelectionModal: FC = () => {
                   />
                 </Box>
                 <CategorySelection
-                  categories={categories}
                   category={category}
                   setCategory={setCategory}
                 />
