@@ -6,7 +6,6 @@ import { useTranslation } from 'next-i18next'
 import {
   Box,
   HStack,
-  SimpleGrid,
   Icon,
   Modal,
   ModalOverlay,
@@ -27,7 +26,6 @@ import { GrAddCircle } from 'react-icons/gr'
  */
 import { ModalContext } from '../../lib/contexts'
 import CategorySelection from './categorySelection'
-import ReducedPlanningCard from './reducedCard'
 import restaurantTypes from '../../lib/config/restaurantTypes'
 import SelectionElement from './selectionElement'
 import {
@@ -39,6 +37,7 @@ import {
  * Type imports
  */
 import { ICategory, IEnumOption } from '../../lib/types'
+import SlotCard from './slot'
 
 /**
  * Type definitions
@@ -125,7 +124,7 @@ const SelectionModal: FC = () => {
     >
       <ModalOverlay />
       <ModalContent maxH='calc(100vh)' h='calc(100vh)'>
-        <ModalBody w='1600px' maxW='1600px' mx='auto' my={10} overflow='hidden'>
+        <ModalBody maxW='1600px' mx='auto' my={10} overflow='hidden'>
           <HStack h='full' overflow='hidden'>
             <VStack justifyContent='space-between' h='full'>
               <VStack
@@ -145,7 +144,7 @@ const SelectionModal: FC = () => {
                   {selectedDay.date}
                 </Text>
                 {selectedDay?.schedule?.map(slot => (
-                  <ReducedPlanningCard key={slot.label} slot={slot} />
+                  <SlotCard key={slot.label} slot={slot} isReduced />
                 ))}
                 <Box
                   as={Button}
@@ -166,7 +165,7 @@ const SelectionModal: FC = () => {
                 {t('back')}
               </Button>
             </VStack>
-            <Flex direction='column' w='full' h='full' gap={2} flex={3}>
+            <Flex direction='column' h='full' gap={2} flex={1}>
               <HStack
                 bg='blue'
                 py={2}
@@ -231,9 +230,9 @@ const SelectionModal: FC = () => {
                   setCategory={setCategory}
                 />
               </HStack>
-              <SimpleGrid
-                columns={4}
-                spacing={2}
+              <Flex
+                flexWrap='wrap'
+                gap={2}
                 px={2}
                 overflowY='scroll'
                 h='full'
@@ -256,7 +255,7 @@ const SelectionModal: FC = () => {
                 <SelectionElement />
                 <SelectionElement />
                 <SelectionElement />
-              </SimpleGrid>
+              </Flex>
             </Flex>
           </HStack>
         </ModalBody>

@@ -9,23 +9,30 @@ import { ISlot } from '../../lib/types'
 
 interface ISlotCard {
   slot: ISlot
-  index: number
+  index?: number | null
   isReduced?: boolean
-  handleRemove: (index: number) => void
-  handleReplace: (index: number) => void
+  handleRemove?: (index: number | null) => void
+  handleReplace?: (index: number | null) => void
 }
 
 const SlotCard: FC<ISlotCard> = ({
   slot,
-  index,
+  index = null,
   isReduced = false,
-  handleRemove,
-  handleReplace,
+  handleRemove = () => null,
+  handleReplace = () => null,
 }) => {
   const { t } = useTranslation('planning')
 
   return (
-    <Box w={316} borderRadius='lg' bg='white' boxShadow='lg'>
+    <Box
+      w={316}
+      borderRadius={isReduced ? 'xl' : 'lg'}
+      bg='white'
+      boxShadow='lg'
+      border={isReduced && slot.selected ? '4px solid' : 'none'}
+      borderColor={isReduced && slot.type === 'activity' ? 'teal' : 'salmon'}
+    >
       <Center
         h={75}
         bg='grey'
