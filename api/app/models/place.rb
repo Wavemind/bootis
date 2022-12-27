@@ -15,4 +15,12 @@ class Place < ActiveRecord::Base
     end
     places
   end
+
+  def self.match_accomodation(region)
+    Place.where(region: region).order(Arel.sql('RANDOM()')).first
+  end
+
+  def full_address
+    "#{street} #{number}, #{zip} #{city}"
+  end 
 end
