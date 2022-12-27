@@ -63,6 +63,7 @@ export interface ISlot extends IEnumOption {
   fullAddress: string
   signs: string[]
   selected?: boolean
+  category?: { section: string }
 }
 
 export interface IAlertDialog {

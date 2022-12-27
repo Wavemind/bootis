@@ -50,8 +50,20 @@ const Planning: FC = () => {
     const planningFromStorage = JSON.parse(
       localStorage.getItem('planning') as string
     )
+
     setAccommodationData(planningFromStorage.accommodation)
-    setPlanningData(planningFromStorage.schedule)
+    setPlanningData(
+      planningFromStorage.schedule.map((day: IDay) => ({
+        ...day,
+        activities: day.activities.map((activity: ISlot) => ({
+          ...activity,
+          type:
+            activity.category?.section === 'restaurant'
+              ? 'restaurant'
+              : 'activity',
+        })),
+      }))
+    )
     setLoading(false)
   }, [])
 

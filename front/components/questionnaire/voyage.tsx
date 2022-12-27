@@ -53,7 +53,11 @@ const Voyage: FC = () => {
 
   const [
     getCategoriesByRegion,
-    { data: categoriesByRegion = [], isFetching, isSuccess },
+    {
+      data: categoriesByRegion = [],
+      isFetching: isCatagoriesByRegionFetching,
+      isSuccess: isCatagoriesByRegionSuccess,
+    },
   ] = useLazyGetCategoriesByRegionQuery()
 
   const [
@@ -90,20 +94,20 @@ const Voyage: FC = () => {
    * Filters the available categories for the selected region
    */
   const filteredActivities = useMemo(() => {
-    if (!isFetching && isSuccess) {
+    if (!isCatagoriesByRegionFetching && isCatagoriesByRegionSuccess) {
       return activityCategories.map(activity => ({
         ...activity,
         isDisabled: !categoriesByRegion.includes(activity.id),
       }))
     }
     return []
-  }, [isSuccess, isFetching])
+  }, [isCatagoriesByRegionSuccess, isCatagoriesByRegionFetching])
 
   /**
    * Updates the selected activities based on the availability in the selected region
    */
   useEffect(() => {
-    if (!isFetching && isSuccess) {
+    if (!isCatagoriesByRegionFetching && isCatagoriesByRegionSuccess) {
       const selectedActivities = methods.getValues('activities')
 
       methods.setValue(
@@ -113,7 +117,7 @@ const Voyage: FC = () => {
         )
       )
     }
-  }, [isSuccess, isFetching])
+  }, [isCatagoriesByRegionSuccess, isCatagoriesByRegionFetching])
 
   /**
    * Handles the data submission to the backend

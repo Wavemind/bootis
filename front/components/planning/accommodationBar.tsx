@@ -10,21 +10,16 @@ import { MdEdit } from 'react-icons/md'
  * Type imports
  */
 import { ISlot } from '../../lib/types'
-import format from 'date-fns/format'
 
 /**
  * Type definitions
  */
 interface IAccommodationBarProps {
   accommodationData: ISlot
-  startDate: Date
-  endDate: Date
 }
 
 const AccommodationBar: FC<IAccommodationBarProps> = ({
   accommodationData,
-  startDate,
-  endDate,
 }) => {
   /**
    * Handle edit action for the accommodation
@@ -41,10 +36,7 @@ const AccommodationBar: FC<IAccommodationBarProps> = ({
         {accommodationData.name}
       </Text>
       <Text color='white' fontFamily='Noir Pro Medium, sans-serif'>
-        {`${format(startDate, 'dd.MM.yyyy')} - ${format(
-          endDate,
-          'dd.MM.yyyy'
-        )}`}
+        28.03.2023 - 31.03.2023
       </Text>
       <Icon
         role='button'
