@@ -1,0 +1,19 @@
+{
+  "title": "Planning",
+  "description": "Votre planning",
+  "restaurant": "Restaurant",
+  "activity": "Activity",
+  "categories": {
+    "title": "Catégories",
+    "accommodations": "Hébergements",
+    "restaurants": "Restaurants",
+    "activities": "Activités"
+  },
+  "selectCategory": "Veuillez sélectionner une catégorie",
+  "replace": "Remplacer",
+  "remove": "Supprimer",
+  "back": "Retour au calendrier",
+  "cancel": "Annuler",
+  "removeDialogTitle": "Attention",
+  "removeDialogContent": "Etes-vous sur de vouloir supprimer cette activité ?"
+}

@@ -42,6 +42,7 @@ const Home = () => {
         gridTemplateColumns={'28% 18% auto 13%'}
         gap={2}
         color='white'
+        overflowY='scroll'
       >
         <GridItem bg='salmon' area='about' borderRadius='xl'>
           <VStack pt={6} px={4} spacing={6} alignItems='flex-start'>

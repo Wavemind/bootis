@@ -1,8 +1,12 @@
 /**
+ * The external imports
+ */
+import { gql } from 'graphql-request'
+
+/**
  * The internal imports
  */
 import { api } from '../../api'
-import { gql } from 'graphql-request'
 
 /**
  * Type imports
@@ -44,6 +48,26 @@ export const categoriesApi = api.injectEndpoints({
         })),
       providesTags: [],
     }),
+    getAccommodationCategories: build.query<IEnumOption[], void>({
+      query: () => ({
+        document: gql`
+          query {
+            getAccommodationCategories {
+              id
+              name
+            }
+          }
+        `,
+      }),
+      transformResponse: (response: {
+        getAccommodationCategories: IEnumOption[]
+      }) =>
+        response.getAccommodationCategories.map(category => ({
+          ...category,
+          label: category.name,
+        })),
+      providesTags: [],
+    }),
   }),
   overrideExisting: false,
 })
@@ -52,6 +76,8 @@ export const categoriesApi = api.injectEndpoints({
 export const {
   useLazyGetCategoriesByRegionQuery,
   useGetActivityCategoriesQuery,
+  useGetAccommodationCategoriesQuery,
 } = categoriesApi
 
-export const { getActivityCategories } = categoriesApi.endpoints
+export const { getActivityCategories, getAccommodationCategories } =
+  categoriesApi.endpoints

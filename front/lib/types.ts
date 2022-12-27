@@ -41,3 +41,34 @@ export interface ICharacteristics {
 export interface ICharacteristicMap {
   [key: string]: string[]
 }
+
+export interface IDay {
+  date: string
+  schedule: ISlot[]
+}
+
+export interface ICategory {
+  key: string
+  label: string
+  variant: string
+  isMulti: boolean
+}
+
+export interface IModal {
+  day?: IDay
+}
+
+export interface ISlot {
+  id: number
+  type: string
+  label: string
+  address: string
+  signs: string[]
+  selected?: boolean
+}
+
+export interface IAlertDialog {
+  title: string
+  content: string
+  action: () => void
+}

@@ -16,9 +16,10 @@ import {
   PopoverContent,
   PopoverBody,
   PopoverArrow,
+  Icon,
 } from '@chakra-ui/react'
-import { InfoOutlineIcon } from '@chakra-ui/icons'
 import { Select as ChakraSelect } from 'chakra-react-select'
+import { BsInfoCircle } from 'react-icons/bs'
 import { useTranslation } from 'next-i18next'
 
 /**
@@ -70,7 +71,7 @@ const Select: FC<VoyageSelectProps> = ({
                 {hasInfo && (
                   <Popover isLazy placement='top' size='sm'>
                     <PopoverTrigger>
-                      <InfoOutlineIcon cursor='pointer' w={22} h={22} />
+                      <Icon as={BsInfoCircle} cursor='pointer' w={22} h={22} />
                     </PopoverTrigger>
                     <PopoverContent border='none' minW='30em'>
                       <PopoverArrow bg='blue' />

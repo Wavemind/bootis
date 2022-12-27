@@ -9,9 +9,13 @@ import { createContext } from 'react'
 import { IStep } from '../types'
 
 /**
+ * Type imports
+ */
+import { IDay, IModal, IAlertDialog } from '../types'
+
+/**
  * Type definitions
  */
-
 interface IQuestionnaireContext {
   steps: IStep[]
   setSteps: React.Dispatch<React.SetStateAction<IStep[]>>
@@ -20,6 +24,26 @@ interface IQuestionnaireContext {
   resetQuestionnaire: () => void
 }
 
+interface IModalContext {
+  isModalOpen: boolean
+  openModal: ({ day }: IModal) => void
+  closeModal: () => void
+  selectedDay: IDay
+}
+
+interface IAlertDialogContext {
+  isAlertDialogOpen: boolean
+  openAlertDialog: ({ title, content, action }: IAlertDialog) => void
+  closeAlertDialog: () => void
+  alertDialogContent: IAlertDialog
+}
+
 export const QuestionnaireContext = createContext<IQuestionnaireContext>(
   {} as IQuestionnaireContext
+)
+
+export const ModalContext = createContext<IModalContext>({} as IModalContext)
+
+export const AlertDialogContext = createContext<IAlertDialogContext>(
+  {} as IAlertDialogContext
 )

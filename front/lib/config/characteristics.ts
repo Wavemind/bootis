@@ -9,8 +9,10 @@ import maxSlopeImage from '../../public/maxSlopeImage.svg'
 import { ICharacteristics } from '../types'
 
 // TODO : Update all of the images onces we have them
+// TODO : Recheck Id match with api
 export default <ICharacteristics>{
   maxSlope: {
+    id: 1,
     key: 'maxSlope',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -22,6 +24,7 @@ export default <ICharacteristics>{
     ],
   },
   passageLength: {
+    id: 21,
     key: 'passageLength',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -32,6 +35,7 @@ export default <ICharacteristics>{
     ],
   },
   passageWidth: {
+    id: 2,
     key: 'passageWidth',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -43,6 +47,7 @@ export default <ICharacteristics>{
     ],
   },
   stepHeight: {
+    id: 3,
     key: 'stepHeight',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -54,6 +59,7 @@ export default <ICharacteristics>{
     ],
   },
   tableHeight: {
+    id: 4,
     key: 'tableHeight',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -65,6 +71,7 @@ export default <ICharacteristics>{
     ],
   },
   reachHeight: {
+    id: 5,
     key: 'reachHeight',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -75,6 +82,7 @@ export default <ICharacteristics>{
     ],
   },
   handrail: {
+    id: 6,
     key: 'handrail',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -85,6 +93,7 @@ export default <ICharacteristics>{
     ],
   },
   bedHeight: {
+    id: 7,
     key: 'bedHeight',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -96,6 +105,7 @@ export default <ICharacteristics>{
     ],
   },
   bedAdjacentSpace: {
+    id: 8,
     key: 'bedAdjacentSpace',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -107,6 +117,7 @@ export default <ICharacteristics>{
     ],
   },
   wcAdjacentDistance: {
+    id: 9,
     key: 'wcAdjacentDistance',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -118,6 +129,7 @@ export default <ICharacteristics>{
     ],
   },
   wcFrontDistance: {
+    id: 10,
     key: 'wcFrontDistance',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -129,6 +141,7 @@ export default <ICharacteristics>{
     ],
   },
   wcSeatHeight: {
+    id: 11,
     key: 'wcSeatHeight',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -140,6 +153,7 @@ export default <ICharacteristics>{
     ],
   },
   wcFixedHandrail: {
+    id: 12,
     key: 'wcFixedHandrail',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -150,6 +164,7 @@ export default <ICharacteristics>{
     ],
   },
   wcFoldableHandrail: {
+    id: 13,
     key: 'wcFoldableHandrail',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -160,6 +175,7 @@ export default <ICharacteristics>{
     ],
   },
   eurokey: {
+    id: 14,
     key: 'eurokey',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -170,6 +186,7 @@ export default <ICharacteristics>{
     ],
   },
   wcSinkDistance: {
+    id: 15,
     key: 'wcSinkDistance',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -181,6 +198,7 @@ export default <ICharacteristics>{
     ],
   },
   hygieneNeeds: {
+    id: 22,
     key: 'hygieneNeeds',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -205,7 +223,19 @@ export default <ICharacteristics>{
       },
     ],
   },
+  bathSeat: {
+    id: 18,
+    key: 'bathSeat',
+    imageSrc: maxSlopeImage,
+    type: 'characteristic',
+    answers: [
+      { id: 1, label: 'Oui', children: [], excludes: [] },
+      { id: 2, label: 'Non', children: [], excludes: [] },
+      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
+    ],
+  },
   showerFixedHandrail: {
+    id: 19,
     key: 'showerFixedHandrail',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
@@ -216,17 +246,8 @@ export default <ICharacteristics>{
     ],
   },
   showerFoldableHandrail: {
+    id: 20,
     key: 'showerFoldableHandrail',
-    imageSrc: maxSlopeImage,
-    type: 'characteristic',
-    answers: [
-      { id: 1, label: 'Oui', children: [], excludes: [] },
-      { id: 2, label: 'Non', children: [], excludes: [] },
-      { id: 3, label: 'Je ne sais pas !', children: [], excludes: [] },
-    ],
-  },
-  bathSeat: {
-    key: 'bathSeat',
     imageSrc: maxSlopeImage,
     type: 'characteristic',
     answers: [

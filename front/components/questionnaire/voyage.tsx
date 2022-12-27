@@ -12,21 +12,22 @@ import {
   GridItem,
   Center,
   Spinner,
+  Icon,
   Text,
 } from '@chakra-ui/react'
-import { InfoOutlineIcon } from '@chakra-ui/icons'
+import { BsInfoCircle } from 'react-icons/bs'
 
 /**
  * The internal imports
  */
 import Select from './select'
 import DatePicker from './calendar'
-import accommodations from '../../lib/config/accommodations'
 import restaurants from '../../lib/config/restaurants'
 import { QuestionnaireContext } from '../../lib/contexts'
 import { useGetRegionsQuery } from '../../lib/services/modules/region'
 import {
   useGetActivityCategoriesQuery,
+  useGetAccommodationCategoriesQuery,
   useLazyGetCategoriesByRegionQuery,
 } from '../../lib/services/modules/category'
 
@@ -44,6 +45,8 @@ const Voyage: FC = () => {
 
   const { data: regions = [] } = useGetRegionsQuery()
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
+  const { data: accommodationCategories = [] } =
+    useGetAccommodationCategoriesQuery()
 
   const [
     getCategoriesByRegion,
@@ -155,6 +158,7 @@ const Voyage: FC = () => {
   }
 
   // TODO : Check how to manage fonts => variants, defaults, etc.
+  // TODO : Get restaurant type info from somewhere
   return (
     <Box w='full' h='full'>
       <FormProvider {...methods}>
@@ -178,7 +182,7 @@ const Voyage: FC = () => {
                   hasInfo
                   infoContent={
                     <VStack spacing={4}>
-                      <InfoOutlineIcon w={30} h={30} color='salmon' />
+                      <Icon as={BsInfoCircle} w={30} h={30} color='salmon' />
                       <Text
                         color='white'
                         textAlign='center'
@@ -193,7 +197,7 @@ const Voyage: FC = () => {
                   name='accommodation'
                   label={t('accomodations.label')}
                   subLabel={t('accomodations.subLabel')}
-                  options={accommodations}
+                  options={accommodationCategories}
                 />
               </VStack>
             </GridItem>
