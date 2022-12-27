@@ -39,7 +39,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
   const handleReplace = (index: number) => {
     // To "copy" day
     const newDay = JSON.parse(JSON.stringify(day))
-    newDay.schedule[index].selected = true
+    newDay.activities[index].selected = true
     openModal({ day: newDay })
   }
 
@@ -59,7 +59,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
       content: t('removeDialogContent'),
       action: () => {
         const newDay = JSON.parse(JSON.stringify(day))
-        newDay.schedule.splice(slotIndex, 1)
+        newDay.activities.splice(slotIndex, 1)
         setPlanningData(prev => {
           const newPlanningData = prev
           newPlanningData[dayIndex] = newDay
@@ -70,7 +70,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
   }
 
   return (
-    <VStack spacing={3}>
+    <VStack spacing={3} flexBasis={316}>
       <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
         {day.date}
       </Text>

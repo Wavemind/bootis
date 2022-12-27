@@ -90,6 +90,7 @@ const Planning: FC = () => {
         >
           <Flex direction='column' color='black' h='full' w='full'>
             <HStack
+              display='flex'
               alignItems='flex-start'
               border='1px solid white'
               h='full'
