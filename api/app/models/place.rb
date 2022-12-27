@@ -1,7 +1,11 @@
 class Place < ActiveRecord::Base
+  enum region: [:zurich, :berne, :grisons, :valais, :lucerne, :geneve, :leman, :tessin, :orientale, :bale, :argovie, :jura, :fribourg, :liechtenstein]
+
   belongs_to :category
   has_many :place_characteristics
   has_many :characteristics, through: :place_characteristics
+  has_many :pictograms_places
+  has_many :pictograms, through: :pictograms_places
   
   geocoded_by :full_address
   
@@ -20,12 +24,15 @@ class Place < ActiveRecord::Base
     Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
   end
 
-  def self.match_activities(region, limit)
-    Place.joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).order(Arel.sql('RANDOM()')).first
-    Place.joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).order(Arel.sql('RANDOM()')).first
+  def self.match_activities(region, limit, excluding = [])
+    first = Place.excluding(excluding).joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).sample
+    excluding << first
+    restaurants = Place.joins(:category).where(region: region).where(categories: {section: 'restaurant'}).near(first).slice(0,2)
+    others = Place.excluding(excluding).joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).near(first).slice(0, limit - 1)
+    [first, restaurants.first, others, restaurants.last].flatten
   end
 
   def full_address
     "#{street} #{number}, #{zip} #{city}"
   end 
-end
+end 

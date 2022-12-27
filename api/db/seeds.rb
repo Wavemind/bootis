@@ -5,6 +5,7 @@ PlaceCharacteristic.destroy_all
 Place.destroy_all
 Characteristic.destroy_all
 Category.destroy_all
+Pictogram.destroy_all
 
 puts "-- Create users ..."
 wavemind_user = User.create(email: 'dev@wavemind.ch ', password: 'Galilee15', password_confirmation: 'Galilee15')
@@ -106,9 +107,21 @@ place_characteristics = {
   7511 => shower_folding_grab_bar,
   7594 => shower_folding_grab_bar,
 }
-puts "-- Create places ..."
 
-data['Pois'].slice(0,2000).each_with_index do |poi, index|
+puts "-- Create Pictograms ..."
+
+data['Pictograms'].each do |pictogram| 
+  Pictogram.create!(
+    id: pictogram['Id'],
+    name: pictogram['NameFr'],
+    link: pictogram['LinkToPictogram'],
+    link_svg: pictogram['LinkToPictogramSvg'],
+  )
+end 
+
+
+puts "-- Create places ..."
+data['Pois'].each_with_index do |poi, index|
   puts "-- Place #{index}/#{data['Pois'].count}"
 
   case poi['Category']
@@ -194,9 +207,10 @@ data['Pois'].slice(0,2000).each_with_index do |poi, index|
   if category.present?
     Place.create!(
       category: category,
-      name: poi['Name'],
+      name: poi['Name'].strip,
       zuerst_id: poi['IdZuerst'],
       region: final_region,
+      pictograms: poi['PictogramIds'].map{|id| Pictogram.find(id)} if poi['PictogramIds'].present?,
       latitude: poi['Coordinates']['Lat'],
       longitude: poi['Coordinates']['Lng'],
       street: poi['Address']['Street'],

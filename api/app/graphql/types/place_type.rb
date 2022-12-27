@@ -9,6 +9,7 @@ module Types
     field :latitude, Float
     field :longitude, Float
     field :category, Types::CategoryType, null: false
+    field :pictograms, [Types::PictogramType], null: false
     field :street, String, null: false
     field :zip, String, null: false
     field :city, String, null: false
