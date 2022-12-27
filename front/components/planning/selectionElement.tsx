@@ -13,6 +13,7 @@ const SelectionElement: FC = () => {
     console.log('replace the selected slot with the selected new element')
   }
 
+  // TODO : Get data from backend
   return (
     <Box
       role='button'

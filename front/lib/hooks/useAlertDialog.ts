@@ -3,9 +3,12 @@
  */
 import { useState } from 'react'
 
-// Custom hook that manages the modal state and content
+/**
+ * Type imports
+ */
 import { IAlertDialog } from '../types'
 
+// Custom hook that manages the alertDialog state and content
 export default () => {
   const [isAlertDialogOpen, setIsOpen] = useState(false)
   const [alertDialogContent, setAlertDialogContent] = useState(

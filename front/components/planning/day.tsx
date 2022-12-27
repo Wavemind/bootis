@@ -37,7 +37,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
    * Opens the modal to select replacement activity
    */
   const handleReplace = (index: number) => {
-    // LOL
+    // To "copy" day
     const newDay = JSON.parse(JSON.stringify(day))
     newDay.schedule[index].selected = true
     openModal({ day: newDay })

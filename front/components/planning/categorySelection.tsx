@@ -61,13 +61,13 @@ const CategorySelection: FC<CategorySelectionProps> = ({
 
   useEffect(() => {
     if (Object.keys(selectedDay).length > 0) {
-      const newSlot = selectedDay.schedule.find(slot => slot.selected)
-      if (newSlot) {
-        const newCategory = categories.find(
-          category => category.key === newSlot.type
+      const selectedSlot = selectedDay.schedule.find(slot => slot.selected)
+      if (selectedSlot) {
+        const categoryType = categories.find(
+          category => category.key === selectedSlot.type
         )
-        if (newCategory) {
-          setCategory(newCategory)
+        if (categoryType) {
+          setCategory(categoryType)
         }
       }
     } else {

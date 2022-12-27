@@ -24,6 +24,7 @@ import { GrAddCircle } from 'react-icons/gr'
 /**
  * The internal imports
  */
+import SlotCard from './slot'
 import { ModalContext } from '../../lib/contexts'
 import CategorySelection from './categorySelection'
 import restaurantTypes from '../../lib/config/restaurantTypes'
@@ -38,7 +39,6 @@ import {
  * Type imports
  */
 import { ICategory, IEnumOption, IStep } from '../../lib/types'
-import SlotCard from './slot'
 
 /**
  * Type definitions
@@ -112,6 +112,7 @@ const SelectionModal: FC = () => {
     }
   }, [category])
 
+  // TODO : Get SelectionElement data from backend
   return (
     <Modal
       onClose={closeModal}

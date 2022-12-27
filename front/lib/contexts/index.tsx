@@ -9,10 +9,13 @@ import { createContext } from 'react'
 import { IStep } from '../types'
 
 /**
- * Type definitions
+ * Type imports
  */
 import { IDay, IModal, IAlertDialog } from '../types'
 
+/**
+ * Type definitions
+ */
 interface IQuestionnaireContext {
   steps: IStep[]
   setSteps: React.Dispatch<React.SetStateAction<IStep[]>>
