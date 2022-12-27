@@ -16,6 +16,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { BsInfoCircle } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 
 /**
  * The internal imports
@@ -30,14 +31,16 @@ import {
   useGetAccommodationCategoriesQuery,
   useLazyGetCategoriesByRegionQuery,
 } from '../../lib/services/modules/category'
+import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 
 /**
  * Type imports
  */
-import { IFormValues } from '../../lib/types'
+import { IEnumOption, IFormValues } from '../../lib/types'
 
 const Voyage: FC = () => {
   const { t } = useTranslation('voyage')
+  const router = useRouter()
 
   const [loading, setLoading] = useState(true)
 
@@ -53,11 +56,20 @@ const Voyage: FC = () => {
     { data: categoriesByRegion = [], isFetching, isSuccess },
   ] = useLazyGetCategoriesByRegionQuery()
 
+  const [
+    getPlanning,
+    {
+      data: planning = {},
+      isFetching: isPlanningFetching,
+      isSuccess: isPlanningSuccess,
+    },
+  ] = useLazyGetPlanningQuery()
+
   const methods = useForm<IFormValues>({
     defaultValues: {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
-      destination: '',
+      destination: {} as IEnumOption,
       activities: [],
       accommodation: '',
       restaurants: [],
@@ -69,7 +81,7 @@ const Voyage: FC = () => {
    */
   useEffect(() => {
     const destinationValue = methods.getValues('destination')
-    if (typeof destinationValue === 'object') {
+    if (destinationValue?.name) {
       getCategoriesByRegion(destinationValue.name)
     }
   }, [methods.watch('destination')])
@@ -107,13 +119,30 @@ const Voyage: FC = () => {
    * Handles the data submission to the backend
    * @param data form data object
    */
-  // TODO : Connect to the backend I'm guessing ?
   const onSubmit = (data: IFormValues) => {
     const newSteps = [...steps]
     newSteps[currentStep].formValues = data
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
+    getPlanning({
+      startDate: data.startDate,
+      endDate: data.endDate,
+      region: data.destination?.name || '',
+      categories: data.activities?.map(activity => activity.id) || [],
+    })
   }
+
+  /**
+   * If the planning is properly received from the backend,
+   * put it in localStorage and navigate to planning page
+   */
+  useEffect(() => {
+    if (!isPlanningFetching && isPlanningSuccess) {
+      console.log('planning', planning)
+      localStorage.setItem('planning', JSON.stringify(planning))
+      router.push('/planning')
+    }
+  }, [isPlanningSuccess, isPlanningFetching])
 
   /**
    * If data exists in localStorage, use it to prefill form values
@@ -132,7 +161,7 @@ const Voyage: FC = () => {
           : new Date(),
         accommodation: '',
         restaurants: [],
-        destination: '',
+        destination: {} as IEnumOption,
         activities: [],
       }
       if (infoFromSearch.destination) {

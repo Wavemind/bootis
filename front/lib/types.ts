@@ -11,7 +11,7 @@ export interface IEnumOption {
 export interface IFormValues {
   startDate: Date
   endDate: Date
-  destination?: string | IEnumOption
+  destination?: IEnumOption
   activities?: IEnumOption[]
   accommodation: string | { id: number; label: string }
   restaurants: { id: number; label: string; activities: number[] }[]
@@ -44,7 +44,7 @@ export interface ICharacteristicMap {
 
 export interface IDay {
   date: string
-  schedule: ISlot[]
+  activities: ISlot[]
 }
 
 export interface ICategory {
@@ -58,11 +58,9 @@ export interface IModal {
   day?: IDay
 }
 
-export interface ISlot {
-  id: number
+export interface ISlot extends IEnumOption {
   type: string
-  label: string
-  address: string
+  fullAddress: string
   signs: string[]
   selected?: boolean
 }

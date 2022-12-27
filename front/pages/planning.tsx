@@ -1,11 +1,11 @@
 /**
  * The external imports
  */
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { HStack, Flex, StackDivider } from '@chakra-ui/react'
+import { HStack, Flex, StackDivider, Center, Spinner } from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -29,10 +29,14 @@ import {
 /**
  * Type imports
  */
-import { IDay } from '../lib/types'
+import { IDay, ISlot } from '../lib/types'
 
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
+
+  const [loading, setLoading] = useState(true)
+  const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
+  const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
   const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
   const {
@@ -42,79 +46,22 @@ const Planning: FC = () => {
     alertDialogContent,
   } = useAlertDialog()
 
-  // TODO : Get this from the backend and then adapt to data structure
-  const [planningData, setPlanningData] = useState<IDay[]>([
-    {
-      date: '29.03.2023',
-      schedule: [
-        {
-          id: 1,
-          type: 'activity',
-          label: "Bibliothèque d'art et d'archéologie",
-          address: 'Promenade du Pin 5, 1204 Geneve',
-          signs: [
-            'noHandicappedParking',
-            'handicappedWC',
-            'noWheelchair',
-            'accompaniedWheelchair',
-          ],
-        },
-        {
-          id: 2,
-          type: 'restaurant',
-          label: 'Green Up Salad bar',
-          address: 'Rue Marterey 1, 1005 Lausanne',
-          signs: ['noHandicappedParking', 'handicappedWC', 'noWheelchair'],
-        },
-        {
-          id: 3,
-          type: 'activity',
-          label: 'Bowling de Vidy',
-          address: 'Route de Chavannes 27 D, 1007 Lausanne-CH',
-          signs: [
-            'noHandicappedParking',
-            'handicappedWC',
-            'noWheelchair',
-            'accompaniedWheelchair',
-          ],
-        },
-        {
-          id: 4,
-          type: 'restaurant',
-          label: 'Bleu Lézard',
-          address: 'Rue Enning 10, 1003 Lausanne',
-          signs: ['noHandicappedParking', 'handicappedWC', 'noWheelchair'],
-        },
-      ],
-    },
-    {
-      date: '30.03.2023',
-      schedule: [
-        {
-          id: 5,
-          type: 'activity',
-          label: 'Bains de Lavey',
-          address:
-            'Route des Bains 42 Les Bains de Lavey, 1892 Lavey-les-bains',
-          signs: ['noHandicappedParking'],
-        },
-        {
-          id: 6,
-          type: 'restaurant',
-          label: 'Café de Bouchers',
-          address: 'Av. du Chablais 21, 1008 Prilly',
-          signs: ['noHandicappedParking', 'handicappedWC', 'noWheelchair'],
-        },
-        {
-          id: 7,
-          type: 'activity',
-          label: 'Cinéma de Malley',
-          address: 'Chem. du Viaduc 1, 1008 Prilly',
-          signs: ['noHandicappedParking', 'accompaniedWheelchair'],
-        },
-      ],
-    },
-  ])
+  useEffect(() => {
+    const planningFromStorage = JSON.parse(
+      localStorage.getItem('planning') as string
+    )
+    setAccommodationData(planningFromStorage.accommodation)
+    setPlanningData(planningFromStorage.schedule)
+    setLoading(false)
+  }, [])
+
+  if (loading) {
+    return (
+      <Center h='full'>
+        <Spinner size='xl' color='salmon' thickness='4px' />
+      </Center>
+    )
+  }
 
   return (
     <Page title={t('title')} description={t('description')}>
@@ -140,14 +87,14 @@ const Planning: FC = () => {
             >
               {planningData.map((day, index) => (
                 <PlanningDay
-                  key={day.date}
+                  key={`day_${index}`}
                   dayIndex={index}
                   day={day}
                   setPlanningData={setPlanningData}
                 />
               ))}
             </HStack>
-            <AccommodationBar />
+            <AccommodationBar accommodationData={accommodationData} />
           </Flex>
           <SelectionModal />
           <AlertDialog />

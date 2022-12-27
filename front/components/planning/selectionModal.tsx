@@ -142,8 +142,8 @@ const SelectionModal: FC = () => {
                 <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
                   {selectedDay.date}
                 </Text>
-                {selectedDay?.schedule?.map(slot => (
-                  <SlotCard key={slot.label} slot={slot} isReduced />
+                {selectedDay?.activities?.map(slot => (
+                  <SlotCard key={slot.name} slot={slot} isReduced />
                 ))}
                 <Box
                   as={Button}

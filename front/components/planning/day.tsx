@@ -10,12 +10,12 @@ import { useTranslation } from 'next-i18next'
  * The internal imports
  */
 import { AlertDialogContext, ModalContext } from '../../lib/contexts'
+import SlotCard from './slot'
 
 /**
  * Type imports
  */
 import { IDay } from '../../lib/types'
-import SlotCard from './slot'
 
 /**
  * Type definitions
@@ -74,7 +74,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
       <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
         {day.date}
       </Text>
-      {day.schedule.map((slot, index) => (
+      {day.activities.map((slot, index) => (
         <SlotCard
           key={`slot_${index}`}
           slot={slot}

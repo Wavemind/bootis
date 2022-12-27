@@ -58,18 +58,18 @@ const SlotCard: FC<ISlotCard> = ({
       </Center>
       <Box p={2}>
         <Text color='black' fontWeight='bold' my={2}>
-          {slot.label}
+          {slot.name}
         </Text>
         <HStack>
           <Icon as={BsPinMap} color='black' h={4} w={4} />
           <Text color='black' fontSize='xs' noOfLines={1}>
-            {slot.address}
+            {slot.fullAddress}
           </Text>
         </HStack>
         {!isReduced && (
           <Box>
             <HStack my={2} spacing={2}>
-              {slot.signs.map((sign: string) => (
+              {slot.signs?.map((sign: string) => (
                 <Box key={sign} bg='blue' h={22} w={22} borderRadius='sm' />
               ))}
             </HStack>

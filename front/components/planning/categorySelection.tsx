@@ -14,10 +14,14 @@ import { useTranslation } from 'next-i18next'
 import { RiArrowDownSFill } from 'react-icons/ri'
 
 /**
+ * The internal imports
+ */
+import { ModalContext } from '../../lib/contexts'
+
+/**
  * Type imports
  */
 import { ICategory } from '../../lib/types'
-import { ModalContext } from '../../lib/contexts'
 
 /**
  * Type definitions
@@ -61,7 +65,7 @@ const CategorySelection: FC<CategorySelectionProps> = ({
 
   useEffect(() => {
     if (Object.keys(selectedDay).length > 0) {
-      const selectedSlot = selectedDay.schedule.find(slot => slot.selected)
+      const selectedSlot = selectedDay.activities.find(slot => slot.selected)
       if (selectedSlot) {
         const categoryType = categories.find(
           category => category.key === selectedSlot.type
