@@ -12,7 +12,7 @@ module Queries
         schedule: (start_date...end_date).map do |date| 
           { 
             date: date, 
-            activities: [Place.last]
+            activities: Place.match_activities(region, 2)
           }
         end
       }

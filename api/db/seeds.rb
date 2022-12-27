@@ -108,7 +108,7 @@ place_characteristics = {
 }
 puts "-- Create places ..."
 
-data['Pois'].slice(0,10).each_with_index do |poi, index|
+data['Pois'].slice(0,2000).each_with_index do |poi, index|
   puts "-- Place #{index}/#{data['Pois'].count}"
 
   case poi['Category']

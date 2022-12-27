@@ -1,10 +1,10 @@
 class Place < ActiveRecord::Base
-  enum region: [:zurich, :berne, :grisons, :valais, :lucerne, :geneve, :leman, :tessin, :orientale, :bale, :argovie, :jura, :fribourg, :liechtenstein]
   belongs_to :category
-
   has_many :place_characteristics
   has_many :characteristics, through: :place_characteristics
-
+  
+  geocoded_by :full_address
+  
   def self.match_user(user, categories, regions: Place.regions.keys)
     places = Place.where(region: regions).where(category: categories).includes(place_characteristics: :characteristic)
     user_chars = user.user_characteristics
@@ -17,7 +17,12 @@ class Place < ActiveRecord::Base
   end
 
   def self.match_accomodation(region)
-    Place.where(region: region).order(Arel.sql('RANDOM()')).first
+    Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
+  end
+
+  def self.match_activities(region, limit)
+    Place.joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).order(Arel.sql('RANDOM()')).first
+    Place.joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).order(Arel.sql('RANDOM()')).first
   end
 
   def full_address
