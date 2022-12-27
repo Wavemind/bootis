@@ -124,12 +124,13 @@ const SelectionModal: FC = () => {
       <ModalOverlay />
       <ModalContent maxH='calc(100vh)' h='calc(100vh)'>
         <ModalBody maxW='1600px' mx='auto' my={10} overflow='hidden'>
-          <HStack h='full' overflow='hidden'>
-            <VStack justifyContent='space-between' h='full'>
+          <HStack display='flex' h='full' overflow='hidden'>
+            <VStack flexBasis={316} justifyContent='space-between' h='full'>
               <VStack
                 px={4}
                 direction='column'
                 gap={3}
+                w='full'
                 h='full'
                 overflowY='scroll'
                 overflowX='hidden'
