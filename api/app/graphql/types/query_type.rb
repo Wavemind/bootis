@@ -11,5 +11,6 @@ module Types
     field :get_activity_categories, resolver: Queries::GetActivityCategories, description: "Return the list of activity categories"
     field :get_accommodation_categories, resolver: Queries::GetAccommodationCategories, description: "Return the list of accommodation categories"
     field :get_activities, resolver: Queries::GetActivities, description: "Return the list of activities"
+    field :get_places, resolver: Queries::GetPlaces, description: "Return the list of places by region and category"
   end
 end

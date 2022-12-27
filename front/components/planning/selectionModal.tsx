@@ -62,14 +62,17 @@ const SelectionModal: FC = () => {
     useLazyGetCategoriesByRegionQuery()
 
   useEffect(() => {
-    const voyageFormData = JSON.parse(
-      localStorage.getItem('steps') as string
-    ).find((step: IStep) => step.key === 'voyageForm')
-    getCategoriesByRegion(voyageFormData.formValues.destination.name)
+    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
+    const voyageFormData = stepsData.find(
+      (step: IStep) => step.key === 'voyageForm'
+    )
+    if (voyageFormData) {
+      getCategoriesByRegion(voyageFormData.formValues.destination.name)
+    }
   }, [])
 
   /**
-   * Fill the select with preselected values from the voyage step
+   * Fill the select with preselected values from the voyage stepP
    */
   const preselectedValues = useMemo(() => {
     if (!category.key) {

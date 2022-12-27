@@ -9,6 +9,7 @@ module Types
     field :latitude, Float
     field :longitude, Float
     field :category_id, Integer, null: false
+    field :category, Types::CategoryType, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
   end
