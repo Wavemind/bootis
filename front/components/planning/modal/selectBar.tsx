@@ -39,6 +39,9 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
     return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
   }, [])
 
+  /**
+   * Gets the categories by region on component load
+   */
   useEffect(() => {
     if (voyageFormData) {
       getCategoriesByRegion(voyageFormData.destination.name)
@@ -46,39 +49,31 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
   }, [])
 
   /**
-   * Provide the correct elements to the select based on user category selection
+   * Provide the correct options and preselected values to the selec
    */
-  const selectElements = useMemo(() => {
+  const selectInfo = useMemo(() => {
     if (!category.key) {
-      return []
+      return { option: [], preselectedValues: [] }
     }
 
     if (category.key === 'accommodation') {
-      return accommodationCategories
+      return {
+        options: accommodationCategories,
+        preselectedValues: voyageFormData.accommodation,
+      }
     } else if (category.key === 'restaurant') {
-      return restaurantTypes
+      return {
+        options: restaurantTypes,
+        preselectedValues: restaurantTypes,
+      }
     } else {
-      return activityCategories.map(activity => ({
-        ...activity,
-        isDisabled: !categoriesByRegion.includes(activity.id),
-      }))
-    }
-  }, [category])
-
-  /**
-   * Fill the select with preselected values from the voyage step
-   */
-  const preselectedValues = useMemo(() => {
-    if (!category.key) {
-      return []
-    }
-
-    if (category.key === 'accommodation') {
-      return voyageFormData.accommodation
-    } else if (category.key === 'restaurant') {
-      return restaurantTypes
-    } else {
-      return voyageFormData.activities
+      return {
+        options: activityCategories.map(activity => ({
+          ...activity,
+          isDisabled: !categoriesByRegion.includes(activity.id),
+        })),
+        preselectedValues: voyageFormData.activities,
+      }
     }
   }, [category])
 
@@ -97,10 +92,10 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
               </chakraComponents.Control>
             ),
           }}
-          value={preselectedValues}
+          value={selectInfo.preselectedValues}
           isMulti={category.isMulti}
           useBasicStyles
-          options={selectElements as IElement[]}
+          options={selectInfo.options as IElement[]}
           getOptionValue={(option: IElement) => String(option.id)}
           noOptionsMessage={() => t('selectCategory')}
           chakraStyles={{
