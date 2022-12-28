@@ -32,7 +32,7 @@ interface ISelectProps {
   options: IOption[] | never[]
   placeholder: string | React.ReactNode
   selected: IOption
-  setSelected: React.Dispatch<React.SetStateAction<IOption | undefined | null>>
+  setSelected: React.Dispatch<React.SetStateAction<IOption>>
   labelKey?: string
   emptyMessage: string
 }
@@ -61,7 +61,7 @@ const Select: FC<ISelectProps> = ({
     <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {selected ? (
+          {Object.keys(selected).length > 0 ? (
             <Text
               textOverflow='ellipsis'
               overflowX='hidden'

@@ -9,9 +9,9 @@ import { MdOutlineLocationOn } from 'react-icons/md'
 /**
  * Types imports
  */
-import { ISlot } from '../../lib/types'
+import { ISlot } from '../../../lib/types'
 
-const SelectionElement: FC<{ place: ISlot }> = ({ place }) => {
+const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
   /**
    * Handles the new element selection
    */
@@ -66,4 +66,4 @@ const SelectionElement: FC<{ place: ISlot }> = ({ place }) => {
   )
 }
 
-export default SelectionElement
+export default ElementCard

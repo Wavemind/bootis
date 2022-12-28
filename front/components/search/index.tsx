@@ -29,10 +29,8 @@ const Search: FC = () => {
 
   const [startDate, setStartDate] = useState<CalendarDate>(new Date())
   const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 1))
-  const [destination, setDestination] = useState<
-    IEnumOption | undefined | null
-  >()
-  const [activity, setActivity] = useState<IEnumOption | undefined | null>()
+  const [destination, setDestination] = useState<IEnumOption>({} as IEnumOption)
+  const [activity, setActivity] = useState<IEnumOption>({} as IEnumOption)
 
   const { data: regions = [] } = useGetRegionsQuery()
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()

@@ -8,6 +8,10 @@ export interface IEnumOption {
   name: string
 }
 
+export interface IElement extends IEnumOption {
+  label: string
+}
+
 export interface IFormValues {
   startDate: Date
   endDate: Date
@@ -52,6 +56,11 @@ export interface ICategory {
   label: string
   variant: string
   isMulti: boolean
+}
+
+export interface ICategoryProps {
+  category: ICategory
+  setCategory: React.Dispatch<React.SetStateAction<ICategory>>
 }
 
 export interface IModal {
