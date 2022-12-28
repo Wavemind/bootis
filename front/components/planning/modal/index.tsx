@@ -11,6 +11,8 @@ import {
   ModalBody,
   Flex,
   Text,
+  Center,
+  Spinner,
 } from '@chakra-ui/react'
 
 /**
@@ -33,6 +35,8 @@ const SelectionModal: FC = () => {
   const { isModalOpen, closeModal, selectedDay } = useContext(ModalContext)
 
   const [categoryType, setCategoryType] = useState<ICategory>({} as ICategory)
+  const [selectedValues, setSelectedValues] = useState<readonly IElement[]>([])
+  const [loading, setLoading] = useState(false)
 
   const [getPlaces, { data: places = [] }] = useLazyGetPlacesQuery()
 
@@ -84,6 +88,30 @@ const SelectionModal: FC = () => {
     }
   }, [categoryType])
 
+  useEffect(() => {
+    if (categoryType) {
+      if (categoryType.key === 'activity') {
+        getPlaces({
+          region: voyageFormData.destination.name,
+          categories: selectedValues.map((activity: IElement) => activity.id),
+        })
+      } else {
+        getPlaces({
+          region: voyageFormData.destination.name,
+          categories: [4],
+        })
+      }
+    }
+  }, [selectedValues])
+
+  if (loading) {
+    return (
+      <Center h='full'>
+        <Spinner size='xl' color='salmon' thickness='4px' />
+      </Center>
+    )
+  }
+
   return (
     <Modal
       onClose={closeModal}
@@ -101,6 +129,8 @@ const SelectionModal: FC = () => {
               <SelectBar
                 categoryType={categoryType}
                 setCategoryType={setCategoryType}
+                selectedValues={selectedValues}
+                setSelectedValues={setSelectedValues}
               />
               <Flex
                 flexWrap='wrap'

@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useMemo, FC, useEffect } from 'react'
+import { useMemo, FC, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, HStack, Icon } from '@chakra-ui/react'
 import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
@@ -23,7 +23,12 @@ import {
  */
 import { IStep, ICategoryProps, IElement } from '../../../lib/types'
 
-const SelectBar: FC<ICategoryProps> = ({ categoryType, setCategoryType }) => {
+const SelectBar: FC<ICategoryProps> = ({
+  categoryType,
+  setCategoryType,
+  selectedValues,
+  setSelectedValues,
+}) => {
   const { t } = useTranslation('planning')
 
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
@@ -46,36 +51,49 @@ const SelectBar: FC<ICategoryProps> = ({ categoryType, setCategoryType }) => {
     if (voyageFormData) {
       getCategoriesByRegion(voyageFormData.destination.name)
     }
-  }, [])
+  }, [voyageFormData])
+
+  console.log(voyageFormData)
+
+  useEffect(() => {
+    if (categoryType.key) {
+      if (categoryType.key === 'accommodation') {
+        setSelectedValues([voyageFormData.accomodation])
+      } else if (categoryType.key === 'restaurant') {
+        setSelectedValues(voyageFormData.restaurants)
+      } else {
+        setSelectedValues(voyageFormData.activities)
+      }
+    }
+  }, [voyageFormData, categoryType])
 
   /**
    * Provide the correct options and preselected values to the selec
    */
-  const selectInfo = useMemo(() => {
+  const selectOptions = useMemo(() => {
     if (!categoryType.key) {
-      return { option: [], preselectedValues: [] }
+      return []
     }
 
     if (categoryType.key === 'accommodation') {
-      return {
-        options: accommodationCategories,
-        preselectedValues: voyageFormData.accommodation,
-      }
+      return accommodationCategories
     } else if (categoryType.key === 'restaurant') {
-      return {
-        options: restaurantTypes,
-        preselectedValues: restaurantTypes,
-      }
+      return restaurantTypes
     } else {
-      return {
-        options: activityCategories.map(activity => ({
-          ...activity,
-          isDisabled: !categoriesByRegion.includes(activity.id),
-        })),
-        preselectedValues: voyageFormData.activities,
-      }
+      return activityCategories.map(activity => ({
+        ...activity,
+        isDisabled: !categoriesByRegion.includes(activity.id),
+      }))
     }
-  }, [categoryType])
+  }, [categoryType, categoriesByRegion])
+
+  /**
+   * Updates the local state with the selected elements
+   * @param newValue Array of selected Elements
+   */
+  const handleChange = (newValue: readonly IElement[]) => {
+    setSelectedValues(newValue)
+  }
 
   return (
     <HStack bg='blue' py={2} px={4} borderRadius='xl' spacing={6} mx={2}>
@@ -92,10 +110,11 @@ const SelectBar: FC<ICategoryProps> = ({ categoryType, setCategoryType }) => {
               </chakraComponents.Control>
             ),
           }}
-          defaultValue={selectInfo.preselectedValues}
+          value={selectedValues}
+          onChange={handleChange}
           isMulti={categoryType.isMulti}
           useBasicStyles
-          options={selectInfo.options as IElement[]}
+          options={selectOptions as IElement[]}
           getOptionValue={(option: IElement) => String(option.id)}
           noOptionsMessage={() => t('selectCategory')}
           chakraStyles={{
