@@ -40,6 +40,7 @@ import {
  * Type imports
  */
 import { ICategory, IEnumOption, IStep } from '../../lib/types'
+import { useLazyGetPlacesQuery } from '../../lib/services/modules/place'
 
 /**
  * Type definitions
@@ -62,34 +63,46 @@ const SelectionModal: FC = () => {
   const [getCategoriesByRegion, { data: categoriesByRegion = [] }] =
     useLazyGetCategoriesByRegionQuery()
 
-  useEffect(() => {
+  const [getPlaces, { data: places = [] }] = useLazyGetPlacesQuery()
+
+  // Gets voyage form data from the localStorage
+  const voyageFormData = useMemo(() => {
     const stepsData = JSON.parse(localStorage.getItem('steps') as string)
-    const voyageFormData = stepsData.find(
-      (step: IStep) => step.key === 'voyageForm'
-    )
+    return stepsData.find((step: IStep) => step.key === 'voyageForm')
+  }, [])
+
+  useEffect(() => {
     if (voyageFormData) {
       getCategoriesByRegion(voyageFormData.formValues.destination.name)
     }
   }, [])
 
+  // Extend this to restaurants when we have them
+  useEffect(() => {
+    if (voyageFormData) {
+      getPlaces({
+        region: voyageFormData.formValues.destination.name,
+        categories: voyageFormData.formValues.activities.map(
+          (activity: IElement) => activity.id
+        ),
+      })
+    }
+  }, [selectedDay])
+
   /**
-   * Fill the select with preselected values from the voyage stepP
+   * Fill the select with preselected values from the voyage step
    */
   const preselectedValues = useMemo(() => {
     if (!category.key) {
       return []
     }
 
-    const voyageStep = JSON.parse(localStorage.getItem('steps') as string).find(
-      (step: IStep) => step.key === 'voyageForm'
-    )
-
     if (category.key === 'accommodation') {
-      return voyageStep.formValues.accommodation
+      return voyageFormData.formValues.accommodation
     } else if (category.key === 'restaurant') {
       return restaurantTypes
     } else {
-      return voyageStep.formValues.activities
+      return voyageFormData.formValues.activities
     }
   }, [category])
 
@@ -113,7 +126,6 @@ const SelectionModal: FC = () => {
     }
   }, [category])
 
-  // TODO : Get SelectionElement data from backend
   return (
     <Modal
       onClose={closeModal}
@@ -124,7 +136,7 @@ const SelectionModal: FC = () => {
     >
       <ModalOverlay />
       <ModalContent maxH='calc(100vh)' h='calc(100vh)'>
-        <ModalBody maxW='1600px' mx='auto' my={10} overflow='hidden'>
+        <ModalBody maxW='1600px' mx='auto' my={10} overflow='hidden' w='full'>
           <HStack display='flex' h='full' overflow='hidden'>
             <VStack flexBasis={316} justifyContent='space-between' h='full'>
               <VStack
@@ -237,27 +249,17 @@ const SelectionModal: FC = () => {
                 gap={2}
                 px={2}
                 overflowY='scroll'
-                w='full'
                 h='full'
                 css={{
                   '&::-webkit-scrollbar': {
                     display: 'none',
                   },
                 }}
+                justifyContent='space-between'
               >
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
-                <SelectionElement />
+                {places.map(place => (
+                  <SelectionElement key={`place_${place.id}`} place={place} />
+                ))}
               </Flex>
             </Flex>
           </HStack>

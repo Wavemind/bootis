@@ -37,11 +37,13 @@ export const planningApi = api.injectEndpoints({
             $region: String!
             $startDate: ISO8601Date!
             $endDate: ISO8601Date!
+            $categories: [ID!]
           ) {
             getPlanning(
               region: $region
               startDate: $startDate
               endDate: $endDate
+              categories: $categories
             ) {
               accommodation {
                 id
