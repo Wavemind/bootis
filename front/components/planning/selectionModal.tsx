@@ -20,6 +20,7 @@ import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
 import { BsSearch } from 'react-icons/bs'
 import { BsCaretLeftFill } from 'react-icons/bs'
 import { GrAddCircle } from 'react-icons/gr'
+import format from 'date-fns/format'
 
 /**
  * The internal imports
@@ -141,7 +142,8 @@ const SelectionModal: FC = () => {
                 }}
               >
                 <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-                  {selectedDay.date}
+                  {selectedDay.date &&
+                    format(new Date(selectedDay.date), 'dd.MM.yyyy')}
                 </Text>
                 {selectedDay?.activities?.map(slot => (
                   <SlotCard key={slot.name} slot={slot} isReduced />

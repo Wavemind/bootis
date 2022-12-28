@@ -58,10 +58,16 @@ export interface IModal {
   day?: IDay
 }
 
+export interface IPictogram {
+  link: string
+  linkSvg: string
+  name: string
+}
+
 export interface ISlot extends IEnumOption {
   type: string
   fullAddress: string
-  signs: string[]
+  pictograms: IPictogram[]
   selected?: boolean
   category?: { section: string }
 }

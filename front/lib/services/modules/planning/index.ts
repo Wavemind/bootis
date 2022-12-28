@@ -60,7 +60,7 @@ export const planningApi = api.injectEndpoints({
                     name
                   }
                   category {
-                    name
+                    section
                   }
                 }
               }
