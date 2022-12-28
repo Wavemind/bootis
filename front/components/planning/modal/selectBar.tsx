@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { useMemo, FC, useEffect, useState } from 'react'
+import { useMemo, FC, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, HStack, Icon } from '@chakra-ui/react'
 import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
@@ -23,7 +23,12 @@ import {
  */
 import { IStep, ICategoryProps, IElement } from '../../../lib/types'
 
-const SelectBar: FC<ICategoryProps> = ({
+interface ISelectBarProps extends ICategoryProps {
+  selectedValues: IElement[]
+  setSelectedValues: React.Dispatch<React.SetStateAction<IElement[]>>
+}
+
+const SelectBar: FC<ISelectBarProps> = ({
   categoryType,
   setCategoryType,
   selectedValues,
@@ -91,7 +96,7 @@ const SelectBar: FC<ICategoryProps> = ({
    * Updates the local state with the selected elements
    * @param newValue Array of selected Elements
    */
-  const handleChange = (newValue: readonly IElement[]) => {
+  const handleChange = (newValue: IElement[]) => {
     setSelectedValues(newValue)
   }
 

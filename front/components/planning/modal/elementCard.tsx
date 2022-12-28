@@ -21,7 +21,7 @@ const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
 
   return (
     <Box
-      flexBasis={280}
+      flexBasis='24%'
       role='button'
       h='fit-content'
       boxShadow='xl'

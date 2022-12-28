@@ -35,7 +35,7 @@ const SelectionModal: FC = () => {
   const { isModalOpen, closeModal, selectedDay } = useContext(ModalContext)
 
   const [categoryType, setCategoryType] = useState<ICategory>({} as ICategory)
-  const [selectedValues, setSelectedValues] = useState<readonly IElement[]>([])
+  const [selectedValues, setSelectedValues] = useState<IElement[]>([])
   const [loading, setLoading] = useState(false)
 
   const [getPlaces, { data: places = [] }] = useLazyGetPlacesQuery()
@@ -134,7 +134,7 @@ const SelectionModal: FC = () => {
               />
               <Flex
                 flexWrap='wrap'
-                gap={2}
+                gap='1%'
                 px={2}
                 overflowY='scroll'
                 h='full'
@@ -143,7 +143,6 @@ const SelectionModal: FC = () => {
                     display: 'none',
                   },
                 }}
-                justifyContent='space-between'
               >
                 {places.length > 0 ? (
                   places.map(place => (
