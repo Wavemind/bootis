@@ -54,8 +54,13 @@ export const planningApi = api.injectEndpoints({
                   id
                   name
                   fullAddress
+                  pictograms {
+                    linkSvg
+                    link
+                    name
+                  }
                   category {
-                    section
+                    name
                   }
                 }
               }

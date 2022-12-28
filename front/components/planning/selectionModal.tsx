@@ -235,6 +235,7 @@ const SelectionModal: FC = () => {
                 gap={2}
                 px={2}
                 overflowY='scroll'
+                w='full'
                 h='full'
                 css={{
                   '&::-webkit-scrollbar': {
