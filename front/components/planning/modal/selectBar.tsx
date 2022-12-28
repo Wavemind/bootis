@@ -58,8 +58,6 @@ const SelectBar: FC<ISelectBarProps> = ({
     }
   }, [voyageFormData])
 
-  console.log(voyageFormData)
-
   useEffect(() => {
     if (categoryType.key) {
       if (categoryType.key === 'accommodation') {
