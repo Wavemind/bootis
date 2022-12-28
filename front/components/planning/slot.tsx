@@ -10,7 +10,7 @@ import Image from 'next/image'
 /**
  * Type imports
  */
-import { ISlot, IPictogram } from '../../lib/types'
+import { ISlot } from '../../lib/types'
 
 /**
  * Type definitions
@@ -77,7 +77,7 @@ const SlotCard: FC<ISlotCard> = ({
         {!isReduced && (
           <Box>
             <HStack my={2} spacing={2}>
-              {slot.pictograms?.map((pictogram: IPictogram) => (
+              {slot.pictograms?.map(pictogram => (
                 <Image
                   key={`pictogram_${slot.id}_${pictogram.name}`}
                   alt={pictogram.name}
