@@ -23,7 +23,10 @@ import { ModalContext } from '../../../lib/contexts'
  */
 import { ICategory, ICategoryProps } from '../../../lib/types'
 
-const CategorySelection: FC<ICategoryProps> = ({ category, setCategory }) => {
+const CategorySelection: FC<ICategoryProps> = ({
+  categoryType,
+  setCategoryType,
+}) => {
   const { t } = useTranslation('planning')
 
   const { selectedDay } = useContext(ModalContext)
@@ -60,11 +63,11 @@ const CategorySelection: FC<ICategoryProps> = ({ category, setCategory }) => {
           category => category.key === selectedSlot.type
         )
         if (categoryType) {
-          setCategory(categoryType)
+          setCategoryType(categoryType)
         }
       }
     } else {
-      setCategory({} as ICategory)
+      setCategoryType({} as ICategory)
     }
   }, [selectedDay])
 
@@ -73,17 +76,17 @@ const CategorySelection: FC<ICategoryProps> = ({ category, setCategory }) => {
       <MenuButton
         as={Button}
         rightIcon={<Icon as={RiArrowDownSFill} h={7} w={7} />}
-        variant={category.variant || 'default'}
+        variant={categoryType.variant || 'default'}
         w='22%'
       >
-        {category.label || t('categories.title')}
+        {categoryType.label || t('categories.title')}
       </MenuButton>
       <MenuList p={0} borderRadius='lg'>
         {categoryTypes.map(category => (
           <MenuItem
             key={category.label}
             bg={category.variant}
-            onClick={() => setCategory(category)}
+            onClick={() => setCategoryType(category)}
             _first={{ borderTopRadius: 'lg' }}
             _last={{ borderBottomRadius: 'lg' }}
             p={4}

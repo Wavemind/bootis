@@ -2,6 +2,7 @@
  * The external imports
  */
 import { useMemo, useState, useContext, FC, useEffect } from 'react'
+import { useTranslation } from 'next-i18next'
 import {
   HStack,
   Modal,
@@ -9,6 +10,7 @@ import {
   ModalContent,
   ModalBody,
   Flex,
+  Text,
 } from '@chakra-ui/react'
 
 /**
@@ -26,9 +28,11 @@ import SelectedDay from './selectedDay'
 import { ICategory, IElement, IStep } from '../../../lib/types'
 
 const SelectionModal: FC = () => {
+  const { t } = useTranslation('planning')
+
   const { isModalOpen, closeModal, selectedDay } = useContext(ModalContext)
 
-  const [category, setCategory] = useState<ICategory>({} as ICategory)
+  const [categoryType, setCategoryType] = useState<ICategory>({} as ICategory)
 
   const [getPlaces, { data: places = [] }] = useLazyGetPlacesQuery()
 
@@ -38,17 +42,47 @@ const SelectionModal: FC = () => {
     return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
   }, [])
 
-  // Extend this to restaurants when we have them
   useEffect(() => {
     if (voyageFormData) {
-      getPlaces({
-        region: voyageFormData.destination.name,
-        categories: voyageFormData.activities.map(
-          (activity: IElement) => activity.id
-        ),
-      })
+      const selectedSlot = selectedDay.activities?.find(
+        activity => activity.selected
+      )
+      if (selectedSlot) {
+        if (selectedSlot?.type === 'activity') {
+          getPlaces({
+            region: voyageFormData.destination.name,
+            categories: voyageFormData.activities.map(
+              (activity: IElement) => activity.id
+            ),
+          })
+        } else {
+          // TODO : Get the category from the backend I'm guessing ?
+          getPlaces({
+            region: voyageFormData.destination.name,
+            categories: [4],
+          })
+        }
+      }
     }
   }, [selectedDay])
+
+  useEffect(() => {
+    if (categoryType) {
+      if (categoryType.key === 'activity') {
+        getPlaces({
+          region: voyageFormData.destination.name,
+          categories: voyageFormData.activities.map(
+            (activity: IElement) => activity.id
+          ),
+        })
+      } else {
+        getPlaces({
+          region: voyageFormData.destination.name,
+          categories: [4],
+        })
+      }
+    }
+  }, [categoryType])
 
   return (
     <Modal
@@ -64,7 +98,10 @@ const SelectionModal: FC = () => {
           <HStack display='flex' h='full' overflow='hidden'>
             <SelectedDay />
             <Flex direction='column' h='full' gap={2} flex={1}>
-              <SelectBar category={category} setCategory={setCategory} />
+              <SelectBar
+                categoryType={categoryType}
+                setCategoryType={setCategoryType}
+              />
               <Flex
                 flexWrap='wrap'
                 gap={2}
@@ -78,9 +115,20 @@ const SelectionModal: FC = () => {
                 }}
                 justifyContent='space-between'
               >
-                {places.map(place => (
-                  <ElementCard key={`place_${place.id}`} place={place} />
-                ))}
+                {places.length > 0 ? (
+                  places.map(place => (
+                    <ElementCard key={`place_${place.id}`} place={place} />
+                  ))
+                ) : (
+                  <HStack
+                    pt={10}
+                    w='full'
+                    justifyContent='center'
+                    alignItems='flex-start'
+                  >
+                    <Text fontStyle='italic'>{t('selectCategory')}</Text>
+                  </HStack>
+                )}
               </Flex>
             </Flex>
           </HStack>

@@ -23,7 +23,7 @@ import {
  */
 import { IStep, ICategoryProps, IElement } from '../../../lib/types'
 
-const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
+const SelectBar: FC<ICategoryProps> = ({ categoryType, setCategoryType }) => {
   const { t } = useTranslation('planning')
 
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
@@ -52,16 +52,16 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
    * Provide the correct options and preselected values to the selec
    */
   const selectInfo = useMemo(() => {
-    if (!category.key) {
+    if (!categoryType.key) {
       return { option: [], preselectedValues: [] }
     }
 
-    if (category.key === 'accommodation') {
+    if (categoryType.key === 'accommodation') {
       return {
         options: accommodationCategories,
         preselectedValues: voyageFormData.accommodation,
       }
-    } else if (category.key === 'restaurant') {
+    } else if (categoryType.key === 'restaurant') {
       return {
         options: restaurantTypes,
         preselectedValues: restaurantTypes,
@@ -75,13 +75,13 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
         preselectedValues: voyageFormData.activities,
       }
     }
-  }, [category])
+  }, [categoryType])
 
   return (
     <HStack bg='blue' py={2} px={4} borderRadius='xl' spacing={6} mx={2}>
       <Box w='full'>
         <Select
-          closeMenuOnSelect={!category.isMulti}
+          closeMenuOnSelect={!categoryType.isMulti}
           components={{
             Control: (props: ControlProps<IElement>) => (
               <chakraComponents.Control {...props}>
@@ -92,8 +92,8 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
               </chakraComponents.Control>
             ),
           }}
-          value={selectInfo.preselectedValues}
-          isMulti={category.isMulti}
+          defaultValue={selectInfo.preselectedValues}
+          isMulti={categoryType.isMulti}
           useBasicStyles
           options={selectInfo.options as IElement[]}
           getOptionValue={(option: IElement) => String(option.id)}
@@ -130,7 +130,10 @@ const SelectBar: FC<ICategoryProps> = ({ category, setCategory }) => {
           }}
         />
       </Box>
-      <CategorySelection category={category} setCategory={setCategory} />
+      <CategorySelection
+        categoryType={categoryType}
+        setCategoryType={setCategoryType}
+      />
     </HStack>
   )
 }

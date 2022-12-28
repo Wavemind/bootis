@@ -59,8 +59,8 @@ export interface ICategory {
 }
 
 export interface ICategoryProps {
-  category: ICategory
-  setCategory: React.Dispatch<React.SetStateAction<ICategory>>
+  categoryType: ICategory
+  setCategoryType: React.Dispatch<React.SetStateAction<ICategory>>
 }
 
 export interface IModal {
