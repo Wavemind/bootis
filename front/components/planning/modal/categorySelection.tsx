@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { RiArrowDownSFill } from 'react-icons/ri'
+import isEmpty from 'lodash/isEmpty'
 
 /**
  * The internal imports
@@ -50,7 +51,7 @@ const CategorySelection: FC<ICategoryProps> = ({
   )
 
   useEffect(() => {
-    if (Object.keys(selectedDay).length > 0) {
+    if (!isEmpty(selectedDay)) {
       const selectedSlot = selectedDay.activities.find(slot => slot.selected)
       if (selectedSlot) {
         const categoryType = categoryTypes.find(

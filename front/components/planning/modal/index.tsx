@@ -9,7 +9,6 @@ import {
   useEffect,
   useCallback,
 } from 'react'
-import { useTranslation } from 'next-i18next'
 import {
   HStack,
   Modal,
@@ -21,6 +20,8 @@ import {
   Center,
   Spinner,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+import isEmpty from 'lodash/isEmpty'
 
 /**
  * The internal imports
@@ -66,7 +67,7 @@ const SelectionModal: FC = () => {
         </Center>
       )
     } else {
-      if (Object.keys(categoryType).length > 0 && places.length > 0) {
+      if (!isEmpty(categoryType) && places.length > 0) {
         return places.map(place => (
           <ElementCard key={`place_${place.id}`} place={place} />
         ))
