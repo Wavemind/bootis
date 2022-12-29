@@ -16,37 +16,23 @@ import { RiArrowDownSFill } from 'react-icons/ri'
 /**
  * The internal imports
  */
-import { ModalContext } from '../../lib/contexts'
+import { ModalContext } from '../../../lib/contexts'
 
 /**
  * Type imports
  */
-import { ICategory } from '../../lib/types'
+import { ICategory, ICategoryProps } from '../../../lib/types'
 
-/**
- * Type definitions
- */
-export type CategorySelectionProps = {
-  category: ICategory
-  setCategory: React.Dispatch<React.SetStateAction<ICategory>>
-}
-
-const CategorySelection: FC<CategorySelectionProps> = ({
-  category,
-  setCategory,
+const CategorySelection: FC<ICategoryProps> = ({
+  categoryType,
+  setCategoryType,
 }) => {
   const { t } = useTranslation('planning')
 
   const { selectedDay } = useContext(ModalContext)
 
-  const categories = useMemo(
+  const categoryTypes = useMemo(
     () => [
-      {
-        key: 'accommodation',
-        label: t('categories.accommodations'),
-        variant: 'teal',
-        isMulti: false,
-      },
       {
         key: 'restaurant',
         label: t('categories.restaurants'),
@@ -67,15 +53,15 @@ const CategorySelection: FC<CategorySelectionProps> = ({
     if (Object.keys(selectedDay).length > 0) {
       const selectedSlot = selectedDay.activities.find(slot => slot.selected)
       if (selectedSlot) {
-        const categoryType = categories.find(
+        const categoryType = categoryTypes.find(
           category => category.key === selectedSlot.type
         )
         if (categoryType) {
-          setCategory(categoryType)
+          setCategoryType(categoryType)
         }
       }
     } else {
-      setCategory({} as ICategory)
+      setCategoryType({} as ICategory)
     }
   }, [selectedDay])
 
@@ -84,17 +70,17 @@ const CategorySelection: FC<CategorySelectionProps> = ({
       <MenuButton
         as={Button}
         rightIcon={<Icon as={RiArrowDownSFill} h={7} w={7} />}
-        variant={category.variant || 'default'}
+        variant={categoryType.variant || 'default'}
         w='22%'
       >
-        {category.label || t('categories.title')}
+        {categoryType.label || t('categories.title')}
       </MenuButton>
       <MenuList p={0} borderRadius='lg'>
-        {categories.map(category => (
+        {categoryTypes.map(category => (
           <MenuItem
             key={category.label}
             bg={category.variant}
-            onClick={() => setCategory(category)}
+            onClick={() => setCategoryType(category)}
             _first={{ borderTopRadius: 'lg' }}
             _last={{ borderBottomRadius: 'lg' }}
             p={4}

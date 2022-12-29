@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { i18n } = require('./next-i18next.config')
 
 const nextConfig = {
@@ -5,7 +6,7 @@ const nextConfig = {
   swcMinify: true,
   i18n,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'zuerst.proinfirmis.ch'],
   },
 }
 

@@ -8,6 +8,10 @@ export interface IEnumOption {
   name: string
 }
 
+export interface IElement extends IEnumOption {
+  label: string
+}
+
 export interface IFormValues {
   startDate: Date
   endDate: Date
@@ -54,14 +58,25 @@ export interface ICategory {
   isMulti: boolean
 }
 
+export interface ICategoryProps {
+  categoryType: ICategory
+  setCategoryType: React.Dispatch<React.SetStateAction<ICategory>>
+}
+
 export interface IModal {
   day?: IDay
+}
+
+export interface IPictogram {
+  link: string
+  linkSvg: string
+  name: string
 }
 
 export interface ISlot extends IEnumOption {
   type: string
   fullAddress: string
-  signs: string[]
+  pictograms: IPictogram[]
   selected?: boolean
   category?: { section: string }
 }

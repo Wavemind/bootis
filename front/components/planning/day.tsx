@@ -5,6 +5,7 @@ import { FC, useContext } from 'react'
 import { Box, VStack, Icon, Text, Button } from '@chakra-ui/react'
 import { GrAddCircle } from 'react-icons/gr'
 import { useTranslation } from 'next-i18next'
+import format from 'date-fns/format'
 
 /**
  * The internal imports
@@ -72,7 +73,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
   return (
     <VStack spacing={3} flexBasis={316}>
       <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-        {day.date}
+        {format(new Date(day.date), 'dd.MM.yyyy')}
       </Text>
       {day.activities.map((slot, index) => (
         <SlotCard

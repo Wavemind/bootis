@@ -142,7 +142,6 @@ const Voyage: FC = () => {
    */
   useEffect(() => {
     if (!isPlanningFetching && isPlanningSuccess) {
-      console.log('planning', planning)
       localStorage.setItem('planning', JSON.stringify(planning))
       router.push('/planning')
     }

@@ -1,15 +1,16 @@
 /**
  * The external imports
  */
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { HStack, Icon, Text } from '@chakra-ui/react'
 import { FaBed } from 'react-icons/fa'
 import { MdEdit } from 'react-icons/md'
+import format from 'date-fns/format'
 
 /**
  * Type imports
  */
-import { ISlot } from '../../lib/types'
+import { ISlot, IStep } from '../../lib/types'
 
 /**
  * Type definitions
@@ -28,6 +29,12 @@ const AccommodationBar: FC<IAccommodationBarProps> = ({
     console.log('edit the hotel')
   }
 
+  // Gets voyage form data from the localStorage
+  const voyageFormData = useMemo(() => {
+    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
+    return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
+  }, [])
+
   // TODO : Get data from backend
   return (
     <HStack w='full' bg='teal' borderRadius='lg' p={3} spacing={8}>
@@ -36,7 +43,10 @@ const AccommodationBar: FC<IAccommodationBarProps> = ({
         {accommodationData.name}
       </Text>
       <Text color='white' fontFamily='Noir Pro Medium, sans-serif'>
-        28.03.2023 - 31.03.2023
+        {`${format(
+          new Date(voyageFormData.startDate),
+          'dd.MM.yyyy'
+        )} - ${format(new Date(voyageFormData.endDate), 'dd.MM.yyyy')}`}
       </Text>
       <Icon
         role='button'
