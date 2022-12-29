@@ -5,6 +5,7 @@ PlaceCharacteristic.destroy_all
 Place.destroy_all
 Characteristic.destroy_all
 Category.destroy_all
+Pictogram.destroy_all
 
 puts "-- Create users ..."
 wavemind_user = User.create(email: 'dev@wavemind.ch ', password: 'Galilee15', password_confirmation: 'Galilee15')
@@ -106,8 +107,20 @@ place_characteristics = {
   7511 => shower_folding_grab_bar,
   7594 => shower_folding_grab_bar,
 }
-puts "-- Create places ..."
 
+puts "-- Create Pictograms ..."
+
+data['Pictograms'].each do |pictogram| 
+  Pictogram.create!(
+    id: pictogram['Id'],
+    name: pictogram['NameFr'],
+    link: pictogram['LinkToPictogram'],
+    link_svg: pictogram['LinkToPictogramSvg'],
+  )
+end 
+
+
+puts "-- Create places ..."
 data['Pois'].each_with_index do |poi, index|
   puts "-- Place #{index}/#{data['Pois'].count}"
 
@@ -191,33 +204,47 @@ data['Pois'].each_with_index do |poi, index|
     final_region = 'zurich'
   end
 
-  Place.create!(category: category, name: poi['Name'], zuerst_id: poi['IdZuerst'], region: final_region, latitude: poi['Coordinates']['Lat'], longitude: poi['Coordinates']['Lng'])  if category.present?
+  if category.present?
+    Place.create!(
+      category: category,
+      name: poi['Name'].strip,
+      zuerst_id: poi['IdZuerst'],
+      region: final_region,
+      pictograms: poi['PictogramIds'].present? ?  poi['PictogramIds'].map{|id| Pictogram.find(id)} : [],
+      latitude: poi['Coordinates']['Lat'],
+      longitude: poi['Coordinates']['Lng'],
+      street: poi['Address']['Street'],
+      number: poi['Address']['Number'],
+      zip: poi['Address']['ZipCode'],
+      city: poi['Address']['City']
+    )  
+  end
 end
 puts "-- Created all places !"
 
-response = HTTParty.get("https://zuerst.proinfirmis.ch/api/v1/export/GetChecklistsAndAnswers?dateFrom=1.01.17&dateTo=31.12.17", headers: {"authorization": "Bearer tzfe9Y8yqOYf2yJ9_6y-SrzOo2Xf9mwZ67KIjgIUkjn_MBJq1Eb--gmPsgqwJTsFJqiTWYOw70K9yKiXsrk28LPyalTNY-9d1-wqIlaHUC9v-nkBHntzHIeo_jhmklCNznyRG9BxmlHpSPrc9PseEGe8HTxNBVuQg0O8yrdmAQm_H9Qd-I1Q8cDp1BlxBMco_rL4nxZeeJ-WMD0Rxs7ZqErH_Tqk2-uBg_nd3hml7u4"})
-response['Pois'].each do |poi|
-  place = Place.find_by(zuerst_id: poi['IdZuerst'])
-  next if place.nil?
-  poi['Checklists'].each do |checklist|
-    checklist['Questions'].each do |question|
-      characteristic = place_characteristics[question["Id"]]
-      next if characteristic.nil?
+# response = HTTParty.get("https://zuerst.proinfirmis.ch/api/v1/export/GetChecklistsAndAnswers?dateFrom=1.01.17&dateTo=31.12.17", headers: {"authorization": "Bearer tzfe9Y8yqOYf2yJ9_6y-SrzOo2Xf9mwZ67KIjgIUkjn_MBJq1Eb--gmPsgqwJTsFJqiTWYOw70K9yKiXsrk28LPyalTNY-9d1-wqIlaHUC9v-nkBHntzHIeo_jhmklCNznyRG9BxmlHpSPrc9PseEGe8HTxNBVuQg0O8yrdmAQm_H9Qd-I1Q8cDp1BlxBMco_rL4nxZeeJ-WMD0Rxs7ZqErH_Tqk2-uBg_nd3hml7u4"})
+# response['Pois'].each do |poi|
+#   place = Place.find_by(zuerst_id: poi['IdZuerst'])
+#   next if place.nil?
+#   poi['Checklists'].each do |checklist|
+#     checklist['Questions'].each do |question|
+#       characteristic = place_characteristics[question["Id"]]
+#       next if characteristic.nil?
 
-      place_characteristic = place.place_characteristics.find_or_create_by(characteristic: characteristic)
-      value = question["Answer"]["AnswerValue"]
-      next if value.nil?
-      if place_characteristic.nil? || place_characteristic.value.nil?
-        place_characteristic.update!(value: value)
-      else
-        if characteristic.more?
-          place_characteristic.update!(value: value) if value > place_characteristic.value
-        elsif characteristic.less?
-          place_characteristic.update!(value: value) if value < place_characteristic.value
-        else
-          place_characteristic.update!(value: value) unless value == 0.0
-        end
-      end
-    end
-  end
-end
+#       place_characteristic = place.place_characteristics.find_or_create_by(characteristic: characteristic)
+#       value = question["Answer"]["AnswerValue"]
+#       next if value.nil?
+#       if place_characteristic.nil? || place_characteristic.value.nil?
+#         place_characteristic.update!(value: value)
+#       else
+#         if characteristic.more?
+#           place_characteristic.update!(value: value) if value > place_characteristic.value
+#         elsif characteristic.less?
+#           place_characteristic.update!(value: value) if value < place_characteristic.value
+#         else
+#           place_characteristic.update!(value: value) unless value == 0.0
+#         end
+#       end
+#     end
+#   end
+# end

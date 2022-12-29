@@ -35,6 +35,7 @@ gem 'devise' # Needed due to rails 7
 gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth', branch: 'master'
 gem "graphql", "~> 2.0"
 gem "graphiql-rails", "~> 1.8"
+gem "geocoder"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

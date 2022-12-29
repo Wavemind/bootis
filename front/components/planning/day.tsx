@@ -5,17 +5,18 @@ import { FC, useContext } from 'react'
 import { Box, VStack, Icon, Text, Button } from '@chakra-ui/react'
 import { GrAddCircle } from 'react-icons/gr'
 import { useTranslation } from 'next-i18next'
+import format from 'date-fns/format'
 
 /**
  * The internal imports
  */
 import { AlertDialogContext, ModalContext } from '../../lib/contexts'
+import { SlotCard } from '../'
 
 /**
  * Type imports
  */
 import { IDay } from '../../lib/types'
-import SlotCard from './slot'
 
 /**
  * Type definitions
@@ -38,9 +39,9 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
    */
   const handleReplace = (index: number) => {
     // To "copy" day
-    const newDay = JSON.parse(JSON.stringify(day))
-    newDay.schedule[index].selected = true
-    openModal({ day: newDay })
+    const selectedDay = JSON.parse(JSON.stringify(day))
+    selectedDay.activities[index].selected = true
+    openModal({ day: selectedDay })
   }
 
   /**
@@ -59,7 +60,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
       content: t('removeDialogContent'),
       action: () => {
         const newDay = JSON.parse(JSON.stringify(day))
-        newDay.schedule.splice(slotIndex, 1)
+        newDay.activities.splice(slotIndex, 1)
         setPlanningData(prev => {
           const newPlanningData = prev
           newPlanningData[dayIndex] = newDay
@@ -70,11 +71,11 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
   }
 
   return (
-    <VStack spacing={3}>
+    <VStack spacing={3} flexBasis={316}>
       <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-        {day.date}
+        {format(new Date(day.date), 'dd.MM.yyyy')}
       </Text>
-      {day.schedule.map((slot, index) => (
+      {day.activities.map((slot, index) => (
         <SlotCard
           key={`slot_${index}`}
           slot={slot}

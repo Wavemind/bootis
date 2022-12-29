@@ -10,9 +10,8 @@ export { default as TitleBlock } from './questionnaire/titleBlock'
 export { default as Voyage } from './questionnaire/voyage'
 
 // Planning
-export { default as CategorySelection } from './planning/categorySelection'
 export { default as PlanningDay } from './planning/day'
 export { default as SlotCard } from './planning/slot'
 export { default as AccommodationBar } from './planning/accommodationBar'
-export { default as SelectionModal } from './planning/selectionModal'
+export { default as SelectionModal } from './planning/modal'
 export { default as AlertDialog } from './planning/alertDialog'

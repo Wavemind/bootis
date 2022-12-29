@@ -8,10 +8,14 @@ export interface IEnumOption {
   name: string
 }
 
+export interface IElement extends IEnumOption {
+  label: string
+}
+
 export interface IFormValues {
   startDate: Date
   endDate: Date
-  destination?: string | IEnumOption
+  destination?: IEnumOption
   activities?: IEnumOption[]
   accommodation: string | { id: number; label: string }
   restaurants: { id: number; label: string; activities: number[] }[]
@@ -44,7 +48,7 @@ export interface ICharacteristicMap {
 
 export interface IDay {
   date: string
-  schedule: ISlot[]
+  activities: ISlot[]
 }
 
 export interface ICategory {
@@ -54,17 +58,27 @@ export interface ICategory {
   isMulti: boolean
 }
 
+export interface ICategoryProps {
+  categoryType: ICategory
+  setCategoryType: React.Dispatch<React.SetStateAction<ICategory>>
+}
+
 export interface IModal {
   day?: IDay
 }
 
-export interface ISlot {
-  id: number
+export interface IPictogram {
+  link: string
+  linkSvg: string
+  name: string
+}
+
+export interface ISlot extends IEnumOption {
   type: string
-  label: string
-  address: string
-  signs: string[]
+  fullAddress: string
+  pictograms: IPictogram[]
   selected?: boolean
+  category?: { section: string }
 }
 
 export interface IAlertDialog {

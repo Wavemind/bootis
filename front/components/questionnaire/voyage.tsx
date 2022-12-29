@@ -16,6 +16,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { BsInfoCircle } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 
 /**
  * The internal imports
@@ -30,14 +31,16 @@ import {
   useGetAccommodationCategoriesQuery,
   useLazyGetCategoriesByRegionQuery,
 } from '../../lib/services/modules/category'
+import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 
 /**
  * Type imports
  */
-import { IFormValues } from '../../lib/types'
+import { IEnumOption, IFormValues } from '../../lib/types'
 
 const Voyage: FC = () => {
   const { t } = useTranslation('voyage')
+  const router = useRouter()
 
   const [loading, setLoading] = useState(true)
 
@@ -50,14 +53,27 @@ const Voyage: FC = () => {
 
   const [
     getCategoriesByRegion,
-    { data: categoriesByRegion = [], isFetching, isSuccess },
+    {
+      data: categoriesByRegion = [],
+      isFetching: isCatagoriesByRegionFetching,
+      isSuccess: isCatagoriesByRegionSuccess,
+    },
   ] = useLazyGetCategoriesByRegionQuery()
+
+  const [
+    getPlanning,
+    {
+      data: planning = {},
+      isFetching: isPlanningFetching,
+      isSuccess: isPlanningSuccess,
+    },
+  ] = useLazyGetPlanningQuery()
 
   const methods = useForm<IFormValues>({
     defaultValues: {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
-      destination: '',
+      destination: {} as IEnumOption,
       activities: [],
       accommodation: '',
       restaurants: [],
@@ -69,7 +85,7 @@ const Voyage: FC = () => {
    */
   useEffect(() => {
     const destinationValue = methods.getValues('destination')
-    if (typeof destinationValue === 'object') {
+    if (destinationValue?.name) {
       getCategoriesByRegion(destinationValue.name)
     }
   }, [methods.watch('destination')])
@@ -78,20 +94,20 @@ const Voyage: FC = () => {
    * Filters the available categories for the selected region
    */
   const filteredActivities = useMemo(() => {
-    if (!isFetching && isSuccess) {
+    if (!isCatagoriesByRegionFetching && isCatagoriesByRegionSuccess) {
       return activityCategories.map(activity => ({
         ...activity,
         isDisabled: !categoriesByRegion.includes(activity.id),
       }))
     }
     return []
-  }, [isSuccess, isFetching])
+  }, [isCatagoriesByRegionSuccess, isCatagoriesByRegionFetching])
 
   /**
    * Updates the selected activities based on the availability in the selected region
    */
   useEffect(() => {
-    if (!isFetching && isSuccess) {
+    if (!isCatagoriesByRegionFetching && isCatagoriesByRegionSuccess) {
       const selectedActivities = methods.getValues('activities')
 
       methods.setValue(
@@ -101,19 +117,35 @@ const Voyage: FC = () => {
         )
       )
     }
-  }, [isSuccess, isFetching])
+  }, [isCatagoriesByRegionSuccess, isCatagoriesByRegionFetching])
 
   /**
    * Handles the data submission to the backend
    * @param data form data object
    */
-  // TODO : Connect to the backend I'm guessing ?
   const onSubmit = (data: IFormValues) => {
     const newSteps = [...steps]
     newSteps[currentStep].formValues = data
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
+    getPlanning({
+      startDate: data.startDate,
+      endDate: data.endDate,
+      region: data.destination?.name || '',
+      categories: data.activities?.map(activity => activity.id) || [],
+    })
   }
+
+  /**
+   * If the planning is properly received from the backend,
+   * put it in localStorage and navigate to planning page
+   */
+  useEffect(() => {
+    if (!isPlanningFetching && isPlanningSuccess) {
+      localStorage.setItem('planning', JSON.stringify(planning))
+      router.push('/planning')
+    }
+  }, [isPlanningSuccess, isPlanningFetching])
 
   /**
    * If data exists in localStorage, use it to prefill form values
@@ -132,7 +164,7 @@ const Voyage: FC = () => {
           : new Date(),
         accommodation: '',
         restaurants: [],
-        destination: '',
+        destination: {} as IEnumOption,
         activities: [],
       }
       if (infoFromSearch.destination) {
