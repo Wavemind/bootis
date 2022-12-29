@@ -1,5 +1,5 @@
 namespace :place do
-  desc "TODO"
+  desc "Retreive the id of the location in tripadvisor"
   task update_tripadvisor_id: :environment do
     Place.joins(:category).where(categories: {section: 'restaurant'}).each do |place|
       next if place.trip_advisor_id.present?
@@ -23,6 +23,7 @@ namespace :place do
     end
   end
 
+  desc "Retreive the id of the location in tripadvisor"
   task update_food_category: :environment do
     total =  Place.joins(:category).where(categories: {section: 'restaurant'}).where.not(trip_advisor_id: nil).count
     Place.joins(:category).where(categories: {section: 'restaurant'}).where.not(trip_advisor_id: nil).each_with_index do |place, index|
@@ -45,6 +46,44 @@ namespace :place do
         puts "Failed to get cuisine for place #{place.id} - #{place.name}"
         puts error
       end
+    end
+  end
+
+  desc "Retreive the picture from tripadvisor"
+  task update_picture: :environment do
+    total =  Place.joins(:category).where(categories: {section: 'restaurant'}).where.not(trip_advisor_id: nil).count
+    Place.joins(:category).where(categories: {section: 'restaurant'}).where.not(trip_advisor_id: nil, picture_url:nil).each_with_index do |place, index|
+      
+      url = URI("https://api.content.tripadvisor.com/api/v1/location/#{place.trip_advisor_id}/photos?language=fr&key=#{ENV['TRIP_ADVISOR_KEY']}")
+
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+
+      request = Net::HTTP::Get.new(url)
+      request["accept"] = 'application/json'
+
+      response = http.request(request)
+      begin
+        body = JSON.parse(response.read_body)
+        byebug
+        place.update(picture_url: body["data"].first["images"]["large"]["url"])
+        puts "#{index}/#{total} Found trip cuisine for #{place.id} - #{place.name} we assignes #{place.cuisines.map(&:name).join(",")}"
+      rescue => error
+        puts "Failed to get cuisine for place #{place.id} - #{place.name}"
+        puts error
+      end
+    end
+  end
+
+
+  desc "Retreive the picture from zuerst"
+  task update_picture_zuerst: :environment do
+    total = Place.joins(:category).where(picture_url: nil).count
+    data = JSON.parse(File.read(Rails.root.join('db/zuerst.json')))
+    data['Pois'].each_with_index do |poi, index|
+      place = Place.find_by(zuerst_id: poi["IdZuerst"])
+      next unless place.present?
+      place.update(picture_url: poi["Pictures"].first["PictureURL"]) if poi["Pictures"].any?
     end
   end
 
