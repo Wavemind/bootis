@@ -6,6 +6,8 @@ class Place < ActiveRecord::Base
   has_many :characteristics, through: :place_characteristics
   has_many :pictograms_places
   has_many :pictograms, through: :pictograms_places
+  has_many :cuisines_places
+  has_many :cuisines, through: :cuisines_places
   
   geocoded_by :full_address
   
@@ -24,12 +26,16 @@ class Place < ActiveRecord::Base
     Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
   end
 
-  def self.match_activities(region, limit, excluding = [])
-    first = Place.excluding(excluding).joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).sample
+  def self.match_activities(region, categories, limit, excluding = [])
+    first = Place.get_activities(excluding,region, categories).sample
     excluding << first
     restaurants = Place.joins(:category).where(region: region).where(categories: {section: 'restaurant'}).near(first).slice(0,2)
-    others = Place.excluding(excluding).joins(:category).where(region: region).where.not(categories: {section: ['lodging', 'restaurant']}).near(first).slice(0, limit - 1)
+    others = Place.get_activities(excluding, region, categories).near(first).distinct(:name).slice(0, limit - 1)
     [first, restaurants.first, others, restaurants.last].flatten
+  end
+
+  def self.get_activities(excluding, region, categories)
+    Place.excluding(excluding).joins(:category).where(region: region).where(categories: categories).where.not(categories: {section: ['lodging', 'restaurant']})
   end
 
   def full_address

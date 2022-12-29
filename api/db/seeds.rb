@@ -210,7 +210,7 @@ data['Pois'].each_with_index do |poi, index|
       name: poi['Name'].strip,
       zuerst_id: poi['IdZuerst'],
       region: final_region,
-      pictograms: poi['PictogramIds'].map{|id| Pictogram.find(id)} if poi['PictogramIds'].present?,
+      pictograms:  poi['PictogramIds'].present? ? poi['PictogramIds'].map{|id| Pictogram.find(id)} : [],
       latitude: poi['Coordinates']['Lat'],
       longitude: poi['Coordinates']['Lng'],
       street: poi['Address']['Street'],

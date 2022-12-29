@@ -2,20 +2,21 @@ module Queries
   class GetPlanning < Queries::BaseQuery
     type Types::PlanningType, null: true
 
-    argument :region, String, required: true
-    argument :start_date, GraphQL::Types::ISO8601Date, required: true
-    argument :end_date, GraphQL::Types::ISO8601Date, required: true
+    argument :region, String
+    argument :categories, [ID], required: false
+    argument :start_date, GraphQL::Types::ISO8601Date
+    argument :end_date, GraphQL::Types::ISO8601Date
 
-    def resolve(start_date:, end_date:, region:)
+    def resolve(start_date:, end_date:, region:, categories: Category.all)
       excluding = []
       {
         accommodation: Place.match_accomodation(region),
         schedule: (start_date...end_date).map do |date| 
-          activities = Place.match_activities(region, 3)
+          activities = Place.match_activities(region, categories, 3, excluding)
           excluding += activities 
           { 
             date: date, 
-            activities: Place.match_activities(region, 3, excluding)
+            activities: activities
           }
         end
       }
