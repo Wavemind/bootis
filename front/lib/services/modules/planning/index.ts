@@ -56,6 +56,7 @@ export const planningApi = api.injectEndpoints({
                   id
                   name
                   fullAddress
+                  pictureUrl
                   pictograms {
                     linkSvg
                     link
@@ -71,8 +72,19 @@ export const planningApi = api.injectEndpoints({
         `,
         variables: { startDate, endDate, region, categories },
       }),
-      transformResponse: (response: { getPlanning: IPlanning }) =>
-        response.getPlanning,
+      transformResponse: (response: { getPlanning: IPlanning }) => ({
+        accommodation: response.getPlanning.accommodation,
+        schedule: response.getPlanning.schedule.map((day: IDay) => ({
+          ...day,
+          activities: day.activities.map((activity: ISlot) => ({
+            ...activity,
+            type:
+              activity.category?.section === 'restaurant'
+                ? 'restaurant'
+                : 'activity',
+          })),
+        })),
+      }),
       providesTags: [],
     }),
   }),

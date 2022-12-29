@@ -111,8 +111,12 @@ const SelectionModal: FC = () => {
       const selectedSlot = selectedDay.activities?.find(
         activity => activity.selected
       )
-      if (isModalOpen && !isFetching && selectedSlot) {
-        fetchPlaces(selectedSlot?.type, voyageFormData.activities)
+      if (selectedSlot) {
+        if (isModalOpen && !isFetching) {
+          fetchPlaces(selectedSlot?.type, voyageFormData.activities)
+        }
+      } else {
+        setLoading(false)
       }
     }
   }, [selectedDay])

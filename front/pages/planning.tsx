@@ -38,7 +38,8 @@ const Planning: FC = () => {
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
-  const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
+  const { isModalOpen, openModal, closeModal, selectedDay, setSelectedDay } =
+    useModal()
   const {
     isAlertDialogOpen,
     openAlertDialog,
@@ -52,18 +53,7 @@ const Planning: FC = () => {
     )
 
     setAccommodationData(planningFromStorage.accommodation)
-    setPlanningData(
-      planningFromStorage.schedule.map((day: IDay) => ({
-        ...day,
-        activities: day.activities.map((activity: ISlot) => ({
-          ...activity,
-          type:
-            activity.category?.section === 'restaurant'
-              ? 'restaurant'
-              : 'activity',
-        })),
-      }))
-    )
+    setPlanningData(planningFromStorage.schedule)
     setLoading(false)
   }, [])
 
@@ -86,7 +76,13 @@ const Planning: FC = () => {
         }}
       >
         <ModalContext.Provider
-          value={{ isModalOpen, openModal, closeModal, selectedDay }}
+          value={{
+            isModalOpen,
+            openModal,
+            closeModal,
+            selectedDay,
+            setSelectedDay,
+          }}
         >
           <Flex direction='column' color='black' h='full' w='full'>
             <HStack

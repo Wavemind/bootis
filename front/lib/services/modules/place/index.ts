@@ -31,6 +31,7 @@ export const placeApi = api.injectEndpoints({
               id
               name
               fullAddress
+              pictureUrl
               pictograms {
                 linkSvg
                 link
@@ -44,8 +45,15 @@ export const placeApi = api.injectEndpoints({
         `,
         variables: { region, categories },
       }),
-      transformResponse: (response: { getPlaces: ISlot[] }) =>
-        response.getPlaces,
+      transformResponse: (response: { getPlaces: ISlot[] }) => {
+        return response.getPlaces.map(place => ({
+          ...place,
+          type:
+            place.category?.section === 'restaurant'
+              ? 'restaurant'
+              : 'activity',
+        }))
+      },
       providesTags: [],
     }),
   }),
