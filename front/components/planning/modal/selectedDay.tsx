@@ -11,7 +11,7 @@ import format from 'date-fns/format'
 /**
  * The internal imports
  */
-import SlotCard from '../slot'
+import { SlotCard } from '../../'
 import { ModalContext } from '../../../lib/contexts'
 
 const SelectedDay: FC = () => {

@@ -26,7 +26,7 @@ const AccommodationBar: FC<IAccommodationBarProps> = ({
    * Handle edit action for the accommodation
    */
   const handleEdit = () => {
-    console.log('edit the hotel')
+    console.log('TODO : Edit the hotel')
   }
 
   // Gets voyage form data from the localStorage
@@ -35,7 +35,6 @@ const AccommodationBar: FC<IAccommodationBarProps> = ({
     return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
   }, [])
 
-  // TODO : Get data from backend
   return (
     <HStack w='full' bg='teal' borderRadius='lg' p={3} spacing={8}>
       <Icon as={FaBed} color='white' h={6} w={6} />

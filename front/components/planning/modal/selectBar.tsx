@@ -22,6 +22,9 @@ import {
  */
 import { IStep, ICategoryProps, IElement } from '../../../lib/types'
 
+/**
+ * Type definitions
+ */
 interface ISelectBarProps extends ICategoryProps {
   selectedValues: IElement[]
   setSelectedValues: React.Dispatch<React.SetStateAction<IElement[]>>

@@ -11,7 +11,7 @@ import format from 'date-fns/format'
  * The internal imports
  */
 import { AlertDialogContext, ModalContext } from '../../lib/contexts'
-import SlotCard from './slot'
+import { SlotCard } from '../'
 
 /**
  * Type imports
@@ -39,9 +39,9 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
    */
   const handleReplace = (index: number) => {
     // To "copy" day
-    const newDay = JSON.parse(JSON.stringify(day))
-    newDay.activities[index].selected = true
-    openModal({ day: newDay })
+    const selectedDay = JSON.parse(JSON.stringify(day))
+    selectedDay.activities[index].selected = true
+    openModal({ day: selectedDay })
   }
 
   /**
