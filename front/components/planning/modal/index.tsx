@@ -66,7 +66,7 @@ const SelectionModal: FC = () => {
         </Center>
       )
     } else {
-      if (places.length > 0) {
+      if (Object.keys(categoryType).length > 0 && places.length > 0) {
         return places.map(place => (
           <ElementCard key={`place_${place.id}`} place={place} />
         ))

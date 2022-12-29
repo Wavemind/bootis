@@ -68,6 +68,8 @@ const SelectBar: FC<ISelectBarProps> = ({
       } else {
         setSelectedValues(voyageFormData.activities)
       }
+    } else {
+      setSelectedValues([])
     }
   }, [voyageFormData, categoryType])
 
