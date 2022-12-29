@@ -23,9 +23,9 @@ import { useRouter } from 'next/router'
  */
 import Select from './select'
 import DatePicker from './calendar'
-import restaurants from '../../lib/config/restaurants'
 import { QuestionnaireContext } from '../../lib/contexts'
 import { useGetRegionsQuery } from '../../lib/services/modules/region'
+import { useGetCuisineQuery } from '../../lib/services/modules/cuisine'
 import {
   useGetActivityCategoriesQuery,
   useGetAccommodationCategoriesQuery,
@@ -47,6 +47,7 @@ const Voyage: FC = () => {
   const { steps, setSteps, currentStep } = useContext(QuestionnaireContext)
 
   const { data: regions = [] } = useGetRegionsQuery()
+  const { data: cuisines = [] } = useGetCuisineQuery()
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
   const { data: accommodationCategories = [] } =
     useGetAccommodationCategoriesQuery()
@@ -250,7 +251,7 @@ const Voyage: FC = () => {
                   name='restaurants'
                   label={t('restaurants.label')}
                   subLabel={t('restaurants.subLabel')}
-                  options={restaurants}
+                  options={cuisines}
                 />
               </VStack>
             </GridItem>

@@ -27,7 +27,10 @@ import isEmpty from 'lodash/isEmpty'
  * The internal imports
  */
 import { ModalContext } from '../../../lib/contexts'
-import { useLazyGetPlacesQuery } from '../../../lib/services/modules/place'
+import {
+  useLazyGetPlacesQuery,
+  useLazyGetRestaurantsQuery,
+} from '../../../lib/services/modules/place'
 import ElementCard from './elementCard'
 import SelectBar from './selectBar'
 import SelectedDay from './selectedDay'
@@ -48,6 +51,11 @@ const SelectionModal: FC = () => {
 
   const [getPlaces, { data: places = [], isSuccess, isFetching }] =
     useLazyGetPlacesQuery()
+
+  const [getRestaurants, { data: restaurants = [] }] =
+    useLazyGetRestaurantsQuery()
+
+  console.log(restaurants)
 
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => {
@@ -97,9 +105,9 @@ const SelectionModal: FC = () => {
         categories: categories.map(activity => activity.id),
       })
     } else {
-      getPlaces({
+      getRestaurants({
         region: voyageFormData.destination.name,
-        categories: [4],
+        cuisines: categories.map(activity => activity.id),
       })
     }
   }, [])
