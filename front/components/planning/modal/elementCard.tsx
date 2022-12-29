@@ -1,10 +1,15 @@
 /**
  * The external imports
  */
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import Image from 'next/image'
-import { Box, HStack, Icon, VStack, Text, Center } from '@chakra-ui/react'
+import { Box, HStack, Icon, VStack, Text } from '@chakra-ui/react'
 import { MdOutlineLocationOn } from 'react-icons/md'
+
+/**
+ * The internal imports
+ */
+import { ModalContext } from '../../../lib/contexts'
 
 /**
  * Types imports
@@ -12,11 +17,26 @@ import { MdOutlineLocationOn } from 'react-icons/md'
 import { ISlot } from '../../../lib/types'
 
 const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
+  const { selectedDay, closeModal, setPlanningData } = useContext(ModalContext)
+
   /**
    * Handles the new element selection
    */
   const handleSelection = () => {
-    console.log('replace the selected slot with the selected new element')
+    const selectedSlot = selectedDay.activities.findIndex(
+      activity => activity.selected
+    )
+    if (selectedSlot > -1) {
+      selectedDay.activities[selectedSlot] = place
+    } else {
+      selectedDay.activities.push(place)
+    }
+    setPlanningData(prev => {
+      const dayIndex = prev.findIndex(day => day.date === selectedDay.date)
+      prev[dayIndex] = selectedDay
+      return prev
+    })
+    closeModal()
   }
 
   return (
@@ -27,15 +47,21 @@ const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
       boxShadow='xl'
       borderRadius='lg'
       borderTopStyle='solid'
-      borderTopColor={
-        place.category?.section === 'restaurant' ? 'salmon' : 'teal'
-      }
+      borderTopColor={place.type === 'restaurant' ? 'salmon' : 'teal'}
       borderTopWidth={12}
       onClick={handleSelection}
     >
-      <Center h={194} bg='grey' borderBottomRadius='lg'>
-        Image
-      </Center>
+      <Box
+        h={194}
+        bg='grey'
+        borderBottomRadius='lg'
+        backgroundImage={
+          place.pictureUrl ||
+          'https://via.placeholder.com/316x75.png?text=Image+non+disponible'
+        }
+        backgroundSize='cover'
+        backgroundPosition='center center'
+      />
       <VStack alignItems='flex-start' p={2} pb={4} spacing={3}>
         <Text
           fontSize='xl'

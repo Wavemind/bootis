@@ -76,6 +76,7 @@ export interface IPictogram {
 export interface ISlot extends IEnumOption {
   type: string
   fullAddress: string
+  pictureUrl: string
   pictograms: IPictogram[]
   selected?: boolean
   category?: { section: string }

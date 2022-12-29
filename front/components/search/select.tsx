@@ -13,6 +13,7 @@ import {
   HStack,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
+import isEmpty from 'lodash/isEmpty'
 
 /**
  * Type imports
@@ -61,7 +62,7 @@ const Select: FC<ISelectProps> = ({
     <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {Object.keys(selected).length > 0 ? (
+          {!isEmpty(selected) ? (
             <Text
               textOverflow='ellipsis'
               overflowX='hidden'

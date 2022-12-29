@@ -2,7 +2,7 @@
  * The external imports
  */
 import { FC } from 'react'
-import { Box, Icon, Text, Button, Center, HStack } from '@chakra-ui/react'
+import { Box, Icon, Text, Button, HStack } from '@chakra-ui/react'
 import { BsPinMap } from 'react-icons/bs'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
@@ -42,12 +42,18 @@ const SlotCard: FC<ISlotCard> = ({
       border={isReduced && slot.selected ? '4px solid' : 'none'}
       borderColor={isReduced && slot.type === 'activity' ? 'teal' : 'salmon'}
     >
-      <Center
+      <Box
         h={75}
         bg='grey'
         borderRadius='lg'
         color='black'
         position='relative'
+        backgroundImage={
+          slot.pictureUrl ||
+          'https://via.placeholder.com/316x75.png?text=Image+non+disponible'
+        }
+        backgroundSize='cover'
+        backgroundPosition='center center'
       >
         <Box
           position='absolute'
@@ -63,8 +69,7 @@ const SlotCard: FC<ISlotCard> = ({
         >
           {t(slot.type)}
         </Box>
-        Image
-      </Center>
+      </Box>
       <Box p={2}>
         <Text color='black' fontWeight='bold' my={2} noOfLines={1}>
           {slot.name}

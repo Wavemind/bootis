@@ -3,9 +3,8 @@
  */
 import { useContext, FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Icon, Button, VStack, Text } from '@chakra-ui/react'
+import { Button, VStack, Text } from '@chakra-ui/react'
 import { BsCaretLeftFill } from 'react-icons/bs'
-import { GrAddCircle } from 'react-icons/gr'
 import format from 'date-fns/format'
 
 /**
@@ -41,16 +40,6 @@ const SelectedDay: FC = () => {
         {selectedDay.activities?.map(slot => (
           <SlotCard key={slot.name} slot={slot} isReduced />
         ))}
-        <Box
-          as={Button}
-          w='full'
-          border='1px solid black'
-          borderRadius='lg'
-          bg='white'
-          py={7}
-        >
-          <Icon as={GrAddCircle} w={10} h={10} />
-        </Box>
       </VStack>
       <Button
         onClick={closeModal}

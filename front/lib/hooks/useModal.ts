@@ -32,5 +32,6 @@ export default () => {
     openModal,
     closeModal,
     selectedDay,
+    setSelectedDay,
   }
 }
