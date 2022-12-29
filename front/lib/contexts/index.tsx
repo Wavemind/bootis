@@ -29,7 +29,7 @@ interface IModalContext {
   openModal: ({ day }: IModal) => void
   closeModal: () => void
   selectedDay: IDay
-  setSelectedDay: React.Dispatch<React.SetStateAction<IDay>>
+  setPlanningData: React.Dispatch<React.SetStateAction<IDay[]>>
 }
 
 interface IAlertDialogContext {

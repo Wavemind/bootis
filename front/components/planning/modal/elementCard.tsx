@@ -17,7 +17,7 @@ import { ModalContext } from '../../../lib/contexts'
 import { ISlot } from '../../../lib/types'
 
 const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
-  const { selectedDay, setSelectedDay, closeModal } = useContext(ModalContext)
+  const { selectedDay, closeModal, setPlanningData } = useContext(ModalContext)
 
   /**
    * Handles the new element selection
@@ -27,14 +27,15 @@ const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
       activity => activity.selected
     )
     if (selectedSlot > -1) {
-      const newDay = { ...selectedDay }
-      newDay.activities[selectedSlot] = place
-      setSelectedDay(newDay)
+      selectedDay.activities[selectedSlot] = place
     } else {
-      const newDay = { ...selectedDay }
-      newDay.activities.push(place)
-      setSelectedDay(newDay)
+      selectedDay.activities.push(place)
     }
+    setPlanningData(prev => {
+      const dayIndex = prev.findIndex(day => day.date === selectedDay.date)
+      prev[dayIndex] = selectedDay
+      return prev
+    })
     closeModal()
   }
 

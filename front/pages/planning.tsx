@@ -38,8 +38,7 @@ const Planning: FC = () => {
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
-  const { isModalOpen, openModal, closeModal, selectedDay, setSelectedDay } =
-    useModal()
+  const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
   const {
     isAlertDialogOpen,
     openAlertDialog,
@@ -81,7 +80,7 @@ const Planning: FC = () => {
             openModal,
             closeModal,
             selectedDay,
-            setSelectedDay,
+            setPlanningData,
           }}
         >
           <Flex direction='column' color='black' h='full' w='full'>
