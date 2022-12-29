@@ -22,10 +22,12 @@ class Place < ActiveRecord::Base
     places
   end
 
+  # Finds an accomodation based on the region we are looking in
   def self.match_accomodation(region)
     Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
   end
 
+  # Will retrive `limit` amout of activities based on the categories and the region we are looking in
   def self.match_activities(region, categories, limit, excluding = [])
     first = Place.get_activities(excluding,region, categories).sample
     excluding << first
@@ -34,11 +36,13 @@ class Place < ActiveRecord::Base
     [first, restaurants.first, others, restaurants.last].flatten
   end
 
+  # Creates a request to fetch activities based on region and categories
   def self.get_activities(excluding, region, categories)
     Place.excluding(excluding).joins(:category).where(region: region).where(categories: categories).where.not(categories: {section: ['lodging', 'restaurant']})
   end
 
+  # Full address for place's location
   def full_address
     "#{street} #{number}, #{zip} #{city}"
   end 
-end 
+end
