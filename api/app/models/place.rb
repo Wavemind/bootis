@@ -28,23 +28,20 @@ class Place < ActiveRecord::Base
   end
 
   # Will retrive `limit` amout of activities based on the categories and the region we are looking in
-  def self.match_activities(region, categories, limit, accommocation, excluding = [])
+  def self.match_activities(region, categories, limit, accommodation, excluding = [])
     first = Place.get_activities(excluding,region, categories).sample
     first = Place.get_activities(excluding,region).sample unless first.present?
-    first = Place.get_activities(excluding).near(accommocation).first unless first.present?
+    first = Place.get_activities(excluding).near(accommodation).first unless first.present?
 
     excluding << first
     restaurants = Place.joins(:category).where(region: region).where(categories: {section: 'restaurant'}).near(first).slice(0,2)
     others = Place.get_activities(excluding, region, categories).near(first).distinct(:name).slice(0, limit - 1)
 
     # If we don't find we don't care about categories
-    if others.count < limit - 1
-      others +=  Place.get_activities(excluding, region).near(first).distinct(:name).slice(0, limit -  others.count)
-    end
+    others +=  Place.get_activities(excluding, region).near(first).distinct(:name).slice(0, limit -  others.count)   if others.count < limit - 1
     # If we don't find we don't care about region and categories
-    if others.count < limit - 1
-      others +=  Place.get_activities(excluding).near(first).distinct(:name).slice(0, limit -  others.count)
-    end
+    others +=  Place.get_activities(excluding).near(first).distinct(:name).slice(0, limit -  others.count)     if others.count < limit - 1
+
     [first, restaurants.first, others, restaurants.last].flatten
   end
 
