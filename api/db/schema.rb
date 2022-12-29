@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_29_091315) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_29_125722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_091315) do
     t.string "zip"
     t.string "city"
     t.integer "trip_advisor_id"
+    t.string "picture_url"
     t.index ["category_id"], name: "index_places_on_category_id"
   end
 

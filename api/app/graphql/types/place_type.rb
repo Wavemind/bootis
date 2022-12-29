@@ -12,6 +12,7 @@ module Types
     field :pictograms, [Types::PictogramType], null: false
     field :street, String, null: false
     field :zip, String, null: false
+    field :picture_url, String
     field :city, String, null: false
     field :number, String, null: false
     field :full_address, String, null: false

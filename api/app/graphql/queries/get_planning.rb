@@ -9,10 +9,11 @@ module Queries
 
     def resolve(start_date:, end_date:, region:, categories: Category.all)
       excluding = []
+      accommodation = Place.match_accomodation(region)
       {
-        accommodation: Place.match_accomodation(region),
+        accommodation: accommodation
         schedule: (start_date...end_date).map do |date| 
-          activities = Place.match_activities(region, categories, 3, excluding)
+          activities = Place.match_activities(region, categories, 3, accommodation, excluding)
           excluding += activities 
           { 
             date: date, 
