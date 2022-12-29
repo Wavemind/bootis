@@ -55,7 +55,10 @@ const ElementCard: FC<{ place: ISlot }> = ({ place }) => {
         h={194}
         bg='grey'
         borderBottomRadius='lg'
-        backgroundImage={place.pictureUrl}
+        backgroundImage={
+          place.pictureUrl ||
+          'https://via.placeholder.com/316x75.png?text=Image+non+disponible'
+        }
         backgroundSize='cover'
         backgroundPosition='center center'
       />

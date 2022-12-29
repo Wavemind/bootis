@@ -48,7 +48,10 @@ const SlotCard: FC<ISlotCard> = ({
         borderRadius='lg'
         color='black'
         position='relative'
-        backgroundImage={slot.pictureUrl}
+        backgroundImage={
+          slot.pictureUrl ||
+          'https://via.placeholder.com/316x75.png?text=Image+non+disponible'
+        }
         backgroundSize='cover'
         backgroundPosition='center center'
       >
