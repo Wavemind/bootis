@@ -1,7 +1,14 @@
 /**
  * The external imports
  */
-import { useMemo, useState, useContext, FC, useEffect } from 'react'
+import {
+  FC,
+  useMemo,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from 'react'
 import { useTranslation } from 'next-i18next'
 import {
   HStack,
@@ -36,9 +43,10 @@ const SelectionModal: FC = () => {
 
   const [categoryType, setCategoryType] = useState<ICategory>({} as ICategory)
   const [selectedValues, setSelectedValues] = useState<IElement[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
-  const [getPlaces, { data: places = [] }] = useLazyGetPlacesQuery()
+  const [getPlaces, { data: places = [], isSuccess, isFetching }] =
+    useLazyGetPlacesQuery()
 
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => {
@@ -46,71 +54,95 @@ const SelectionModal: FC = () => {
     return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
   }, [])
 
+  /**
+   * Renders the correct visual for the list content
+   * @returns TSX
+   */
+  const renderList = () => {
+    if (loading) {
+      return (
+        <Center h='full' w='full'>
+          <Spinner size='xl' color='salmon' thickness='4px' />
+        </Center>
+      )
+    } else {
+      if (places.length > 0) {
+        return places.map(place => (
+          <ElementCard key={`place_${place.id}`} place={place} />
+        ))
+      } else {
+        return (
+          <HStack
+            pt={10}
+            w='full'
+            justifyContent='center'
+            alignItems='flex-start'
+          >
+            <Text fontStyle='italic'>{t('selectCategory')}</Text>
+          </HStack>
+        )
+      }
+    }
+  }
+
+  /**
+   * Callback to fetch places
+   */
+  const fetchPlaces = useCallback((type: string, categories: IElement[]) => {
+    setLoading(true)
+    if (type === 'activity') {
+      getPlaces({
+        region: voyageFormData.destination.name,
+        categories: categories.map(activity => activity.id),
+      })
+    } else {
+      getPlaces({
+        region: voyageFormData.destination.name,
+        categories: [4],
+      })
+    }
+  }, [])
+
+  /**
+   * Fetch places when selectedDay changes
+   */
   useEffect(() => {
     if (voyageFormData) {
       const selectedSlot = selectedDay.activities?.find(
         activity => activity.selected
       )
-      if (selectedSlot) {
-        if (selectedSlot?.type === 'activity') {
-          getPlaces({
-            region: voyageFormData.destination.name,
-            categories: voyageFormData.activities.map(
-              (activity: IElement) => activity.id
-            ),
-          })
-        } else {
-          // TODO : Get the category from the backend I'm guessing ?
-          getPlaces({
-            region: voyageFormData.destination.name,
-            categories: [4],
-          })
-        }
+      if (isModalOpen && !isFetching && selectedSlot) {
+        fetchPlaces(selectedSlot?.type, voyageFormData.activities)
       }
     }
   }, [selectedDay])
 
+  /**
+   * Fetch places when categoryType changes
+   */
   useEffect(() => {
-    if (categoryType) {
-      if (categoryType.key === 'activity') {
-        getPlaces({
-          region: voyageFormData.destination.name,
-          categories: voyageFormData.activities.map(
-            (activity: IElement) => activity.id
-          ),
-        })
-      } else {
-        getPlaces({
-          region: voyageFormData.destination.name,
-          categories: [4],
-        })
-      }
+    if (isModalOpen && !isFetching) {
+      fetchPlaces(categoryType.key, voyageFormData.activities)
     }
   }, [categoryType])
 
+  /**
+   * Fetch places when selectedValues changes
+   */
   useEffect(() => {
-    if (categoryType) {
-      if (categoryType.key === 'activity') {
-        getPlaces({
-          region: voyageFormData.destination.name,
-          categories: selectedValues.map((activity: IElement) => activity.id),
-        })
-      } else {
-        getPlaces({
-          region: voyageFormData.destination.name,
-          categories: [4],
-        })
-      }
+    if (isModalOpen && !isFetching) {
+      fetchPlaces(categoryType.key, selectedValues)
     }
   }, [selectedValues])
 
-  if (loading) {
-    return (
-      <Center h='full'>
-        <Spinner size='xl' color='salmon' thickness='4px' />
-      </Center>
-    )
-  }
+  /**
+   * Removes loading state if fetch is successfull
+   */
+  useEffect(() => {
+    if (!isFetching && isSuccess) {
+      setLoading(false)
+    }
+  }, [isFetching, isSuccess])
 
   return (
     <Modal
@@ -144,20 +176,7 @@ const SelectionModal: FC = () => {
                   },
                 }}
               >
-                {places.length > 0 ? (
-                  places.map(place => (
-                    <ElementCard key={`place_${place.id}`} place={place} />
-                  ))
-                ) : (
-                  <HStack
-                    pt={10}
-                    w='full'
-                    justifyContent='center'
-                    alignItems='flex-start'
-                  >
-                    <Text fontStyle='italic'>{t('selectCategory')}</Text>
-                  </HStack>
-                )}
+                {renderList()}
               </Flex>
             </Flex>
           </HStack>

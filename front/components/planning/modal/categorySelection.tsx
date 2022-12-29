@@ -34,12 +34,6 @@ const CategorySelection: FC<ICategoryProps> = ({
   const categoryTypes = useMemo(
     () => [
       {
-        key: 'accommodation',
-        label: t('categories.accommodations'),
-        variant: 'teal',
-        isMulti: false,
-      },
-      {
         key: 'restaurant',
         label: t('categories.restaurants'),
         variant: 'salmon',

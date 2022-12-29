@@ -14,7 +14,6 @@ import CategorySelection from './categorySelection'
 import restaurantTypes from '../../../lib/config/restaurantTypes'
 import {
   useGetActivityCategoriesQuery,
-  useGetAccommodationCategoriesQuery,
   useLazyGetCategoriesByRegionQuery,
 } from '../../../lib/services/modules/category'
 
@@ -37,8 +36,6 @@ const SelectBar: FC<ISelectBarProps> = ({
   const { t } = useTranslation('planning')
 
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
-  const { data: accommodationCategories = [] } =
-    useGetAccommodationCategoriesQuery()
 
   const [getCategoriesByRegion, { data: categoriesByRegion = [] }] =
     useLazyGetCategoriesByRegionQuery()
@@ -58,11 +55,12 @@ const SelectBar: FC<ISelectBarProps> = ({
     }
   }, [voyageFormData])
 
+  /**
+   * Set initial selected values from voyage form data
+   */
   useEffect(() => {
     if (categoryType.key) {
-      if (categoryType.key === 'accommodation') {
-        setSelectedValues([voyageFormData.accomodation])
-      } else if (categoryType.key === 'restaurant') {
+      if (categoryType.key === 'restaurant') {
         setSelectedValues(voyageFormData.restaurants)
       } else {
         setSelectedValues(voyageFormData.activities)
@@ -78,9 +76,7 @@ const SelectBar: FC<ISelectBarProps> = ({
       return []
     }
 
-    if (categoryType.key === 'accommodation') {
-      return accommodationCategories
-    } else if (categoryType.key === 'restaurant') {
+    if (categoryType.key === 'restaurant') {
       return restaurantTypes
     } else {
       return activityCategories.map(activity => ({
@@ -114,7 +110,8 @@ const SelectBar: FC<ISelectBarProps> = ({
             ),
           }}
           value={selectedValues}
-          onChange={handleChange}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(newValue: any) => handleChange(newValue)}
           isMulti={categoryType.isMulti}
           useBasicStyles
           options={selectOptions as IElement[]}
