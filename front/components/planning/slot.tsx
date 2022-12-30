@@ -23,7 +23,6 @@ interface ISlotCard {
   handleReplace?: (index: number) => void
 }
 
-// TODO : Get place image
 const SlotCard: FC<ISlotCard> = ({
   slot,
   index = -1,
