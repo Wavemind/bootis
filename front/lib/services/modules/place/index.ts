@@ -49,15 +49,14 @@ export const placeApi = api.injectEndpoints({
         `,
         variables: { region, categories },
       }),
-      transformResponse: (response: { getPlaces: ISlot[] }) => {
-        return response.getPlaces.map(place => ({
+      transformResponse: (response: { getPlaces: ISlot[] }) =>
+        response.getPlaces.map(place => ({
           ...place,
           type:
             place.category?.section === 'restaurant'
               ? 'restaurant'
               : 'activity',
-        }))
-      },
+        })),
       providesTags: [],
     }),
     getRestaurants: build.query<ISlot[], IRestaurantInput>({
@@ -83,7 +82,13 @@ export const placeApi = api.injectEndpoints({
         variables: { region, cuisines },
       }),
       transformResponse: (response: { getRestaurants: ISlot[] }) =>
-        response.getRestaurants,
+        response.getRestaurants.map(place => ({
+          ...place,
+          type:
+            place.category?.section === 'restaurant'
+              ? 'restaurant'
+              : 'activity',
+        })),
       providesTags: [],
     }),
   }),

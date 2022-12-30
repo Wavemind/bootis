@@ -77,7 +77,7 @@ const Voyage: FC = () => {
       destination: {} as IEnumOption,
       activities: [],
       accommodation: '',
-      restaurants: [],
+      cuisines: [],
     },
   })
 
@@ -164,7 +164,7 @@ const Voyage: FC = () => {
           ? new Date(infoFromSearch.endDate)
           : new Date(),
         accommodation: '',
-        restaurants: [],
+        cuisines: [],
         destination: {} as IEnumOption,
         activities: [],
       }
@@ -191,7 +191,6 @@ const Voyage: FC = () => {
   }
 
   // TODO : Check how to manage fonts => variants, defaults, etc.
-  // TODO : Get restaurant type info from somewhere
   return (
     <Box w='full' h='full'>
       <FormProvider {...methods}>
@@ -248,9 +247,9 @@ const Voyage: FC = () => {
                 />
                 <Select
                   isMulti
-                  name='restaurants'
-                  label={t('restaurants.label')}
-                  subLabel={t('restaurants.subLabel')}
+                  name='cuisines'
+                  label={t('cuisines.label')}
+                  subLabel={t('cuisines.subLabel')}
                   options={cuisines}
                 />
               </VStack>

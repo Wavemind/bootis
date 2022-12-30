@@ -65,7 +65,7 @@ const SelectBar: FC<ISelectBarProps> = ({
   useEffect(() => {
     if (categoryType.key) {
       if (categoryType.key === 'restaurant') {
-        setSelectedValues(voyageFormData.restaurants)
+        setSelectedValues(voyageFormData.cuisines)
       } else {
         setSelectedValues(voyageFormData.activities)
       }

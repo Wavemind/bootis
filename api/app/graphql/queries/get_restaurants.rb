@@ -5,7 +5,7 @@ module Queries
     argument :cuisines, [ID], required: false
 
     def resolve(region:, cuisines: [])
-      Place.where(region: region, cuisines: cuisines)
+      Place.joins(:category, :cuisines).where(region: region, categories: {section: 'restaurant'}, cuisines: cuisines)
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
     end

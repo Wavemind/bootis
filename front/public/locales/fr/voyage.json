@@ -14,7 +14,7 @@
     "label": "Choix du type d'activité",
     "subLabel": "Vous pouvez choisir une région ou laisser le champ vide. Celle-ci est liée à sa disponibilité dans la région de ton choix."
   },
-  "restaurants": {
+  "cuisines": {
     "label": "Choix du type de restaurant ?",
     "subLabel": "Il vous suffit de sélectionner vos tags préférés, on se charge du reste"
   },

@@ -49,13 +49,23 @@ const SelectionModal: FC = () => {
   const [selectedValues, setSelectedValues] = useState<IElement[]>([])
   const [loading, setLoading] = useState(true)
 
-  const [getPlaces, { data: places = [], isSuccess, isFetching }] =
-    useLazyGetPlacesQuery()
+  const [
+    getPlaces,
+    {
+      data: places = [],
+      isSuccess: isPlacesSuccess,
+      isFetching: isPlacesFetching,
+    },
+  ] = useLazyGetPlacesQuery()
 
-  const [getRestaurants, { data: restaurants = [] }] =
-    useLazyGetRestaurantsQuery()
-
-  console.log(restaurants)
+  const [
+    getRestaurants,
+    {
+      data: restaurants = [],
+      isSuccess: isRestaurantsSuccess,
+      isFetching: isRestaurantsFetching,
+    },
+  ] = useLazyGetRestaurantsQuery()
 
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => {
@@ -76,6 +86,11 @@ const SelectionModal: FC = () => {
       )
     } else {
       if (!isEmpty(categoryType) && places.length > 0) {
+        if (categoryType.key === 'restaurant') {
+          return restaurants.map(place => (
+            <ElementCard key={`place_${place.id}`} place={place} />
+          ))
+        }
         return places.map(place => (
           <ElementCard key={`place_${place.id}`} place={place} />
         ))
@@ -121,8 +136,10 @@ const SelectionModal: FC = () => {
         activity => activity.selected
       )
       if (selectedSlot) {
-        if (isModalOpen && !isFetching) {
-          fetchPlaces(selectedSlot?.type, voyageFormData.activities)
+        if (isModalOpen && !isPlacesFetching && !isRestaurantsFetching) {
+          const categories =
+            selectedSlot.type === 'activity' ? 'activities' : 'cuisines'
+          fetchPlaces(selectedSlot?.type, voyageFormData[categories])
         }
       } else {
         setLoading(false)
@@ -134,8 +151,10 @@ const SelectionModal: FC = () => {
    * Fetch places when categoryType changes
    */
   useEffect(() => {
-    if (isModalOpen && !isFetching) {
-      fetchPlaces(categoryType.key, voyageFormData.activities)
+    if (isModalOpen && !isPlacesFetching && !isRestaurantsFetching) {
+      const categories =
+        categoryType.key === 'activity' ? 'activities' : 'cuisines'
+      fetchPlaces(categoryType.key, voyageFormData[categories])
     }
   }, [categoryType])
 
@@ -143,7 +162,7 @@ const SelectionModal: FC = () => {
    * Fetch places when selectedValues changes
    */
   useEffect(() => {
-    if (isModalOpen && !isFetching) {
+    if (isModalOpen && !isPlacesFetching && !isRestaurantsFetching) {
       fetchPlaces(categoryType.key, selectedValues)
     }
   }, [selectedValues])
@@ -152,10 +171,18 @@ const SelectionModal: FC = () => {
    * Removes loading state if fetch is successfull
    */
   useEffect(() => {
-    if (!isFetching && isSuccess) {
+    if (
+      (!isPlacesFetching && isPlacesSuccess) ||
+      (!isRestaurantsFetching && isRestaurantsSuccess)
+    ) {
       setLoading(false)
     }
-  }, [isFetching, isSuccess])
+  }, [
+    isPlacesFetching,
+    isPlacesSuccess,
+    isRestaurantsFetching,
+    isRestaurantsSuccess,
+  ])
 
   return (
     <Modal

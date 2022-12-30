@@ -18,7 +18,7 @@ export interface IFormValues {
   destination?: IEnumOption
   activities?: IEnumOption[]
   accommodation: string | { id: number; label: string }
-  restaurants: { id: number; label: string; activities: number[] }[]
+  cuisines: IElement[]
 }
 
 export interface IAnswer {
