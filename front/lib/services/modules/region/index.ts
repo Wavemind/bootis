@@ -32,7 +32,6 @@ export const regionsApi = api.injectEndpoints({
           ...region,
           label: i18n?.t(`regions.${region.name}`, { ns: 'common' }) || null,
         })),
-      providesTags: [],
     }),
   }),
   overrideExisting: false,

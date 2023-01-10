@@ -2,6 +2,7 @@
  * The external imports
  */
 import { ChakraProvider } from '@chakra-ui/react'
+import { Provider } from 'react-redux'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import type { ReactElement, ReactNode } from 'react'
@@ -27,16 +28,21 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, ...rest }: AppPropsWithLayout) {
+  const { store, props } = wrapper.useWrappedStore(rest)
+  const { pageProps } = props
+
   const getLayout = Component.getLayout || (page => <Layout>{page}</Layout>)
 
   return (
-    <ChakraProvider theme={theme}>
-      <Fonts />
-      <DefaultSeo {...SEO} />
-      {getLayout(<Component {...pageProps} />)}
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <Fonts />
+        <DefaultSeo {...SEO} />
+        {getLayout(<Component {...pageProps} />)}
+      </ChakraProvider>
+    </Provider>
   )
 }
 
-export default wrapper.withRedux(appWithTranslation(MyApp))
+export default appWithTranslation(MyApp)

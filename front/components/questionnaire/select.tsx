@@ -99,6 +99,8 @@ const Select: FC<VoyageSelectProps> = ({
             getOptionValue={option => String(option.id)}
             useBasicStyles
             focusBorderColor='salmon'
+            placeholder={t('select')}
+            noOptionsMessage={() => <Text>{t('noOptions')}</Text>}
             chakraStyles={{
               option: (provided, { isSelected }) => ({
                 ...provided,

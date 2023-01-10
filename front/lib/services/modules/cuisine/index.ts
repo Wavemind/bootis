@@ -29,7 +29,6 @@ export const cuisinesApi = api.injectEndpoints({
       }),
       transformResponse: (response: { getCuisine: IEnumOption[] }) =>
         response.getCuisine,
-      providesTags: [],
     }),
   }),
   overrideExisting: false,

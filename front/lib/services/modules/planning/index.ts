@@ -85,7 +85,6 @@ export const planningApi = api.injectEndpoints({
           })),
         })),
       }),
-      providesTags: [],
     }),
   }),
   overrideExisting: false,

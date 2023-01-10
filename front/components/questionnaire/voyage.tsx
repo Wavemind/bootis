@@ -174,7 +174,7 @@ const Voyage: FC = () => {
         )
       }
 
-      if (infoFromSearch.activity) {
+      if (Object.keys(infoFromSearch.activity).length > 0) {
         defaultValues.activities = [infoFromSearch.activity]
       }
       methods.reset(defaultValues)

@@ -57,7 +57,6 @@ export const placeApi = api.injectEndpoints({
               ? 'restaurant'
               : 'activity',
         })),
-      providesTags: [],
     }),
     getRestaurants: build.query<ISlot[], IRestaurantInput>({
       query: ({ region, cuisines }) => ({
@@ -89,7 +88,6 @@ export const placeApi = api.injectEndpoints({
               ? 'restaurant'
               : 'activity',
         })),
-      providesTags: [],
     }),
   }),
   overrideExisting: false,
