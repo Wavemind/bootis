@@ -23,6 +23,8 @@ module Queries
       }
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
+    rescue NoMethodError => e
+      GraphQL::ExecutionError.new(e)
     end
   end
 end
