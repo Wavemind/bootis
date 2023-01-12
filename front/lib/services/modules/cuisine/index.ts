@@ -2,7 +2,6 @@
  * The external imports
  */
 import { gql } from 'graphql-request'
-import { i18n } from 'next-i18next'
 
 /**
  * The internal imports
@@ -14,31 +13,29 @@ import { api } from '../../api'
  */
 import { IEnumOption } from '../../../types'
 
-export const regionsApi = api.injectEndpoints({
+export const cuisinesApi = api.injectEndpoints({
   endpoints: build => ({
-    getRegions: build.query<IEnumOption[], void>({
+    getCuisine: build.query<IEnumOption[], void>({
       query: () => ({
         document: gql`
           query {
-            getRegions {
+            getCuisine {
               id
               name
+              label
             }
           }
         `,
       }),
-      transformResponse: (response: { getRegions: IEnumOption[] }) =>
-        response.getRegions.map(region => ({
-          ...region,
-          label: i18n?.t(`regions.${region.name}`, { ns: 'common' }) || null,
-        })),
+      transformResponse: (response: { getCuisine: IEnumOption[] }) =>
+        response.getCuisine,
     }),
   }),
   overrideExisting: false,
 })
 
 // Export hooks for usage in functional components
-export const { useGetRegionsQuery } = regionsApi
+export const { useGetCuisineQuery } = cuisinesApi
 
 // Export endpoints for use in SSR
-export const { getRegions } = regionsApi.endpoints
+export const { getCuisine } = cuisinesApi.endpoints

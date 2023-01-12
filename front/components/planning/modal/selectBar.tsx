@@ -11,11 +11,11 @@ import { BsSearch } from 'react-icons/bs'
  * The internal imports
  */
 import CategorySelection from './categorySelection'
-import restaurantTypes from '../../../lib/config/restaurantTypes'
 import {
   useGetActivityCategoriesQuery,
   useLazyGetCategoriesByRegionQuery,
 } from '../../../lib/services/modules/category'
+import { useGetCuisineQuery } from '../../../lib/services/modules/cuisine'
 
 /**
  * Type imports
@@ -39,6 +39,7 @@ const SelectBar: FC<ISelectBarProps> = ({
   const { t } = useTranslation('planning')
 
   const { data: activityCategories = [] } = useGetActivityCategoriesQuery()
+  const { data: cuisines = [] } = useGetCuisineQuery()
 
   const [getCategoriesByRegion, { data: categoriesByRegion = [] }] =
     useLazyGetCategoriesByRegionQuery()
@@ -64,7 +65,7 @@ const SelectBar: FC<ISelectBarProps> = ({
   useEffect(() => {
     if (categoryType.key) {
       if (categoryType.key === 'restaurant') {
-        setSelectedValues(voyageFormData.restaurants)
+        setSelectedValues(voyageFormData.cuisines)
       } else {
         setSelectedValues(voyageFormData.activities)
       }
@@ -82,7 +83,7 @@ const SelectBar: FC<ISelectBarProps> = ({
     }
 
     if (categoryType.key === 'restaurant') {
-      return restaurantTypes
+      return cuisines
     } else {
       return activityCategories.map(activity => ({
         ...activity,

@@ -22,6 +22,7 @@ import {
 import { AppDispatch, wrapper } from '../lib/store'
 import { api } from '../lib/services/api'
 import { getRegions } from '../lib/services/modules/region'
+import { getCuisine } from '../lib/services/modules/cuisine'
 import {
   getActivityCategories,
   getAccommodationCategories,
@@ -185,6 +186,7 @@ const Questionnaire = () => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(store => async ({ locale }) => {
     store.dispatch(getRegions.initiate() as AppDispatch)
+    store.dispatch(getCuisine.initiate() as AppDispatch)
     store.dispatch(getActivityCategories.initiate() as AppDispatch)
     store.dispatch(getAccommodationCategories.initiate() as AppDispatch)
     await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()))

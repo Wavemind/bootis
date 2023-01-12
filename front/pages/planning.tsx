@@ -25,6 +25,7 @@ import {
   getActivityCategories,
   getAccommodationCategories,
 } from '../lib/services/modules/category'
+import { getCuisine } from '../lib/services/modules/cuisine'
 
 /**
  * Type imports
@@ -116,6 +117,7 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(store => async ({ locale }) => {
     store.dispatch(getActivityCategories.initiate() as AppDispatch)
     store.dispatch(getAccommodationCategories.initiate() as AppDispatch)
+    store.dispatch(getCuisine.initiate() as AppDispatch)
     await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()))
 
     return {

@@ -10,6 +10,7 @@ module Types
     field :longitude, Float
     field :category, Types::CategoryType, null: false
     field :pictograms, [Types::PictogramType], null: false
+    field :cuisines, [Types::CuisineType], null: false
     field :street, String, null: false
     field :zip, String, null: false
     field :picture_url, String

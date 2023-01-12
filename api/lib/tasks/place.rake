@@ -40,7 +40,7 @@ namespace :place do
       response = http.request(request)
       begin
         body = JSON.parse(response.read_body)
-        place.cuisines += body["cuisine"].map {|cuisine| Cuisine.find_or_create_by(label:cuisine["name"], name: cuisine["localized_name"])}
+        place.cuisines += body["cuisine"].map {|cuisine| Cuisine.find_or_create_by(label:cuisine["localized_name"], name: cuisine["name"])}
         puts "#{index}/#{total} Found trip cuisine for #{place.id} - #{place.name} we assignes #{place.cuisines.map(&:name).join(",")}"
       rescue => error
         puts "Failed to get cuisine for place #{place.id} - #{place.name}"

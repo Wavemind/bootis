@@ -28,7 +28,6 @@ export const categoriesApi = api.injectEndpoints({
       }),
       transformResponse: (response: { getCategoriesByRegion: IEnumOption[] }) =>
         response.getCategoriesByRegion.map(category => category.id),
-      providesTags: [],
     }),
     getActivityCategories: build.query<IEnumOption[], void>({
       query: () => ({
@@ -46,7 +45,6 @@ export const categoriesApi = api.injectEndpoints({
           ...category,
           label: category.name,
         })),
-      providesTags: [],
     }),
     getAccommodationCategories: build.query<IEnumOption[], void>({
       query: () => ({
@@ -66,7 +64,6 @@ export const categoriesApi = api.injectEndpoints({
           ...category,
           label: category.name,
         })),
-      providesTags: [],
     }),
   }),
   overrideExisting: false,

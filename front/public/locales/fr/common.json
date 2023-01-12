@@ -20,5 +20,7 @@
   },
   "validations": {
     "required": "Veuillez sélectionner vos préferences"
-  }
+  },
+  "select": "Sélectionner",
+  "noOptions": "Aucune données"
 }
