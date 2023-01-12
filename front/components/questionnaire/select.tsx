@@ -17,6 +17,7 @@ import {
   PopoverBody,
   PopoverArrow,
   Icon,
+  Link,
 } from '@chakra-ui/react'
 import { Select as ChakraSelect } from 'chakra-react-select'
 import { BsInfoCircle } from 'react-icons/bs'
@@ -71,7 +72,14 @@ const Select: FC<VoyageSelectProps> = ({
                 {hasInfo && (
                   <Popover isLazy placement='top' size='sm'>
                     <PopoverTrigger>
-                      <Icon as={BsInfoCircle} cursor='pointer' w={22} h={22} />
+                      <Link>
+                        <Icon
+                          as={BsInfoCircle}
+                          cursor='pointer'
+                          w={22}
+                          h={22}
+                        />
+                      </Link>
                     </PopoverTrigger>
                     <PopoverContent border='none' minW='30em'>
                       <PopoverArrow bg='blue' />

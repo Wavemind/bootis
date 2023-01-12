@@ -4,19 +4,19 @@ module Queries
 
     argument :region, String
     argument :categories, [ID], required: false
-    argument :start_date, GraphQL::Types::ISO8601Date
-    argument :end_date, GraphQL::Types::ISO8601Date
+    argument :start_date, GraphQL::Types::String
+    argument :end_date, GraphQL::Types::String
 
     def resolve(start_date:, end_date:, region:, categories: Category.all)
       excluding = []
       accommodation = Place.match_accomodation(region)
       {
         accommodation: accommodation,
-        schedule: (start_date...end_date).map do |date| 
+        schedule: (Time.zone.parse(start_date).to_date..Time.zone.parse(end_date).to_date).map do |date| 
           activities = Place.match_activities(region, categories, 3, accommodation, excluding)
           excluding += activities 
           { 
-            date: date, 
+            date: date,
             activities: activities
           }
         end

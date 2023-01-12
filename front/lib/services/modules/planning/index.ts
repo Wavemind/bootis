@@ -22,8 +22,8 @@ interface IPlanning {
 }
 
 interface IPlanningInput {
-  startDate: Date
-  endDate: Date
+  startDate: string
+  endDate: string
   region: string
   categories: number[]
 }
@@ -35,8 +35,8 @@ export const planningApi = api.injectEndpoints({
         document: gql`
           query (
             $region: String!
-            $startDate: ISO8601Date!
-            $endDate: ISO8601Date!
+            $startDate: String!
+            $endDate: String!
             $categories: [ID!]
           ) {
             getPlanning(

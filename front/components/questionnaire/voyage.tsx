@@ -130,8 +130,8 @@ const Voyage: FC = () => {
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     getPlanning({
-      startDate: data.startDate,
-      endDate: data.endDate,
+      startDate: data.startDate.toISOString(),
+      endDate: data.endDate.toISOString(),
       region: data.destination?.name || '',
       categories: data.activities?.map(activity => activity.id) || [],
     })
