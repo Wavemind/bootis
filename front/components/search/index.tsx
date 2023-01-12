@@ -27,8 +27,10 @@ import { IEnumOption } from '../../lib/types'
 const Search: FC = () => {
   const { t } = useTranslation('search')
 
-  const [startDate, setStartDate] = useState<CalendarDate>(new Date())
-  const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 1))
+  const [startDate, setStartDate] = useState<CalendarDate>(
+    addDays(new Date(), 1)
+  )
+  const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 2))
   const [destination, setDestination] = useState<IEnumOption>({} as IEnumOption)
   const [activity, setActivity] = useState<IEnumOption>({} as IEnumOption)
 
