@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "next build",
+    "build": "next build --debug",
     "start": "next start",
     "postbuild": "next-sitemap",
     "lint": "tsc && next lint"
