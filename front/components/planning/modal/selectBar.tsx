@@ -3,7 +3,7 @@
  */
 import { useMemo, FC, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, HStack, Icon } from '@chakra-ui/react'
+import { Box, HStack, Icon, Text } from '@chakra-ui/react'
 import { Select, chakraComponents, ControlProps } from 'chakra-react-select'
 import { BsSearch } from 'react-icons/bs'
 
@@ -122,7 +122,8 @@ const SelectBar: FC<ISelectBarProps> = ({
           useBasicStyles
           options={selectOptions as IElement[]}
           getOptionValue={(option: IElement) => String(option.id)}
-          noOptionsMessage={() => t('selectCategory')}
+          placeholder={t('select', { ns: 'common' })}
+          noOptionsMessage={() => <Text>{t('selectCategory')}</Text>}
           chakraStyles={{
             option: (provided, { isSelected }) => ({
               ...provided,
