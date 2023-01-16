@@ -10,6 +10,8 @@ import NextLink from 'next/link'
  */
 interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string
+  fontSize?: string
+  target?: string
 }
 
 const Link: FC<LinkProps> = ({ children, href, ...rest }) => (

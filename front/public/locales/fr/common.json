@@ -21,6 +21,10 @@
   "validations": {
     "required": "Veuillez sélectionner vos préferences"
   },
+  "footer": {
+    "copyright": "Bootis - Tous droits réservés © {{ year }}",
+    "wavemind": "Site réalisé par"
+  },
   "select": "Sélectionner",
   "noOptions": "Aucune données"
 }
