@@ -33,3 +33,5 @@
 .byebug_history
 
 /db/zuerst.json
+/db/characteristics.json
+/dump.sql
