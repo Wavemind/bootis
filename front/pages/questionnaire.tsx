@@ -68,7 +68,8 @@ const Questionnaire = () => {
       transition: {
         type: 'spring',
         damping: 20,
-        stiffness: 100,
+        stiffness: 125,
+        velocity: 250,
       },
     })
     setCurrentStep(prev => prev + direction)
@@ -76,7 +77,6 @@ const Questionnaire = () => {
     await controls.start({
       opacity: 0,
       x: direction > 0 ? '100%' : '-100%',
-      transition: { duration: 0.1 },
     })
     await controls.start({
       opacity: 1,
@@ -84,7 +84,8 @@ const Questionnaire = () => {
       transition: {
         type: 'spring',
         damping: 20,
-        stiffness: 100,
+        stiffness: 125,
+        velocity: 250,
       },
     })
   }
