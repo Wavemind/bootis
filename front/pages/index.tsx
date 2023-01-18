@@ -11,7 +11,7 @@ import {
   Heading,
 } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, Trans } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Image from 'next/image'
 
@@ -26,7 +26,7 @@ import { api } from '../lib/services/api'
 import { getRegions } from '../lib/services/modules/region'
 import { getActivityCategories } from '../lib/services/modules/category'
 
-// TODO : Remplacer les textes par les trads une fois que le contenu est finalisé
+// TODO : Figure out why there is a hydration error
 const Home = () => {
   const { t } = useTranslation('home')
 
@@ -39,7 +39,7 @@ const Home = () => {
         templateAreas={`"about search search explanation"
                         "about profile questionnaire explanation"`}
         gridTemplateRows={'auto'}
-        gridTemplateColumns={'28% 18% auto 13%'}
+        gridTemplateColumns={'28% 18% auto 14%'}
         gap={2}
         color='white'
         overflowY='hidden'
@@ -53,25 +53,13 @@ const Home = () => {
                 height={30}
                 width={200}
               />
-              <Text>{t('about')}</Text>
+              <Text>{t('about.subheader')}</Text>
             </HStack>
-            <Text fontSize='md'>
-              Sit lacus tincidunt pulvinar eget nisi, purus id. Sem pharetra
-              amet at egestas at. Scelerisque amet elit viverra rhoncus,
-              condimentum. Felis, ullamcorper ornare accumsan ultricies dictum.
-              At at lectus dolor neque.
-            </Text>
-            <Text fontSize='md'>
-              Bienvenu sur le site de Bootis.ch! Nous sommes très heureux de
-              vous voir ici. Chez Bootis nous offrons un système de
-              planification de voyage en Suisse pour les personnes à mobilité
-              réduite. Notre outil de planification fonctionne sur un système de
-              drag-n-drop qui vous permet une planification simple et très
-              complète.
-            </Text>
+            <Text fontSize='md'>{t('about.paragraph1')}</Text>
+            <Text fontSize='md'>{t('about.paragraph2')}</Text>
             <Box>
               <Link href='#' color='yellow'>
-                {t('learnMore')}
+                {t('about.learnMore')}
               </Link>
             </Box>
           </VStack>
@@ -107,76 +95,55 @@ const Home = () => {
             h='full'
           >
             <HStack justifyContent='space-between' w='full'>
-              <Heading variant='h1'>{t('profileHeader')}</Heading>
-              <Text fontSize='xs'>{t('profile')}</Text>
+              <Heading variant='h1'>{t('profile.header')}</Heading>
+              <Text fontSize='xs'>{t('profile.subheader')}</Text>
             </HStack>
-            <Text fontSize='xs'>
-              Ut ullamcorper amet vitae augue magna facilisis consectetur
-              molestie. Eget donec ultrices et cras justo, blandit amet purus
-              vel. Sit quam egestas justo, suspendisse augue sit vulputate
-              tellus. Aliquam tristique sit ultrices a leo. Ut ullamcorper amet.
-            </Text>
-            <Text fontSize='xs'>
-              Consectetur molestie. Eget donec ultrices et cras justo, blandit
-              amet purus vel. Sit quam egestas justo, suspendisse augue sit
-              vulputate tellus. Aliquam tristique sit ultrices a leo.
-            </Text>
+            <Text fontSize='sm'>{t('profile.paragraph1')}</Text>
           </VStack>
         </GridItem>
         <GridItem bg='teal' area='questionnaire' borderRadius='xl'>
           <VStack py={6} px={4} spacing={6} alignItems='flex-start' h='full'>
             <HStack justifyContent='space-between' w='full'>
-              <Heading variant='h1'>{t('questionnaireHeader')}</Heading>
-              <Text fontSize='xs'>{t('questionnaire')}</Text>
+              <Heading variant='h1'>{t('questionnaire.header')}</Heading>
+              <Text fontSize='xs'>{t('questionnaire.subheader')}</Text>
             </HStack>
-            <HStack spacing={10} alignItems='flex-end' h='full'>
-              <Image
-                src={WheelchairMale}
-                width={240}
-                alt={t('wheelchairAlt')}
-              />
-              <VStack spacing={8} w='60%' alignItems='flex-start' h='full'>
-                <Text fontSize='xs'>
-                  Ut ullamcorper amet vitae augue magna facilisis consectetur
-                  molestie. Eget donec ultrices et cras justo, blandit amet
-                  purus vel. Sit quam egestas justo, suspendisse augue.
-                </Text>
-                <Text fontSize='xs'>
-                  Facilisis consectetur molestie. Eget donec ultrices et cras
-                  justo, blandit amet purus vel. Sit quam egestas justo,
-                  suspendisse augue sit.
-                </Text>
-                <Text fontSize='xs'>
-                  Leo facilisis consectetur molestie. Eget donec ultrices et
-                  cras justo, blandit amet purus vel. Sit quam egestas justo,
-                  suspendisse augue sit vulputate tellus. Aliquam tristique sit
-                  ultrices a leo.
-                </Text>
-                <Box fontSize='xs'>
-                  <Link href='/questionnaire'>{t('startQuestionnaire')}</Link>
-                </Box>
-              </VStack>
-            </HStack>
+            <VStack spacing={4} w='full' alignItems='flex-start' h='full'>
+              <Text fontSize='sm'>{t('questionnaire.paragraph1')}</Text>
+              <HStack justifyContent='space-between' spacing={8}>
+                <VStack alignItems='flex-start' spacing={8} w='75%'>
+                  <Text fontSize='sm'>{t('questionnaire.paragraph2')}</Text>
+                  <Box fontSize='sm'>
+                    <Link href='/questionnaire'>
+                      {t('questionnaire.start')}
+                    </Link>
+                  </Box>
+                </VStack>
+                <Image
+                  src={WheelchairMale}
+                  width={200}
+                  alt={t('wheelchairAlt')}
+                />
+              </HStack>
+            </VStack>
           </VStack>
         </GridItem>
         <GridItem bg='black' area='explanation' borderRadius='xl'>
           <VStack pt={6} px={4} spacing={6} alignItems='flex-start'>
-            <Heading variant='h2'>{t('explanationHeader')}</Heading>
-            <Text fontSize='xs'>
-              Ut ullamcorper amet vitae augue magna facilisis consectetur
-              molestie. Eget donec ultrices et cras justo, blandit amet purus
-              vel. Sit quam egestas justo, suspendisse augue.
-            </Text>
-            <Text fontSize='xs'>
-              Aliquam tristique sit ultrices a leo. Ut ullamcorper amet vitae
-              augue magna facilisis consectetur molestie. Eget donec ultrices et
-              cras justo, blandit amet purus. Sit vulputate tellus. Aliquam
-              tristique sit ultrices a leo.
-            </Text>
-            <Text fontSize='xs'>
-              Facilisis consectetur molestie. Eget donec ultrices et cras justo,
-              blandit amet purus vel. Sit quam egestas justo, suspendisse augue
-              sit vulputate tellus. Aliquam tristique sit ultrices a leo.
+            <Heading variant='h2'>{t('explanation.header')}</Heading>
+            <Text fontSize='sm'>
+              <Trans
+                i18nKey='explanation.paragraph1'
+                t={t}
+                components={{
+                  l: (
+                    <Link
+                      href='mailto: info@slowlution.ch'
+                      // Typescript is being a bitch if I do it otherwise
+                      style={{ textDecoration: 'underline' }}
+                    />
+                  ),
+                }}
+              />
             </Text>
           </VStack>
         </GridItem>
