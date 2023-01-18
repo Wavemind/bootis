@@ -26,7 +26,6 @@ import { api } from '../lib/services/api'
 import { getRegions } from '../lib/services/modules/region'
 import { getActivityCategories } from '../lib/services/modules/category'
 
-// TODO : Figure out why there is a hydration error
 const Home = () => {
   const { t } = useTranslation('home')
 
@@ -138,7 +137,7 @@ const Home = () => {
                   l: (
                     <Link
                       href='mailto: info@slowlution.ch'
-                      // Typescript is being a bitch if I do it otherwise
+                      // Typescript
                       style={{ textDecoration: 'underline' }}
                     />
                   ),
