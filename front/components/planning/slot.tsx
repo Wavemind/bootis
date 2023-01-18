@@ -5,7 +5,6 @@ import { FC } from 'react'
 import { Box, Icon, Text, Button, HStack } from '@chakra-ui/react'
 import { BsPinMap } from 'react-icons/bs'
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
 
 /**
  * Type imports
@@ -81,17 +80,6 @@ const SlotCard: FC<ISlotCard> = ({
         </HStack>
         {!isReduced && (
           <Box>
-            <HStack my={2} spacing={2}>
-              {slot.pictograms?.map(pictogram => (
-                <Image
-                  key={`pictogram_${slot.id}_${pictogram.name}`}
-                  alt={pictogram.name}
-                  src={pictogram.linkSvg}
-                  height={22}
-                  width={22}
-                />
-              ))}
-            </HStack>
             <HStack justifyContent='space-between' spacing={6} mt={3}>
               <Button
                 size='sm'

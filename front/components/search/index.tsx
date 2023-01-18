@@ -6,6 +6,7 @@ import { HStack, Text, Box, Button } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import addDays from 'date-fns/addDays'
+import differenceInDays from 'date-fns/differenceInDays'
 import { CalendarDate } from '@uselessdev/datepicker'
 
 /**
@@ -27,9 +28,7 @@ import { IEnumOption } from '../../lib/types'
 const Search: FC = () => {
   const { t } = useTranslation('search')
 
-  const [startDate, setStartDate] = useState<CalendarDate>(
-    addDays(new Date(), 1)
-  )
+  const [startDate, setStartDate] = useState<CalendarDate>(new Date())
   const [endDate, setEndDate] = useState<CalendarDate>(addDays(new Date(), 2))
   const [destination, setDestination] = useState<IEnumOption>({} as IEnumOption)
   const [activity, setActivity] = useState<IEnumOption>({} as IEnumOption)
@@ -39,6 +38,16 @@ const Search: FC = () => {
 
   const [getCategoriesByRegion, { data: categoriesByRegion = [], isSuccess }] =
     useLazyGetCategoriesByRegionQuery()
+
+  /**
+   * Updates the endDate if the startDate is on the same
+   * day as the previously selected endDate
+   */
+  useEffect(() => {
+    if (differenceInDays(endDate, startDate) < 1) {
+      setEndDate(addDays(startDate, 1))
+    }
+  }, [startDate])
 
   /**
    * Fetches the available categories for the selected region
@@ -99,20 +108,22 @@ const Search: FC = () => {
             emptyMessage={t('emptyDestination')}
           />
         </Box>
-        <Box w='20%' py={2} px={4} borderLeft='1px solid black'>
+        <HStack
+          w='40%'
+          py={2}
+          px={4}
+          borderLeft='1px solid black'
+          justifyContent='space-between'
+        >
+          <Text>{t('from')}</Text>
+          <Calendar date={startDate} setDate={setStartDate} />
+          <Text>{t('au')}</Text>
           <Calendar
-            placeholder={t('departureDate')}
-            date={startDate}
-            setDate={setStartDate}
-          />
-        </Box>
-        <Box w='20%' py={2} px={4} borderLeft='1px solid black'>
-          <Calendar
-            placeholder={t('returnDate')}
             date={endDate}
             setDate={setEndDate}
+            disabledBefore={addDays(startDate, 1)}
           />
-        </Box>
+        </HStack>
         <Box w='150px' py={2} px={6} borderLeft='1px solid black'>
           <Select
             options={filteredActivities as IEnumOption[]}
