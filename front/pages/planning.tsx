@@ -5,7 +5,15 @@ import { FC, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { HStack, Flex, StackDivider, Center, Spinner } from '@chakra-ui/react'
+import format from 'date-fns/format'
+import {
+  HStack,
+  Flex,
+  StackDivider,
+  Center,
+  Spinner,
+  Text,
+} from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -37,6 +45,7 @@ const Planning: FC = () => {
 
   const [loading, setLoading] = useState(true)
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
+  const [planningDates, setPlanningDates] = useState<string[]>([])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
   const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
@@ -53,6 +62,11 @@ const Planning: FC = () => {
     )
 
     setAccommodationData(planningFromStorage.accommodation)
+    setPlanningDates(
+      planningFromStorage.schedule.map((day: IDay) =>
+        format(new Date(day.date), 'dd.MM.yyyy')
+      )
+    )
     setPlanningData(planningFromStorage.schedule)
     setLoading(false)
   }, [])
@@ -84,14 +98,29 @@ const Planning: FC = () => {
             setPlanningData,
           }}
         >
-          <Flex direction='column' color='black' h='full' w='full'>
+          <Flex direction='column' gap={3} h='full' w='fit-content'>
+            <HStack border='1px solid white' borderRadius='lg' w='full'>
+              {planningDates.map(date => (
+                <Text
+                  key={`date_${date}`}
+                  w={316}
+                  textAlign='center'
+                  fontSize='xl'
+                  fontFamily='Noir Pro Medium, sans-serif'
+                >
+                  {date}
+                </Text>
+              ))}
+            </HStack>
+            <AccommodationBar accommodationData={accommodationData} />
             <HStack
               display='flex'
               alignItems='flex-start'
               border='1px solid white'
               h='full'
+              w='full'
               borderRadius='lg'
-              overflowY='scroll'
+              overflowY='auto'
               divider={<StackDivider bg='blue' w={1} />}
             >
               {planningData.map((day, index) => (
@@ -103,7 +132,6 @@ const Planning: FC = () => {
                 />
               ))}
             </HStack>
-            <AccommodationBar accommodationData={accommodationData} />
           </Flex>
           <SelectionModal />
           <AlertDialog />

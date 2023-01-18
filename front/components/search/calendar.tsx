@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import {
@@ -30,23 +30,24 @@ import {
  * Type definitions
  */
 interface ICalendarProps {
-  placeholder: string
   date: CalendarDate | CalendarValues
   setDate: React.Dispatch<React.SetStateAction<CalendarDate>>
+  disabledBefore?: Date
 }
 
-const Calendar: FC<ICalendarProps> = ({ placeholder, date, setDate }) => {
-  const [value, setValue] = useState('')
-
+const Calendar: FC<ICalendarProps> = ({
+  date,
+  setDate,
+  disabledBefore = new Date(),
+}) => {
   const { onClose, isOpen, onToggle } = useDisclosure()
 
   /**
    * Handles the date selection event
-   * @param date Date object
+   * @param newDate Date object
    */
-  const handleSelectDate = (date: CalendarDate | CalendarValues) => {
-    setDate(date as CalendarDate)
-    setValue(format(date as CalendarDate, 'dd/MM/yyyy', { locale: fr }))
+  const handleSelectDate = (newDate: CalendarDate | CalendarValues) => {
+    setDate(newDate as CalendarDate)
     onClose()
   }
 
@@ -54,7 +55,7 @@ const Calendar: FC<ICalendarProps> = ({ placeholder, date, setDate }) => {
     <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {value.length > 0 ? value : placeholder}
+          {format(date as CalendarDate, 'dd/MM/yyyy', { locale: fr })}
         </Box>
       </PopoverTrigger>
 
@@ -65,7 +66,7 @@ const Calendar: FC<ICalendarProps> = ({ placeholder, date, setDate }) => {
           onSelectDate={handleSelectDate}
           singleDateSelection
           allowOutsideDays
-          disablePastDates
+          disablePastDates={disabledBefore}
         >
           <PopoverBody p={0}>
             <CalendarControls>
