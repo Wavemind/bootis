@@ -32,7 +32,7 @@
     }
   },
   "maxSlope": {
-    "title": "Quel est le degré de pente maximum que vous pouvez franchir ?"
+    "title": "Quelle pente pouvez-vous gravir ?"
   },
   "passageLength": {
     "title": "Quelle est la longueur nécéssaire pour votre passage ?"
@@ -41,31 +41,31 @@
     "title": "Quelle est la largeur nécéssaire pour votre passage ?"
   },
   "stepHeight": {
-    "title": "Quelle est la hauteur du seuil acceptable pour votre passage ?"
+    "title": "Quelle est la hauteur des seuils et ressauts que vous pouvez franchir ?"
   },
   "tableHeight": {
-    "title": "Quelle est la hauteur de la table nécéssaire pour votre accès ?"
+    "title": "Quelle est la hauteur minimum des tables pour que vous puissiez vous y installer avec votre fauteuil ?"
   },
   "reachHeight": {
-    "title": "Quelle est la hauteur maximum atteignable avec votre main ?"
+    "title": "Quelle hauteur maximum pouvez-vous atteindre avec votre main ?"
   },
   "handrail": {
     "title": "Avez-vous besoin d'une main courante ?"
   },
   "bedHeight": {
-    "title": "Quelle est la hauteur du lit nécéssaire pour votre accès ?"
+    "title": "A quelle hauteur doit se trouver le lit pour que vous puissiez vous y installer ?"
   },
   "bedAdjacentSpace": {
-    "title": "Quelle est la surface libre à côté du lit nécéssaire pour votre accès ?"
+    "title": "Quelle surface libre à côté du lit est nécessaire pour que vous puissiez manœuvrer ?"
   },
   "wcAdjacentDistance": {
-    "title": "Quelle est la distance libre à côté des WC nécéssaire pour votre accès ?"
+    "title": "Quelle distance est nécessaire à côté des WC pour que vous puissiez manœuvrer ?"
   },
   "wcFrontDistance": {
-    "title": "Quelle est la distance minimum libre devant les WC nécéssaire pour votre accès ?"
+    "title": "Quelle distance est nécessaire devant les WC pour que vous puissiez manœuvrer ?"
   },
   "wcSeatHeight": {
-    "title": "Quelle est la hauteur maximum de la lunette des WC nécéssaire pour votre accès ?"
+    "title": "Quelle est la hauteur de la lunette des WC pour que vous puissiez y installer ?"
   },
   "wcFixedHandrail": {
     "title": "Avez-vous besoin d'une barre d'appui en L à côté de la cuvette des WC ?"
@@ -74,13 +74,13 @@
     "title": "Avez-vous besoin d'une barre d'appui rabattable à côté de la cuvette des WC ?"
   },
   "eurokey": {
-    "title": "Avez-vous besoin d'un accès à la clé Eurokey ?"
+    "title": "Avez-vous une clé Eurokey ?"
   },
   "wcSinkDistance": {
-    "title": "Quelle est la distance maximum entre le lavabo et les WC ?"
+    "title": "Quelle est la distance maximum entre le lavabo et le WC acceptable ?"
   },
   "hygieneNeeds": {
-    "title": "Quelle est votre besoin pour le nettoyage du corps ?"
+    "title": "De quel installation avez-vous besoin dans la salle de bain ?"
   },
   "showerFixedHandrail": {
     "title": "Avez-vous besoin d'une barre d'appui L de douche ?"
