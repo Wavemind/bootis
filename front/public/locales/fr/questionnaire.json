@@ -3,21 +3,46 @@
   "back": "Retour",
   "reset": "Recommencer",
   "subtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
-  "alt": {
-    "wheelchair": "Chaise roulante",
-    "wheelchairCompanion": "Chaise roulante accompagné-e",
-    "electricScooter": "Scooter électrique",
-    "cane": "Marche avec une cane",
-    "rollator": "Marche avec un rollator"
-  },
   "situationSubtitle": "Selectionnez votre choix en cliquant sur la card qui correspond le mieux à votre situation.",
   "characteristicSubtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
   "voyageSubtitle": "Tous les choix que vous faites ici peuvent être modifiés sur la page suivante après établissement de votre planning",
   "situationSelection": {
-    "title": "Dans un premier temps pouvez-vous nous dire quel est votre type de mobilité ?"
+    "title": "Quel est votre profil général en termes de mobilité ?",
+    "adaptedQuestions": "Les questions qui suivent seront adaptées à ce choix.",
+    "wheelchair": {
+      "header": "Chaise roulante manuelle seule",
+      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout, que vous vous déplacez en fauteuil roulant manuel et que vous êtes seul.",
+      "alt": "Chaise roulante"
+    },
+    "wheelchairCompanion": {
+      "header": "Chaise roulante électrique ou chaise roulante manuelle accompagné-e.",
+      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout et que vous êtes en fauteuil roulant électrique accompagné ou non. Vous pouvez également choisir ce profil si vous êtes en fauteuil roulant manuel accompagné d'une personne qui vous aide a passer certains obstacles tels que les ressauts de portes et les pentes.",
+      "alt": "Chaise roulante accompagné-e"
+    },
+    "electricScooter": {
+      "header": "Scooter électrique",
+      "paragraph": "Choisissez ce profil si vous pouvez vous mettre debout pour faire des transferts et vous déplacer sur quelques mètres, mais que vous avez besoin d'assistance, tel qu'un scooter électrique pour vos déplacements en général.",
+      "alt": "Scooter électrique"
+    },
+    "cane": {
+      "header": "Béquilles ou Rollator ou Cannes",
+      "paragraph": "Choisissez ce profil si vous déplacer en marchant, mais que vous avez besoin de l'assistance de cannes ou d'un rollator.",
+      "caneAlt": "Marche avec une cane",
+      "rollatorAlt": "Marche avec un rollator"
+    }
   },
+  "below": "Moins de {{ value }}",
+  "until": "Jusqu'a {{ value }}",
+  "between": "Entre {{ from }} et {{ to }}",
+  "above": "Plus de {{ value }}",
+  "unknown": "Je ne sais pas !",
+  "yes": "Oui",
+  "no": "Non",
+  "shower": "J'ai besoin d'une douche",
+  "bath": "J'ai besoin d'une baignoire",
+  "both": "Les deux sont possibles",
   "maxSlope": {
-    "title": "Quel est le degré de pente maximum que vous pouvez franchir ?"
+    "title": "Quelle pente pouvez-vous gravir ?"
   },
   "passageLength": {
     "title": "Quelle est la longueur nécéssaire pour votre passage ?"
@@ -26,31 +51,31 @@
     "title": "Quelle est la largeur nécéssaire pour votre passage ?"
   },
   "stepHeight": {
-    "title": "Quelle est la hauteur du seuil acceptable pour votre passage ?"
+    "title": "Quelle est la hauteur des seuils et ressauts que vous pouvez franchir ?"
   },
   "tableHeight": {
-    "title": "Quelle est la hauteur de la table nécéssaire pour votre accès ?"
+    "title": "Quelle est la hauteur minimum des tables pour que vous puissiez vous y installer avec votre fauteuil ?"
   },
   "reachHeight": {
-    "title": "Quelle est la hauteur maximum atteignable avec votre main ?"
+    "title": "Quelle hauteur maximum pouvez-vous atteindre avec votre main ?"
   },
   "handrail": {
     "title": "Avez-vous besoin d'une main courante ?"
   },
   "bedHeight": {
-    "title": "Quelle est la hauteur du lit nécéssaire pour votre accès ?"
+    "title": "A quelle hauteur doit se trouver le lit pour que vous puissiez vous y installer ?"
   },
   "bedAdjacentSpace": {
-    "title": "Quelle est la surface libre à côté du lit nécéssaire pour votre accès ?"
+    "title": "Quelle surface libre à côté du lit est nécessaire pour que vous puissiez manœuvrer ?"
   },
   "wcAdjacentDistance": {
-    "title": "Quelle est la distance libre à côté des WC nécéssaire pour votre accès ?"
+    "title": "Quelle distance est nécessaire à côté des WC pour que vous puissiez manœuvrer ?"
   },
   "wcFrontDistance": {
-    "title": "Quelle est la distance minimum libre devant les WC nécéssaire pour votre accès ?"
+    "title": "Quelle distance est nécessaire devant les WC pour que vous puissiez manœuvrer ?"
   },
   "wcSeatHeight": {
-    "title": "Quelle est la hauteur maximum de la lunette des WC nécéssaire pour votre accès ?"
+    "title": "Quelle est la hauteur de la lunette des WC pour que vous puissiez y installer ?"
   },
   "wcFixedHandrail": {
     "title": "Avez-vous besoin d'une barre d'appui en L à côté de la cuvette des WC ?"
@@ -59,13 +84,13 @@
     "title": "Avez-vous besoin d'une barre d'appui rabattable à côté de la cuvette des WC ?"
   },
   "eurokey": {
-    "title": "Avez-vous besoin d'un accès à la clé Eurokey ?"
+    "title": "Avez-vous une clé Eurokey ?"
   },
   "wcSinkDistance": {
-    "title": "Quelle est la distance maximum entre le lavabo et les WC ?"
+    "title": "Quelle est la distance maximum entre le lavabo et le WC acceptable ?"
   },
   "hygieneNeeds": {
-    "title": "Quelle est votre besoin pour le nettoyage du corps ?"
+    "title": "De quel installation avez-vous besoin dans la salle de bain ?"
   },
   "showerFixedHandrail": {
     "title": "Avez-vous besoin d'une barre d'appui L de douche ?"

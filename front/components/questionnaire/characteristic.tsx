@@ -11,7 +11,7 @@ import findIndex from 'lodash/findIndex'
  * The internal imports
  */
 import { QuestionnaireContext } from '../../lib/contexts'
-import characteristics from '../../lib/config/characteristics'
+import getCharacteristics from '../../lib/config/characteristics'
 
 /**
  * Type imports
@@ -30,6 +30,8 @@ const Characteristic: FC = () => {
    * Update steps with answer and update the currentStep
    */
   const handleClick = (answer: IAnswer) => {
+    const characteristics = getCharacteristics(t)
+
     const newSteps = [...steps]
     const voyageStep = newSteps.pop()
     newSteps[currentStep].answer = answer

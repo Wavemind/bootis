@@ -28,7 +28,9 @@ const TitleBlock: FC<TitleBlockProps> = ({ title, subtitle }) => {
   return (
     <HStack justifyContent='space-between'>
       <Box>
-        <Heading variant='h1'>{title}</Heading>
+        <Heading variant='h1' mb={4}>
+          {title}
+        </Heading>
         <Heading variant='h3'>{subtitle}</Heading>
       </Box>
       <CircularProgress value={progress} size='100px' color='salmon' />
