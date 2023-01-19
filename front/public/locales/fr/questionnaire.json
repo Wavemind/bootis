@@ -3,13 +3,6 @@
   "back": "Retour",
   "reset": "Recommencer",
   "subtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
-  "alt": {
-    "wheelchair": "Chaise roulante",
-    "wheelchairCompanion": "Chaise roulante accompagné-e",
-    "electricScooter": "Scooter électrique",
-    "cane": "Marche avec une cane",
-    "rollator": "Marche avec un rollator"
-  },
   "situationSubtitle": "Selectionnez votre choix en cliquant sur la card qui correspond le mieux à votre situation.",
   "characteristicSubtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
   "voyageSubtitle": "Tous les choix que vous faites ici peuvent être modifiés sur la page suivante après établissement de votre planning",
@@ -18,19 +11,24 @@
     "adaptedQuestions": "Les questions qui suivent seront adaptées à ce choix.",
     "wheelchair": {
       "header": "Chaise roulante manuelle seule",
-      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout, que vous vous déplacez en fauteuil roulant manuel et que vous êtes seul."
+      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout, que vous vous déplacez en fauteuil roulant manuel et que vous êtes seul.",
+      "alt": "Chaise roulante"
     },
     "wheelchairCompanion": {
       "header": "Chaise roulante électrique ou chaise roulante manuelle accompagné-e.",
-      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout et que vous êtes en fauteuil roulant électrique accompagné ou non. Vous pouvez également choisir ce profil si vous êtes en fauteuil roulant manuel accompagné d'une personne qui vous aide a passer certains obstacles tels que les ressauts de portes et les pentes."
+      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout et que vous êtes en fauteuil roulant électrique accompagné ou non. Vous pouvez également choisir ce profil si vous êtes en fauteuil roulant manuel accompagné d'une personne qui vous aide a passer certains obstacles tels que les ressauts de portes et les pentes.",
+      "alt": "Chaise roulante accompagné-e"
     },
     "electricScooter": {
       "header": "Scooter électrique",
-      "paragraph": "Choisissez ce profil si vous pouvez vous mettre debout pour faire des transferts et vous déplacer sur quelques mètres, mais que vous avez besoin d'assistance, tel qu'un scooter électrique pour vos déplacements en général."
+      "paragraph": "Choisissez ce profil si vous pouvez vous mettre debout pour faire des transferts et vous déplacer sur quelques mètres, mais que vous avez besoin d'assistance, tel qu'un scooter électrique pour vos déplacements en général.",
+      "alt": "Scooter électrique"
     },
     "cane": {
       "header": "Béquilles ou Rollator ou Cannes",
-      "paragraph": "Choisissez ce profil si vous déplacer en marchant, mais que vous avez besoin de l'assistance de cannes ou d'un rollator."
+      "paragraph": "Choisissez ce profil si vous déplacer en marchant, mais que vous avez besoin de l'assistance de cannes ou d'un rollator.",
+      "caneAlt": "Marche avec une cane",
+      "rollatorAlt": "Marche avec un rollator"
     }
   },
   "maxSlope": {
