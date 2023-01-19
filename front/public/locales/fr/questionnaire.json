@@ -14,7 +14,24 @@
   "characteristicSubtitle": "Selectionner votre choix en clickant sur la case qui correspond le mieux à votre situation.",
   "voyageSubtitle": "Tous les choix que vous faites ici peuvent être modifiés sur la page suivante après établissement de votre planning",
   "situationSelection": {
-    "title": "Dans un premier temps pouvez-vous nous dire quel est votre type de mobilité ?"
+    "title": "Quel est votre profil général en termes de mobilité ?",
+    "adaptedQuestions": "Les questions qui suivent seront adaptées à ce choix.",
+    "wheelchair": {
+      "header": "Chaise roulante manuelle seule",
+      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout, que vous vous déplacez en fauteuil roulant manuel et que vous êtes seul."
+    },
+    "wheelchairCompanion": {
+      "header": "Chaise roulante électrique ou chaise roulante manuelle accompagné-e.",
+      "paragraph": "Choisissez ce profil si vous ne pouvez pas vous mettre en position debout et que vous êtes en fauteuil roulant électrique accompagné ou non. Vous pouvez également choisir ce profil si vous êtes en fauteuil roulant manuel accompagné d'une personne qui vous aide a passer certains obstacles tels que les ressauts de portes et les pentes."
+    },
+    "electricScooter": {
+      "header": "Scooter électrique",
+      "paragraph": "Choisissez ce profil si vous pouvez vous mettre debout pour faire des transferts et vous déplacer sur quelques mètres, mais que vous avez besoin d'assistance, tel qu'un scooter électrique pour vos déplacements en général."
+    },
+    "cane": {
+      "header": "Béquilles ou Rollator ou Cannes",
+      "paragraph": "Choisissez ce profil si vous déplacer en marchant, mais que vous avez besoin de l'assistance de cannes ou d'un rollator."
+    }
   },
   "maxSlope": {
     "title": "Quel est le degré de pente maximum que vous pouvez franchir ?"

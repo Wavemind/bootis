@@ -55,26 +55,21 @@ const SituationSelection: FC = () => {
     updateCurrentStep(1)
   }
 
-  // TODO : Replace by proper content and trads once we have it
   return (
     <Grid templateColumns='repeat(4, 1fr)' gap={10} mt={10} px={9}>
       <GridItem bg='blue' handleClick={() => handleClick('wheelchair')}>
         <Heading variant='h2' mb={10}>
-          Chaise roulante manuelle seul
+          {t('situationSelection.wheelchair.header')}
         </Heading>
         <VStack spacing={4}>
           <Text fontSize='sm' zIndex={10}>
-            Ut ullamcorper amet vitae augue magna facilisis consectetur
-            molestie. Eget donec ultrices et cras justo, blandit amet purus vel.
-            Sit quam egestas justo, suspendisse augue.
+            {t('situationSelection.wheelchair.paragraph')}
           </Text>
           <Text fontSize='sm' zIndex={10}>
-            Facilisis consectetur molestie. Eget donec ultrices et cras justo,
-            blandit amet purus vel. Sit quam egestas justo, suspendisse augue
-            sit.
+            {t('situationSelection.adaptedQuestions')}
           </Text>
         </VStack>
-        <Box ml={-10} mb={-6} mt={-12}>
+        <Box ml={-10} mb={-6}>
           <Image
             src={WheelchairFemale}
             height={350}
@@ -87,21 +82,17 @@ const SituationSelection: FC = () => {
         handleClick={() => handleClick('electricWheelchair')}
       >
         <Heading variant='h2' mb={10}>
-          Chaise roulante électrique ou chaise roulante manuelle accompagné-e.
+          {t('situationSelection.wheelchairCompanion.header')}
         </Heading>
         <VStack spacing={4}>
           <Text fontSize='sm' zIndex={10}>
-            Ut ullamcorper amet vitae augue magna facilisis consectetur
-            molestie. Eget donec ultrices et cras justo, blandit amet purus vel.
-            Sit quam egestas justo, suspendisse augue.
+            {t('situationSelection.wheelchairCompanion.paragraph')}
           </Text>
           <Text fontSize='sm' zIndex={10}>
-            Facilisis consectetur molestie. Eget donec ultrices et cras justo,
-            blandit amet purus vel. Sit quam egestas justo, suspendisse augue
-            sit.
+            {t('situationSelection.adaptedQuestions')}
           </Text>
         </VStack>
-        <Box ml={-7} mb={-6}>
+        <Box ml={-7} mb={-6} mt={-4}>
           <Image
             src={WheelchairCompanion}
             height={240}
@@ -111,45 +102,37 @@ const SituationSelection: FC = () => {
       </GridItem>
       <GridItem bg='teal' handleClick={() => handleClick('scooter')}>
         <Heading variant='h2' mb={10}>
-          Scooter électrique
+          {t('situationSelection.electricScooter.header')}
         </Heading>
         <VStack spacing={4}>
           <Text fontSize='sm' zIndex={10}>
-            Ut ullamcorper amet vitae augue magna facilisis consectetur
-            molestie. Eget donec ultrices et cras justo, blandit amet purus vel.
-            Sit quam egestas justo, suspendisse augue.
+            {t('situationSelection.electricScooter.paragraph')}
           </Text>
           <Text fontSize='sm' zIndex={10}>
-            Facilisis consectetur molestie. Eget donec ultrices et cras justo,
-            blandit amet purus vel. Sit quam egestas justo, suspendisse augue
-            sit.
+            {t('situationSelection.adaptedQuestions')}
           </Text>
         </VStack>
-        <VStack mb={-6}>
+        <Box mt={14} mb={-10}>
           <Image
             src={ElectricScooter}
             height={300}
             alt={t('alt.electricScooter')}
           />
-        </VStack>
+        </Box>
       </GridItem>
       <GridItem bg='beige' handleClick={() => handleClick('cane')}>
         <Heading variant='h2' mb={10}>
-          Béquilles ou Rollator ou Cannes
+          {t('situationSelection.cane.header')}
         </Heading>
         <VStack spacing={4}>
           <Text fontSize='sm' zIndex={10}>
-            Ut ullamcorper amet vitae augue magna facilisis consectetur
-            molestie. Eget donec ultrices et cras justo, blandit amet purus vel.
-            Sit quam egestas justo, suspendisse augue.
+            {t('situationSelection.cane.paragraph')}
           </Text>
           <Text fontSize='sm' zIndex={10}>
-            Facilisis consectetur molestie. Eget donec ultrices et cras justo,
-            blandit amet purus vel. Sit quam egestas justo, suspendisse augue
-            sit.
+            {t('situationSelection.adaptedQuestions')}
           </Text>
         </VStack>
-        <Flex mb={-6} justifyContent='space-between'>
+        <Flex mt={24} mb={-6} justifyContent='space-between'>
           <Box ml={-5} mb={-6}>
             <Image src={Cane} height={280} alt={t('alt.cane')} />
           </Box>
