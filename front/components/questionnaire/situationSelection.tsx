@@ -12,7 +12,7 @@ import { useTranslation } from 'next-i18next'
 import GridItem from './gridItem'
 import { QuestionnaireContext } from '../../lib/contexts'
 import characteristicMap from '../../lib/config/characteristicMap'
-import characteristics from '../../lib/config/characteristics'
+import getCharacteristics from '../../lib/config/characteristics'
 import WheelchairFemale from '../../public/wheelchair_female.svg'
 import WheelchairCompanion from '../../public/wheelchair_companion.svg'
 import ElectricScooter from '../../public/electric_scooter.svg'
@@ -34,6 +34,7 @@ const SituationSelection: FC = () => {
    * Filters the characteristics based on situation, updates local state and local storage
    */
   const handleClick = (situation: string) => {
+    const characteristics = getCharacteristics(t)
     const filteredCharacteristics = characteristicMap[
       situation as keyof ICharacteristicMap
     ].map((characteristicKey: string) => ({

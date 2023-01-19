@@ -31,6 +31,16 @@
       "rollatorAlt": "Marche avec un rollator"
     }
   },
+  "below": "Moins de {{ value }}",
+  "until": "Jusqu'a {{ value }}",
+  "between": "Entre {{ from }} et {{ to }}",
+  "above": "Plus de {{ value }}",
+  "unknown": "Je ne sais pas !",
+  "yes": "Oui",
+  "no": "Non",
+  "shower": "J'ai besoin d'une douche",
+  "bath": "J'ai besoin d'une baignoire",
+  "both": "Les deux sont possibles",
   "maxSlope": {
     "title": "Quelle pente pouvez-vous gravir ?"
   },
