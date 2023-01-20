@@ -67,8 +67,8 @@ const Select: FC<VoyageSelectProps> = ({
         <FormControl isInvalid={!!error} id={name}>
           <FormLabel pb={2}>
             <Box>
-              <HStack justifyContent='space-between'>
-                <Heading variant='h2'>{label}</Heading>
+              <HStack justifyContent='space-between' alignItems='center'>
+                <Heading variant='h3'>{label}</Heading>
                 {hasInfo && (
                   <Popover isLazy placement='top' size='sm'>
                     <PopoverTrigger>
@@ -76,8 +76,7 @@ const Select: FC<VoyageSelectProps> = ({
                         <Icon
                           as={BsInfoCircle}
                           cursor='pointer'
-                          w={22}
-                          h={22}
+                          display='flex'
                         />
                       </Link>
                     </PopoverTrigger>
@@ -90,7 +89,7 @@ const Select: FC<VoyageSelectProps> = ({
                   </Popover>
                 )}
               </HStack>
-              <Text fontSize='sm' w='35em'>
+              <Text fontSize='sm' w='35em' mt={2}>
                 {subLabel}
               </Text>
             </Box>

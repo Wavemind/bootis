@@ -67,6 +67,7 @@ const Select: FC<ISelectProps> = ({
               textOverflow='ellipsis'
               overflowX='hidden'
               whiteSpace='nowrap'
+              fontSize='md'
             >
               {selected[labelKey as keyof typeof selected]}
             </Text>

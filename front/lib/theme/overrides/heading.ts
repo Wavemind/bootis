@@ -9,15 +9,20 @@ export default {
       variants: {
         h1: {
           fontWeight: 'semibold',
-          fontSize: '2xl',
+          fontSize: 'xl',
         },
         h2: {
           fontSize: 'xl',
           fontWeight: 'medium',
         },
         h3: {
-          fontWeight: 'medium',
           fontSize: 'lg',
+          fontWeight: 'medium',
+        },
+        h4: {
+          fontSize: 'md',
+          fontWeight: 'light',
+          fontFamily: 'Arial, sans-serif',
         },
       },
       // default values for 'size', 'variant' and 'colorScheme'

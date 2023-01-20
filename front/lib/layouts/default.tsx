@@ -4,7 +4,7 @@
 import { FC } from 'react'
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, Trans } from 'next-i18next'
 
 /**
  * The internal imports
@@ -21,7 +21,7 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
   const { t } = useTranslation('common')
 
   return (
-    <Flex direction='column' maxW='1600px' margin='auto' p={4} h='98vh'>
+    <Flex direction='column' maxW='1600px' margin='auto' p={4} h='100vh'>
       <Flex pb={4}>
         <Link href='/'>
           <Image src={Logo} alt='logo' height={42} width={42} />
@@ -30,15 +30,26 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
       <Flex flexDir='column' flex={1} overflow='hidden'>
         {children}
       </Flex>
-      <Grid
-        w='full'
-        alignItems='center'
-        templateColumns='repeat(2, 1fr)'
-        h={20}
-      >
+      <Grid w='full' alignItems='center' templateColumns='repeat(3, 1fr)' h={8}>
         <GridItem>
           <Text textAlign='left' fontSize='sm'>
             {t('footer.copyright', { year: new Date().getFullYear() })}
+          </Text>
+        </GridItem>
+        <GridItem>
+          <Text textAlign='center' fontSize='sm'>
+            <Trans
+              i18nKey='footer.contact'
+              t={t}
+              components={{
+                l: (
+                  <Link
+                    href='mailto: info@slowlution.ch'
+                    style={{ textDecoration: 'underline' }}
+                  />
+                ),
+              }}
+            />
           </Text>
         </GridItem>
         <GridItem>

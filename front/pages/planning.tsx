@@ -99,7 +99,7 @@ const Planning: FC = () => {
           }}
         >
           <Flex direction='column' gap={3} h='full' w='fit-content'>
-            <HStack border='1px solid white' borderRadius='lg' w='full'>
+            <HStack borderRadius='lg' w='full'>
               {planningDates.map(date => (
                 <Text
                   key={`date_${date}`}
@@ -116,12 +116,12 @@ const Planning: FC = () => {
             <HStack
               display='flex'
               alignItems='flex-start'
-              border='1px solid white'
               h='full'
               w='full'
               borderRadius='lg'
               overflowY='auto'
               divider={<StackDivider bg='blue' w={1} />}
+              mx={2}
             >
               {planningData.map((day, index) => (
                 <PlanningDay

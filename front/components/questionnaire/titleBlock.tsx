@@ -31,7 +31,7 @@ const TitleBlock: FC<TitleBlockProps> = ({ title, subtitle }) => {
         <Heading variant='h1' mb={4}>
           {title}
         </Heading>
-        <Heading variant='h3'>{subtitle}</Heading>
+        <Heading variant='h4'>{subtitle}</Heading>
       </Box>
       <CircularProgress value={progress} size='100px' color='salmon' />
     </HStack>

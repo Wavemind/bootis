@@ -1,7 +1,6 @@
 {
   "logoAlt": "Logo",
   "about": {
-    "subheader": "A propos",
     "paragraph1": "Le voyage rendu possible. Bienvenue sur la plateforme Bootis. Nous sommes heureux de vous voir ici.",
     "paragraph2": "Notre objectif est de proposer un outil qui permettent aux personnes à mobilité réduite et à leurs proches de planifier et organiser des séjours en Suisse simplement, en quelques clics. Bootis prend en compte vos contraintes de mobilité personnelles ainsi vos préférences en termes de voyage. Nous utilisons les données d'accessibilité de Pro Infirmis qui sont certifiées et sûres. Nous utilisons également des données d'autres partenaires touristiques qui permettent de vous proposer des séjours adaptés à vos envies.",
     "learnMore": "En savoir plus >"
@@ -10,12 +9,10 @@
   "searchText": "Après avoir rempli ces informations, il vous faudra répondre à une série de questions vous concernant.",
   "profile": {
     "header": "Pour qui ?",
-    "subheader": "Profile",
     "paragraph1": "Cette plateforme a été pensée pour les personne en situation de handicap moteur, qu'elles soient en fauteuil roulant manuel et électrique, en scooter électrique ou qu'elles se utilisent un rollator ou des cannes. Elle est aussi à la disposition des personnes accompagnantes."
   },
   "questionnaire": {
     "header": "Création de votre profil",
-    "subheader": "Questionnaire",
     "paragraph1": "Vous avez le choix: vous pouvez commencer par entrer des informations quant à votre voyage, juste ci-dessus ou vous pouvez commencer par créer votre profil utilisateur. Les informations que vous entrez ne sont pas stockée sur un serveur externe, mais sur le cache de votre navigateur. Ainsi, personne ne peut avoir accès à ces informations sauf vous, mais vous n'avez pas besoin de rentrer ces informations plusieurs fois si vous revenez nous voir ultérieurement.",
     "paragraph2": "Une liste de questions précises quant à vos contraintes de mobilité vous sera ensuite proposée en fonction du profil que vous avez choisi. Ces questions permettent à Bootis d'adapter ses propositions en fonction de vos contraintes. Si vous n'avez pas la réponse à toutes les questions, pas de panique! Bootis se charge de définir des réponses en fonction du profil que vous avez choisi. Ces réponses sont issues des normes d'accessibilité officielles éditées par la confédération et Pro Infirmis.",
     "start": "Commencer la création du profil >"
