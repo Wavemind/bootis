@@ -41,7 +41,6 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
             <Trans
               default={t('footer.contact')}
               i18nKey='footer.contact'
-              t={t}
               components={{
                 l: (
                   <Link
