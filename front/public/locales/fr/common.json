@@ -23,7 +23,7 @@
   },
   "footer": {
     "copyright": "Bootis - Tous droits réservés © {{ year }}",
-    "contact": "Contactez-nous: <l>info@slowlution.ch</l>",
+    "contact": "Contactez-nous:",
     "wavemind": "Site réalisé par"
   },
   "select": "Sélectionner",
