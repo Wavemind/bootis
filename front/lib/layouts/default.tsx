@@ -37,22 +37,6 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
           </Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='center' fontSize='sm'>
-            <Trans
-              i18nKey='footer.contact'
-              t={t}
-              components={{
-                l: (
-                  <Link
-                    href='mailto: info@slowlution.ch'
-                    style={{ textDecoration: 'underline' }}
-                  />
-                ),
-              }}
-            />
-          </Text>
-        </GridItem>
-        <GridItem>
           <Flex justifyContent='flex-end'>
             <Text textAlign='left' fontSize='sm'>
               {t('footer.wavemind')}
