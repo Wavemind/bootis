@@ -37,8 +37,14 @@ const SlotCard: FC<ISlotCard> = ({
       borderRadius={isReduced ? 'xl' : 'lg'}
       bg='white'
       boxShadow='lg'
-      border={isReduced && slot.selected ? '4px solid' : 'none'}
-      borderColor={isReduced && slot.type === 'activity' ? 'teal' : 'salmon'}
+      border={slot.selected ? '4px solid' : '2px solid'}
+      borderColor={
+        slot.selected
+          ? slot.type === 'activity'
+            ? 'teal'
+            : 'salmon'
+          : 'lightgrey'
+      }
     >
       <Box
         h={75}
@@ -69,12 +75,12 @@ const SlotCard: FC<ISlotCard> = ({
         </Box>
       </Box>
       <Box p={2}>
-        <Text color='black' fontWeight='bold' my={2} noOfLines={1}>
+        <Text fontSize='lg' my={2} noOfLines={1} fontFamily='Arial, sans-serif'>
           {slot.name}
         </Text>
         <HStack>
-          <Icon as={BsPinMap} color='black' h={4} w={4} />
-          <Text color='black' fontSize='xs' noOfLines={1}>
+          <Icon as={BsPinMap} color='grey' h={4} w={4} />
+          <Text color='grey' fontSize='sm' noOfLines={1}>
             {slot.fullAddress}
           </Text>
         </HStack>

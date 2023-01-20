@@ -190,7 +190,6 @@ const Voyage: FC = () => {
     )
   }
 
-  // TODO : Check how to manage fonts => variants, defaults, etc.
   return (
     <Box w='full' h='full'>
       <FormProvider {...methods}>
@@ -219,6 +218,7 @@ const Voyage: FC = () => {
                         color='white'
                         textAlign='center'
                         fontFamily='Noir Pro Medium, sans-serif'
+                        fontSize='lg'
                       >
                         {t('destination.infoText')}
                       </Text>

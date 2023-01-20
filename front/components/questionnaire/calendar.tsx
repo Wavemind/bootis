@@ -60,7 +60,7 @@ const DatePicker: FC<IDatePickerProps> = ({ name, label }) => {
         fieldState: { error },
       }) => (
         <React.Fragment>
-          <Heading variant='h2'>{label}</Heading>
+          <Heading variant='h3'>{label}</Heading>
           <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
             <PopoverTrigger>
               <Box onClick={onOpen} w='full'>

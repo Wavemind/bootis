@@ -78,7 +78,13 @@ const Characteristic: FC = () => {
                 w='full'
                 onClick={() => handleClick(answer)}
               >
-                <Text w='full' textAlign='left'>
+                <Text
+                  w='full'
+                  textAlign='left'
+                  fontSize='md'
+                  fontWeight='light'
+                  fontFamily='Arial, sans-serif'
+                >
                   {answer.label}
                 </Text>
               </Button>
