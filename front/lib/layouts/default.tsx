@@ -4,7 +4,7 @@
 import { FC } from 'react'
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useTranslation, Trans } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 
 /**
  * The internal imports
