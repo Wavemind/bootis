@@ -26,6 +26,7 @@ import {
   getActivityCategories,
   getAccommodationCategories,
 } from '../lib/services/modules/category'
+
 import { getCuisine } from '../lib/services/modules/cuisine'
 
 /**
@@ -90,7 +91,7 @@ const Planning: FC = () => {
         >
           <HStack w='full' spacing={8} p={3} alignItems='flex-start'>
             <AccommodationInfo data={accommodationData} />
-            <SearchInfo />
+            <SearchInfo setLoading={setLoading} />
           </HStack>
           <Flex
             direction='column'

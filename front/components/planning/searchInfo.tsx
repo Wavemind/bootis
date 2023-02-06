@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { FC, useMemo, useContext } from 'react'
+import { FC, useMemo, useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import {
@@ -18,17 +18,36 @@ import {
  * The internal imports
  */
 import { AlertDialogContext } from '../../lib/contexts'
+import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 
 /**
  * Type imports
  */
 import { IStep, IElement } from '../../lib/types'
 
-const SearchInfo: FC = () => {
+export interface ISearchInfoProps {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
   const { t } = useTranslation('planning')
   const router = useRouter()
 
   const { openAlertDialog } = useContext(AlertDialogContext)
+
+  const [getPlanning, { data = {}, isFetching, isSuccess }] =
+    useLazyGetPlanningQuery()
+
+  /**
+   * If the planning is properly received from the backend,
+   * put it in localStorage and set loading to false
+   */
+  useEffect(() => {
+    if (!isFetching && isSuccess) {
+      localStorage.setItem('planning', JSON.stringify(data))
+      setLoading(false)
+    }
+  }, [isSuccess, isFetching])
 
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => {
@@ -56,7 +75,25 @@ const SearchInfo: FC = () => {
    * Regenerates a new plan
    */
   const handleRegenerate = () => {
-    console.log('regenerate a plan')
+    openAlertDialog({
+      title: t('restartDialogTitle'),
+      content: t('restartDialogContent'),
+      action: () => {
+        localStorage.removeItem('planning')
+        setLoading(true)
+        getPlanning({
+          startDate: voyageFormData.startDate,
+          endDate: voyageFormData.endDate,
+          region: voyageFormData.destination?.name || '',
+          categories:
+            voyageFormData.activities?.map(
+              (activity: IElement) => activity.id
+            ) || [],
+        })
+      },
+      confirmColor: 'teal',
+      confirmLabel: t('yes'),
+    })
   }
 
   return (
