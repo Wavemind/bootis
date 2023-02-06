@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image'
+
 // Common interfaces used in multiple components/pages
 export interface IChildren {
   children: React.ReactNode
@@ -32,7 +34,7 @@ export interface IStep {
   id?: number
   key: string
   type?: string
-  imageSrc?: string
+  imageSrc?: StaticImageData
   answers?: IAnswer[]
   answer?: IAnswer
   formValues?: IFormValues

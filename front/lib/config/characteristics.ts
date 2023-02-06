@@ -6,7 +6,20 @@ import { TFunction } from 'next-i18next'
 /**
  * The internal imports
  */
-import maxSlopeImage from '../../public/maxSlopeImage.svg'
+import maxSlopeImage from '../../public/characteristicsImages/maxSlope.png'
+import passageLengthImage from '../../public/characteristicsImages/passageLength.png'
+import passageWidthImage from '../../public/characteristicsImages/passageWidth.png'
+import stepHeightImage from '../../public/characteristicsImages/stepHeight.png'
+import tableHeightImage from '../../public/characteristicsImages/tableHeight.png'
+import reachHeightImage from '../../public/characteristicsImages/reachHeight.png'
+import bedHeightImage from '../../public/characteristicsImages/bedHeight.png'
+import bedAdjacentSpaceImage from '../../public/characteristicsImages/bedAdjacentSpace.png'
+import wcAdjacentDistanceImage from '../../public/characteristicsImages/wcAdjacentDistance.png'
+import wcFrontDistanceImage from '../../public/characteristicsImages/wcFrontDistance.png'
+import wcSeatHeightImage from '../../public/characteristicsImages/wcSeatHeight.png'
+import wcFixedHandrailImage from '../../public/characteristicsImages/wcFixedHandrail.png'
+import wcFoldableHandrailImage from '../../public/characteristicsImages/wcFoldableHandrail.png'
+import wcSinkDistanceImage from '../../public/characteristicsImages/wcFoldableHandrail.png'
 
 /**
  * Type definitions
@@ -47,7 +60,7 @@ export default (t: TFunction) =>
     passageLength: {
       id: 21,
       key: 'passageLength',
-      imageSrc: maxSlopeImage,
+      imageSrc: passageLengthImage,
       type: 'characteristic',
       answers: [
         {
@@ -68,7 +81,7 @@ export default (t: TFunction) =>
     passageWidth: {
       id: 2,
       key: 'passageWidth',
-      imageSrc: maxSlopeImage,
+      imageSrc: passageWidthImage,
       type: 'characteristic',
       answers: [
         {
@@ -95,7 +108,7 @@ export default (t: TFunction) =>
     stepHeight: {
       id: 3,
       key: 'stepHeight',
-      imageSrc: maxSlopeImage,
+      imageSrc: stepHeightImage,
       type: 'characteristic',
       answers: [
         {
@@ -122,7 +135,7 @@ export default (t: TFunction) =>
     tableHeight: {
       id: 4,
       key: 'tableHeight',
-      imageSrc: maxSlopeImage,
+      imageSrc: tableHeightImage,
       type: 'characteristic',
       answers: [
         {
@@ -149,7 +162,7 @@ export default (t: TFunction) =>
     reachHeight: {
       id: 5,
       key: 'reachHeight',
-      imageSrc: maxSlopeImage,
+      imageSrc: reachHeightImage,
       type: 'characteristic',
       answers: [
         {
@@ -181,7 +194,7 @@ export default (t: TFunction) =>
     bedHeight: {
       id: 7,
       key: 'bedHeight',
-      imageSrc: maxSlopeImage,
+      imageSrc: bedHeightImage,
       type: 'characteristic',
       answers: [
         {
@@ -208,7 +221,7 @@ export default (t: TFunction) =>
     bedAdjacentSpace: {
       id: 8,
       key: 'bedAdjacentSpace',
-      imageSrc: maxSlopeImage,
+      imageSrc: bedAdjacentSpaceImage,
       type: 'characteristic',
       answers: [
         {
@@ -235,7 +248,7 @@ export default (t: TFunction) =>
     wcAdjacentDistance: {
       id: 9,
       key: 'wcAdjacentDistance',
-      imageSrc: maxSlopeImage,
+      imageSrc: wcAdjacentDistanceImage,
       type: 'characteristic',
       answers: [
         {
@@ -262,7 +275,7 @@ export default (t: TFunction) =>
     wcFrontDistance: {
       id: 10,
       key: 'wcFrontDistance',
-      imageSrc: maxSlopeImage,
+      imageSrc: wcFrontDistanceImage,
       type: 'characteristic',
       answers: [
         {
@@ -289,7 +302,7 @@ export default (t: TFunction) =>
     wcSeatHeight: {
       id: 11,
       key: 'wcSeatHeight',
-      imageSrc: maxSlopeImage,
+      imageSrc: wcSeatHeightImage,
       type: 'characteristic',
       answers: [
         {
@@ -316,7 +329,7 @@ export default (t: TFunction) =>
     wcFixedHandrail: {
       id: 12,
       key: 'wcFixedHandrail',
-      imageSrc: maxSlopeImage,
+      imageSrc: wcFixedHandrailImage,
       type: 'characteristic',
       answers: [
         { id: 1, label: t('yes'), children: [], excludes: [] },
@@ -327,7 +340,7 @@ export default (t: TFunction) =>
     wcFoldableHandrail: {
       id: 13,
       key: 'wcFoldableHandrail',
-      imageSrc: maxSlopeImage,
+      imageSrc: wcFoldableHandrailImage,
       type: 'characteristic',
       answers: [
         { id: 1, label: t('yes'), children: [], excludes: [] },
@@ -349,7 +362,7 @@ export default (t: TFunction) =>
     wcSinkDistance: {
       id: 15,
       key: 'wcSinkDistance',
-      imageSrc: maxSlopeImage,
+      imageSrc: wcSinkDistanceImage,
       type: 'characteristic',
       answers: [
         {
