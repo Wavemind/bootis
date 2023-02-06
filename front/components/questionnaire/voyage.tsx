@@ -36,7 +36,7 @@ import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 /**
  * Type imports
  */
-import { IEnumOption, IFormValues } from '../../lib/types'
+import { IEnumOption, IFormValues, IStep } from '../../lib/types'
 
 const Voyage: FC = () => {
   const { t } = useTranslation('voyage')
@@ -152,7 +152,18 @@ const Voyage: FC = () => {
    * If data exists in localStorage, use it to prefill form values
    */
   useEffect(() => {
-    if (localStorage.getItem('search') !== null) {
+    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
+    const voyageFormValues = stepsData.find(
+      (step: IStep) => step.key === 'voyageForm'
+    ).formValues
+
+    if (voyageFormValues) {
+      methods.reset({
+        ...voyageFormValues,
+        startDate: new Date(voyageFormValues.startDate),
+        endDate: new Date(voyageFormValues.endDate),
+      })
+    } else if (localStorage.getItem('search') !== null) {
       const infoFromSearch = JSON.parse(
         localStorage.getItem('search') as string
       )
