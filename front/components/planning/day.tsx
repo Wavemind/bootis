@@ -67,6 +67,8 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
           return newPlanningData
         })
       },
+      confirmColor: 'red',
+      confirmLabel: t('remove'),
     })
   }
 

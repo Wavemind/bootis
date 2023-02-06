@@ -86,4 +86,6 @@ export interface IAlertDialog {
   title: string
   content: string
   action: () => void
+  confirmColor: string
+  confirmLabel: string
 }

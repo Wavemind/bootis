@@ -98,7 +98,7 @@ const Planning: FC = () => {
             h='full'
             w='fit-content'
             px={3}
-            mt={4}
+            mt={8}
             overflow='hidden'
           >
             <HStack

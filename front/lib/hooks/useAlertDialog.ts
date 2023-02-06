@@ -19,9 +19,21 @@ export default () => {
    * Sets the modal content to the incoming JSX component and opens the modal
    * @param {*} content JSX component
    */
-  const openAlertDialog = ({ title, content, action }: IAlertDialog) => {
+  const openAlertDialog = ({
+    title,
+    content,
+    action,
+    confirmColor = 'red',
+    confirmLabel,
+  }: IAlertDialog) => {
     setIsOpen(true)
-    setAlertDialogContent({ title, content, action })
+    setAlertDialogContent({
+      title,
+      content,
+      action,
+      confirmColor,
+      confirmLabel,
+    })
   }
 
   /**

@@ -22,5 +22,8 @@
   "activitySelection": "Choix du type d'activité ?",
   "restaurantSelection": "Choix du type de restaurant ?",
   "newPlanning": "Nouveau planning",
-  "restart": "Recommencer"
+  "restart": "Recommencer",
+  "restartDialogTitle": "Etes vous sur de vouloir effacer ce planning ?",
+  "restartDialogContent": "Cliquez sur Oui pour générer un nouveau planning ou Annuler pour rester sur la page",
+  "yes": "Oui"
 }

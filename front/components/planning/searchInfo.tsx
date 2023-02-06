@@ -1,9 +1,9 @@
 /**
  * The external imports
  */
-import { FC, useMemo } from 'react'
+import { FC, useMemo, useContext } from 'react'
 import { useTranslation } from 'next-i18next'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {
   HStack,
   Flex,
@@ -15,18 +15,42 @@ import {
 } from '@chakra-ui/react'
 
 /**
+ * The internal imports
+ */
+import { AlertDialogContext } from '../../lib/contexts'
+
+/**
  * Type imports
  */
 import { IStep, IElement } from '../../lib/types'
 
 const SearchInfo: FC = () => {
   const { t } = useTranslation('planning')
+  const router = useRouter()
+
+  const { openAlertDialog } = useContext(AlertDialogContext)
 
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => {
     const stepsData = JSON.parse(localStorage.getItem('steps') as string)
     return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
   }, [])
+
+  /**
+   * Opens the alert dialog to confirm return to the voyage form
+   */
+  const handleRestart = () => {
+    openAlertDialog({
+      title: t('restartDialogTitle'),
+      content: t('restartDialogContent'),
+      action: () => {
+        localStorage.removeItem('planning')
+        router.push('/questionnaire')
+      },
+      confirmColor: 'teal',
+      confirmLabel: t('yes'),
+    })
+  }
 
   /**
    * Regenerates a new plan
@@ -98,11 +122,15 @@ const SearchInfo: FC = () => {
         >
           {t('newPlanning')}
         </Button>
-        <Link href='/questionnaire'>
-          <Button size='sm' color='teal' variant='outline' borderColor='teal'>
-            {t('restart')}
-          </Button>
-        </Link>
+        <Button
+          size='sm'
+          color='teal'
+          variant='outline'
+          borderColor='teal'
+          onClick={handleRestart}
+        >
+          {t('restart')}
+        </Button>
       </HStack>
     </Flex>
   )
