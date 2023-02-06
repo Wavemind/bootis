@@ -12,6 +12,7 @@ export { default as Voyage } from './questionnaire/voyage'
 // Planning
 export { default as PlanningDay } from './planning/day'
 export { default as SlotCard } from './planning/slot'
-export { default as AccommodationBar } from './planning/accommodationBar'
+export { default as AccommodationInfo } from './planning/accommodationInfo'
+export { default as SearchInfo } from './planning/searchInfo'
 export { default as SelectionModal } from './planning/modal'
 export { default as AlertDialog } from './planning/alertDialog'

@@ -5,15 +5,7 @@ import { FC, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import format from 'date-fns/format'
-import {
-  HStack,
-  Flex,
-  StackDivider,
-  Center,
-  Spinner,
-  Text,
-} from '@chakra-ui/react'
+import { HStack, Flex, StackDivider, Center, Spinner } from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -21,9 +13,10 @@ import {
 import {
   Page,
   SelectionModal,
-  AccommodationBar,
   PlanningDay,
   AlertDialog,
+  AccommodationInfo,
+  SearchInfo,
 } from '../components'
 import { useAlertDialog, useModal } from '../lib/hooks'
 import { AlertDialogContext, ModalContext } from '../lib/contexts'
@@ -45,7 +38,6 @@ const Planning: FC = () => {
 
   const [loading, setLoading] = useState(true)
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
-  const [planningDates, setPlanningDates] = useState<string[]>([])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
   const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
@@ -56,17 +48,15 @@ const Planning: FC = () => {
     alertDialogContent,
   } = useAlertDialog()
 
+  /**
+   * Gets planning data from localstorage
+   */
   useEffect(() => {
     const planningFromStorage = JSON.parse(
       localStorage.getItem('planning') as string
     )
 
     setAccommodationData(planningFromStorage.accommodation)
-    setPlanningDates(
-      planningFromStorage.schedule.map((day: IDay) =>
-        format(new Date(day.date), 'dd.MM.yyyy')
-      )
-    )
     setPlanningData(planningFromStorage.schedule)
     setLoading(false)
   }, [])
@@ -98,21 +88,19 @@ const Planning: FC = () => {
             setPlanningData,
           }}
         >
-          <Flex direction='column' gap={3} h='full' w='fit-content'>
-            <HStack borderRadius='lg' w='full'>
-              {planningDates.map(date => (
-                <Text
-                  key={`date_${date}`}
-                  w={316}
-                  textAlign='center'
-                  fontSize='xl'
-                  fontFamily='Noir Pro Medium, sans-serif'
-                >
-                  {date}
-                </Text>
-              ))}
-            </HStack>
-            <AccommodationBar accommodationData={accommodationData} />
+          <HStack w='full' spacing={8} p={3} alignItems='flex-start'>
+            <AccommodationInfo data={accommodationData} />
+            <SearchInfo />
+          </HStack>
+          <Flex
+            direction='column'
+            gap={3}
+            h='full'
+            w='fit-content'
+            px={3}
+            mt={4}
+            overflow='hidden'
+          >
             <HStack
               display='flex'
               alignItems='flex-start'

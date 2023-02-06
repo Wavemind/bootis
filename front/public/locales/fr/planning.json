@@ -15,5 +15,12 @@
   "back": "Retour au calendrier",
   "cancel": "Annuler",
   "removeDialogTitle": "Attention",
-  "removeDialogContent": "Etes-vous sur de vouloir supprimer cette activité ?"
+  "removeDialogContent": "Etes-vous sur de vouloir supprimer cette activité ?",
+  "accommodationSelection": "Choix du type d'hébergement ?",
+  "accommodationDates": "Logement du {{ startDate }} au {{ endDate }}",
+  "regionSelection": "Dans quelle région souhaitez-vous voyager ?",
+  "activitySelection": "Choix du type d'activité ?",
+  "restaurantSelection": "Choix du type de restaurant ?",
+  "newPlanning": "Nouveau planning",
+  "restart": "Recommencer"
 }
