@@ -48,11 +48,15 @@ const AlertDialog: FC = () => {
           <AlertDialogBody>{alertDialogContent.content}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={closeAlertDialog}>
+            <Button variant='ghost' ref={cancelRef} onClick={closeAlertDialog}>
               {t('cancel')}
             </Button>
-            <Button colorScheme='red' onClick={handleAction} ml={3}>
-              {t('remove')}
+            <Button
+              bg={alertDialogContent.confirmColor}
+              onClick={handleAction}
+              ml={3}
+            >
+              {alertDialogContent.confirmLabel}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -1,19 +1,11 @@
 /**
  * The external imports
  */
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState, useMemo } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import format from 'date-fns/format'
-import {
-  HStack,
-  Flex,
-  StackDivider,
-  Center,
-  Spinner,
-  Text,
-} from '@chakra-ui/react'
+import { HStack, Flex, StackDivider, Center, Spinner } from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -21,9 +13,10 @@ import {
 import {
   Page,
   SelectionModal,
-  AccommodationBar,
   PlanningDay,
   AlertDialog,
+  AccommodationInfo,
+  SearchInfo,
 } from '../components'
 import { useAlertDialog, useModal } from '../lib/hooks'
 import { AlertDialogContext, ModalContext } from '../lib/contexts'
@@ -33,19 +26,19 @@ import {
   getActivityCategories,
   getAccommodationCategories,
 } from '../lib/services/modules/category'
+import { useLazyGetPlanningQuery } from '../lib/services/modules/planning'
 import { getCuisine } from '../lib/services/modules/cuisine'
 
 /**
  * Type imports
  */
-import { IDay, ISlot } from '../lib/types'
+import { IDay, ISlot, IStep, IElement, IPlanning } from '../lib/types'
 
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
 
   const [loading, setLoading] = useState(true)
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
-  const [planningDates, setPlanningDates] = useState<string[]>([])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
   const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
@@ -56,17 +49,62 @@ const Planning: FC = () => {
     alertDialogContent,
   } = useAlertDialog()
 
+  const [getPlanning, { data = {} as IPlanning, isSuccess, isFetching }] =
+    useLazyGetPlanningQuery()
+
+  // Gets voyage form data from the localStorage
+  const voyageFormData = useMemo(() => {
+    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
+    return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
+  }, [])
+
+  /**
+   * Regenerates a new plan
+   */
+  const handleRegenerate = useCallback(() => {
+    openAlertDialog({
+      title: t('regenerateDialogTitle'),
+      content: t('regenerateDialogContent'),
+      action: () => {
+        localStorage.removeItem('planning')
+        setLoading(true)
+        getPlanning({
+          startDate: voyageFormData.startDate,
+          endDate: voyageFormData.endDate,
+          region: voyageFormData.destination?.name || '',
+          categories:
+            voyageFormData.activities?.map(
+              (activity: IElement) => activity.id
+            ) || [],
+        })
+      },
+      confirmColor: 'teal',
+      confirmLabel: t('yes'),
+    })
+  }, [])
+
+  /**
+   * If the planning is properly received from the backend,
+   * put it in localStorage and set loading to false
+   */
+  useEffect(() => {
+    if (!isFetching && isSuccess) {
+      localStorage.setItem('planning', JSON.stringify(data))
+      setAccommodationData(data.accommodation)
+      setPlanningData(data.schedule)
+      setLoading(false)
+    }
+  }, [isSuccess, isFetching])
+
+  /**
+   * Gets planning data from localstorage
+   */
   useEffect(() => {
     const planningFromStorage = JSON.parse(
       localStorage.getItem('planning') as string
     )
 
     setAccommodationData(planningFromStorage.accommodation)
-    setPlanningDates(
-      planningFromStorage.schedule.map((day: IDay) =>
-        format(new Date(day.date), 'dd.MM.yyyy')
-      )
-    )
     setPlanningData(planningFromStorage.schedule)
     setLoading(false)
   }, [])
@@ -98,21 +136,19 @@ const Planning: FC = () => {
             setPlanningData,
           }}
         >
-          <Flex direction='column' gap={3} h='full' w='fit-content'>
-            <HStack borderRadius='lg' w='full'>
-              {planningDates.map(date => (
-                <Text
-                  key={`date_${date}`}
-                  w={316}
-                  textAlign='center'
-                  fontSize='xl'
-                  fontFamily='Noir Pro Medium, sans-serif'
-                >
-                  {date}
-                </Text>
-              ))}
-            </HStack>
-            <AccommodationBar accommodationData={accommodationData} />
+          <HStack w='full' spacing={8} p={3} alignItems='flex-start'>
+            <AccommodationInfo data={accommodationData} />
+            <SearchInfo handleRegenerate={handleRegenerate} />
+          </HStack>
+          <Flex
+            direction='column'
+            gap={3}
+            h='full'
+            w='fit-content'
+            px={3}
+            mt={8}
+            overflow='hidden'
+          >
             <HStack
               display='flex'
               alignItems='flex-start'

@@ -5,13 +5,13 @@ import { useContext, FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Button, VStack, Text } from '@chakra-ui/react'
 import { BsCaretLeftFill } from 'react-icons/bs'
-import format from 'date-fns/format'
 
 /**
  * The internal imports
  */
 import { SlotCard } from '../../'
 import { ModalContext } from '../../../lib/contexts'
+import { formatDate } from '../../../lib/utils/date'
 
 const SelectedDay: FC = () => {
   const { t } = useTranslation('planning')
@@ -35,7 +35,7 @@ const SelectedDay: FC = () => {
         }}
       >
         <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-          {selectedDay.date && format(new Date(selectedDay.date), 'dd.MM.yyyy')}
+          {selectedDay.date && formatDate(selectedDay.date)}
         </Text>
         {selectedDay.activities?.map(slot => (
           <SlotCard key={slot.name} slot={slot} isReduced />

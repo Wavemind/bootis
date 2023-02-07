@@ -2,7 +2,7 @@
  * The external imports
  */
 import { FC, useContext } from 'react'
-import { Box, VStack, Icon, Button } from '@chakra-ui/react'
+import { Box, VStack, Icon, Button, Text } from '@chakra-ui/react'
 import { GrAddCircle } from 'react-icons/gr'
 import { useTranslation } from 'next-i18next'
 
@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next'
  */
 import { AlertDialogContext, ModalContext } from '../../lib/contexts'
 import { SlotCard } from '../'
+import { formatDate } from '../../lib/utils/date'
 
 /**
  * Type imports
@@ -66,11 +67,21 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
           return newPlanningData
         })
       },
+      confirmColor: 'red',
+      confirmLabel: t('remove'),
     })
   }
 
   return (
     <VStack spacing={3} flexBasis={316}>
+      <Text
+        w={316}
+        textAlign='center'
+        fontSize='xl'
+        fontFamily='Noir Pro Medium, sans-serif'
+      >
+        {formatDate(day.date)}
+      </Text>
       {day.activities.map((slot, index) => (
         <SlotCard
           key={`slot_${index}`}

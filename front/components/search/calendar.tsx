@@ -2,7 +2,6 @@
  * The external imports
  */
 import { FC } from 'react'
-import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import {
   Box,
@@ -25,6 +24,11 @@ import {
   CalendarDate,
   CalendarValues,
 } from '@uselessdev/datepicker'
+
+/**
+ * The internal imports
+ */
+import { formatDate } from '../../lib/utils/date'
 
 /**
  * Type definitions
@@ -55,7 +59,7 @@ const Calendar: FC<ICalendarProps> = ({
     <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {format(date as CalendarDate, 'dd/MM/yyyy', { locale: fr })}
+          {formatDate(date as Date)}
         </Box>
       </PopoverTrigger>
 

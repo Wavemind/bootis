@@ -11,16 +11,11 @@ import { api } from '../../api'
 /**
  * Type imports
  */
-import { ISlot, IDay } from '../../../types'
+import { ISlot, IDay, IPlanning } from '../../../types'
 
 /**
  * Type definitions
  */
-interface IPlanning {
-  accommodation: ISlot
-  schedule: IDay[]
-}
-
 interface IPlanningInput {
   startDate: string
   endDate: string
