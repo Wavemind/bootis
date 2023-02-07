@@ -12,14 +12,13 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { MdOutlineLocationOn } from 'react-icons/md'
-import format from 'date-fns/format'
-import fr from 'date-fns/locale/fr'
 import { useTranslation } from 'next-i18next'
 
 /**
  * Type imports
  */
 import { ISlot, IStep } from '../../lib/types'
+import { formatDate } from '../../lib/utils/date'
 
 /**
  * Type definitions
@@ -58,12 +57,8 @@ const AccommodationInfo: FC<IAccommodationInfoProps> = ({ data }) => {
         <Divider borderColor='teal' borderWidth={1} />
         <Text fontWeight='bold'>
           {t('accommodationDates', {
-            startDate: format(new Date(voyageFormData.startDate), 'd', {
-              locale: fr,
-            }),
-            endDate: format(new Date(voyageFormData.endDate), 'dd MMM yyyy', {
-              locale: fr,
-            }),
+            startDate: formatDate(voyageFormData.startDate, 'd'),
+            endDate: formatDate(voyageFormData.endDate, 'd MMM yyyy'),
           })}
         </Text>
         <Button

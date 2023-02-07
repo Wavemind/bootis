@@ -2,8 +2,6 @@
  * The external imports
  */
 import React, { FC, useEffect } from 'react'
-import format from 'date-fns/format'
-import isValid from 'date-fns/isValid'
 import addDays from 'date-fns/addDays'
 import fr from 'date-fns/locale/fr'
 import {
@@ -28,6 +26,11 @@ import {
   CalendarDays,
 } from '@uselessdev/datepicker'
 import { Controller, useFormContext } from 'react-hook-form'
+
+/**
+ * The internal imports
+ */
+import { formatDate } from '../../lib/utils/date'
 
 /**
  * Type definitions
@@ -65,15 +68,11 @@ const DatePicker: FC<IDatePickerProps> = ({ name, label }) => {
             <PopoverTrigger>
               <Box onClick={onOpen} w='full'>
                 <Input
-                  placeholder='dd/MM/yyyy'
+                  placeholder='dd.MM.yyyy'
                   cursor='pointer'
                   _hover={{ borderColor: 'salmon' }}
                   isReadOnly
-                  value={
-                    isValid(value)
-                      ? format(value, 'dd/MM/yyyy')
-                      : format(new Date(), 'dd/MM/yyyy')
-                  }
+                  value={formatDate(value, 'dd.MM.yyyy')}
                   onChange={date => {
                     onChange(date)
                     onClose()

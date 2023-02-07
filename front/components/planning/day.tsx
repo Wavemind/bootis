@@ -5,13 +5,13 @@ import { FC, useContext } from 'react'
 import { Box, VStack, Icon, Button, Text } from '@chakra-ui/react'
 import { GrAddCircle } from 'react-icons/gr'
 import { useTranslation } from 'next-i18next'
-import format from 'date-fns/format'
 
 /**
  * The internal imports
  */
 import { AlertDialogContext, ModalContext } from '../../lib/contexts'
 import { SlotCard } from '../'
+import { formatDate } from '../../lib/utils/date'
 
 /**
  * Type imports
@@ -80,7 +80,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
         fontSize='xl'
         fontFamily='Noir Pro Medium, sans-serif'
       >
-        {format(new Date(day.date), 'dd.MM.yyyy')}
+        {formatDate(day.date, 'dd.MM.yyyy')}
       </Text>
       {day.activities.map((slot, index) => (
         <SlotCard
