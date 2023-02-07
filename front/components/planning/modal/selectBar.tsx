@@ -16,11 +16,12 @@ import {
   useLazyGetCategoriesByRegionQuery,
 } from '../../../lib/services/modules/category'
 import { useGetCuisineQuery } from '../../../lib/services/modules/cuisine'
+import { readVoyageFormData } from '../../../lib/utils/readVoyageFormData'
 
 /**
  * Type imports
  */
-import { IStep, ICategoryProps, IElement } from '../../../lib/types'
+import { ICategoryProps, IElement } from '../../../lib/types'
 
 /**
  * Type definitions
@@ -45,10 +46,7 @@ const SelectBar: FC<ISelectBarProps> = ({
     useLazyGetCategoriesByRegionQuery()
 
   // Gets voyage form data from the localStorage
-  const voyageFormData = useMemo(() => {
-    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
-    return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
-  }, [])
+  const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
   /**
    * Gets the categories by region on component load

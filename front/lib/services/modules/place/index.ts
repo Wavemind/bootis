@@ -24,6 +24,9 @@ interface IRestaurantInput {
   region: string
   cuisines: number[]
 }
+interface IAccommodationInput {
+  region: string
+}
 
 export const placeApi = api.injectEndpoints({
   endpoints: build => ({
@@ -89,9 +92,38 @@ export const placeApi = api.injectEndpoints({
               : 'activity',
         })),
     }),
+    getAccommodations: build.query<ISlot[], IAccommodationInput>({
+      query: ({ region }) => ({
+        document: gql`
+          query ($region: String!) {
+            getAccommodations(region: $region) {
+              id
+              name
+              fullAddress
+              pictureUrl
+              pictograms {
+                linkSvg
+                link
+                name
+              }
+              category {
+                section
+              }
+            }
+          }
+        `,
+        variables: { region },
+      }),
+      transformResponse: (response: { getAccommodations: ISlot[] }) =>
+        response.getAccommodations,
+    }),
   }),
   overrideExisting: false,
 })
 
 // Export hooks for usage in functional components
-export const { useLazyGetPlacesQuery, useLazyGetRestaurantsQuery } = placeApi
+export const {
+  useLazyGetPlacesQuery,
+  useLazyGetRestaurantsQuery,
+  useLazyGetAccommodationsQuery,
+} = placeApi

@@ -28,11 +28,13 @@ import {
 } from '../lib/services/modules/category'
 import { useLazyGetPlanningQuery } from '../lib/services/modules/planning'
 import { getCuisine } from '../lib/services/modules/cuisine'
+import { readVoyageFormData } from '../lib/utils/readVoyageFormData'
 
 /**
  * Type imports
  */
-import { IDay, ISlot, IStep, IElement, IPlanning } from '../lib/types'
+import { IDay, ISlot, IElement, IPlanning } from '../lib/types'
+import { isEmpty } from 'lodash'
 
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
@@ -41,7 +43,9 @@ const Planning: FC = () => {
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
-  const { isModalOpen, openModal, closeModal, selectedDay } = useModal()
+  const { isModalOpen, openModal, closeModal, selectedDay, modalType } =
+    useModal()
+
   const {
     isAlertDialogOpen,
     openAlertDialog,
@@ -53,10 +57,7 @@ const Planning: FC = () => {
     useLazyGetPlanningQuery()
 
   // Gets voyage form data from the localStorage
-  const voyageFormData = useMemo(() => {
-    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
-    return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
-  }, [])
+  const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
   /**
    * Regenerates a new plan
@@ -84,6 +85,21 @@ const Planning: FC = () => {
   }, [])
 
   /**
+   * Update the localStorage when the planning data or the accommodation data change
+   */
+  useEffect(() => {
+    if (planningData.length > 0 || !isEmpty(accommodationData)) {
+      localStorage.setItem(
+        'planning',
+        JSON.stringify({
+          accommodation: accommodationData,
+          schedule: planningData,
+        })
+      )
+    }
+  }, [planningData, accommodationData])
+
+  /**
    * If the planning is properly received from the backend,
    * put it in localStorage and set loading to false
    */
@@ -103,7 +119,6 @@ const Planning: FC = () => {
     const planningFromStorage = JSON.parse(
       localStorage.getItem('planning') as string
     )
-
     setAccommodationData(planningFromStorage.accommodation)
     setPlanningData(planningFromStorage.schedule)
     setLoading(false)
@@ -134,6 +149,8 @@ const Planning: FC = () => {
             closeModal,
             selectedDay,
             setPlanningData,
+            setAccommodationData,
+            modalType,
           }}
         >
           <HStack w='full' spacing={8} p={3} alignItems='flex-start'>

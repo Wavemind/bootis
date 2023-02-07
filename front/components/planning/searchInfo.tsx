@@ -18,11 +18,12 @@ import {
  * The internal imports
  */
 import { AlertDialogContext } from '../../lib/contexts'
+import { readVoyageFormData } from '../../lib/utils/readVoyageFormData'
 
 /**
  * Type imports
  */
-import { IStep, IElement } from '../../lib/types'
+import { IElement } from '../../lib/types'
 
 /**
  * Type definitions
@@ -38,10 +39,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
   const { openAlertDialog } = useContext(AlertDialogContext)
 
   // Gets voyage form data from the localStorage
-  const voyageFormData = useMemo(() => {
-    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
-    return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
-  }, [])
+  const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
   /**
    * Opens the alert dialog to confirm return to the voyage form

@@ -6,12 +6,7 @@ import { createContext } from 'react'
 /**
  * Type imports
  */
-import { IStep } from '../types'
-
-/**
- * Type imports
- */
-import { IDay, IModal, IAlertDialog } from '../types'
+import { ISlot, IStep, IDay, IModal, IAlertDialog } from '../types'
 
 /**
  * Type definitions
@@ -30,6 +25,8 @@ interface IModalContext {
   closeModal: () => void
   selectedDay: IDay
   setPlanningData: React.Dispatch<React.SetStateAction<IDay[]>>
+  setAccommodationData: React.Dispatch<React.SetStateAction<ISlot>>
+  modalType: string
 }
 
 interface IAlertDialogContext {

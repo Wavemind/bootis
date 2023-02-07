@@ -9,14 +9,16 @@ import { IModal, IDay } from '../types'
 export default () => {
   const [isModalOpen, setIsOpen] = useState(false)
   const [selectedDay, setSelectedDay] = useState({} as IDay)
+  const [modalType, setModalType] = useState('')
 
   /**
    * Sets the modal content to the incoming JSX component and opens the modal
    * @param {*} content JSX component
    */
-  const openModal = ({ day = {} as IDay }: IModal) => {
+  const openModal = ({ type = '', day = {} as IDay }: IModal) => {
     setIsOpen(true)
     setSelectedDay(day)
+    setModalType(type)
   }
 
   /**
@@ -25,6 +27,7 @@ export default () => {
   const closeModal = () => {
     setIsOpen(false)
     setSelectedDay({} as IDay)
+    setModalType('')
   }
 
   return {
@@ -33,5 +36,6 @@ export default () => {
     closeModal,
     selectedDay,
     setSelectedDay,
+    modalType,
   }
 }

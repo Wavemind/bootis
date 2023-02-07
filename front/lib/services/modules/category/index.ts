@@ -74,6 +74,7 @@ export const {
   useLazyGetCategoriesByRegionQuery,
   useGetActivityCategoriesQuery,
   useGetAccommodationCategoriesQuery,
+  useLazyGetAccommodationCategoriesQuery,
 } = categoriesApi
 
 export const { getActivityCategories, getAccommodationCategories } =
