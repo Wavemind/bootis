@@ -24,6 +24,9 @@ import { AlertDialogContext } from '../../lib/contexts'
  */
 import { IStep, IElement } from '../../lib/types'
 
+/**
+ * Type definitions
+ */
 export interface ISearchInfoProps {
   handleRegenerate: () => void
 }

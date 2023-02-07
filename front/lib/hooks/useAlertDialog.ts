@@ -23,7 +23,7 @@ export default () => {
     title,
     content,
     action,
-    confirmColor = 'red',
+    confirmColor,
     confirmLabel,
   }: IAlertDialog) => {
     setIsOpen(true)

@@ -24,11 +24,11 @@ import { ISlot, IStep } from '../../lib/types'
 /**
  * Type definitions
  */
-interface IAccommodationBarProps {
+interface IAccommodationInfoProps {
   data: ISlot
 }
 
-const AccommodationBar: FC<IAccommodationBarProps> = ({ data }) => {
+const AccommodationInfo: FC<IAccommodationInfoProps> = ({ data }) => {
   const { t } = useTranslation('planning')
 
   /**
@@ -80,4 +80,4 @@ const AccommodationBar: FC<IAccommodationBarProps> = ({ data }) => {
   )
 }
 
-export default AccommodationBar
+export default AccommodationInfo
