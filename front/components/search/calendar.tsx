@@ -59,7 +59,7 @@ const Calendar: FC<ICalendarProps> = ({
     <Popover placement='bottom' isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box onClick={onToggle} role='button' tabIndex={0} cursor='pointer'>
-          {formatDate(date as Date, 'dd.MM.yyyy')}
+          {formatDate(date as Date)}
         </Box>
       </PopoverTrigger>
 

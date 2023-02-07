@@ -72,7 +72,7 @@ const DatePicker: FC<IDatePickerProps> = ({ name, label }) => {
                   cursor='pointer'
                   _hover={{ borderColor: 'salmon' }}
                   isReadOnly
-                  value={formatDate(value, 'dd.MM.yyyy')}
+                  value={formatDate(value)}
                   onChange={date => {
                     onChange(date)
                     onClose()

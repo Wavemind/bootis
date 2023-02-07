@@ -35,7 +35,7 @@ const SelectedDay: FC = () => {
         }}
       >
         <Text fontSize='xl' fontFamily='Noir Pro Medium, sans-serif'>
-          {selectedDay.date && formatDate(selectedDay.date, 'dd.MM.yyyy')}
+          {selectedDay.date && formatDate(selectedDay.date)}
         </Text>
         {selectedDay.activities?.map(slot => (
           <SlotCard key={slot.name} slot={slot} isReduced />

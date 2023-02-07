@@ -80,7 +80,7 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
         fontSize='xl'
         fontFamily='Noir Pro Medium, sans-serif'
       >
-        {formatDate(day.date, 'dd.MM.yyyy')}
+        {formatDate(day.date)}
       </Text>
       {day.activities.map((slot, index) => (
         <SlotCard

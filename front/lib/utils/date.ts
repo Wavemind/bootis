@@ -9,7 +9,10 @@ import fr from 'date-fns/locale/fr'
  * @param date date or string
  * @returns string
  */
-export const formatDate = (date: Date | string, formatString: string) => {
+export const formatDate = (
+  date: Date | string,
+  formatString = 'dd.MM.yyyy'
+) => {
   if (date instanceof Date) {
     return format(date, formatString, { locale: fr })
   }
