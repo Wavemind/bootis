@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { FC, useMemo, useContext, useEffect } from 'react'
+import { FC, useMemo, useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import {
@@ -18,7 +18,6 @@ import {
  * The internal imports
  */
 import { AlertDialogContext } from '../../lib/contexts'
-import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 
 /**
  * Type imports
@@ -26,28 +25,14 @@ import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 import { IStep, IElement } from '../../lib/types'
 
 export interface ISearchInfoProps {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  handleRegenerate: () => void
 }
 
-const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
+const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
   const { t } = useTranslation('planning')
   const router = useRouter()
 
   const { openAlertDialog } = useContext(AlertDialogContext)
-
-  const [getPlanning, { data = {}, isFetching, isSuccess }] =
-    useLazyGetPlanningQuery()
-
-  /**
-   * If the planning is properly received from the backend,
-   * put it in localStorage and set loading to false
-   */
-  useEffect(() => {
-    if (!isFetching && isSuccess) {
-      localStorage.setItem('planning', JSON.stringify(data))
-      setLoading(false)
-    }
-  }, [isSuccess, isFetching])
 
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => {
@@ -71,31 +56,6 @@ const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
     })
   }
 
-  /**
-   * Regenerates a new plan
-   */
-  const handleRegenerate = () => {
-    openAlertDialog({
-      title: t('restartDialogTitle'),
-      content: t('restartDialogContent'),
-      action: () => {
-        localStorage.removeItem('planning')
-        setLoading(true)
-        getPlanning({
-          startDate: voyageFormData.startDate,
-          endDate: voyageFormData.endDate,
-          region: voyageFormData.destination?.name || '',
-          categories:
-            voyageFormData.activities?.map(
-              (activity: IElement) => activity.id
-            ) || [],
-        })
-      },
-      confirmColor: 'teal',
-      confirmLabel: t('yes'),
-    })
-  }
-
   return (
     <Flex
       flexDir='column'
@@ -106,7 +66,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
       p={4}
     >
       <SimpleGrid columns={3} flex={1}>
-        <VStack alignItems='flex-start'>
+        <VStack alignItems='flex-start' px={2}>
           <Text>{t('regionSelection')}</Text>
           <HStack>
             <Box bg='black' borderRadius='full' py={1} px={4} w='fit-content'>
@@ -114,9 +74,9 @@ const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
             </Box>
           </HStack>
         </VStack>
-        <VStack alignItems='flex-start'>
+        <VStack alignItems='flex-start' px={2}>
           <Text>{t('activitySelection')}</Text>
-          <HStack>
+          <Flex wrap='wrap' rowGap={2} gap={2}>
             {voyageFormData.activities.map((activity: IElement) => (
               <Box
                 key={`activity_${activity.id}`}
@@ -129,11 +89,11 @@ const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
                 <Text color='white'>{activity.name}</Text>
               </Box>
             ))}
-          </HStack>
+          </Flex>
         </VStack>
-        <VStack alignItems='flex-start'>
+        <VStack alignItems='flex-start' px={2}>
           <Text>{t('restaurantSelection')}</Text>
-          <HStack>
+          <Flex wrap='wrap' rowGap={2} gap={2}>
             {voyageFormData.cuisines.map((cuisine: IElement) => (
               <Box
                 key={`cuisine_${cuisine.id}`}
@@ -146,7 +106,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ setLoading }) => {
                 <Text color='white'>{cuisine.name}</Text>
               </Box>
             ))}
-          </HStack>
+          </Flex>
         </VStack>
       </SimpleGrid>
       <HStack spacing={12} justifyContent='flex-end'>

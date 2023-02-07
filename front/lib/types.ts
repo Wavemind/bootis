@@ -89,3 +89,8 @@ export interface IAlertDialog {
   confirmColor: string
   confirmLabel: string
 }
+
+export interface IPlanning {
+  accommodation: ISlot
+  schedule: IDay[]
+}
