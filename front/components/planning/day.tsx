@@ -41,14 +41,14 @@ const PlanningDay: FC<IDayProps> = ({ day, dayIndex, setPlanningData }) => {
     // To "copy" day
     const selectedDay = JSON.parse(JSON.stringify(day))
     selectedDay.activities[index].selected = true
-    openModal({ day: selectedDay })
+    openModal({ type: 'place', day: selectedDay })
   }
 
   /**
    * Opens the modal to select additional activity
    */
   const handleAdd = () => {
-    openModal({ day })
+    openModal({ type: 'place', day })
   }
 
   /**

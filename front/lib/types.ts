@@ -64,6 +64,7 @@ export interface ICategoryProps {
 }
 
 export interface IModal {
+  type?: string
   day?: IDay
 }
 

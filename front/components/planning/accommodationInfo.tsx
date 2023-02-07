@@ -1,7 +1,7 @@
 /**
  * The external imports
  */
-import { FC, useMemo } from 'react'
+import { FC, useMemo, useContext } from 'react'
 import {
   HStack,
   Icon,
@@ -15,10 +15,16 @@ import { MdOutlineLocationOn } from 'react-icons/md'
 import { useTranslation } from 'next-i18next'
 
 /**
+ * The internal imports
+ */
+import { ModalContext } from '../../lib/contexts'
+import { formatDate } from '../../lib/utils/date'
+import { readVoyageFormData } from '../../lib/utils/readVoyageFormData'
+
+/**
  * Type imports
  */
-import { ISlot, IStep } from '../../lib/types'
-import { formatDate } from '../../lib/utils/date'
+import { ISlot } from '../../lib/types'
 
 /**
  * Type definitions
@@ -30,18 +36,17 @@ interface IAccommodationInfoProps {
 const AccommodationInfo: FC<IAccommodationInfoProps> = ({ data }) => {
   const { t } = useTranslation('planning')
 
+  const { openModal } = useContext(ModalContext)
+
   /**
    * Handle edit action for the accommodation
    */
   const handleReplace = () => {
-    console.log('TODO : Edit the hotel')
+    openModal({ type: 'accommodation' })
   }
 
   // Gets voyage form data from the localStorage
-  const voyageFormData = useMemo(() => {
-    const stepsData = JSON.parse(localStorage.getItem('steps') as string)
-    return stepsData.find((step: IStep) => step.key === 'voyageForm').formValues
-  }, [])
+  const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
   return (
     <Box borderRadius='lg' boxShadow='lg' w='25%' p={4}>
