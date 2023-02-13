@@ -34,6 +34,8 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { pageProps } = props
 
+  // Initialize Hotjar
+  // TODO : Don't forget the env variables for hotjar
   useEffect(() => {
     hotjar.initialize(
       Number(process.env.NEXT_PUBLIC_HOTJAR_ID),
