@@ -18,7 +18,6 @@ const Link: FC<LinkProps> = ({ children, href, ...rest }) => (
   <ChakraLink
     as={NextLink}
     href={href}
-    // J'ai pas reussi autrement :(
     style={{ textDecoration: 'none' }}
     {...rest}
   >

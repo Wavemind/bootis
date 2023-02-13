@@ -45,10 +45,9 @@ const Home = () => {
   /**
    * Opens the information modal
    */
+  // TODO : Check if we make this conditional on localStorage or SessionStorage
   useEffect(() => {
-    if (localStorage.getItem('search') === null) {
-      onOpen()
-    }
+    onOpen()
   }, [])
 
   return (
