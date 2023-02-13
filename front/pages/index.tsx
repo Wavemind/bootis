@@ -18,6 +18,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation, Trans } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -35,7 +36,6 @@ import { AppDispatch, wrapper } from '../lib/store'
 import { api } from '../lib/services/api'
 import { getRegions } from '../lib/services/modules/region'
 import { getActivityCategories } from '../lib/services/modules/category'
-import { useEffect } from 'react'
 
 const Home = () => {
   const { t } = useTranslation('home')
