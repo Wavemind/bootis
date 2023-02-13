@@ -48,6 +48,7 @@ export default <ICharacteristicMap>{
   ],
   cane: [
     'maxSlope',
+    'stepHeight',
     'handrail',
     'wcFixedHandrail',
     'wcFoldableHandrail',
