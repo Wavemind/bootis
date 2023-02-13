@@ -9,7 +9,16 @@ import {
   Box,
   VStack,
   Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  Button,
+  useDisclosure,
 } from '@chakra-ui/react'
+import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation, Trans } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -20,6 +29,8 @@ import Image from 'next/image'
  */
 import { Page, Link, Search } from '../components'
 import LogoFullWhite from '../public/logo-full-white.svg'
+import LogoFullBlack from '../public/logo-full-black.svg'
+import FooterImage from '../public/home-modal-footer.svg'
 import WheelchairMale from '../public/wheelchair_male.svg'
 import { AppDispatch, wrapper } from '../lib/store'
 import { api } from '../lib/services/api'
@@ -28,6 +39,15 @@ import { getActivityCategories } from '../lib/services/modules/category'
 
 const Home = () => {
   const { t } = useTranslation('home')
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  /**
+   * Opens the information modal
+   */
+  useEffect(() => {
+    onOpen()
+  }, [])
 
   return (
     <Page
@@ -142,6 +162,43 @@ const Home = () => {
           </VStack>
         </GridItem>
       </Grid>
+      <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <HStack alignItems='baseline' spacing={4} justifyContent='center'>
+              <Text
+                fontFamily='Noir Pro Medium, sans-serif'
+                fontWeight='light'
+                fontSize='xl'
+              >
+                {t('modal.welcome')}
+              </Text>
+              <Image src={LogoFullBlack} alt={t('logoAlt')} width={120} />
+            </HStack>
+          </ModalHeader>
+          <ModalBody>
+            <VStack spacing={8}>
+              <Text
+                fontFamily='Arial, sans-serif'
+                textAlign='center'
+                fontSize='md'
+              >
+                {t('modal.body')}
+              </Text>
+              <Button variant='primary' size='sm' onClick={onClose}>
+                {t('modal.continue')}
+              </Button>
+            </VStack>
+          </ModalBody>
+
+          <ModalFooter px={0} pb={0}>
+            <Box borderRadius='lg' overflow='hidden'>
+              <Image src={FooterImage} alt={t('logoAlt')} />
+            </Box>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Page>
   )
 }
