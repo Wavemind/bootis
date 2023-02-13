@@ -1,6 +1,7 @@
 /**
  * The external imports
  */
+import { useEffect } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Provider } from 'react-redux'
 import { appWithTranslation } from 'next-i18next'
@@ -8,6 +9,7 @@ import { DefaultSeo } from 'next-seo'
 import type { ReactElement, ReactNode } from 'react'
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
+import { hotjar } from 'react-hotjar'
 
 /**
  * The internal imports
@@ -31,6 +33,13 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { pageProps } = props
+
+  useEffect(() => {
+    hotjar.initialize(
+      Number(process.env.NEXT_PUBLIC_HOTJAR_ID),
+      Number(process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION)
+    )
+  }, [])
 
   const getLayout = Component.getLayout || (page => <Layout>{page}</Layout>)
 
