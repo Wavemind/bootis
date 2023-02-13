@@ -46,7 +46,9 @@ const Home = () => {
    * Opens the information modal
    */
   useEffect(() => {
-    onOpen()
+    if (localStorage.getItem('search') === null) {
+      onOpen()
+    }
   }, [])
 
   return (

@@ -2,6 +2,8 @@
   "title": "Accueil",
   "description": "L'application de voyage pour les personnes a mobilité réduite",
   "logo": "Logo",
+  "opinion": "Votre avis ?",
+  "supportUs": "Soutenez-nous",
   "regions": {
     "zurich": "Région zurichoise",
     "berne": "Région Berne",
