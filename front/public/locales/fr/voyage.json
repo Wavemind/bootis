@@ -12,7 +12,7 @@
   "return": "Date de retour ?",
   "activities": {
     "label": "Choix du type d'activité",
-    "subLabel": "Vous pouvez choisir une région ou laisser le champ vide. Celle-ci est liée à sa disponibilité dans la région de ton choix."
+    "subLabel": "Vous pouvez choisir une activité ou laisser le champ vide. Celle-ci est liée à sa disponibilité dans la région de ton choix."
   },
   "cuisines": {
     "label": "Choix du type de restaurant ?",
