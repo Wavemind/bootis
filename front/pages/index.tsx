@@ -45,6 +45,7 @@ const Home = () => {
   /**
    * Opens the information modal
    */
+  // TODO : Check if we make this conditional on localStorage or SessionStorage
   useEffect(() => {
     onOpen()
   }, [])

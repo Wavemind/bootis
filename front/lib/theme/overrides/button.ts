@@ -16,6 +16,7 @@ export default {
           px: 4,
           fontSize: 'sm',
           fontWeight: 'light',
+          lineHeight: 0,
         },
         md: {
           py: 6,

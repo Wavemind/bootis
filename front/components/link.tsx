@@ -15,7 +15,12 @@ interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
 }
 
 const Link: FC<LinkProps> = ({ children, href, ...rest }) => (
-  <ChakraLink as={NextLink} href={href} {...rest}>
+  <ChakraLink
+    as={NextLink}
+    href={href}
+    style={{ textDecoration: 'none' }}
+    {...rest}
+  >
     {children}
   </ChakraLink>
 )
