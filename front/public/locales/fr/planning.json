@@ -27,5 +27,11 @@
   "restartDialogContent": "Cliquez sur 'Oui' pour retourner au formulaire ou 'Annuler' pour rester sur la page",
   "regenerateDialogTitle": "Etes vous sur de vouloir regénérer un planning ?",
   "regenerateDialogContent": "Cliquez sur 'Oui' pour générer un nouveau planning ou 'Annuler' pour rester sur la page",
-  "yes": "Oui"
+  "yes": "Oui",
+  "opinion": {
+    "title": "Votre avis compte pour nous",
+    "body": "Est-ce que vous avez quelques minutes pour nous aider a améliorer notre plateforme ?",
+    "no": "Malheureusement pas",
+    "yes": "Avec plaisir"
+  }
 }
