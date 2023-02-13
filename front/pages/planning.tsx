@@ -1,11 +1,25 @@
 /**
  * The external imports
  */
-import { FC, useCallback, useEffect, useState, useMemo } from 'react'
+import { FC, useCallback, useEffect, useState, useMemo, useRef } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { HStack, Flex, StackDivider, Center, Spinner } from '@chakra-ui/react'
+import {
+  HStack,
+  Flex,
+  StackDivider,
+  Center,
+  Spinner,
+  Button,
+  AlertDialog as ChakraAlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  useDisclosure,
+} from '@chakra-ui/react'
 
 /**
  * The internal imports
@@ -17,6 +31,7 @@ import {
   AlertDialog,
   AccommodationInfo,
   SearchInfo,
+  Link,
 } from '../components'
 import { useAlertDialog, useModal } from '../lib/hooks'
 import { AlertDialogContext, ModalContext } from '../lib/contexts'
@@ -39,12 +54,16 @@ import { isEmpty } from 'lodash'
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const [loading, setLoading] = useState(true)
   const [planningData, setPlanningData] = useState<IDay[]>([] as IDay[])
   const [accommodationData, setAccommodationData] = useState<ISlot>({} as ISlot)
 
   const { isModalOpen, openModal, closeModal, selectedDay, modalType } =
     useModal()
+
+  const cancelRef = useRef(null)
 
   const {
     isAlertDialogOpen,
@@ -124,6 +143,16 @@ const Planning: FC = () => {
     setLoading(false)
   }, [])
 
+  /**
+   * Opens the survey dialog after 60 seconds of being on the page
+   */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onOpen()
+    }, 60000)
+    return () => clearTimeout(timer)
+  }, [])
+
   if (loading) {
     return (
       <Center h='full'>
@@ -132,6 +161,7 @@ const Planning: FC = () => {
     )
   }
 
+  // TODO : Get the link for the Votre Avis form
   return (
     <Page title={t('title')} description={t('description')}>
       <AlertDialogContext.Provider
@@ -190,6 +220,39 @@ const Planning: FC = () => {
           <AlertDialog />
         </ModalContext.Provider>
       </AlertDialogContext.Provider>
+      <ChakraAlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        size='lg'
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader
+              fontSize='lg'
+              fontWeight='bold'
+              textAlign='center'
+            >
+              {t('opinion.title')}
+            </AlertDialogHeader>
+
+            <AlertDialogBody textAlign='center'>
+              {t('opinion.body')}
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} variant='ghost' onClick={onClose}>
+                {t('opinion.no')}
+              </Button>
+              <Link href='#' target='_blank'>
+                <Button variant='teal' onClick={onClose} ml={3}>
+                  {t('opinion.yes')}
+                </Button>
+              </Link>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </ChakraAlertDialog>
     </Page>
   )
 }
