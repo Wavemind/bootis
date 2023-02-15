@@ -3,7 +3,7 @@
  */
 import { FC, useContext, useMemo } from 'react'
 import { Grid, GridItem, Text, Center, VStack, Button } from '@chakra-ui/react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { useTranslation } from 'next-i18next'
 import findIndex from 'lodash/findIndex'
 
@@ -112,7 +112,7 @@ const Characteristic: FC = () => {
         <GridItem>
           <Center>
             <Image
-              src={activeStep.imageSrc as string}
+              src={activeStep.imageSrc as StaticImageData}
               alt={t('logoAlt')}
               height={30}
               width={250}
