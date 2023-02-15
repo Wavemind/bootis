@@ -129,96 +129,42 @@ const Voyage: FC = () => {
     newSteps[currentStep].formValues = data
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
-    // if (steps[0].answer !== 'cane') {
-    //   newSteps.push({
-    //     key: 'bedHeight',
-    //     type: 'characteristic',
-    //     answers: [
-    //       {
-    //         id: 1,
-    //         label: t('until', { value: '6%' }),
-    //         children: [],
-    //         excludes: [],
-    //       },
-    //       {
-    //         id: 2,
-    //         label: t('until', { value: '12%' }),
-    //         children: [],
-    //         excludes: [],
-    //       },
-    //       {
-    //         id: 3,
-    //         label: t('above', { value: '12%' }),
-    //         children: [],
-    //         excludes: [],
-    //       },
-    //       { id: 4, label: t('unknown'), children: [], excludes: [] },
-    //     ],
-    //     answer: {
-    //       id: 4,
-    //       label: t('unknown'),
-    //       value: 10,
-    //       children: [],
-    //       excludes: [],
-    //     },
-    //   })
-    //   newSteps.push({
-    //     key: 'wcSeatHeight',
-    //     type: 'characteristic',
-    //     answers: [
-    //       {
-    //         id: 1,
-    //         label: t('until', { value: '6%' }),
-    //         children: [],
-    //         excludes: [],
-    //       },
-    //       {
-    //         id: 2,
-    //         label: t('until', { value: '12%' }),
-    //         children: [],
-    //         excludes: [],
-    //       },
-    //       {
-    //         id: 3,
-    //         label: t('above', { value: '12%' }),
-    //         children: [],
-    //         excludes: [],
-    //       },
-    //       { id: 4, label: t('unknown'), children: [], excludes: [] },
-    //     ],
-    //     answer: {
-    //       id: 4,
-    //       label: t('unknown'),
-    //       value: 10,
-    //       children: [],
-    //       excludes: [],
-    //     },
-    //   })
-    // }
+
+    const characteristics = newSteps
+      .filter(
+        step =>
+          step.type === 'characteristic' &&
+          ((typeof step.answer === 'boolean' && step.answer) ||
+            typeof step.answer === 'number')
+      )
+      .map(step => {
+        if (
+          typeof step.answer === 'number' ||
+          typeof step.answer === 'boolean'
+        ) {
+          return {
+            answer: step.answer,
+            key: step.key,
+          }
+        }
+        return { key: step.key }
+      })
+
+    const situation = newSteps[0].answer
+
+    if (['wheelchair', 'electricWheelchair'].includes(situation as string)) {
+      characteristics.push({ key: 'maxBedHeight', answer: 52 })
+      characteristics.push({ key: 'minBedHeight', answer: 43 })
+      characteristics.push({ key: 'maxWcSeatHeight', answer: 48 })
+      characteristics.push({ key: 'minWcSeatHeight', answer: 44 })
+    }
+
     getPlanning({
       startDate: data.startDate.toISOString(),
       endDate: data.endDate.toISOString(),
       region: data.destination?.name || '',
       categories: data.activities?.map(activity => activity.id) || [],
-      characteristics: newSteps
-        .filter(
-          step =>
-            step.type === 'characteristic' &&
-            ((typeof step.answer === 'boolean' && step.answer) ||
-              typeof step.answer === 'number')
-        )
-        .map(step => {
-          if (
-            typeof step.answer === 'number' ||
-            typeof step.answer === 'boolean'
-          ) {
-            return {
-              answer: step.answer,
-              key: step.key,
-            }
-          }
-          return { key: step.key }
-        }),
+      characteristics,
     })
   }
 

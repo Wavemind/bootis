@@ -79,13 +79,18 @@ const Characteristic: FC = () => {
   }
 
   return (
-    <VStack justifyContent='space-between' alignItems='flex-start' h='full'>
+    <VStack
+      justifyContent='space-between'
+      alignItems='flex-start'
+      h='full'
+      key={`answer_${activeStep.key}`}
+    >
       <Grid templateColumns='repeat(3, 1fr)' gap={10} mt={10} w='full'>
         <GridItem colSpan={2} pr={10}>
           <VStack alignItems='flex-start'>
             {activeStep.answers?.map(answer => (
               <Button
-                key={`answer_${answer.value}`}
+                key={`answer_${activeStep.key}_${answer.value}`}
                 //  variant={activeStep.answer === answer.value ? 'salmon' : 'primary'}
                 variant={'primary'}
                 w='full'

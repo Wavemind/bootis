@@ -20,8 +20,8 @@ interface IPlanningInput {
   startDate: string
   endDate: string
   region: string
-  categories: number[]
   characteristics: ICharacteristicInput[]
+  categories: number[]
 }
 
 interface ICharacteristicInput {
@@ -32,7 +32,7 @@ interface ICharacteristicInput {
 export const planningApi = api.injectEndpoints({
   endpoints: build => ({
     getPlanning: build.query<IPlanning, IPlanningInput>({
-      query: ({ startDate, endDate, region, categories, characteristics }) => ({
+      query: ({ startDate, endDate, region, categories }) => ({
         document: gql`
           {
             getPlanning(
@@ -40,7 +40,6 @@ export const planningApi = api.injectEndpoints({
               startDate: $startDate
               endDate: $endDate
               categories: $categories
-              characteristics: $characteristics
             ) {
               accommodation {
                 id
@@ -62,7 +61,7 @@ export const planningApi = api.injectEndpoints({
             }
           }
         `,
-        variables: { startDate, endDate, region, categories, characteristics },
+        variables: { startDate, endDate, region, categories },
       }),
       transformResponse: (response: { getPlanning: IPlanning }) => ({
         accommodation: response.getPlanning.accommodation,
