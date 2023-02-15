@@ -36,6 +36,7 @@ gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth', branch: 'm
 gem "graphql", "~> 2.0"
 gem "graphiql-rails", "~> 1.8"
 gem "geocoder"
+gem 'prawn'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -58,3 +59,5 @@ end
 
 
 gem "byebug", "~> 11.1", :groups => [:development, :test]
+
+gem "matrix", "~> 0.4.2"

@@ -37,7 +37,7 @@ puts "-- Create characteristics ..."
 slope = Characteristic.create!(value_type: 'more', label: 'Pente Max')
 width = Characteristic.create!(value_type: 'less', label: 'Largeurs des passages')
 door_step_height = Characteristic.create!(value_type: 'more', label: 'Hauteur Seuil')
-table_height = Characteristic.create!(value_type: 'more', label: 'Hauteur Max table')
+table_height = Characteristic.create!(value_type: 'less', label: 'Hauteur Max table')
 hand_height = Characteristic.create!(value_type: 'more', label: 'Hauteur maximum atteignable avec la main')
 handrail = Characteristic.create!(value_type: 'equal', label: 'Besoin d’une main courante')
 bed_height = Characteristic.create!(value_type: 'more', label: 'Hauteur du lit')

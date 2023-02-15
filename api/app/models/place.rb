@@ -27,7 +27,7 @@ class Place < ActiveRecord::Base
     Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
   end
 
-  # Will retrive `limit` amout of activities based on the categories and the region we are looking in
+  # Will retrieve `limit` amount of activities based on the categories and the region we are looking in
   def self.match_activities(region, categories, limit, accommodation, excluding = [])
     first = Place.get_activities(excluding, region, categories).sample
     first = Place.get_activities(excluding, region).sample unless first.present?
@@ -43,6 +43,36 @@ class Place < ActiveRecord::Base
     others +=  Place.get_activities(excluding).near(first).distinct(:name).slice(0, limit -  others.count) if others.count < limit - 1
 
     [first, restaurants.first, others, restaurants.second].flatten
+  end
+
+  # Will filter places according to user mobility constraints
+  def self.match_constraints(constraints)
+    matching_places = []
+    user_characteristics = UserCharacteristic.format_characteristics(constraints)
+    self.each do |place|
+      place.place_characteristics.where(characteristic_id: user_characteristics.keys).each do |place_characteristic|
+
+      end
+    end
+  end
+
+  def self.generate_planning
+    excluding = []
+    accommodation = Place.match_accomodation('leman')
+    planning = {
+      accommodation: accommodation,
+      schedule: (Date.today - 5.day..Date.today - 1.day).map do |date|
+        activities = Place.match_activities('leman', Category.all, 3, accommodation, excluding)
+        excluding += activities
+        {
+          date: date,
+          activities: activities
+        }
+      end
+    }
+
+    pdf = PlanningGeneratorPdf.new
+    pdf.generate(planning)
   end
 
   # Creates a request to fetch activities based on region and categories
