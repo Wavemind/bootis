@@ -57,7 +57,7 @@ class PlanningGeneratorPdf
 
   def write_header(planning)
     img = File.open('./app/assets/images/coverpage.png')
-    @pdf.image(img, at: [0, 210.mm])
+    @pdf.image(img, at: [0, 210.mm], width: 297.mm, height: 210.mm)
 
     start_date = planning[:schedule][0][:date].strftime("%d.%m.%Y")
     end_date = planning[:schedule][-1][:date].strftime("%d.%m.%Y")
@@ -89,9 +89,9 @@ class PlanningGeneratorPdf
   def write_activity(activity)
     category = Category.find(activity[:category_id])
     activity = Place.find(activity[:id])
-    image_path = category.restaurant? ? 'restaurant_card.jpg' : 'activity_card.png'
+    image_path = category.restaurant? ? 'restaurant_card.png' : 'activity_card.png'
     img = File.open("./app/assets/images/#{image_path}")
-    @pdf.image(img, at: [@width, @height])
+    @pdf.image(img, at: [@width, @height], width: 50.mm, height: 17.mm)
 
     options = { size: 10, color: GREY_COLOR, character_spacing: 1 }
     @pdf.bounding_box([@width + 3.mm, @height - 8.mm], width: DAY_WIDTH) do
