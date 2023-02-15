@@ -104,7 +104,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
                 px={4}
                 w='fit-content'
               >
-                <Text color='white'>{cuisine.name}</Text>
+                <Text color='white'>{cuisine.label}</Text>
               </Box>
             ))}
           </Flex>

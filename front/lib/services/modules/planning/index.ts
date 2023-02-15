@@ -34,7 +34,13 @@ export const planningApi = api.injectEndpoints({
     getPlanning: build.query<IPlanning, IPlanningInput>({
       query: ({ startDate, endDate, region, characteristics, categories }) => ({
         document: gql`
-          {
+          query (
+            $region: String!
+            $startDate: String!
+            $endDate: String!
+            $categories: [ID!]
+            $characteristics: [CharacteristicInput!]!
+          ) {
             getPlanning(
               region: $region
               startDate: $startDate
