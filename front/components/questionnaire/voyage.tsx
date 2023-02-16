@@ -36,7 +36,13 @@ import { useLazyGetPlanningQuery } from '../../lib/services/modules/planning'
 /**
  * Type imports
  */
-import { IEnumOption, IFormValues, IStep } from '../../lib/types'
+import {
+  IEnumOption,
+  IFormValues,
+  IStep,
+  TDefaultValues,
+} from '../../lib/types'
+import convertCharacteristics from '../../lib/utils/convertCharacteristics'
 
 const Voyage: FC = () => {
   const { t } = useTranslation('voyage')
@@ -129,11 +135,18 @@ const Voyage: FC = () => {
     newSteps[currentStep].formValues = data
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
+
+    const situation = newSteps[0].answer
+
     getPlanning({
       startDate: data.startDate.toISOString(),
       endDate: data.endDate.toISOString(),
       region: data.destination?.name || '',
       categories: data.activities?.map(activity => activity.id) || [],
+      characteristics: convertCharacteristics(
+        newSteps,
+        situation as TDefaultValues
+      ),
     })
   }
 

@@ -6,8 +6,9 @@ module Queries
     argument :categories, [ID], required: false
     argument :start_date, GraphQL::Types::String
     argument :end_date, GraphQL::Types::String
+    argument :characteristics, [Types::Input::CharacteristicInputType]
 
-    def resolve(start_date:, end_date:, region:, categories: Category.all)
+    def resolve(start_date:, end_date:, region:, characteristics:, categories: Category.all)
       excluding = []
       accommodation = Place.match_accomodation(region)
       {

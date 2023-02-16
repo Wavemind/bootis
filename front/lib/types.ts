@@ -23,11 +23,25 @@ export interface IFormValues {
   cuisines: IElement[]
 }
 
+export type TDefaultValues =
+  | 'wheelchair'
+  | 'electricWheelchair'
+  | 'scooter'
+  | 'cane'
+
 export interface IAnswer {
   id: number
   label: string
   children: string[]
   excludes: string[]
+  values?: {
+    wheelchair: number
+    electricWheelchair: number
+    scooter: number
+    cane: number
+  }
+  value?: number | boolean | string
+  unknown?: boolean
 }
 
 export interface IStep {
@@ -36,8 +50,13 @@ export interface IStep {
   type?: string
   imageSrc?: StaticImageData
   answers?: IAnswer[]
-  answer?: IAnswer
+  answer?: boolean | number | string
   formValues?: IFormValues
+}
+
+export interface ICharacteristicInput {
+  answer?: number | boolean
+  key: string
 }
 
 export interface ICharacteristics {
