@@ -59,6 +59,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 7,
             electricWheelchair: 14,
@@ -101,6 +102,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 137,
             electricWheelchair: 137,
@@ -140,6 +142,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 76,
             electricWheelchair: 76,
@@ -182,6 +185,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 3.5,
             electricWheelchair: 6,
@@ -217,6 +221,7 @@ export default (t: TFunction) =>
           id: 3,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 68,
             electricWheelchair: 68,
@@ -252,6 +257,7 @@ export default (t: TFunction) =>
           id: 3,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 123,
             electricWheelchair: 123,
@@ -316,6 +322,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 130,
             electricWheelchair: 130,
@@ -358,6 +365,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 83,
             electricWheelchair: 83,
@@ -400,6 +408,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: 107,
             electricWheelchair: 107,
@@ -508,6 +517,7 @@ export default (t: TFunction) =>
           id: 4,
           unknown: true,
           label: t('unknown'),
+          value: 'unknown',
           values: {
             wheelchair: null,
             electricWheelchair: null,

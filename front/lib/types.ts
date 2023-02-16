@@ -54,6 +54,11 @@ export interface IStep {
   formValues?: IFormValues
 }
 
+export interface ICharacteristicInput {
+  answer?: number | boolean
+  key: string
+}
+
 export interface ICharacteristics {
   [key: string]: IStep
 }

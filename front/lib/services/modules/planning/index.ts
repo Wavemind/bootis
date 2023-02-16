@@ -11,7 +11,7 @@ import { api } from '../../api'
 /**
  * Type imports
  */
-import { ISlot, IDay, IPlanning } from '../../../types'
+import { ISlot, IDay, IPlanning, ICharacteristicInput } from '../../../types'
 
 /**
  * Type definitions
@@ -22,11 +22,6 @@ interface IPlanningInput {
   region: string
   characteristics: ICharacteristicInput[]
   categories: number[]
-}
-
-interface ICharacteristicInput {
-  answer?: number | boolean
-  key: string
 }
 
 export const planningApi = api.injectEndpoints({

@@ -16,12 +16,7 @@ import getCharacteristics from '../../lib/config/characteristics'
 /**
  * Type imports
  */
-import {
-  IAnswer,
-  ICharacteristics,
-  IStep,
-  TDefaultValues,
-} from '../../lib/types'
+import { IAnswer, ICharacteristics, IStep } from '../../lib/types'
 
 const Characteristic: FC = () => {
   const { t } = useTranslation('questionnaire')
@@ -40,15 +35,7 @@ const Characteristic: FC = () => {
     const newSteps = [...steps]
     const voyageStep = newSteps.pop()
 
-    if (answer.unknown) {
-      const situation = newSteps[0].answer
-      if (answer.values && situation) {
-        newSteps[currentStep].answer =
-          answer.values[situation as TDefaultValues]
-      }
-    } else {
-      newSteps[currentStep].answer = answer.value
-    }
+    newSteps[currentStep].answer = answer.value
 
     // Remove characteristics
     answer.excludes.forEach(keyStep => {
@@ -91,8 +78,9 @@ const Characteristic: FC = () => {
             {activeStep.answers?.map(answer => (
               <Button
                 key={`answer_${activeStep.key}_${answer.value}`}
-                //  variant={activeStep.answer === answer.value ? 'salmon' : 'primary'}
-                variant={'primary'}
+                variant={
+                  activeStep.answer === answer.value ? 'salmon' : 'primary'
+                }
                 w='full'
                 onClick={() => handleClick(answer)}
               >
