@@ -13,20 +13,12 @@ class PlanningGeneratorPdf
 
   def initialize
     @pdf = Prawn::Document.new(page_size: 'A4', page_layout: :landscape, margin: [0,0,0,0])
-    # @pdf.font_families.update('BarlowLight' => {
-    #                             normal: Rails.root.join('app/assets/fonts/Barlow-Light.ttf')
-    #                           })
-    #
-    # @pdf.font_families.update('Barlow' => {
-    #                             normal: Rails.root.join('app/assets/fonts/Barlow-Regular.ttf'),
-    #                             italic: Rails.root.join('app/assets/fonts/Barlow-Italic.ttf'),
-    #                             bold: Rails.root.join('app/assets/fonts/Barlow-Bold.ttf'),
-    #                             bold_italic: Rails.root.join('app/assets/fonts/Barlow-SemiBold.ttf'),
-    #                             light: Rails.root.join('app/assets/fonts/Barlow-ExtraLight.ttf'),
-    #                             extralight: Rails.root.join('app/assets/fonts/Barlow-ExtraLight.ttf')
-    #                           })
-    #
-    # @pdf.font 'Barlow'
+    @pdf.font_families.update('Arial' => {
+                                normal: Rails.root.join('app/assets/fonts/Arial-Regular.ttf'),
+                                bold: Rails.root.join('app/assets/fonts/Arial-Bold.ttf'),
+                              })
+
+    @pdf.font 'Arial'
   end
 
   def generate(planning)
@@ -62,25 +54,25 @@ class PlanningGeneratorPdf
     start_date = planning[:schedule][0][:date].strftime("%d.%m.%Y")
     end_date = planning[:schedule][-1][:date].strftime("%d.%m.%Y")
 
-    options = { size: 10, color: GREY_COLOR, character_spacing: 1 }
+    options = { size: 14, color: GREY_COLOR, character_spacing: -0.025 }
     @pdf.bounding_box([0, @height - 12.mm], width: 297.mm) do
-      @pdf.text("Voici votre planning du #{start_date} au #{end_date}", options.merge(align: :center, inline_format: true))
+      @pdf.text("Voici votre planning du #{start_date} au #{end_date}", options.merge(align: :center, inline_format: true, style: :bold))
     end
 
     accommodation = Place.find(planning[:accommodation][:id])
-    options = { size: 10, color: GREY_COLOR, character_spacing: 1 }
+    options = { size: 9, color: GREY_COLOR, character_spacing: -0.025 }
     @pdf.bounding_box([48.mm, @height - 27.mm], width: 200.mm) do
-      @pdf.text("#{accommodation.name}    -    <font>#{accommodation.full_address}</font>", options.merge(inline_format: true))
+      @pdf.text("<b>#{accommodation.name}</b>    -    #{accommodation.full_address}", options.merge(inline_format: true))
     end
   end
 
   def write_day(day)
-    options = { size: 10, color: GREY_COLOR, character_spacing: 1 }
+    options = { size: 12, color: GREY_COLOR, character_spacing: -0.025, style: :bold }
     @pdf.bounding_box([@width + 6.mm, @height], width: DAY_WIDTH) do
       @pdf.text(day[:date].strftime("%d.%m.%Y"), options.merge(align: :center, inline_format: true))
     end
 
-    @height -= 10.mm
+    @height -= 8.mm
     day[:activities].each do |activity|
       write_activity(activity)
     end
@@ -91,15 +83,15 @@ class PlanningGeneratorPdf
     activity = Place.find(activity[:id])
     image_path = category.restaurant? ? 'restaurant_card.png' : 'activity_card.png'
     img = File.open("./app/assets/images/#{image_path}")
-    @pdf.image(img, at: [@width, @height], width: 50.mm, height: 17.mm)
+    @pdf.image(img, at: [@width, @height], width: 65.mm, height: 20.mm)
 
-    options = { size: 10, color: GREY_COLOR, character_spacing: 1 }
-    @pdf.bounding_box([@width + 3.mm, @height - 8.mm], width: DAY_WIDTH) do
-      @pdf.text(activity.name.to_s, options.merge(inline_format: true))
+    options = { size: 8, color: GREY_COLOR, character_spacing: -0.025 }
+    @pdf.bounding_box([@width + 2.mm, @height - 8.mm], width: DAY_WIDTH) do
+      @pdf.text(activity.name.to_s, options.merge(inline_format: true, style: :bold))
       @pdf.text(activity.full_address.to_s, options.merge(inline_format: true))
     end
 
-    @height -= 22.mm
+    @height -= 23.mm
   end
 
 
