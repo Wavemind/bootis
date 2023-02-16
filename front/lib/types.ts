@@ -40,7 +40,7 @@ export interface IAnswer {
     scooter: number
     cane: number
   }
-  value?: number | boolean
+  value?: number | boolean | string
   unknown?: boolean
 }
 

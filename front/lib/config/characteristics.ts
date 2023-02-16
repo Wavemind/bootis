@@ -122,19 +122,22 @@ export default (t: TFunction) =>
       answers: [
         {
           id: 1,
-          label: t('at_least', { value: '60 cm' }),
+          label: t('below', { value: '80 cm' }),
+          value: 0,
           children: [],
           excludes: [],
         },
         {
           id: 2,
           label: t('at_least', { value: '80 cm' }),
+          value: 80,
           children: [],
           excludes: [],
         },
         {
           id: 3,
           label: t('at_least', { value: '110 cm' }),
+          value: 110,
           children: [],
           excludes: [],
         },
@@ -538,18 +541,21 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('shower'),
+          value: 'shower',
           children: ['showerFixedHandrail', 'showerFoldableHandrail'],
           excludes: ['bathSeat'],
         },
         {
           id: 2,
           label: t('bath'),
+          value: 'bath',
           children: ['bathSeat'],
           excludes: ['showerFixedHandrail', 'showerFoldableHandrail'],
         },
         {
           id: 3,
           label: t('both'),
+          value: 'both',
           children: [
             'showerFixedHandrail',
             'showerFoldableHandrail',
