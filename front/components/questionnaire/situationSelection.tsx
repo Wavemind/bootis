@@ -45,12 +45,7 @@ const SituationSelection: FC = () => {
       ...filteredCharacteristics,
       { key: 'voyageForm', type: 'voyage' },
     ]
-    newSteps[currentStep].answer = {
-      id: 0,
-      label: situation,
-      children: [],
-      excludes: [],
-    }
+    newSteps[currentStep].answer = situation
     setSteps(newSteps)
     localStorage.setItem('steps', JSON.stringify(newSteps))
     updateCurrentStep(1)

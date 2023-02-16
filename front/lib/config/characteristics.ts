@@ -12,11 +12,9 @@ import passageWidthImage from '../../public/characteristicsImages/passageWidth.p
 import stepHeightImage from '../../public/characteristicsImages/stepHeight.png'
 import tableHeightImage from '../../public/characteristicsImages/tableHeight.png'
 import reachHeightImage from '../../public/characteristicsImages/reachHeight.png'
-import bedHeightImage from '../../public/characteristicsImages/bedHeight.png'
 import bedAdjacentSpaceImage from '../../public/characteristicsImages/bedAdjacentSpace.png'
 import wcAdjacentDistanceImage from '../../public/characteristicsImages/wcAdjacentDistance.png'
 import wcFrontDistanceImage from '../../public/characteristicsImages/wcFrontDistance.png'
-import wcSeatHeightImage from '../../public/characteristicsImages/wcSeatHeight.png'
 import wcFixedHandrailImage from '../../public/characteristicsImages/wcFixedHandrail.png'
 import wcFoldableHandrailImage from '../../public/characteristicsImages/wcFoldableHandrail.png'
 import wcSinkDistanceImage from '../../public/characteristicsImages/wcFoldableHandrail.png'
@@ -38,23 +36,39 @@ export default (t: TFunction) =>
       answers: [
         {
           id: 1,
-          label: t('until', { value: '6%' }),
+          label: t('until', { value: '7%' }),
+          value: 7,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('until', { value: '12%' }),
+          label: t('until', { value: '15%' }),
+          value: 15,
           children: [],
           excludes: [],
         },
         {
           id: 3,
-          label: t('above', { value: '12%' }),
+          label: t('above', { value: '15%' }),
+          value: 100,
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 7,
+            electricWheelchair: 14,
+            scooter: 14,
+            cane: 14,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     passageLength: {
@@ -65,17 +79,39 @@ export default (t: TFunction) =>
       answers: [
         {
           id: 1,
-          label: t('below', { value: '37 cm' }),
+          label: t('below', { value: '120 cm' }),
+          value: 0,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('above', { value: '37 cm' }),
+          label: t('minimum', { value: '120 cm' }),
+          value: 120,
           children: [],
           excludes: [],
         },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 3,
+          label: t('minimum', { value: '137 cm' }),
+          value: 137,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 137,
+            electricWheelchair: 137,
+            scooter: 120,
+            cane: null,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     passageWidth: {
@@ -86,23 +122,39 @@ export default (t: TFunction) =>
       answers: [
         {
           id: 1,
-          label: t('above', { value: '110 cm' }),
+          label: t('below', { value: '80 cm' }),
+          value: 0,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '80 cm', to: '110 cm' }),
+          label: t('at_least', { value: '80 cm' }),
+          value: 80,
           children: [],
           excludes: [],
         },
         {
           id: 3,
-          label: t('below', { value: '80 cm' }),
+          label: t('at_least', { value: '110 cm' }),
+          value: 110,
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 76,
+            electricWheelchair: 76,
+            scooter: 76,
+            cane: null,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     stepHeight: {
@@ -116,20 +168,36 @@ export default (t: TFunction) =>
           label: t('below', { value: '3.5 cm' }),
           children: [],
           excludes: [],
+          value: 3.5,
         },
         {
           id: 2,
-          label: t('between', { from: '3.5 cm', to: '6 cm' }),
+          label: t('below', { value: '6 cm' }),
+          value: 6,
           children: [],
           excludes: [],
         },
         {
           id: 3,
           label: t('above', { value: '6 cm' }),
+          value: 1000,
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 3.5,
+            electricWheelchair: 6,
+            scooter: 3.5,
+            cane: 1000,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     tableHeight: {
@@ -140,23 +208,32 @@ export default (t: TFunction) =>
       answers: [
         {
           id: 1,
-          label: t('below', { value: '70 cm' }),
+          label: t('at_least', { value: '70 cm' }),
+          value: 70,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '70 cm', to: '85 cm' }),
+          label: t('at_least', { value: '85 cm' }),
+          value: 85,
           children: [],
           excludes: [],
         },
         {
           id: 3,
-          label: t('above', { value: '85 cm' }),
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 68,
+            electricWheelchair: 68,
+            scooter: null,
+            cane: null,
+          },
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
       ],
     },
     reachHeight: {
@@ -168,16 +245,31 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('below', { value: '123 cm' }),
+          value: 123,
           children: [],
           excludes: [],
         },
         {
           id: 2,
           label: t('above', { value: '123 cm' }),
+          value: 1000,
           children: [],
           excludes: [],
         },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 3,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 123,
+            electricWheelchair: 123,
+            scooter: 1000,
+            cane: 1000,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     handrail: {
@@ -186,36 +278,20 @@ export default (t: TFunction) =>
       imageSrc: maxSlopeImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
-      ],
-    },
-    bedHeight: {
-      id: 7,
-      key: 'bedHeight',
-      imageSrc: bedHeightImage,
-      type: 'characteristic',
-      answers: [
         {
           id: 1,
-          label: t('below', { value: '43 cm' }),
+          label: t('yes'),
+          value: true,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '43 cm', to: '52 cm' }),
+          label: t('no'),
+          value: false,
           children: [],
           excludes: [],
         },
-        {
-          id: 3,
-          label: t('above', { value: '52 cm' }),
-          children: [],
-          excludes: [],
-        },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
       ],
     },
     bedAdjacentSpace: {
@@ -227,22 +303,38 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('below', { value: '90 cm' }),
+          value: 0,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '90 cm', to: '130 cm' }),
+          label: t('above', { value: '90 cm' }),
+          value: 90,
           children: [],
           excludes: [],
         },
         {
           id: 3,
           label: t('above', { value: '130 cm' }),
+          value: 130,
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 130,
+            electricWheelchair: 130,
+            scooter: null,
+            cane: null,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     wcAdjacentDistance: {
@@ -254,22 +346,38 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('below', { value: '75 cm' }),
+          value: 0,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '75 cm', to: '83 cm' }),
+          label: t('above', { value: '75 cm' }),
+          value: 75,
           children: [],
           excludes: [],
         },
         {
           id: 3,
           label: t('above', { value: '83 cm' }),
+          value: 83,
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 83,
+            electricWheelchair: 83,
+            scooter: null,
+            cane: null,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     wcFrontDistance: {
@@ -281,49 +389,38 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('below', { value: '80 cm' }),
+          value: 0,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '80 cm', to: '110 cm' }),
+          label: t('above', { value: '80 cm' }),
+          value: 80,
           children: [],
           excludes: [],
         },
         {
           id: 3,
           label: t('above', { value: '110 cm' }),
-          children: [],
-          excludes: [],
-        },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
-      ],
-    },
-    wcSeatHeight: {
-      id: 11,
-      key: 'wcSeatHeight',
-      imageSrc: wcSeatHeightImage,
-      type: 'characteristic',
-      answers: [
-        {
-          id: 1,
-          label: t('below', { value: '44 cm' }),
+          value: 110,
           children: [],
           excludes: [],
         },
         {
-          id: 2,
-          label: t('between', { from: '44 cm', to: '48 cm' }),
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: 107,
+            electricWheelchair: 107,
+            scooter: null,
+            cane: null,
+          },
           children: [],
           excludes: [],
         },
-        {
-          id: 3,
-          label: t('above', { value: '48 cm' }),
-          children: [],
-          excludes: [],
-        },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
       ],
     },
     wcFixedHandrail: {
@@ -332,9 +429,20 @@ export default (t: TFunction) =>
       imageSrc: wcFixedHandrailImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 1,
+          label: t('yes'),
+          value: true,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 2,
+          label: t('no'),
+          value: false,
+          children: [],
+          excludes: [],
+        },
       ],
     },
     wcFoldableHandrail: {
@@ -343,9 +451,20 @@ export default (t: TFunction) =>
       imageSrc: wcFoldableHandrailImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 1,
+          label: t('yes'),
+          value: true,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 2,
+          label: t('no'),
+          value: false,
+          children: [],
+          excludes: [],
+        },
       ],
     },
     eurokey: {
@@ -354,9 +473,20 @@ export default (t: TFunction) =>
       imageSrc: maxSlopeImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 1,
+          label: t('yes'),
+          value: true,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 2,
+          label: t('no'),
+          value: false,
+          children: [],
+          excludes: [],
+        },
       ],
     },
     wcSinkDistance: {
@@ -368,22 +498,38 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('below', { value: '44 cm' }),
+          value: 44,
           children: [],
           excludes: [],
         },
         {
           id: 2,
-          label: t('between', { from: '44 cm', to: '48 cm' }),
+          label: t('below', { value: '48 cm' }),
+          value: 48,
           children: [],
           excludes: [],
         },
         {
           id: 3,
           label: t('above', { value: '48 cm' }),
+          value: 1000,
           children: [],
           excludes: [],
         },
-        { id: 4, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 4,
+          unknown: true,
+          label: t('unknown'),
+          value: 'unknown',
+          values: {
+            wheelchair: null,
+            electricWheelchair: null,
+            scooter: null,
+            cane: null,
+          },
+          children: [],
+          excludes: [],
+        },
       ],
     },
     hygieneNeeds: {
@@ -395,18 +541,21 @@ export default (t: TFunction) =>
         {
           id: 1,
           label: t('shower'),
+          value: 'shower',
           children: ['showerFixedHandrail', 'showerFoldableHandrail'],
           excludes: ['bathSeat'],
         },
         {
           id: 2,
           label: t('bath'),
+          value: 'bath',
           children: ['bathSeat'],
           excludes: ['showerFixedHandrail', 'showerFoldableHandrail'],
         },
         {
           id: 3,
           label: t('both'),
+          value: 'both',
           children: [
             'showerFixedHandrail',
             'showerFoldableHandrail',
@@ -422,9 +571,20 @@ export default (t: TFunction) =>
       imageSrc: maxSlopeImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 1,
+          label: t('yes'),
+          value: true,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 2,
+          label: t('no'),
+          value: false,
+          children: [],
+          excludes: [],
+        },
       ],
     },
     showerFixedHandrail: {
@@ -433,9 +593,20 @@ export default (t: TFunction) =>
       imageSrc: maxSlopeImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 1,
+          label: t('yes'),
+          value: true,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 2,
+          label: t('no'),
+          value: false,
+          children: [],
+          excludes: [],
+        },
       ],
     },
     showerFoldableHandrail: {
@@ -444,9 +615,20 @@ export default (t: TFunction) =>
       imageSrc: maxSlopeImage,
       type: 'characteristic',
       answers: [
-        { id: 1, label: t('yes'), children: [], excludes: [] },
-        { id: 2, label: t('no'), children: [], excludes: [] },
-        { id: 3, label: t('unknown'), children: [], excludes: [] },
+        {
+          id: 1,
+          label: t('yes'),
+          value: true,
+          children: [],
+          excludes: [],
+        },
+        {
+          id: 2,
+          label: t('no'),
+          value: false,
+          children: [],
+          excludes: [],
+        },
       ],
     },
   }

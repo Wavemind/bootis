@@ -11,7 +11,7 @@ import { api } from '../../api'
 /**
  * Type imports
  */
-import { ISlot, IDay, IPlanning } from '../../../types'
+import { ISlot, IDay, IPlanning, ICharacteristicInput } from '../../../types'
 
 /**
  * Type definitions
@@ -20,24 +20,27 @@ interface IPlanningInput {
   startDate: string
   endDate: string
   region: string
+  characteristics: ICharacteristicInput[]
   categories: number[]
 }
 
 export const planningApi = api.injectEndpoints({
   endpoints: build => ({
     getPlanning: build.query<IPlanning, IPlanningInput>({
-      query: ({ startDate, endDate, region, categories }) => ({
+      query: ({ startDate, endDate, region, characteristics, categories }) => ({
         document: gql`
           query (
             $region: String!
             $startDate: String!
             $endDate: String!
             $categories: [ID!]
+            $characteristics: [CharacteristicInput!]!
           ) {
             getPlanning(
               region: $region
               startDate: $startDate
               endDate: $endDate
+              characteristics: $characteristics
               categories: $categories
             ) {
               accommodation {
@@ -60,7 +63,7 @@ export const planningApi = api.injectEndpoints({
             }
           }
         `,
-        variables: { startDate, endDate, region, categories },
+        variables: { startDate, endDate, region, characteristics, categories },
       }),
       transformResponse: (response: { getPlanning: IPlanning }) => ({
         accommodation: response.getPlanning.accommodation,
