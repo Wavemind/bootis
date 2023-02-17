@@ -16,5 +16,6 @@ module Types
     field :get_accommodations, resolver: Queries::GetAccommodations, description: "Return the list of accommodations by region"
     field :get_cuisine, resolver: Queries::GetCuisine, description: "Return the list of all cuisine type avalable"
     field :get_planning, resolver: Queries::GetPlanning, description: "Return the planning of activities for given date + accomodation"
+    field :get_planning_pdf, resolver: Queries::GetPlanningPdf, description: "Return the pdf of planning of activities for given date + accomodation"
   end
 end

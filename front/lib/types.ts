@@ -48,7 +48,7 @@ export interface IStep {
   id?: number
   key: string
   type?: string
-  imageSrc?: StaticImageData
+  imageSrc?: StaticImageData | null
   answers?: IAnswer[]
   answer?: boolean | number | string
   formValues?: IFormValues
@@ -115,4 +115,12 @@ export interface IAlertDialog {
 export interface IPlanning {
   accommodation: ISlot
   schedule: IDay[]
+}
+
+export interface IPlanningPdf {
+  url: string
+}
+
+export interface IPlanningPdfInput {
+  planning: string
 }

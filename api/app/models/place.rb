@@ -27,7 +27,7 @@ class Place < ActiveRecord::Base
     Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
   end
 
-  # Will retrive `limit` amout of activities based on the categories and the region we are looking in
+  # Will retrieve `limit` amount of activities based on the categories and the region we are looking in
   def self.match_activities(region, categories, limit, accommodation, excluding = [])
     first = Place.get_activities(excluding, region, categories).sample
     first = Place.get_activities(excluding, region).sample unless first.present?

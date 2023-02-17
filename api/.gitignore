@@ -31,6 +31,7 @@
 .env
 .idea
 .byebug_history
+/public/planning/*
 
 /db/zuerst.json
 /db/characteristics.json

@@ -11,7 +11,14 @@ import { api } from '../../api'
 /**
  * Type imports
  */
-import { ISlot, IDay, IPlanning, ICharacteristicInput } from '../../../types'
+import {
+  ISlot,
+  IDay,
+  IPlanning,
+  ICharacteristicInput,
+  IPlanningPdf,
+  IPlanningPdfInput,
+} from '../../../types'
 
 /**
  * Type definitions
@@ -79,9 +86,24 @@ export const planningApi = api.injectEndpoints({
         })),
       }),
     }),
+    getPlanningPdf: build.query<IPlanningPdf, IPlanningPdfInput>({
+      query: planning => ({
+        document: gql`
+          query ($planning: JSON!) {
+            getPlanningPdf(planning: $planning) {
+              url
+            }
+          }
+        `,
+        variables: { planning },
+      }),
+      transformResponse: (response: { getPlanningPdf: IPlanningPdf }) =>
+        response.getPlanningPdf,
+    }),
   }),
   overrideExisting: false,
 })
 
 // Export hooks for usage in functional components
-export const { useLazyGetPlanningQuery } = planningApi
+export const { useLazyGetPlanningQuery, useLazyGetPlanningPdfQuery } =
+  planningApi
