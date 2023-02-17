@@ -1,6 +1,6 @@
 class Place < ActiveRecord::Base
   enum region: [:zurich, :berne, :grisons, :valais, :lucerne, :geneve, :leman, :tessin, :orientale, :bale, :argovie, :jura, :fribourg, :liechtenstein]
-
+  
   belongs_to :category
   has_many :place_characteristics
   has_many :characteristics, through: :place_characteristics
@@ -23,12 +23,11 @@ class Place < ActiveRecord::Base
     end
     places
   end
-
+  
   # Finds an accomodation based on the region we are looking in
   def self.match_accomodation(region)
-    Place.joins(:category).where(region: region, categories: {section: 'lodging'}).order(Arel.sql('RANDOM()')).first
-  end
-
+    Place.joins(:category).where(region: region, categories: {section: 'lodging'}).sample
+  
   
   # Returns an array of places when given region, categories, limit, accommodation, and excluding parameters.
   #
@@ -41,7 +40,7 @@ class Place < ActiveRecord::Base
   #
   # Returns:
   #   An array containing Places objects found within the given parameters.
-  def self.# Match the characteristics of the place with the given characteristics(characteristics, region, categories, limit, accommodation, excluding = [])
+  def self.match_activities(characteristics, region, categories, limit, accommodation, excluding = [])
     
     first = Place.match_characteristics(characteristics, Place.get_activities(excluding, region, categories)).sample
     first = Place.match_characteristics(characteristics, Place.get_activities(excluding, region)).sample unless first.present?
@@ -51,12 +50,12 @@ class Place < ActiveRecord::Base
     restaurants = Place.match_characteristics(characteristics, Place.joins(:category).excluding(excluding).where(categories: {section: 'restaurant'}).near(first, 100)).slice(0,2)
     
     others = Place.match_characteristics(characteristics, self.get_activities(excluding, region, categories).near(first)).slice(0, limit - 1)
-  
+    
     # If we don't find we don't care about categories
     others += Place.match_characteristics(characteristics, Place.get_activities(excluding, region).near(first,150)).slice(0, limit -  others.count - 1) if others.count < limit - 1
     # If we don't find we don't care about region and categories
     others += Place.match_characteristics(characteristics, Place.get_activities(excluding).near(first,150)).distinct(:name).slice(0, limit -  others.count - 1 ) if others.count < limit - 1
-
+    
     [first, restaurants.first, others, restaurants.second].flatten
   end
   
@@ -69,7 +68,7 @@ class Place < ActiveRecord::Base
     end
     places.where(id: matching_places)
   end
-
+  
   # Match the user characteristics of the place with the places characteristics
   def match_characteristics?(characteristics)
     filled_characteristics = characteristics.keys
@@ -87,12 +86,12 @@ class Place < ActiveRecord::Base
     end
     true
   end
-
+  
   # Creates a request to fetch activities based on region and categories
   def self.get_activities(excluding, region = Place.regions.map(&:first), categories = Category.all)
     self.includes([:category]).excluding(excluding).joins(:category).where(categories: categories, region: region).where.not(categories: {section: ['lodging', 'restaurant']})
   end
-
+  
   # Full address for place's location
   def full_address
     "#{street} #{number}, #{zip} #{city}"
