@@ -116,3 +116,11 @@ export interface IPlanning {
   accommodation: ISlot
   schedule: IDay[]
 }
+
+export interface IPlanningPdf {
+  url: string
+}
+
+export interface IPlanningPdfInput {
+  planning: string
+}
