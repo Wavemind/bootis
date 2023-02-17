@@ -48,8 +48,9 @@ import { readVoyageFormData } from '../lib/utils/readVoyageFormData'
 /**
  * Type imports
  */
-import { IDay, ISlot, IElement, IPlanning } from '../lib/types'
+import { IDay, ISlot, IElement, IPlanning, TDefaultValues } from '../lib/types'
 import { isEmpty } from 'lodash'
+import convertCharacteristics from '../lib/utils/convertCharacteristics'
 
 const Planning: FC = () => {
   const { t } = useTranslation('planning')
@@ -74,7 +75,6 @@ const Planning: FC = () => {
 
   const [getPlanning, { data = {} as IPlanning, isSuccess, isFetching }] =
     useLazyGetPlanningQuery()
-
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
@@ -88,6 +88,9 @@ const Planning: FC = () => {
       action: () => {
         localStorage.removeItem('planning')
         setLoading(true)
+        const newSteps = JSON.parse(localStorage.getItem('steps') as string)
+        const situation = newSteps[0].answer
+
         getPlanning({
           startDate: voyageFormData.startDate,
           endDate: voyageFormData.endDate,
@@ -96,6 +99,10 @@ const Planning: FC = () => {
             voyageFormData.activities?.map(
               (activity: IElement) => activity.id
             ) || [],
+          characteristics: convertCharacteristics(
+            newSteps,
+            situation as TDefaultValues
+          ),
         })
       },
       confirmColor: 'teal',

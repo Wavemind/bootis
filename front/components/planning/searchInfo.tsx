@@ -104,7 +104,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
                 px={4}
                 w='fit-content'
               >
-                <Text color='white'>{cuisine.name}</Text>
+                <Text color='white'>{cuisine.label}</Text>
               </Box>
             ))}
           </Flex>
@@ -128,6 +128,9 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
           onClick={handleRestart}
         >
           {t('restart')}
+        </Button>
+        <Button variant='black' size='sm' onClick={handleRestart}>
+          {t('export')}
         </Button>
       </HStack>
     </Flex>

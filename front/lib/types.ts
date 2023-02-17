@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image'
+
 // Common interfaces used in multiple components/pages
 export interface IChildren {
   children: React.ReactNode
@@ -21,21 +23,40 @@ export interface IFormValues {
   cuisines: IElement[]
 }
 
+export type TDefaultValues =
+  | 'wheelchair'
+  | 'electricWheelchair'
+  | 'scooter'
+  | 'cane'
+
 export interface IAnswer {
   id: number
   label: string
   children: string[]
   excludes: string[]
+  values?: {
+    wheelchair: number
+    electricWheelchair: number
+    scooter: number
+    cane: number
+  }
+  value?: number | boolean | string
+  unknown?: boolean
 }
 
 export interface IStep {
   id?: number
   key: string
   type?: string
-  imageSrc?: string
+  imageSrc?: StaticImageData
   answers?: IAnswer[]
-  answer?: IAnswer
+  answer?: boolean | number | string
   formValues?: IFormValues
+}
+
+export interface ICharacteristicInput {
+  answer?: number | boolean
+  key: string
 }
 
 export interface ICharacteristics {
