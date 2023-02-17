@@ -27,7 +27,7 @@ class Place < ActiveRecord::Base
   # Finds an accomodation based on the region we are looking in
   def self.match_accomodation(region)
     Place.joins(:category).where(region: region, categories: {section: 'lodging'}).sample
-  
+  end
   
   # Returns an array of places when given region, categories, limit, accommodation, and excluding parameters.
   #
