@@ -1,9 +1,10 @@
 /**
  * The external imports
  */
-import { FC, useMemo, useContext } from 'react'
+import { FC, useMemo, useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { saveAs } from 'file-saver'
 import {
   HStack,
   Flex,
@@ -19,11 +20,12 @@ import {
  */
 import { AlertDialogContext } from '../../lib/contexts'
 import { readVoyageFormData } from '../../lib/utils/readVoyageFormData'
+import { useLazyGetPlanningPdfQuery } from '../../lib/services/modules/planning'
 
 /**
  * Type imports
  */
-import { IElement } from '../../lib/types'
+import { IElement, IPlanning } from '../../lib/types'
 
 /**
  * Type definitions
@@ -37,7 +39,8 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
   const router = useRouter()
 
   const { openAlertDialog } = useContext(AlertDialogContext)
-
+  const [getPlanningPdf, { data = {} as IPlanning, isSuccess, isFetching }] =
+    useLazyGetPlanningPdfQuery()
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
@@ -56,6 +59,16 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
       confirmLabel: t('yes'),
     })
   }
+
+  const exportPlanning = () => {
+    getPlanningPdf({ schedule: localStorage.getItem('planning') as string })
+  }
+
+  useEffect(() => {
+    if (!isFetching && isSuccess) {
+      saveAs(`${process.env.NEXT_PUBLIC_API_URL}/${data.url}`, 'planning.pdf')
+    }
+  }, [isSuccess, isFetching])
 
   return (
     <Flex
@@ -129,7 +142,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
         >
           {t('restart')}
         </Button>
-        <Button variant='black' size='sm' onClick={handleRestart}>
+        <Button variant='black' size='sm' onClick={exportPlanning}>
           {t('export')}
         </Button>
       </HStack>

@@ -42,7 +42,7 @@ class PlanningGeneratorPdf
       # write_prices_table
     end
 
-    path = "tmp/planning.pdf"
+    path = "public/planning/#{SecureRandom.uuid}.pdf"
     @pdf.render_file path
     path
   end

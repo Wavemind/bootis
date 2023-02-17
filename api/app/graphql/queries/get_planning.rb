@@ -4,7 +4,6 @@ module Queries
 
     argument :region, String
     argument :categories, [ID], required: false
-    # argument :characteristics, GraphQL::Types::String
     argument :start_date, GraphQL::Types::String
     argument :end_date, GraphQL::Types::String
     argument :characteristics, [Types::Input::CharacteristicInputType]

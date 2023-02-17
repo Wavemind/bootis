@@ -21,6 +21,7 @@
     "@uselessdev/datepicker": "^2.6.0",
     "chakra-react-select": "^4.4.3",
     "date-fns": "^2.29.3",
+    "file-saver": "^2.0.5",
     "framer-motion": "^7.6.19",
     "graphql": "^16.6.0",
     "graphql-request": "^5.1.0",
