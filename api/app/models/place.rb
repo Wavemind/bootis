@@ -11,6 +11,8 @@ class Place < ActiveRecord::Base
   
   geocoded_by :full_address
   
+  # This method takes a user, categories and regions
+  # to return all relevant places that matches the user's characteristics
   def self.match_user(user, categories, regions: Place.regions.keys)
     places = Place.where(region: regions).where(category: categories).includes(place_characteristics: :characteristic)
     user_chars = user.user_characteristics
@@ -28,7 +30,6 @@ class Place < ActiveRecord::Base
   end
 
   
-  #
   # Returns an array of places when given region, categories, limit, accommodation, and excluding parameters.
   #
   # Arguments:
@@ -40,7 +41,7 @@ class Place < ActiveRecord::Base
   #
   # Returns:
   #   An array containing Places objects found within the given parameters.
-  def self.match_activities(characteristics, region, categories, limit, accommodation, excluding = [])
+  def self.# Match the characteristics of the place with the given characteristics(characteristics, region, categories, limit, accommodation, excluding = [])
     
     first = Place.match_characteristics(characteristics, Place.get_activities(excluding, region, categories)).sample
     first = Place.match_characteristics(characteristics, Place.get_activities(excluding, region)).sample unless first.present?
@@ -59,6 +60,8 @@ class Place < ActiveRecord::Base
     [first, restaurants.first, others, restaurants.second].flatten
   end
   
+  # This method takes an array of characteristics and places
+  # and finds places with matching disability characteristics
   def self.match_characteristics(characteristics, places)
     matching_places = []
     places.each do |place|
@@ -67,6 +70,7 @@ class Place < ActiveRecord::Base
     places.where(id: matching_places)
   end
 
+  # Match the user characteristics of the place with the places characteristics
   def match_characteristics?(characteristics)
     filled_characteristics = characteristics.keys
     
