@@ -137,7 +137,7 @@ const Voyage: FC = () => {
     localStorage.setItem('steps', JSON.stringify(newSteps))
 
     const situation = newSteps[0].answer
-   
+
     getPlanning({
       startDate: data.startDate.toISOString(),
       endDate: data.endDate.toISOString(),
