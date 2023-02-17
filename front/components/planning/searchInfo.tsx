@@ -25,7 +25,7 @@ import { useLazyGetPlanningPdfQuery } from '../../lib/services/modules/planning'
 /**
  * Type imports
  */
-import { IElement, IPlanning } from '../../lib/types'
+import { IElement, IPlanningPdf } from '../../lib/types'
 
 /**
  * Type definitions
@@ -39,7 +39,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
   const router = useRouter()
 
   const { openAlertDialog } = useContext(AlertDialogContext)
-  const [getPlanningPdf, { data = {} as IPlanning, isSuccess, isFetching }] =
+  const [getPlanningPdf, { data = {} as IPlanningPdf, isSuccess, isFetching }] =
     useLazyGetPlanningPdfQuery()
   // Gets voyage form data from the localStorage
   const voyageFormData = useMemo(() => readVoyageFormData(), [])

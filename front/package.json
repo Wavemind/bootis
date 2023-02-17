@@ -18,6 +18,7 @@
     "@emotion/styled": "^11.10.5",
     "@reduxjs/toolkit": "^1.9.1",
     "@rtk-query/graphql-request-base-query": "^2.2.0",
+    "@types/file-saver": "^2.0.5",
     "@uselessdev/datepicker": "^2.6.0",
     "chakra-react-select": "^4.4.3",
     "date-fns": "^2.29.3",

@@ -17,6 +17,7 @@ import {
   IPlanning,
   ICharacteristicInput,
   IPlanningPdf,
+  IPlanningPdfInput,
 } from '../../../types'
 
 /**
@@ -85,7 +86,7 @@ export const planningApi = api.injectEndpoints({
         })),
       }),
     }),
-    getPlanningPdf: build.query<IPlanningPdf, IPlanning>({
+    getPlanningPdf: build.query<IPlanningPdf, IPlanningPdfInput>({
       query: planning => ({
         document: gql`
           query ($planning: JSON!) {

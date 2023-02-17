@@ -120,3 +120,7 @@ export interface IPlanning {
 export interface IPlanningPdf {
   url: string
 }
+
+export interface IPlanningPdfInput {
+  planning: string
+}
