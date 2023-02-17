@@ -47,22 +47,25 @@ class Place < ActiveRecord::Base
 
   def self.match_characteristics(characteristics)
     matching_places = []
-    filled_characteristics = characteristics.keys
     Place.all.each do |place|
-      place_matching = true
-      place.place_characteristics.where(characteristic_id: filled_characteristics).each do |place_characteristic|
-        case place_characteristic.characteristic.value_type
-        when 'more'
-          place_matching = false unless characteristics[place_characteristic.characteristic_id] > place_characteristic.value
-        when 'less'
-          place_matching = false unless characteristics[place_characteristic.characteristic_id] < place_characteristic.value
-        when 'equal'
-          place_matching = false unless place_characteristic.value == 1.0
-        end
-      end
-      matching_places.push(place.id) if place_matching
+      matching_places.push(place.id) if place.match_characteristics?(characteristics)
     end
     Place.find(matching_places)
+  end
+
+  def match_characteristics?(characteristics)
+    filled_characteristics = characteristics.keys
+    place_characteristics.where(characteristic_id: filled_characteristics).each do |place_characteristic|
+      case place_characteristic.characteristic.value_type
+      when 'more'
+        return false unless characteristics[place_characteristic.characteristic_id] > place_characteristic.value
+      when 'less'
+        return false unless characteristics[place_characteristic.characteristic_id] < place_characteristic.value
+      when 'equal'
+        return false unless place_characteristic.value == 1.0
+      end
+    end
+    true
   end
 
   # Creates a request to fetch activities based on region and categories
