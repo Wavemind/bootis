@@ -20,7 +20,6 @@ import { IChildren } from '../types'
 const DefaultLayout: FC<IChildren> = ({ children }) => {
   const { t } = useTranslation('common')
 
-  // TODO : Get the link for the Votre Avis form
   return (
     <Flex direction='column' maxW='1600px' margin='auto' p={4} h='100vh'>
       <Flex pb={4} justifyContent='space-between' alignItems='center'>
@@ -28,7 +27,10 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
           <Image src={Logo} alt='logo' height={42} width={42} />
         </Link>
         <HStack spacing={6}>
-          <Link href='#'>
+          <Link
+            href='https://docs.google.com/forms/d/1r1qh-8YCrdcRz_gZQiURHjg1-cp6T7HldpemAefDPbQ/prefill'
+            target='_blank'
+          >
             <Button variant='outline' size='sm' borderColor='black'>
               {t('opinion')}
             </Button>
