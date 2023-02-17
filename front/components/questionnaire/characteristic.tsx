@@ -99,12 +99,14 @@ const Characteristic: FC = () => {
         </GridItem>
         <GridItem>
           <Center>
-            <Image
-              src={activeStep.imageSrc as StaticImageData}
-              alt={t('logoAlt')}
-              height={30}
-              width={250}
-            />
+            {activeStep.imageSrc && (
+              <Image
+                src={activeStep.imageSrc as StaticImageData}
+                alt={t('logoAlt')}
+                height={30}
+                width={250}
+              />
+            )}
           </Center>
         </GridItem>
       </Grid>

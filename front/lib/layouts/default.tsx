@@ -20,7 +20,6 @@ import { IChildren } from '../types'
 const DefaultLayout: FC<IChildren> = ({ children }) => {
   const { t } = useTranslation('common')
 
-  // TODO : Get the link for the Votre Avis form
   return (
     <Flex direction='column' maxW='1600px' margin='auto' p={4} h='100vh'>
       <Flex pb={4} justifyContent='space-between' alignItems='center'>

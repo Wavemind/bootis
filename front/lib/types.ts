@@ -48,7 +48,7 @@ export interface IStep {
   id?: number
   key: string
   type?: string
-  imageSrc?: StaticImageData
+  imageSrc?: StaticImageData | null
   answers?: IAnswer[]
   answer?: boolean | number | string
   formValues?: IFormValues
