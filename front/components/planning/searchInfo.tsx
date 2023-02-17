@@ -129,6 +129,9 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
         >
           {t('restart')}
         </Button>
+        <Button variant='black' size='sm' onClick={handleRestart}>
+          {t('export')}
+        </Button>
       </HStack>
     </Flex>
   )
