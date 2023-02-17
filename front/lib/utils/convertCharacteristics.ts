@@ -53,7 +53,7 @@ const convertCharacteristics = (
     characteristics.push({ key: 'maxWcSeatHeight', answer: 48 })
     characteristics.push({ key: 'minWcSeatHeight', answer: 44 })
   }
-  
+
   const hygieneNeedsStep = newSteps.find(step => step.key === 'hygieneNeeds')
 
   if (hygieneNeedsStep !== null) {
