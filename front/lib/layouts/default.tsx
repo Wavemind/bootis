@@ -28,7 +28,10 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
           <Image src={Logo} alt='logo' height={42} width={42} />
         </Link>
         <HStack spacing={6}>
-          <Link href='#'>
+          <Link
+            href='https://docs.google.com/forms/d/1r1qh-8YCrdcRz_gZQiURHjg1-cp6T7HldpemAefDPbQ/prefill'
+            target='_blank'
+          >
             <Button variant='outline' size='sm' borderColor='black'>
               {t('opinion')}
             </Button>
