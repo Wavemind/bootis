@@ -45,37 +45,6 @@ class Place < ActiveRecord::Base
     [first, restaurants.first, others, restaurants.second].flatten
   end
 
-  # Will filter places according to user mobility constraints
-  def self.match_constraints(constraints)
-    matching_places = []
-    user_characteristics = UserCharacteristic.format_characteristics(constraints)
-    self.each do |place|
-      place.place_characteristics.where(characteristic_id: user_characteristics.keys).each do |place_characteristic|
-
-      end
-    end
-  end
-
-  #TODO remove
-  def self.generate_planning
-    excluding = []
-    accommodation = Place.match_accomodation('leman')
-    planning = {
-      accommodation: accommodation,
-      schedule: (Date.today - 5.day..Date.today - 1.day).map do |date|
-        activities = Place.match_activities('leman', Category.all, 3, accommodation, excluding)
-        excluding += activities
-        {
-          date: date,
-          activities: activities
-        }
-      end
-    }
-
-    pdf = PlanningGeneratorPdf.new
-    pdf.generate(planning)
-  end
-
   # Creates a request to fetch activities based on region and categories
   def self.get_activities(excluding, region = Place.regions.map(&:first), categories = Category.all)
     Place.excluding(excluding).joins(:category).where(region: region).where(categories: categories).where.not(categories: {section: ['lodging', 'restaurant']})

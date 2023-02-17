@@ -1,7 +1,7 @@
 require 'prawn/measurement_extensions'
 
+# Generate PDF from planning
 class PlanningGeneratorPdf
-  # include ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
   GREY_COLOR = '292c2f'
@@ -42,6 +42,7 @@ class PlanningGeneratorPdf
     path
   end
 
+  # Write header and cover page
   def write_header(planning)
     img = File.open('./app/assets/images/coverpage.png')
     @pdf.image(img, at: [0, 210.mm], width: 297.mm, height: 210.mm)
@@ -61,6 +62,7 @@ class PlanningGeneratorPdf
     end
   end
 
+  # Write a day column
   def write_day(day)
     options = { size: 12, color: GREY_COLOR, character_spacing: -0.025, style: :bold }
     @pdf.bounding_box([@width + 6.mm, @height], width: DAY_WIDTH) do
@@ -73,6 +75,7 @@ class PlanningGeneratorPdf
     end
   end
 
+  # Write activity card 
   def write_activity(activity)
     activity = Place.find(activity["id"])
     image_path = activity.category.restaurant? ? 'restaurant_card.png' : 'activity_card.png'

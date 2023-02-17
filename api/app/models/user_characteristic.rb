@@ -12,12 +12,4 @@ class UserCharacteristic < ActiveRecord::Base
     end
     true
   end
-
-  def self.format_characteristics(json)
-    characteristics = {}
-
-
-
-    characteristics
-  end
 end
