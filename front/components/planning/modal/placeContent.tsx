@@ -94,7 +94,10 @@ const PlaceContent: FC = () => {
         </Center>
       )
     } else {
-      if (!isEmpty(categoryType) && places.length > 0) {
+      if (
+        !isEmpty(categoryType) &&
+        (places.length > 0 || restaurants.length > 0)
+      ) {
         const elements =
           categoryType.key === 'restaurant' ? restaurants : places
         return elements.map(place => (

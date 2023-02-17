@@ -28,8 +28,6 @@ import showerFoldableHandrailImage from '../../public/characteristicsImages/show
  */
 import { ICharacteristics } from '../types'
 
-// TODO : Update all of the images onces we have them
-// TODO : Recheck Id match with api
 export default (t: TFunction) =>
   <ICharacteristics>{
     maxSlope: {

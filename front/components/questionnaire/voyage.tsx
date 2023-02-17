@@ -137,7 +137,12 @@ const Voyage: FC = () => {
     localStorage.setItem('steps', JSON.stringify(newSteps))
 
     const situation = newSteps[0].answer
-
+    console.log(
+      newSteps.map(s => ({
+        k:s.key,
+        a: s.answer
+      }))
+    )
     getPlanning({
       startDate: data.startDate.toISOString(),
       endDate: data.endDate.toISOString(),
@@ -206,7 +211,7 @@ const Voyage: FC = () => {
     setLoading(false)
   }, [])
 
-  if (loading) {
+  if (loading || isPlanningFetching) {
     return (
       <Center h='full'>
         <Spinner size='xl' color='salmon' thickness='4px' />

@@ -201,7 +201,8 @@ const Planning: FC = () => {
             w='fit-content'
             px={3}
             mt={8}
-            overflow='hidden'
+            minWidth='100%'
+            overflow='auto'
           >
             <HStack
               display='flex'
@@ -211,7 +212,6 @@ const Planning: FC = () => {
               borderRadius='lg'
               overflowY='auto'
               divider={<StackDivider bg='blue' w={1} />}
-              mx={2}
             >
               {planningData.map((day, index) => (
                 <PlanningDay
