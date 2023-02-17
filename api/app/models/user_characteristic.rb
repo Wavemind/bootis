@@ -12,4 +12,12 @@ class UserCharacteristic < ActiveRecord::Base
     end
     true
   end
+
+  def self.format_characteristics(characteristics)
+    formatted_characteristics = {}
+    characteristics.each do |characteristic|
+      formatted_characteristics[Characteristic.find_by(key: characteristic['key'])] = characteristic['answer']
+    end
+    formatted_characteristics
+  end
 end

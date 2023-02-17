@@ -14,7 +14,7 @@ module Queries
       {
         accommodation: accommodation,
         schedule: (Time.zone.parse(start_date).to_date..Time.zone.parse(end_date).to_date).map do |date| 
-          activities = Place.match_activities(region, categories, 3, accommodation, excluding)
+          activities = Place.match_characteristics(UserCharacteristic.format_characteristics(characteristics)).match_activities(region, categories, 3, accommodation, excluding)
           excluding += activities 
           { 
             date: date,

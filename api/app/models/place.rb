@@ -45,6 +45,26 @@ class Place < ActiveRecord::Base
     [first, restaurants.first, others, restaurants.second].flatten
   end
 
+  def self.match_characteristics(characteristics)
+    matching_places = []
+    filled_characteristics = characteristics.keys
+    Place.all.each do |place|
+      place_matching = true
+      place.place_characteristics.where(characteristic_id: filled_characteristics).each do |place_characteristic|
+        case place_characteristic.characteristic.value_type
+        when 'more'
+          place_matching = false unless characteristics[place_characteristic.characteristic_id] > place_characteristic.value
+        when 'less'
+          place_matching = false unless characteristics[place_characteristic.characteristic_id] < place_characteristic.value
+        when 'equal'
+          place_matching = false unless place_characteristic.value == 1.0
+        end
+      end
+      matching_places.push(place.id) if place_matching
+    end
+    Place.find(matching_places)
+  end
+
   # Creates a request to fetch activities based on region and categories
   def self.get_activities(excluding, region = Place.regions.map(&:first), categories = Category.all)
     Place.excluding(excluding).joins(:category).where(region: region).where(categories: categories).where.not(categories: {section: ['lodging', 'restaurant']})
