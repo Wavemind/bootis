@@ -3,7 +3,7 @@
  */
 import { FC, useContext, useMemo } from 'react'
 import { Grid, GridItem, Text, Center, VStack, Button } from '@chakra-ui/react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { useTranslation } from 'next-i18next'
 import findIndex from 'lodash/findIndex'
 
@@ -34,7 +34,8 @@ const Characteristic: FC = () => {
 
     const newSteps = [...steps]
     const voyageStep = newSteps.pop()
-    newSteps[currentStep].answer = answer
+
+    newSteps[currentStep].answer = answer.value
 
     // Remove characteristics
     answer.excludes.forEach(keyStep => {
@@ -65,15 +66,20 @@ const Characteristic: FC = () => {
   }
 
   return (
-    <VStack justifyContent='space-between' alignItems='flex-start' h='full'>
+    <VStack
+      justifyContent='space-between'
+      alignItems='flex-start'
+      h='full'
+      key={`answer_${activeStep.key}`}
+    >
       <Grid templateColumns='repeat(3, 1fr)' gap={10} mt={10} w='full'>
         <GridItem colSpan={2} pr={10}>
           <VStack alignItems='flex-start'>
             {activeStep.answers?.map(answer => (
               <Button
-                key={`answer_${answer.id}`}
+                key={`answer_${activeStep.key}_${answer.value}`}
                 variant={
-                  activeStep.answer?.id === answer.id ? 'salmon' : 'primary'
+                  activeStep.answer === answer.value ? 'salmon' : 'primary'
                 }
                 w='full'
                 onClick={() => handleClick(answer)}
@@ -94,7 +100,7 @@ const Characteristic: FC = () => {
         <GridItem>
           <Center>
             <Image
-              src={activeStep.imageSrc as string}
+              src={activeStep.imageSrc as StaticImageData}
               alt={t('logoAlt')}
               height={30}
               width={250}
