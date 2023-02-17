@@ -56,6 +56,7 @@ class Place < ActiveRecord::Base
     end
   end
 
+  #TODO remove
   def self.generate_planning
     excluding = []
     accommodation = Place.match_accomodation('leman')
