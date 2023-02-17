@@ -141,7 +141,8 @@ const Questionnaire = () => {
         }}
       >
         <VStack
-          overflow='hidden'
+          overflowY='auto'
+          overflowX='hidden'
           flex={1}
           alignItems='flex-start'
           justifyContent='space-between'
