@@ -5,9 +5,13 @@ module Queries
     argument :schedule, GraphQL::Types::JSON
 
     def resolve(schedule:)
+      pdf = PlanningGeneratorPdf.new
+      pdf.generate(schedule)
       {
-        url: Place.generate_planning.gsub("public/",""),
+        url: pdf.generate(planning),
       }
+    rescue ActiveRecord::RecordInvalid => e
+      GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
     end
   end
 end
