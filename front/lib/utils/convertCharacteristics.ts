@@ -53,6 +53,23 @@ const convertCharacteristics = (
     characteristics.push({ key: 'maxWcSeatHeight', answer: 48 })
     characteristics.push({ key: 'minWcSeatHeight', answer: 44 })
   }
+  
+  const hygieneNeedsStep = newSteps.find(step => step.key === 'hygieneNeeds')
+
+  if (hygieneNeedsStep !== null) {
+    switch (hygieneNeedsStep?.answer) {
+      case 'both':
+        characteristics.push({ key: 'hasShower', answer: true })
+        characteristics.push({ key: 'hasBathtub', answer: true })
+        break
+      case 'bath':
+        characteristics.push({ key: 'hasBathtub', answer: true })
+        break
+      case 'shower':
+        characteristics.push({ key: 'hasShower', answer: true })
+        break
+    }
+  }
   return characteristics
 }
 

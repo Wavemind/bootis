@@ -55,6 +55,15 @@ lift_seat = Characteristic.create!(value_type: 'equal', label: 'Besoin d’un si
 shower_grab_bar = Characteristic.create!(value_type: 'equal', label: 'Besoin barre d’appui L douche', key: 'showerFixedHandrail')
 shower_folding_grab_bar = Characteristic.create!(value_type: 'equal', label: 'Besoin barre d’appui rabattable douche', key: 'showerFoldableHandrail')
 
+
+maxBedHeight = Characteristic.create!(value_type: 'more', label: 'Max bed height', key: 'maxBedHeight')
+minBedHeight = Characteristic.create!(value_type: 'less', label: 'Min bed height', key: 'minBedHeight')
+maxWcSeatHeight = Characteristic.create!(value_type: 'more', label: 'Max wc seat height', key: 'maxWcSeatHeight')
+minWcSeatHeight = Characteristic.create!(value_type: 'less', label: 'Min wc seat height', key: 'minWcSeatHeight')
+passageLength = Characteristic.create!(value_type: 'less', label: 'Passage length', key: 'passageLength')
+
+"maxBedHeight", "minBedHeight", "maxWcSeatHeight", "minWcSeatHeight"
+
 place_characteristics = {
   7764 => slope,
   7379 => slope,

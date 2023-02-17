@@ -206,7 +206,7 @@ const Voyage: FC = () => {
     setLoading(false)
   }, [])
 
-  if (loading) {
+  if (loading || isPlanningFetching) {
     return (
       <Center h='full'>
         <Spinner size='xl' color='salmon' thickness='4px' />

@@ -142,7 +142,12 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
         >
           {t('restart')}
         </Button>
-        <Button variant='black' size='sm' onClick={exportPlanning}>
+        <Button
+          variant='black'
+          size='sm'
+          onClick={exportPlanning}
+          disabled={isFetching}
+        >
           {t('export')}
         </Button>
       </HStack>

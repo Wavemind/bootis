@@ -7,7 +7,7 @@ export default {
     salmonHover: '#CE4343',
     teal: '#00AFB9',
     beige: '#FED9B7',
-    beigeOverlay: '#FED9B799',
+    beigeOverlay: '#976f4a99',
     black: '#2B2B2B',
     blackHover: '#797979',
     yellow: '#FFE66D',
