@@ -16,8 +16,12 @@ import bedAdjacentSpaceImage from '../../public/characteristicsImages/bedAdjacen
 import wcAdjacentDistanceImage from '../../public/characteristicsImages/wcAdjacentDistance.png'
 import wcFrontDistanceImage from '../../public/characteristicsImages/wcFrontDistance.png'
 import wcFixedHandrailImage from '../../public/characteristicsImages/wcFixedHandrail.png'
+import eurokeyImage from '../../public/characteristicsImages/eurokey.png'
 import wcFoldableHandrailImage from '../../public/characteristicsImages/wcFoldableHandrail.png'
-import wcSinkDistanceImage from '../../public/characteristicsImages/wcFoldableHandrail.png'
+import wcSinkDistanceImage from '../../public/characteristicsImages/wcSinkDistance.png'
+import bathSeatImage from '../../public/characteristicsImages/bathSeat.png'
+import showerFixedHandrailImage from '../../public/characteristicsImages/showerFixedHandrail.png'
+import showerFoldableHandrailImage from '../../public/characteristicsImages/showerFoldableHandrail.png'
 
 /**
  * Type definitions
@@ -470,7 +474,7 @@ export default (t: TFunction) =>
     eurokey: {
       id: 14,
       key: 'eurokey',
-      imageSrc: maxSlopeImage,
+      imageSrc: eurokeyImage,
       type: 'characteristic',
       answers: [
         {
@@ -535,7 +539,7 @@ export default (t: TFunction) =>
     hygieneNeeds: {
       id: 22,
       key: 'hygieneNeeds',
-      imageSrc: maxSlopeImage,
+      imageSrc: null,
       type: 'characteristic',
       answers: [
         {
@@ -568,7 +572,7 @@ export default (t: TFunction) =>
     bathSeat: {
       id: 18,
       key: 'bathSeat',
-      imageSrc: maxSlopeImage,
+      imageSrc: bathSeatImage,
       type: 'characteristic',
       answers: [
         {
@@ -590,7 +594,7 @@ export default (t: TFunction) =>
     showerFixedHandrail: {
       id: 19,
       key: 'showerFixedHandrail',
-      imageSrc: maxSlopeImage,
+      imageSrc: showerFixedHandrailImage,
       type: 'characteristic',
       answers: [
         {
@@ -612,7 +616,7 @@ export default (t: TFunction) =>
     showerFoldableHandrail: {
       id: 20,
       key: 'showerFoldableHandrail',
-      imageSrc: maxSlopeImage,
+      imageSrc: showerFoldableHandrailImage,
       type: 'characteristic',
       answers: [
         {

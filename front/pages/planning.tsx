@@ -251,7 +251,10 @@ const Planning: FC = () => {
               <Button ref={cancelRef} variant='ghost' onClick={onClose}>
                 {t('opinion.no')}
               </Button>
-              <Link href='#' target='_blank'>
+              <Link
+                href='https://docs.google.com/forms/d/1r1qh-8YCrdcRz_gZQiURHjg1-cp6T7HldpemAefDPbQ/prefill'
+                target='_blank'
+              >
                 <Button variant='teal' onClick={onClose} ml={3}>
                   {t('opinion.yes')}
                 </Button>

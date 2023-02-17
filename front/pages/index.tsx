@@ -62,7 +62,7 @@ const Home = () => {
         gridTemplateColumns={'28% 18% auto 14%'}
         gap={2}
         color='white'
-        overflowY='hidden'
+        overflowY='auto'
       >
         <GridItem
           bg='salmon'
