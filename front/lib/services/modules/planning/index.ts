@@ -86,15 +86,15 @@ export const planningApi = api.injectEndpoints({
       }),
     }),
     getPlanningPdf: build.query<IPlanningPdf, IPlanning>({
-      query: ({ schedule }) => ({
+      query: planning => ({
         document: gql`
-          query ($schedule: JSON!) {
-            getPlanningPdf(schedule: $schedule) {
+          query ($planning: JSON!) {
+            getPlanningPdf(planning: $planning) {
               url
             }
           }
         `,
-        variables: { schedule },
+        variables: { planning },
       }),
       transformResponse: (response: { getPlanningPdf: IPlanningPdf }) =>
         response.getPlanningPdf,

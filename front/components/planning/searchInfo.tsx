@@ -61,7 +61,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
   }
 
   const exportPlanning = () => {
-    getPlanningPdf({ schedule: localStorage.getItem('planning') as string })
+    getPlanningPdf({ planning: localStorage.getItem('planning') as string })
   }
 
   useEffect(() => {
