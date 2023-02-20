@@ -34,5 +34,7 @@
     "body": "Est-ce que vous avez quelques minutes pour nous aider a améliorer notre plateforme ?",
     "no": "Malheureusement pas",
     "yes": "Avec plaisir"
-  }
+  },
+  "seeMore": "'Voir les informations de la recherche",
+  "seeLess": "Cacher les informations de la recherche"
 }
