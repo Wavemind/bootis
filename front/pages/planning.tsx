@@ -229,9 +229,7 @@ const Planning: FC = () => {
                         bg: 'blueHover',
                       }}
                     >
-                      {isExpanded
-                        ? 'Cacher les informations de la recherche'
-                        : 'Voir les informations de la recherche'}
+                      {isExpanded ? t('seeLess') : t('seeMore')}
                       <AccordionIcon />
                     </AccordionButton>
                     <AccordionPanel px={1}>
