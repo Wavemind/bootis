@@ -13,6 +13,7 @@ import {
   SimpleGrid,
   Button,
   VStack,
+  GridItem,
 } from '@chakra-ui/react'
 
 /**
@@ -71,13 +72,13 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
   }, [isSuccess, isFetching])
 
   return (
-    <Flex
-      flexDir='column'
+    <GridItem
       borderRadius='lg'
-      h='full'
       boxShadow='lg'
-      w='full'
       p={4}
+      colSpan={3}
+      display='flex'
+      flexDirection='column'
     >
       <SimpleGrid columns={3} flex={1}>
         <VStack alignItems='flex-start' px={2}>
@@ -151,7 +152,7 @@ const SearchInfo: FC<ISearchInfoProps> = ({ handleRegenerate }) => {
           {t('export')}
         </Button>
       </HStack>
-    </Flex>
+    </GridItem>
   )
 }
 

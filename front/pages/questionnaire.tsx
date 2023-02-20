@@ -143,16 +143,16 @@ const Questionnaire = () => {
         <VStack
           overflowY='auto'
           overflowX='hidden'
-          flex={1}
           alignItems='flex-start'
           justifyContent='space-between'
+          flex={1}
         >
           <AnimatePresence
             mode='wait'
             initial={false}
             onExitComplete={() => window.scrollTo(0, 0)}
           >
-            <Box as={motion.div} animate={controls} w='full'>
+            <Box as={motion.div} animate={controls} w='full' zIndex={10}>
               <TitleBlock
                 title={t(`${steps[currentStep].key}.title`)}
                 subtitle={t(`${steps[currentStep].type}Subtitle`)}

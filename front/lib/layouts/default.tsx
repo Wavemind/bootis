@@ -21,7 +21,7 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
   const { t } = useTranslation('common')
 
   return (
-    <Flex direction='column' maxW='1600px' margin='auto' p={4} h='100vh'>
+    <Flex direction='column' maxW='1600px' margin='auto' p={4} minH='100vh'>
       <Flex pb={4} justifyContent='space-between' alignItems='center'>
         <Link href='/'>
           <Image src={Logo} alt='logo' height={42} width={42} />

@@ -1,7 +1,14 @@
 /**
  * The external imports
  */
-import { FC, useCallback, useEffect, useState, useMemo, useRef } from 'react'
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+  useRef,
+} from 'react'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -19,6 +26,12 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   useDisclosure,
+  Grid,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from '@chakra-ui/react'
 
 /**
@@ -190,10 +203,6 @@ const Planning: FC = () => {
             modalType,
           }}
         >
-          <HStack w='full' spacing={8} p={3} alignItems='flex-start'>
-            <AccommodationInfo data={accommodationData} />
-            <SearchInfo handleRegenerate={handleRegenerate} />
-          </HStack>
           <Flex
             direction='column'
             gap={3}
@@ -204,6 +213,37 @@ const Planning: FC = () => {
             minWidth='100%'
             overflow='auto'
           >
+            <Accordion allowToggle>
+              <AccordionItem border='none'>
+                {({ isExpanded }) => (
+                  <React.Fragment>
+                    <AccordionButton
+                      boxShadow='lg'
+                      borderRadius='lg'
+                      justifyContent='space-between'
+                      py={3}
+                      color='white'
+                      fontSize='lg'
+                      bg='blue'
+                      _hover={{
+                        bg: 'blueHover',
+                      }}
+                    >
+                      {isExpanded
+                        ? 'Cacher les informations de la recherche'
+                        : 'Voir les informations de la recherche'}
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel px={1}>
+                      <Grid templateColumns='repeat(4, 1fr)' gap={8}>
+                        <AccommodationInfo data={accommodationData} />
+                        <SearchInfo handleRegenerate={handleRegenerate} />
+                      </Grid>
+                    </AccordionPanel>
+                  </React.Fragment>
+                )}
+              </AccordionItem>
+            </Accordion>
             <HStack
               display='flex'
               alignItems='flex-start'
