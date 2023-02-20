@@ -6,10 +6,10 @@ import {
   HStack,
   Icon,
   Text,
-  Box,
   VStack,
   Divider,
   Button,
+  GridItem,
 } from '@chakra-ui/react'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import { useTranslation } from 'next-i18next'
@@ -49,7 +49,7 @@ const AccommodationInfo: FC<IAccommodationInfoProps> = ({ data }) => {
   const voyageFormData = useMemo(() => readVoyageFormData(), [])
 
   return (
-    <Box borderRadius='lg' boxShadow='lg' w='25%' p={4}>
+    <GridItem borderRadius='lg' boxShadow='lg' p={4}>
       <VStack alignItems='flex-start' spacing={4}>
         <Text fontWeight='bold' fontSize='lg'>
           {t('accommodationSelection')}
@@ -76,7 +76,7 @@ const AccommodationInfo: FC<IAccommodationInfoProps> = ({ data }) => {
           {t('replace')}
         </Button>
       </VStack>
-    </Box>
+    </GridItem>
   )
 }
 
