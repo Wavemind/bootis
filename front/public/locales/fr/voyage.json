@@ -1,4 +1,5 @@
 {
+  "loading": "Veuillez patienter, nous préparons votre voyage !",
   "departure": "Date de départ ?",
   "destination": {
     "label": "Dans quelle région souhaitez-vous voyager ?",

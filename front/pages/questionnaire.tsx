@@ -146,18 +146,34 @@ const Questionnaire = () => {
           alignItems='flex-start'
           justifyContent='space-between'
           flex={1}
+          display='flex'
         >
           <AnimatePresence
             mode='wait'
             initial={false}
             onExitComplete={() => window.scrollTo(0, 0)}
           >
-            <Box as={motion.div} animate={controls} w='full' zIndex={10}>
+            <Box
+              as={motion.div}
+              animate={controls}
+              w='full'
+              zIndex={10}
+              flex={1}
+              display='flex'
+              flexDirection='column'
+            >
               <TitleBlock
                 title={t(`${steps[currentStep].key}.title`)}
                 subtitle={t(`${steps[currentStep].type}Subtitle`)}
               />
-              <Box h='full' w='full' flex={1} pb={12}>
+              <Box
+                h='full'
+                w='full'
+                flex={1}
+                display='flex'
+                flexDirection='column'
+                pb={12}
+              >
                 {renderStage()}
               </Box>
             </Box>
