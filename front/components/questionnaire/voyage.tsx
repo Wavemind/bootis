@@ -14,6 +14,7 @@ import {
   Spinner,
   Icon,
   Text,
+  Heading,
 } from '@chakra-ui/react'
 import { BsInfoCircle } from 'react-icons/bs'
 import { useRouter } from 'next/router'
@@ -208,8 +209,9 @@ const Voyage: FC = () => {
 
   if (loading || isPlanningFetching) {
     return (
-      <Center h='full'>
-        <Spinner size='xl' color='salmon' thickness='4px' />
+      <Center display='flex' flexDirection='column' flex={1} h='full'>
+        <Spinner size='xl' color='salmon' thickness='4px' mb={10} />
+        <Heading variant='h1'>{t('loading')}</Heading>
       </Center>
     )
   }
