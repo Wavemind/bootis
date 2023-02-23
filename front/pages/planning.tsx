@@ -44,6 +44,7 @@ import {
   AlertDialog,
   AccommodationInfo,
   SearchInfo,
+  LoadingText,
   Link,
 } from '../components'
 import { useAlertDialog, useModal } from '../lib/hooks'
@@ -175,8 +176,12 @@ const Planning: FC = () => {
 
   if (loading) {
     return (
-      <Center h='full'>
-        <Spinner size='xl' color='salmon' thickness='4px' />
+      <Center display='flex' flexDirection='column' flex={1} h='full'>
+        <Spinner size='xl' color='salmon' thickness='4px' mb={10} />
+        <LoadingText timer={0} text={t('loading_1', { ns: 'voyage' })} />
+        <LoadingText timer={4500} text={t('loading_2', { ns: 'voyage' })} />
+        <LoadingText timer={9000} text={t('loading_3', { ns: 'voyage' })} />
+        <LoadingText timer={13000} text={t('loading_4', { ns: 'voyage' })} />
       </Center>
     )
   }
@@ -316,6 +321,7 @@ export const getServerSideProps: GetServerSideProps =
       props: {
         ...(await serverSideTranslations(locale as string, [
           'common',
+          'voyage',
           'planning',
         ])),
         // Will be passed to the page component as props

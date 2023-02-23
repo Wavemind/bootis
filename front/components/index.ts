@@ -8,6 +8,7 @@ export { default as Characteristic } from './questionnaire/characteristic'
 export { default as SituationSelection } from './questionnaire/situationSelection'
 export { default as TitleBlock } from './questionnaire/titleBlock'
 export { default as Voyage } from './questionnaire/voyage'
+export { default as LoadingText } from './questionnaire/loadingText'
 
 // Planning
 export { default as PlanningDay } from './planning/day'

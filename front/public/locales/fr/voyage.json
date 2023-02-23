@@ -1,5 +1,8 @@
 {
-  "loading": "Veuillez patienter, nous préparons votre voyage !",
+  "loading_1": "Merci de patienter pendant que nous chargeons les données...",
+  "loading_2": "Cela ne devrait prendre qu’une poignée de secondes...",
+  "loading_3": "Chaque détail est pris en compte dans la préparation de votre planning...",
+  "loading_4": "Nous vous remercions pour votre patience et nous serons bientôt prêts...",
   "departure": "Date de départ ?",
   "destination": {
     "label": "Dans quelle région souhaitez-vous voyager ?",

@@ -14,7 +14,6 @@ import {
   Spinner,
   Icon,
   Text,
-  Heading,
 } from '@chakra-ui/react'
 import { BsInfoCircle } from 'react-icons/bs'
 import { useRouter } from 'next/router'
@@ -24,6 +23,7 @@ import { useRouter } from 'next/router'
  */
 import Select from './select'
 import DatePicker from './calendar'
+import LoadingText from './loadingText'
 import { QuestionnaireContext } from '../../lib/contexts'
 import { useGetRegionsQuery } from '../../lib/services/modules/region'
 import { useGetCuisineQuery } from '../../lib/services/modules/cuisine'
@@ -211,7 +211,10 @@ const Voyage: FC = () => {
     return (
       <Center display='flex' flexDirection='column' flex={1} h='full'>
         <Spinner size='xl' color='salmon' thickness='4px' mb={10} />
-        <Heading variant='h1'>{t('loading')}</Heading>
+        <LoadingText timer={0} text={t('loading_1')} />
+        <LoadingText timer={4500} text={t('loading_2')} />
+        <LoadingText timer={9000} text={t('loading_3')} />
+        <LoadingText timer={13000} text={t('loading_4')} />
       </Center>
     )
   }
