@@ -28,7 +28,7 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
         </Link>
         <HStack spacing={6}>
           <Link
-            href='https://docs.google.com/forms/d/1r1qh-8YCrdcRz_gZQiURHjg1-cp6T7HldpemAefDPbQ/prefill'
+            href='https://docs.google.com/forms/d/e/1FAIpQLSfeYKtHGTCy8l8ln95bdyXTes7wb048iTL41KiOxN3Jt8phVQ/viewform'
             target='_blank'
           >
             <Button variant='outline' size='sm' borderColor='black'>
