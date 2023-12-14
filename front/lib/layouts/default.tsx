@@ -35,11 +35,6 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
               {t('opinion')}
             </Button>
           </Link>
-          <Link href='/Informations_Dons.pdf' target='_blank'>
-            <Button variant='outline' size='sm' color='teal' borderColor='teal'>
-              {t('supportUs')}
-            </Button>
-          </Link>
         </HStack>
       </Flex>
       <Flex flexDir='column' flex={1} overflow='hidden'>
