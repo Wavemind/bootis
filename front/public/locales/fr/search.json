@@ -1,0 +1,11 @@
+{
+  "destinationTitle": "Destination",
+  "destinationSubtitle": "Ou souhaitez-vous aller ?",
+  "from": "Du",
+  "to": "au",
+  "activities": "Activités",
+  "plan": "Planifier",
+  "unavailable": "Non disponible *",
+  "emptyDestination": "Aucune région disponible",
+  "selectDestination": "Sélectionnez une région pour voir les activités disponibles"
+}

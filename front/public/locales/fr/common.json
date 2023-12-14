@@ -1,0 +1,33 @@
+{
+  "title": "Accueil",
+  "description": "L'application de voyage pour les personnes a mobilité réduite",
+  "logo": "Logo",
+  "opinion": "Votre avis ?",
+  "supportUs": "Soutenez-nous",
+  "regions": {
+    "zurich": "Région zurichoise",
+    "berne": "Région Bernoise",
+    "grisons": "Grisons",
+    "valais": "Valais",
+    "lucerne": "Lucerne / Lac des Quatre-Cantons",
+    "geneve": "Genève",
+    "leman": "Vaud",
+    "tessin": "Tessin",
+    "orientale": "Suisse orientiale",
+    "bale": "Région bâloise",
+    "argovie": "Région Argovie et Soleure",
+    "jura": "Jura & Trois-Lacs",
+    "fribourg": "Région Fribourg",
+    "liechtenstein": "Liechtenstein"
+  },
+  "validations": {
+    "required": "Veuillez sélectionner vos préferences"
+  },
+  "footer": {
+    "copyright": "Bootis - Tous droits réservés © {{ year }}",
+    "contact": "Contactez-nous:",
+    "wavemind": "Site réalisé par"
+  },
+  "select": "Sélectionner",
+  "noOptions": "Aucune données"
+}

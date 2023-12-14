@@ -1,0 +1,26 @@
+{
+  "loading_1": "Merci de patienter pendant que nous chargeons les données...",
+  "loading_2": "Cela ne devrait prendre qu’une poignée de secondes...",
+  "loading_3": "Chaque détail est pris en compte dans la préparation de votre planning...",
+  "loading_4": "Nous vous remercions pour votre patience et nous serons bientôt prêts...",
+  "departure": "Date de départ ?",
+  "destination": {
+    "label": "Dans quelle région souhaitez-vous voyager ?",
+    "subLabel": "Vous pouvez choisir une région ou laisser le champ vide. Celle-ci est liée au choix de ton activité.",
+    "infoText": "Le choix de la région et le type d'activités sont liés. Si les activités qui sont choisies ne sont pas proposés dans la région sélectionnée, un message apparaît. Nous vous conseillons de choisir plusieurs types d'activités pour plus de résultats."
+  },
+  "accomodations": {
+    "label": "Choix du type d'hébergement",
+    "subLabel": "Ce choix vaut pour la durée totale de votre séjour."
+  },
+  "return": "Date de retour ?",
+  "activities": {
+    "label": "Choix du type d'activité",
+    "subLabel": "Vous pouvez choisir une activité ou laisser le champ vide. Celle-ci est liée à sa disponibilité dans la région de ton choix."
+  },
+  "cuisines": {
+    "label": "Choix du type de restaurant ?",
+    "subLabel": "Il vous suffit de sélectionner vos tags préférés, on se charge du reste"
+  },
+  "continue": "Continuer"
+}

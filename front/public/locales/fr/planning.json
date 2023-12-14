@@ -1,0 +1,40 @@
+{
+  "title": "Planning",
+  "description": "Votre planning",
+  "restaurant": "Restaurant",
+  "activity": "Activité",
+  "categories": {
+    "title": "Catégories",
+    "accommodations": "Hébergements",
+    "restaurants": "Restaurants",
+    "activities": "Activités"
+  },
+  "selectCategory": "Veuillez sélectionner une catégorie",
+  "replace": "Remplacer",
+  "remove": "Supprimer",
+  "back": "Retour au calendrier",
+  "cancel": "Annuler",
+  "removeDialogTitle": "Attention",
+  "removeDialogContent": "Etes-vous sur de vouloir supprimer cette activité ?",
+  "accommodationSelection": "Choix du type d'hébergement ?",
+  "accommodationDates": "Logement du {{ startDate }} au {{ endDate }}",
+  "regionSelection": "Dans quelle région souhaitez-vous voyager ?",
+  "activitySelection": "Choix du type d'activité ?",
+  "restaurantSelection": "Choix du type de restaurant ?",
+  "newPlanning": "Nouveau planning",
+  "export": "Exporter en PDF",
+  "restart": "Modifier les critères",
+  "restartDialogTitle": "Etes vous sur de vouloir effacer ce planning ?",
+  "restartDialogContent": "Cliquez sur 'Oui' pour retourner au formulaire ou 'Annuler' pour rester sur la page",
+  "regenerateDialogTitle": "Etes vous sur de vouloir regénérer un planning ?",
+  "regenerateDialogContent": "Cliquez sur 'Oui' pour générer un nouveau planning ou 'Annuler' pour rester sur la page",
+  "yes": "Oui",
+  "opinion": {
+    "title": "Votre avis compte pour nous",
+    "body": "Est-ce que vous avez quelques minutes pour nous aider a améliorer notre plateforme ?",
+    "no": "Malheureusement pas",
+    "yes": "Avec plaisir"
+  },
+  "seeMore": "Voir les informations de la recherche",
+  "seeLess": "Cacher les informations de la recherche"
+}

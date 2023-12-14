@@ -1,0 +1,3 @@
+fr:
+  planning_pdf:
+    title: "Voici votre planning du %{start_date} au %{end_date}"
