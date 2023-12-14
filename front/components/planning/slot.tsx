@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next'
  * Type imports
  */
 import { ISlot } from '../../lib/types'
+import Link from '../link'
 
 /**
  * Type definitions
@@ -30,7 +31,6 @@ const SlotCard: FC<ISlotCard> = ({
   handleReplace = index => index,
 }) => {
   const { t } = useTranslation('planning')
-
   return (
     <Box
       w={316}
@@ -78,12 +78,20 @@ const SlotCard: FC<ISlotCard> = ({
         <Text fontSize='lg' my={2} noOfLines={1} fontFamily='Arial, sans-serif'>
           {slot.name}
         </Text>
-        <HStack>
-          <Icon as={BsPinMap} color='grey' h={4} w={4} />
+        <HStack mb={2}>
+          <Icon as={BsPinMap} color='grey' h={4} w={4} L />
           <Text color='grey' fontSize='sm' noOfLines={1}>
             {slot.fullAddress}
           </Text>
         </HStack>
+        <Link
+          fontSize='xs'
+          href={`https://zuerst.proinfirmis.ch/pois/detail/${slot.zuerstId}`}
+          fontFamily='Arial, sans-serif'
+          target='_blank'
+        >
+          {t('more_details')}
+        </Link>
         {!isReduced && (
           <Box>
             <HStack justifyContent='space-between' spacing={6} mt={3}>

@@ -14,7 +14,6 @@ type LoadingTextProps = {
 
 const LoadingText: FC<LoadingTextProps> = ({ timer, text }) => {
   const [isShown, setIsShown] = useState(false)
-  console.log('timer', timer)
   useEffect(() => {
     const firstTimer = setTimeout(() => {
       setIsShown(true)

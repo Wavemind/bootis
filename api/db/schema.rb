@@ -101,7 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_15_134448) do
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
+    t.datetime "confirmed_at" 
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "image"
