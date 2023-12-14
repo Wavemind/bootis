@@ -79,7 +79,7 @@ const SlotCard: FC<ISlotCard> = ({
           {slot.name}
         </Text>
         <HStack mb={2}>
-          <Icon as={BsPinMap} color='grey' h={4} w={4} L />
+          <Icon as={BsPinMap} color='grey' h={4} w={4} />
           <Text color='grey' fontSize='sm' noOfLines={1}>
             {slot.fullAddress}
           </Text>
