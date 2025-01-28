@@ -40,31 +40,20 @@ const DefaultLayout: FC<IChildren> = ({ children }) => {
       <Flex flexDir='column' flex={1} overflow='hidden'>
         {children}
       </Flex>
-      <Grid w='full' alignItems='center' templateColumns='repeat(3, 1fr)' h={8}>
+      <Grid w='full' alignItems='center' templateColumns='repeat(2, 1fr)' h={8}>
         <GridItem>
           <Text textAlign='left' fontSize='sm'>
             {t('footer.copyright', { year: new Date().getFullYear() })}
           </Text>
         </GridItem>
         <GridItem>
-          <Flex justifyContent='center'>
+          <Flex justifyContent='flex-end'>
             <Text textAlign='left' fontSize='sm'>
               {t('footer.contact')}
             </Text>
             &nbsp;
             <Link href='mailto: info@slowlution.ch' fontSize='sm'>
               info@slowlution.ch
-            </Link>
-          </Flex>
-        </GridItem>
-        <GridItem>
-          <Flex justifyContent='flex-end'>
-            <Text textAlign='left' fontSize='sm'>
-              {t('footer.wavemind')}
-            </Text>
-            &nbsp;
-            <Link href='https://wavemind.ch' fontSize='sm' target='_blank'>
-              wavemind.ch
             </Link>
           </Flex>
         </GridItem>
